@@ -1,0 +1,2 @@
+# NAME MASS[GEV] WIDTH[GEV] PARITY PDG
+N⁺     0.938     0.0        +      2212

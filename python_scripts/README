@@ -1,0 +1,32 @@
+# `common_plotting.py`
+
+To set the defaults used for the SMASH plots, add
+
+    import common_plotting
+
+to the beginning of your Python script.
+This will change the figsize, fontsize, fonttype, linewidth, color cycles,
+ticksize, padding and legend style.
+
+Some settings cannot be configured as matplotlib defaults. For this, add
+
+    smash_style.set()
+
+at the end of your script. More specifically:
+
+* after calling `plot()` or similar,
+* before calling `show()` or `savefig()`,
+* if possible before calling `legend()`.
+
+This will
+
+1. use different line styles for lines of different color,
+2. enable minor ticks,
+3. increase the title padding.
+
+If you want to disable some of those, you can use keyword arguments when calling
+`smash_style.set()`. For example
+
+    smash_style.set(line_styles=False, title_padding=False, minorticks_on=False)
+
+will do nothing.

@@ -1,0 +1,6 @@
+π⁻N⁰$\leftrightarrow$Δ⁻	0.9847233447	0.98478248014
+3$\times$(π⁻N⁺$\leftrightarrow$Δ⁰)	1.0106838028	1.00624864481
+3/2$\times$(π⁰N⁰$\leftrightarrow$Δ⁰)	1.00837752065	1.00935325541
+3/2$\times$(π⁰N⁺$\leftrightarrow$Δ⁺)	1.0115708344	1.0137884134
+3$\times$(π⁺N⁰$\leftrightarrow$Δ⁺)	0.999507204668	0.991169107646
+π⁺N⁺$\leftrightarrow$Δ⁺⁺	0.990755159567	0.989040231811

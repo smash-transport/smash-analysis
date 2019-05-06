@@ -1,0 +1,18 @@
+# Format of this file:
+# anything after a # is a comment and will be ignored
+# The decays for a given particle are given as:
+# <name of decaying particle>
+# <branching ratio> <angular momentum L> <names of decay products>
+# <branching ratio> <angular momentum L> <names of decay products>
+# ...
+
+σ
+1.      0  π π
+
+N(1440)
+0.60   1  N π
+0.24   1  Δ π
+0.16   0  N σ
+
+Δ
+1.     1  N π

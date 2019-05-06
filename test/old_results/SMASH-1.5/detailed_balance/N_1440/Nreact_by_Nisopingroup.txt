@@ -1,0 +1,12 @@
+channel	forward	backward
+nN(1440)⁰$\leftrightarrow$nn	0.815217391304	0.79347826087
+nN(1440)⁺$\leftrightarrow$np	1.20652173913	1.32608695652
+pN(1440)⁰$\leftrightarrow$np	1.13043478261	1.38043478261
+pN(1440)⁺$\leftrightarrow$pp	0.717391304348	0.630434782609
+N(1440)⁰$\leftrightarrow$π⁻p	0.985448302302	1.00691747371
+2$\times$(N(1440)⁰$\leftrightarrow$π⁰n)	0.995849515777	1.02545296951
+N(1440)⁰$\leftrightarrow$nσ	1.05960759888	0.961943319838
+2$\times$(N(1440)⁺$\leftrightarrow$π⁰p)	0.980114346674	1.01825212942
+N(1440)⁺$\leftrightarrow$π⁺n	0.981047788909	1.00691747371
+N(1440)⁺$\leftrightarrow$pσ	1.04142011834	0.93702896294
+# SMASH-1.5

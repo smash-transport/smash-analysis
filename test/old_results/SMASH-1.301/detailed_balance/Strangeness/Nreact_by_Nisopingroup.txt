@@ -1,0 +1,13 @@
+K⁺N⁰$\leftrightarrow$K⁰N⁺	1.00594130709	0.994058692912
+K⁰Δ⁰$\leftrightarrow$K⁰N⁰	0.566574805561	0.432972012983
+K⁰Δ⁺$\leftrightarrow$K⁺N⁰	1.48038459183	1.54285014392
+K⁰N⁺$\leftrightarrow$K⁺Δ⁰	1.20509885018	1.16142286337
+K⁰N⁺$\leftrightarrow$K⁰Δ⁺	0.83241398971	0.801064296736
+K⁺Δ⁰$\leftrightarrow$K⁺N⁰	1.48276073244	1.53981260334
+K⁺Δ⁺$\leftrightarrow$K⁺N⁺	0.540780206994	0.413864902933
+K̅⁰N⁰$\leftrightarrow$K̅⁻N⁺	1.13846153846	0.861538461538
+π⁻Λ$\leftrightarrow$K̅⁻N⁰	0.985274431058	1.01472556894
+K̅⁻N⁺$\leftrightarrow$π⁰Λ	0.988826815642	1.01117318436
+π⁻Σ⁰$\leftrightarrow$K̅⁻N⁰	1.08281829419	0.91718170581
+K̅⁻N⁰$\leftrightarrow$π⁰Σ⁻	0.824966078697	0.93894165536
+K̅⁻N⁺$\leftrightarrow$π⁰Σ⁰	1.04748982361	1.18860244233

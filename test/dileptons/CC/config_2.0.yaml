@@ -1,0 +1,115 @@
+Version: 1.5
+
+Logging:
+  default: WARN
+  #Legacy: ALL
+  #Main: ALL
+  #Experiment: ALL
+  #Box: ALL
+  #Collider: ALL
+  #Sphere: ALL
+  #ParticleType: ALL
+  #Action: ALL
+  #FindScatter: ALL
+  #DecayModes: ALL
+  #ScatterAction: ALL
+
+General:
+    # Modus decision
+    Modus:         Collider
+
+    # Mode of time stepping. Possible values: None, Fixed, Adaptive
+    Time_Step_Mode: Fixed
+
+    # temporal grid spacing
+    Delta_Time:    0.2
+
+    # end time of simulation
+    End_Time:      30.0
+
+    # initial random seed (auto-generated if negative)
+    Randomseed:    -1
+
+    # number of test particles
+    Testparticles: 1
+
+    # number of events
+    Nevents:       50000
+
+    # width of gaussians representing particles, fm
+    Gaussian_Sigma: 1.0
+
+    # distance at which gaussian values are small enough to set them zero
+    Gauss_Cutoff_In_Sigma: 4.0
+
+    # reduce the combinatorics by placing the particles in a grid structure
+    Use_Grid: True
+
+
+Output:
+    # how much time before recording measurables
+    Output_Interval:  0.2
+    # Which density is written to collision headers:
+    # ("hadron", "baryon", "baryonic isospin", "pion")
+    Density_Type:      "none"
+    # output formats
+    Particles:
+        Format:             ["Oscar2013"]
+        Extended:           False
+        Only_Final:         True
+    Dileptons:
+        Format:             ["Binary"]
+        Extended:           True
+
+Collision_Term:
+    Two_to_One:             True
+    Force_Decays_At_End:    True
+    Isotropic:              False
+    Elastic_Cross_Section:  -1.0  # Globally used if non-negative, [mb]
+    Elastic_NN_Cutoff_Sqrts: 1.98 # Exclude the elastic collisions between the two
+                                 # nucleons with the square root s below the value [GeV].
+                                 # Exclusion is effectively turned off by setting any value
+                                 # below 1.88 (the threshold energy of the elastic collsion).
+                                     # And the value is at best not beyond 2.02 ( the threshold
+                                     # energy of the inelastic collision NN->NNpi)
+
+#    Pauli_Blocking:
+#        Spatial_Averaging_Radius:   1.86
+#        Momentum_Averaging_Radius:  0.08
+#        Gaussian_Cutoff:            2.2
+
+#Potentials:
+#    Skyrme:
+#        Skyrme_A: -209.2
+#        Skyrme_B: 156.4
+#        Skyrme_Tau: 1.35
+#    Symmetry:
+#        S_Pot: 18.0
+
+Modi:
+    Collider:
+        # Definitions for the projectile:
+        Projectile:
+            Particles: {2212: 6, 2112: 6}  # C
+        # Definitions for the target:
+        Target:
+            Particles: {2212: 6, 2112: 6}  # C
+
+        # Collision energy (E_Kin, P_Lab, Sqrtsnn).
+        E_Kin: 2.0
+
+        # The reference frame in which to do the calculation.
+        # ("center of velocity", "center of mass", "fixed target")
+        Calculation_Frame: "fixed target"
+
+        # Specify an impact parameter
+        Impact:
+            Sample: "custom"
+            Values: [0.2, 0.6, 1.0, 1.4, 1.8, 2.2, 2.6, 3.0, 3.4, 3.8, 4.2, 4.6, 5.0, 5.4, 5.8, 6.2, 6.6, 7.0, 7.4]
+            Yields: [2.77e-03, 8.78e-03, 1.44e-02, 2.01e-02, 2.57e-02, 3.00e-02, 3.43e-02, 3.44e-02, 3.51e-02, 3.07e-02, 2.71e-02, 2.18e-02, 1.69e-02, 1.14e-02, 7.57e-03, 5.12e-03, 3.14e-03, 1.96e-03, 6.88e-04]
+
+        # Include Fermi motion
+        # ("off", "on", "frozen")
+        Fermi_Motion: "frozen"
+        # Determine whether the first collisions within the same nuclues are allowed
+        Collisions_Within_Nucleus: false

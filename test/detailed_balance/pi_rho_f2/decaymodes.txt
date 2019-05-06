@@ -1,0 +1,6 @@
+ρ
+1.      1  π π
+
+f₂
+0.50  2  π π   # PDG value: 0.842 (modified to better fit the π⁺π⁻ cross section)
+0.45  2  ρ ρ   # to emulate 4π (whose PDG value is 0.108)

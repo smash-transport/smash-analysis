@@ -1,0 +1,6 @@
+π⁻n$\leftrightarrow$Δ⁻	0.986520316746	0.985761993418
+3$\times$(π⁻p$\leftrightarrow$Δ⁰)	1.0036117579	1.00448674636
+3/2$\times$(π⁰n$\leftrightarrow$Δ⁰)	1.00229927522	0.997749335252
+3/2$\times$(π⁰p$\leftrightarrow$Δ⁺)	1.0074617071	1.0055367325
+3$\times$(π⁺n$\leftrightarrow$Δ⁺)	1.01026167016	1.01113665861
+π⁺p$\leftrightarrow$Δ⁺⁺	0.992761901058	0.992411905676

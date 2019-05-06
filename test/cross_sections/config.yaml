@@ -1,0 +1,55 @@
+Version: 1.5
+
+Logging:
+  default: WARN
+  DecayModes: ERROR
+
+General:
+    # Modus decision
+    Modus:         Collider
+
+    Time_Step_Mode: None
+
+    # temporal grid spacing
+    Delta_Time:    30.0
+
+    # end time of simulation
+    End_Time:      30.0
+
+    # initial random seed (auto-generated if negative)
+    Randomseed:    -1
+
+    # number of test particle
+    Testparticles: 1
+
+    # number of events
+    Nevents:       1000000
+
+Output:
+    # how much time before recording measurables
+    Output_Interval:  30.0
+    # output formats
+    Collisions:
+        Format:  ["Binary"]
+        Print_Start_End:    True
+
+Collision_Term:
+    Strings:                True
+    Strings_with_Probability:    True
+
+Modi:
+    Collider:
+        Projectile:
+        Target:
+
+        Impact:
+            Sample: uniform
+            Max: 2.5
+
+        # Collision energy (E_LAB, P_LAB, SQRTSNN).
+        #Sqrtsnn: XXX
+        # The reference frame in which to do the calculation ("center of velocity", "center of mass" or "fixed target")
+        Calculation_Frame: center of mass
+
+#Collision_Term:
+#    Strings: False

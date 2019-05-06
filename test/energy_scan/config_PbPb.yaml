@@ -1,0 +1,54 @@
+Version: 1.5
+
+Logging:
+  default: ERROR
+
+General:
+    Modus:         Collider
+    Time_Step_Mode: Fixed
+    Delta_Time:    0.1
+    End_Time:      100.0
+    Randomseed:    -1
+    Testparticles: 1
+    Nevents:       100
+    Gaussian_Sigma: 1.0
+    Gauss_Cutoff_In_Sigma: 3.0
+    Use_Grid: True
+
+Output:
+    Output_Interval:  100.0
+    Density_Type:      "none"
+    Particles:
+        Format:             ["Binary"]
+        Extended:           False
+        Only_Final:         True
+
+Collision_Term:
+    Two_to_One:             True
+    Strings:                True
+    NNbar_Treatment:        no annihilation #Options are "no annihilation",
+                                            #"resonances", "strings"
+    Force_Decays_At_End:    True
+    Isotropic:              False
+    Elastic_Cross_Section:  -1.0  # Globally used if non-negative, [mb]
+    Elastic_NN_Cutoff_Sqrts: 1.98 # Exclude the elastic collisions between the two
+                                 # nucleons with the square root s below the value [GeV].
+                                 # Exclusion is effectively turned off by setting any value
+                                 # below 1.88 (the threshold energy of the elastic collsion).
+                                 # And the value is at best not beyond 2.02 ( the threshold
+                                 # energy of the inelastic collision NN->NNpi)
+Modi:
+    Collider:
+        Projectile:
+            Particles: {2212: 82, 2112: 126}  # ^208 Pb
+        Target:
+            Particles: {2212: 82, 2112: 126}  # ^208 Pb
+        # Sqrtsnn: is varied by the executing script
+        Calculation_Frame: "center of velocity"
+        Impact:
+            Range: [0.0, 3.4]
+        # Include Fermi motion
+        # ("off", "on", "frozen")
+        Fermi_Motion: "frozen"
+        # Determine whether the first collisions within the same nuclues are allowed
+        Collisions_Within_Nucleus: false

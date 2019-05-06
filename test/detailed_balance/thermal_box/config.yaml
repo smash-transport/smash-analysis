@@ -1,0 +1,36 @@
+Version: 1.5
+
+Logging:
+  default: WARN
+
+General:
+    Modus:         Box
+    Delta_Time:    0.1
+    End_Time:      2000.0
+    Randomseed:    -1
+    Nevents:       100
+
+Output:
+    Output_Interval:  1.0
+    Collisions:
+        Format: ["Binary"]
+        Print_Start_End:    False
+    Particles:
+        Format: ["Binary"]
+        Only_Final:         False
+
+Collision_Term:
+    Two_to_One:             True
+    Strings:                False
+    Force_Decays_At_End:    False
+    Elastic_NN_Cutoff_Sqrts: 1.8
+
+Modi:
+    Box:
+        Length: 4.0
+        Temperature: 0.175
+        Initial_Condition: "thermal momenta"
+        Start_Time:    0.0
+        Use_Thermal_Multiplicities: True
+        Baryon_Chemical_Potential: 0.15
+        Strange_Chemical_Potential: 0.1

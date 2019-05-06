@@ -1,0 +1,24 @@
+# Format of this file:
+# anything after a # is a comment and will be ignored
+# The decays for a given particle are given as:
+# <PDG>
+# <ratio> <PDGs of decay particles>
+# <ratio> <PDGs of decay particles>
+# ...
+# A line with a single integer (or end of file) marks the end of the list of
+# possible decays
+
+π
+0.98823 0 γ γ
+0.01174 0 e⁻ e⁺ γ
+
+ρ
+1.      1  π π
+4.72e-5 1  e⁻ e⁺
+
+ω
+0.892   1  π ρ
+0.0840  1  π⁰ γ
+0.0153  1  π π
+7.36e-5 1  e⁻ e⁺
+7.7e-4  1  e⁻ e⁺ π⁰

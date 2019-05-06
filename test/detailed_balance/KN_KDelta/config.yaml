@@ -1,0 +1,40 @@
+Version: 1.5
+
+Logging:
+  default: WARN
+
+General:
+    Modus:         Box
+    Delta_Time:    0.1
+    End_Time:      80.0
+    Randomseed:    -1
+    Nevents:       5
+
+Output:
+    Output_Interval:  1.0
+    Collisions:
+        Format: ["Binary"]
+        Print_Start_End:    False
+    Particles:
+        Format: ["Binary"]
+        Only_Final:         False
+
+Collision_Term:
+    Included_2to2: ["KN_to_KDelta", "Elastic"]
+    Two_to_One:             False
+    Strings:                False
+    Force_Decays_At_End:    False
+
+Modi:
+    Box:
+        Length: 5.0
+        Temperature: 0.175
+        Initial_Condition: "thermal momenta"
+        Start_Time:    0.0
+        Init_Multiplicities:
+            321:    20
+            311:    20
+            -311:   20
+            -321:   20
+            2212:   20
+            2112:   20

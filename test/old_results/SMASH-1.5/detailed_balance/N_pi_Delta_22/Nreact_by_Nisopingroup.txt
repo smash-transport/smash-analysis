@@ -1,0 +1,14 @@
+channel	forward	backward
+nn$\leftrightarrow$Δ⁻p	0.972909181506	0.984238546065
+3$\times$(nn$\leftrightarrow$nΔ⁰)	1.0153942986	0.995803939052
+3/2$\times$(np$\leftrightarrow$Δ⁰p)	1.02743174845	0.998754294406
+3/2$\times$(np$\leftrightarrow$nΔ⁺)	1.03179827437	1.0045369909
+3$\times$(pp$\leftrightarrow$pΔ⁺)	0.99745613805	1.00666124675
+pp$\leftrightarrow$nΔ⁺⁺	0.978259159214	0.986756182634
+3/2$\times$(nn$\leftrightarrow$Δ⁰Δ⁰)	0.968117930855	1.03748463618
+nn$\leftrightarrow$Δ⁻Δ⁺	0.994256109673	1.01838365935
+18/43$\times$(np$\leftrightarrow$Δ⁰Δ⁺)	0.991053130695	1.03271523683
+18/67$\times$(np$\leftrightarrow$Δ⁻Δ⁺⁺)	1.01875877673	0.975275170405
+3/2$\times$(pp$\leftrightarrow$Δ⁺Δ⁺)	0.968117930855	0.986213593114
+pp$\leftrightarrow$Δ⁰Δ⁺⁺	0.965101987145	1.04452183817
+# SMASH-1.5

@@ -1,0 +1,96 @@
+Logging:
+  default: OFF
+  #Legacy: ALL
+  #Main: ALL
+  #Experiment: ALL
+  #Box: ALL
+  #Collider: ALL
+  #Nucleus: ALL
+  #Sphere: ALL
+  #ParticleType: ALL
+  #Action: ALL
+  #FindScatter: ALL
+  #DecayModes: ALL
+  #ScatterAction: ALL
+
+General:
+    # Modus decision
+    Modus:         Nucleus
+
+    # temporal grid spacing
+    Delta_Time:    0.002
+
+    # end time of simulation
+    End_Time:      20.0
+
+    # output formats
+    Output:
+        Oscar_Collisions:
+            Enable:             False
+            2013_Format:        True
+            Print_Start_End:    False
+        Oscar_Particlelist:
+            Enable:             False
+            2013_Format:        True
+            Only_Final:         True
+        Vtk:
+            Enable:             False
+        Root:
+            Enable:             False
+            Write_Collisions:   True
+            Write_Particles:    True
+            Autosave_Frequency: 1000
+        Binary_Collisions:
+            Enable:             True
+            Print_Start_End:    True
+        Binary_Particles:
+            Enable:             False
+            Only_Final:         False
+
+    # how much time before recording measurables
+    Output_Interval:  25.0
+
+    # initial random seed (auto-generated if negative)
+    Randomseed:    SEEDVALUE
+
+    # elastic cross section
+    Sigma:         0.0
+
+    # number of test particle
+    Testparticles: 1
+
+    # number of events
+    Nevents:       EVENTVALUE
+
+Collision_Term:
+    Decays:        True
+    Collisions:    True
+
+Modi:
+    Nucleus:
+        # Definitions for the projectile:
+        Projectile:
+            Particles: {PROJECTILEPDG: 1}
+            # Particle considered "point-like"
+            Diffusiveness: -1.0
+            Radius: 0.001
+            Automatic: false
+            Deformed: false
+        # Definitions for the target:
+        Target:
+            Particles: {TARGETPDG: 1}
+            # Particle considered "point-like"
+            Diffusiveness: -1.0
+            Radius: 0.001
+            Automatic: false
+            Deformed: false
+
+        Impact:
+            Sample: uniform
+            Max: 5.0
+
+        # Collision energy (E_LAB, P_LAB, SQRTSNN).
+        Sqrtsnn: ENERGYVALUE
+        # The reference frame in which to do the calculation.
+        # (1 = center of velocity, 2 = center of mass, 3 = fixed target)
+        Calculation_Frame: 2

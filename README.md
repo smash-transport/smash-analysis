@@ -41,7 +41,7 @@ compile it can be found [here](https://github.com/smash-transport/smash).
 
 Thus, SMASH-analysis suite requires the following tools:
 - SMASH version = (SMASH-analysis version)
-- cmake version &ge; 3.13
+- cmake version &ge; 3.5.1
 
 The SMASH-analysis suite is regularly tagged (SMASH-ana-1.6 and later),
 where it is ensured that the SMASH-analysis version is compatible with the
@@ -56,6 +56,7 @@ Furthermore, Python 2.7.x is necessary with the following modules:
 - [argparse](https://docs.python.org/3/library/argparse.html) version &ge; 1.1
 - [pyyaml](www.pyyaml.org) version &ge; 3.11
 - [pandas](www.pandas.pydata.org) version &ge; 0.14.1
+- [seaborn](https://seaborn.pydata.org) version &ge; 0.9.0
 
 Python 3 is currently not supported. The versions of Python and the different
 modules can be determined by running the script `version_check.py` located in
