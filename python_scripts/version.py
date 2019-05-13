@@ -14,6 +14,6 @@ def analysis_version_string():
     try:
         version_string = subprocess.check_output(["git", "describe"]).rstrip('\n')
     except:
-        version_string = 'unknown version'
+        version_string = 'SMASH-0.0'
     os.chdir(old_dir)
     return version_string
