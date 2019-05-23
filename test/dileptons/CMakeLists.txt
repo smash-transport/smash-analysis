@@ -198,10 +198,11 @@ function(dilepton_test
 
     string(COMPARE EQUAL "${test_name}" pp_1.25_unfiltered pp_1.25)
     string(COMPARE EQUAL "${test_name}" pp_3.5_unfiltered pp_3.5)
+    string(COMPARE EQUAL "${test_name}" pNb_3.5_unfiltered pNb_3.5)
     string(COMPARE EQUAL "${test_name}" CC_2.0_unfiltered CC2.0)
     string(COMPARE EQUAL "${test_name}" ArKCl_1.76_unfiltered ArKCl1.76)
 
-    if (pp_1.25 OR pp_3.5 OR CC2.0 OR ArKCl1.76)
+    if (pp_1.25 OR pp_3.5 OR pNb_3.5 OR CC2.0 OR ArKCl1.76)
       set(target_ana dileptons_ana_${test_name})
       add_custom_target(${target_ana} ALL
                         DEPENDS "${test_folder}/plot_mass.pdf")
