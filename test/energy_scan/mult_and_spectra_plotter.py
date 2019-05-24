@@ -391,7 +391,7 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
 
             if args.comp_prev_version:
                 #dummy, for combined legend entry of previous results.
-                plt.plot(10,3, linestyle = '-', linewidth = 10, zorder = 1,
+                plt.plot(1, 0.5, linestyle = '-', linewidth = 10, zorder = 1,
                         alpha = 0.2, color='dimgrey',label=prev_SMASH_version)
 
             plt.xlabel('$\sqrt{s_{NN}} [GeV]$')
