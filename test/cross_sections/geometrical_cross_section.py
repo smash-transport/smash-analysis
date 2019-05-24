@@ -346,10 +346,33 @@ class Processor:
            # here, they'll be counted according to the final states
            if (type_id == 1):
               p_type = 'elastic'
-           elif (type_id == 2):
-              p_type = 'resonance'
-           elif (type_id == 3):
-              p_type = 'parametrized-inelastic'
+           elif (type_id == 2 or type_id == 3):
+              # '2' corresponds to a 2->1 process, '3' to a 2->2 process, both inelastic
+              # Now we make the following assumption:
+              # We expect, that the in both cases, at least one resonance is
+              # formed, so that we denote it 'resonance' in the legend.
+              # This is justified from the low-energy contributions to the
+              # cross sections coming from resonance formations and decays (in
+              # pp, pn, pipi, pip, ... processes) only. This assumption
+              # will however not hold anymore if there will be processes like
+              # 'p + n -> p + n + pi' or similar. But as there are none implemented
+              # in SMASH at the moment, we assume the above assumption is justified.
+              #
+              # In the case of the kaon-nucleon interactions, the story is different:
+              # Since the inelastic 2->2 K-N cross sections are parameterized,
+              # they do not rely purely on resonance formations.
+              # Here, we will denote those processes as 'parametrized-inelastic' to
+              # make it clear, we are using a parametrization.
+              # In addition we need to trigger on the inital state particles to
+              # see if there are kaons involved and whether we are dealing
+              # with  inelastic 2->2 processes that are unparametrized or
+              # parametrized.
+
+              initial_state_PDGs = [datablock['incoming'][0][3], datablock['incoming'][1][3]]
+              if (321 in initial_state_PDGs or -321 in initial_state_PDGs): # 321 corresponds to kaons
+                  p_type = 'parametrized-inelastic'
+              else:
+                  p_type = 'resonance'
            elif (type_id >= 41 and type_id <= 45):
               p_type = 'soft-string'
            elif (type_id == 46):
