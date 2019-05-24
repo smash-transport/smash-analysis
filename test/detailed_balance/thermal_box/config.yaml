@@ -27,7 +27,7 @@ Collision_Term:
 
 Modi:
     Box:
-        Length: 4.0
+        Length: 10.0
         Temperature: 0.175
         Initial_Condition: "thermal momenta"
         Start_Time:    0.0

@@ -236,12 +236,12 @@ if args.comp_prev_version:
     import comp_to_prev_version as cpv
     cpv.plot_previous_results('detailed_balance', setup, '/Nreact_by_Nisopingroup.txt', process_list = descr_both, ymax = ymax)
 
-plt.plot(1,ymax * 2.0,linestyle = 'none', markersize = 20,
+plt.plot(1,ymax * 4.0,linestyle = 'none', markersize = 20,
         color='black', marker = ">",label=str(smash_code_version))
-plt.ylim(0.0, ymax * 1.3)
 plt.axhline(y = 1, linestyle = '-', color = 'grey', zorder = 0, lw = 1)
 plt.xticks(range(react_num), descr_both, fontsize=15, rotation = 35)
-plt.yticks(fontsize = 35)
+plt.yticks([0,0.5,1,1.5,2,2.5,3,3.5,4], fontsize = 35)
+plt.ylim(0.0, ymax * 1.5)
 plt.xlim(-0.5, react_num-0.5)
 plt.ylabel("$N_{react}/\langle N_{isospin\, group}\\rangle$", fontsize = 32)
 plt.legend(prop={'size': 19}, loc='best', fontsize = 30, ncol = 2, frameon = 1)
