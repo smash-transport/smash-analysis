@@ -107,7 +107,7 @@ def plot_previous_results(observable, setup, filename, color_list = [], pdg = 0,
                                 color= 'deepskyblue')
 
             # dummy, just for legend entry
-            plt.plot(1,ymax * 2.0,linestyle = 'none', markersize = 20,
+            plt.plot(1,ymax * 4.0,linestyle = 'none', markersize = 20,
                     color='black', marker = "4",label=label)
 
         elif observable == 'dileptons':
