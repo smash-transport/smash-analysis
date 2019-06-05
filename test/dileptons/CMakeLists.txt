@@ -196,11 +196,20 @@ function(dilepton_test
     #   CC at 2.0 GeV
     #   ArKCl at 1.76 GeV
 
-    string(COMPARE EQUAL "${test_name}" pp_1.25_unfiltered pp_1.25)
-    string(COMPARE EQUAL "${test_name}" pp_3.5_unfiltered pp_3.5)
-    string(COMPARE EQUAL "${test_name}" pNb_3.5_unfiltered pNb_3.5)
-    string(COMPARE EQUAL "${test_name}" CC_2.0_unfiltered CC2.0)
-    string(COMPARE EQUAL "${test_name}" ArKCl_1.76_unfiltered ArKCl1.76)
+    if (WITH_EXP_DATA)
+      string(COMPARE EQUAL "${test_name}" pp_1.25_filtered pp_1.25)
+      string(COMPARE EQUAL "${test_name}" pp_3.5_filtered pp_3.5)
+      string(COMPARE EQUAL "${test_name}" pNb_3.5_filtered pNb_3.5)
+      string(COMPARE EQUAL "${test_name}" CC_2.0_filtered CC2.0)
+      string(COMPARE EQUAL "${test_name}" ArKCl_1.76_filtered ArKCl1.76)
+    else()
+      string(COMPARE EQUAL "${test_name}" pp_1.25_unfiltered pp_1.25)
+      string(COMPARE EQUAL "${test_name}" pp_3.5_unfiltered pp_3.5)
+      string(COMPARE EQUAL "${test_name}" pNb_3.5_unfiltered pNb_3.5)
+      string(COMPARE EQUAL "${test_name}" CC_2.0_unfiltered CC2.0)
+      string(COMPARE EQUAL "${test_name}" ArKCl_1.76_unfiltered ArKCl1.76)
+    endif()
+
 
     if (pp_1.25 OR pp_3.5 OR pNb_3.5 OR CC2.0 OR ArKCl1.76)
       set(target_ana dileptons_ana_${test_name})
