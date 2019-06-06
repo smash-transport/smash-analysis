@@ -14,10 +14,11 @@ function(dilepton_test
     if (ARGC GREATER 2 AND ARGV2)
       # do filtering!
       set(test_name "${system}_${Ekin}_filtered")
-      set(acc_file "${CMAKE_CURRENT_SOURCE_DIR}/${system}/${ARGV2}")
+      set(acc_file "${EXP_DATA}/HADES_dilepton_filtering/${ARGV2}")
       set(plep_min "${ARGV3}")
       set(plep_max "${ARGV4}")
       set(data_dir "${EXP_DATA}")
+      set(filter "${CMAKE_CURRENT_SOURCE_DIR}/HAFT.so")
       # pion average needed for CC and ArKCl
       if (system STREQUAL "CC" OR system STREQUAL "ArKCl")
         set(pion_average_total_file "${CMAKE_CURRENT_BINARY_DIR}/${test_name}/other.avg_pion.dat")
@@ -92,7 +93,7 @@ function(dilepton_test
                     "${acc_file}" "${plep_min}" "${plep_max}" "${resolution}"
             DEPENDS
                 "${CMAKE_CURRENT_SOURCE_DIR}/create_hist_from_binary_output.py"
-                "${CMAKE_CURRENT_SOURCE_DIR}/HAFT.so"
+                ${filter}
                 ${data_file}
                 ${def_file}
             WORKING_DIRECTORY ${data_folder}
@@ -112,10 +113,10 @@ function(dilepton_test
 
     # compile HAFT code with f2py
     add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/HAFT.so"
-        COMMAND "f2py" "-m" "HAFT" "-c" "${CMAKE_CURRENT_SOURCE_DIR}/readHAFT2.f90"
+        COMMAND "f2py" "-m" "HAFT" "-c" "${EXP_DATA}/HADES_dilepton_filtering/readHAFT2.f90"
                 "skip:" "momspread" "readhaftmatrix" "getmatrixval" "gettableval"
                 "param" "smearhades4momentum" "readhaftpairmatrix"
-        DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/readHAFT2.f90"
+        DEPENDS "${EXP_DATA}/HADES_dilepton_filtering/readHAFT2.f90"
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         COMMENT "Running f2py."
     )
@@ -190,17 +191,27 @@ function(dilepton_test
 
 
     # add a target for analysis suite
-    # tests to be included in analysis (all filtered):
+    # tests to be included in analysis (all unfiltered):
     #   pp at 1.25 and 3.5 GeV
     #   CC at 2.0 GeV
     #   ArKCl at 1.76 GeV
 
-    string(COMPARE EQUAL "${test_name}" pp_1.25_filtered pp_1.25)
-    string(COMPARE EQUAL "${test_name}" pp_3.5_filtered pp_3.5)
-    string(COMPARE EQUAL "${test_name}" CC_2.0_filtered CC2.0)
-    string(COMPARE EQUAL "${test_name}" ArKCl_1.76_filtered ArKCl1.76)
+    if (WITH_EXP_DATA)
+      string(COMPARE EQUAL "${test_name}" pp_1.25_filtered pp_1.25)
+      string(COMPARE EQUAL "${test_name}" pp_3.5_filtered pp_3.5)
+      string(COMPARE EQUAL "${test_name}" pNb_3.5_filtered pNb_3.5)
+      string(COMPARE EQUAL "${test_name}" CC_2.0_filtered CC2.0)
+      string(COMPARE EQUAL "${test_name}" ArKCl_1.76_filtered ArKCl1.76)
+    else()
+      string(COMPARE EQUAL "${test_name}" pp_1.25_unfiltered pp_1.25)
+      string(COMPARE EQUAL "${test_name}" pp_3.5_unfiltered pp_3.5)
+      string(COMPARE EQUAL "${test_name}" pNb_3.5_unfiltered pNb_3.5)
+      string(COMPARE EQUAL "${test_name}" CC_2.0_unfiltered CC2.0)
+      string(COMPARE EQUAL "${test_name}" ArKCl_1.76_unfiltered ArKCl1.76)
+    endif()
 
-    if (pp_1.25 OR pp_3.5 OR CC2.0 OR ArKCl1.76)
+
+    if (pp_1.25 OR pp_3.5 OR pNb_3.5 OR CC2.0 OR ArKCl1.76)
       set(target_ana dileptons_ana_${test_name})
       add_custom_target(${target_ana} ALL
                         DEPENDS "${test_folder}/plot_mass.pdf")
@@ -384,15 +395,16 @@ dilepton_test("AuAu" "1.25")
 dilepton_test("AgAg" "1.67")
 
 ## tests with filtering ##
+if (WITH_EXP_DATA)
+  dilepton_test("pp" "1.25" "HadesSingleAcc-p125p-APR06-effgt5-RK-v2.acc" "0.05" "1.8")
+  dilepton_test("pp" "2.2"  "HadesSingleAcc-p22p-JAN04-effgt5-RK-v2.acc"  "0.10" "2.0")
+  dilepton_test("pp" "3.5"  "HadesSingleAcc-p35p-APR07-effgt5-RK-v2.acc"  "0.08" "2.0")
+  dilepton_test("pNb" "3.5"  "HadesSingleAcc-p35Nb-SEP08-effgt5-MVA-v1.acc"  "0.1" "2.0")
 
-dilepton_test("pp" "1.25" "HadesSingleAcc-p125p-APR06-effgt5-RK-v2.acc" "0.05" "1.8")
-dilepton_test("pp" "2.2"  "HadesSingleAcc-p22p-JAN04-effgt5-RK-v2.acc"  "0.10" "2.0")
-dilepton_test("pp" "3.5"  "HadesSingleAcc-p35p-APR07-effgt5-RK-v2.acc"  "0.08" "2.0")
-dilepton_test("pNb" "3.5"  "HadesSingleAcc-p35Nb-SEP08-effgt5-MVA-v1.acc"  "0.1" "2.0")
-
-dilepton_test("CC" "1.0" "HadesSingleAcc-c10c-AUG04-effgt5-KP-v2.acc" "0.05" "1.8")
-dilepton_test("CC" "2.0" "HadesSingleAcc-c20c-NOV02-effgt0-KP-v1.acc" "0.05" "1.8")
-dilepton_test("ArKCl" "1.76" "HadesSingleAcc-ar17kcl-SEP05-effge5-HC-flat-v2.acc" "0.1" "1.1")
+  dilepton_test("CC" "1.0" "HadesSingleAcc-c10c-AUG04-effgt5-KP-v2.acc" "0.05" "1.8")
+  dilepton_test("CC" "2.0" "HadesSingleAcc-c20c-NOV02-effgt0-KP-v1.acc" "0.05" "1.8")
+  dilepton_test("ArKCl" "1.76" "HadesSingleAcc-ar17kcl-SEP05-effge5-HC-flat-v2.acc" "0.1" "1.1")
+endif()
 
 ## box tests
 
