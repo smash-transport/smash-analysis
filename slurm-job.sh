@@ -54,7 +54,7 @@ elif [ ${target} = "elastic_box" ] || [ ${target} = "detailed_balance" ] || [ ${
 then
   make ${target}_sims -j$SLURM_CPUS_ON_NODE \
   && make ${target}_analysis -j$SLURM_CPUS_ON_NODE \
-  && make ${target}_plots -j$SLURM_CPUS_ON_NODE
+  && make ${target}_plots
 else
   make $target -j$SLURM_CPUS_ON_NODE
 fi

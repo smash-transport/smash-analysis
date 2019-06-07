@@ -476,12 +476,16 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                         if (quantity == 'mtspectra'):
                             scaling_counter += 1
                             y /= ((x + m0) * bin_width) * (2.0 * data1.midrapidity_cut)  # factor 2 because [-y_cut; y_cut]
+                            if np.all(y == 0):          # rescale y-axis to be linear if mtspectra of current energy are 0, but those
+                                plt.yscale('linear')    # of the previous energy were not, so that the scale was already set to log scale.
                             plt.plot(x, y * 10**scaling_counter, '-', lw = 4, color = plot_color,
                                     label = str(energy) + r' $\times \ $10$^{\mathsf{' + str(scaling_counter) + r'}}$')
                         # dN/dpT
                         if (quantity == 'ptspectra'):
                             scaling_counter += 1
                             y /= (bin_width * x) * (2.0 * data1.midrapidity_cut)  # factor 2 because [-y_cut; y_cut]
+                            if np.all(y == 0):          # rescale y-axis to be linear if ptspectra of current energy are 0, but those 
+                                plt.yscale('linear')    # of the previous energy were not, so that the scale was already set to log scale.
                             plt.plot(x, y * 10**scaling_counter, '-', lw = 4, color = plot_color,
                                     label = str(energy) + r' $\times \ $10$^{\mathsf{' + str(scaling_counter) + r'}}$')
                         # v2
