@@ -88,6 +88,18 @@ arise, it may be downloaded [here](https://dejavu-fonts.github.io).
 After downloading, the font needs to be installed on the system.
 It might also be necessary to delete the local matplotlib font cache.
 
+##### Note
+
+Should you encounter severe difficulties installing numpy version 1.14.0 on your
+machine, you may consider using an older version. The only necessary
+functionality from numpy 1.14.0 is being used for plotting the detailed balance
+results. The simulations and analyses of each target can be carried out with
+numpy 1.6.2 or higher. The detailed balance plots can then be created locally
+from the generated analysis outputs. <br/>
+Remember to adjust the required numpy version in the top level `CMakeLists.txt`
+to build the SMASH-analysis suite with an older numpy version. Other adjustments
+regarding the minimal version of the required modules are at the
+user's own risk.
 
 ## Building the SMASH-analysis suite
 
