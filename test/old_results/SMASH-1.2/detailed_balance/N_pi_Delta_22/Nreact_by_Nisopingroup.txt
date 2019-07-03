@@ -1,0 +1,12 @@
+N⁰N⁰$\leftrightarrow$Δ⁻N⁺	1.00818648813	1.01353983214
+3$\times$(N⁰N⁰$\leftrightarrow$N⁰Δ⁰)	0.979661953638	1.02304801031
+3/2$\times$(N⁰N⁺$\leftrightarrow$Δ⁰N⁺)	0.999317515223	0.996680793547
+3/2$\times$(N⁰N⁺$\leftrightarrow$N⁰Δ⁺)	0.978822996741	0.993324965959
+3$\times$(N⁺N⁺$\leftrightarrow$N⁺Δ⁺)	0.981819271373	1.0288008576
+N⁺N⁺$\leftrightarrow$N⁰Δ⁺⁺	0.992605860047	1.00419145529
+3/2$\times$(N⁰N⁰$\leftrightarrow$Δ⁰Δ⁰)	0.952613232157	1.02717880464
+N⁰N⁰$\leftrightarrow$Δ⁻Δ⁺	0.99116414038	1.02565705826
+18/43$\times$(N⁰N⁺$\leftrightarrow$Δ⁰Δ⁺)	1.03662778796	0.921965967908
+18/67$\times$(N⁰N⁺$\leftrightarrow$Δ⁻Δ⁺⁺)	1.04687065702	1.02261356551
+3/2$\times$(N⁺N⁺$\leftrightarrow$Δ⁺Δ⁺)	0.989135145211	0.896308616199
+N⁺N⁺$\leftrightarrow$Δ⁰Δ⁺⁺	1.05101949789	1.03884552687

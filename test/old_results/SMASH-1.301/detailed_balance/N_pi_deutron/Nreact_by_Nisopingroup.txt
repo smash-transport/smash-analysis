@@ -1,0 +1,16 @@
+N⁰N⁺$\leftrightarrow$d'	0.999909562827	1.00009043717
+N⁰d$\leftrightarrow$N⁰d'	0.964302942595	1.07911239749
+N⁺d$\leftrightarrow$N⁺d'	0.917993246503	1.03859141341
+π⁻d$\leftrightarrow$N⁰N⁰	1.02822436584	1.01178992497
+π⁰d$\leftrightarrow$N⁰N⁺	0.977491961415	1.00321543408
+π⁺d$\leftrightarrow$N⁺N⁺	1.00035727045	0.97892104323
+π⁻d$\leftrightarrow$π⁻d'	0.980398092787	1.01430409445
+π⁰d$\leftrightarrow$π⁰d'	0.978430333762	1.00798456066
+π⁺d$\leftrightarrow$π⁺d'	0.996783470824	1.02209944751
+N̅⁻d$\leftrightarrow$N̅⁻d'	1.07381543555	0.914390647631
+d̅N⁰$\leftrightarrow$d̅'N⁰	1.08967859678	0.910321403224
+N̅⁰d$\leftrightarrow$N̅⁰d'	1.08752327747	0.924270639354
+N̅⁻N̅⁰$\leftrightarrow$d̅'	0.99980128622	1.00019871378
+d̅π⁰$\leftrightarrow$N̅⁻N̅⁰	0.961266999484	0.981924599759
+d̅π⁺$\leftrightarrow$N̅⁰N̅⁰	1.02943708039	1.02737132036
+d̅N̅⁰$\leftrightarrow$d̅'N̅⁰	0.939080082381	1.06091991762

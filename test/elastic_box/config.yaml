@@ -1,0 +1,53 @@
+Version: 1.5
+
+Logging:
+  default: WARN
+
+General:
+    # Modus decision
+    Modus:         Box
+
+    # temporal grid spacing
+    Delta_Time:    0.1
+
+    # end time of simulation
+    End_Time:      60.0
+
+    # initial random seed (negative for time)
+    Randomseed:    -1
+
+    # number of test particle
+    Testparticles: 1
+
+    # number of events
+    Nevents:       100
+
+Output:
+    # how much time before recording measurables
+    Output_Interval:  100.0
+    # output formats
+    Collisions:
+        Format:  ["Binary"]
+        Print_Start_End:    True
+
+Collision_Term:
+    Strings:                False
+    Two_to_One:             False
+    Included_2to2: ["Elastic"]
+    Force_Decays_At_End:    False
+    Isotropic:              True
+    Elastic_Cross_Section:  10.0
+
+Modi:
+    Box:
+        # Cube size
+        Length: 10.0
+
+        # initialization temperature
+        Temperature: 0.2
+
+        # initial condition ("peaked momenta", "thermal momenta")
+        Initial_Condition: "thermal momenta"
+
+        # start time of simulation
+        Start_Time:    0.0

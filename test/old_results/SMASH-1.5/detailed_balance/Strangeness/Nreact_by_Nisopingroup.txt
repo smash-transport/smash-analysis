@@ -1,0 +1,23 @@
+channel	forward	backward
+K⁰p$\leftrightarrow$K⁺n	1.01883850851	0.98116149149
+K⁰Δ⁰$\leftrightarrow$K⁰n	0.712182979184	0.596305783037
+K⁰p$\leftrightarrow$K⁺Δ⁰	1.01767828444	0.982321715557
+K⁰Δ⁺$\leftrightarrow$K⁰p	1.21158771961	1.25422995058
+K⁺Δ⁰$\leftrightarrow$K⁺n	1.34961578701	1.40116887334
+K⁰Δ⁺$\leftrightarrow$K⁺n	1.06757098019	1.11089866157
+K⁺Δ⁺$\leftrightarrow$K⁺p	0.705725314766	0.59071395072
+K̅⁻n$\leftrightarrow$π⁻Λ	0.719676549865	0.766846361186
+π⁰Λ$\leftrightarrow$K̅⁰n	0.659465605458	0.658328595793
+K̅⁻p$\leftrightarrow$π⁰Λ	1.22911051213	1.28436657682
+π⁺Λ$\leftrightarrow$K̅⁰p	1.29960204662	1.38260375213
+π⁻Σ⁰$\leftrightarrow$K̅⁻n	1.38292925938	1.44669545002
+π⁰Σ⁻$\leftrightarrow$K̅⁻n	0.584523414148	0.628362670209
+K̅⁻p$\leftrightarrow$π⁰Σ⁰	1.63919821826	1.84204214494
+K̅⁻p$\leftrightarrow$π⁺Σ⁻	0.967620352921	0.927873907829
+π⁺Σ⁻$\leftrightarrow$K̅⁰n	1.08003985387	1.0614413816
+π⁰Σ⁰$\leftrightarrow$K̅⁰n	0.576552640319	0.645632680173
+π⁻Σ⁺$\leftrightarrow$K̅⁰n	1.92494187977	1.82929259382
+K̅⁻p$\leftrightarrow$π⁻Σ⁺	0.489292444749	0.531780023985
+π⁺Σ⁰$\leftrightarrow$K̅⁰p	0.415808701428	0.423779475257
+K̅⁰p$\leftrightarrow$π⁰Σ⁺	0.863457255439	0.738735651876
+# SMASH-1.5

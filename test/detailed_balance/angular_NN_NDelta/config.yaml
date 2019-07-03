@@ -1,0 +1,38 @@
+Version: 1.5
+
+Logging:
+  default: WARN
+
+General:
+    Modus:         Box
+    Delta_Time:    0.1
+    End_Time:      200.0
+    Randomseed:    -1
+    Testparticles:  10
+    Nevents:        5
+
+Output:
+    Output_Interval:  1.0
+    Collisions:
+        Format: ["Binary"]
+        Print_Start_End:    False
+    Particles:
+        Format: ["Binary"]
+        Only_Final:         False
+
+Modi:
+    Box:
+        Length: 10.0
+        Temperature: 0.3
+        Initial_Condition: thermal momenta
+        Start_Time:    0.0
+        Init_Multiplicities:
+            2212:   200
+            2112:   200
+
+Collision_Term:
+    Force_Decays_At_End:  False
+    Two_to_One:           False
+    Isotropic:            False
+    Elastic_Cross_Section:  0.0  # Globally used if non-negative, [mb]
+    Strings:              False

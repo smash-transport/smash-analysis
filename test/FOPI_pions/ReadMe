@@ -1,0 +1,15 @@
+The scripts in this directory represent a full analysis chain to produce SMASH
+results for low-energy pion multiplicites, which are compared to the FOPI data
+from:
+
+W. Reisdorf et al:
+Systematics of pion emission in heavy ion collisions in the 1A- GeV regime
+Nucl. Phys. A781 (2007) 459-508
+arXiv:nucl-ex/0610025
+http://inspirehep.net/record/729436
+
+In particular this analysis generates plots of the pion multiplicity (fig. 20)
+and the pion ratio (fig. 25) as a function of beam energy.
+
+The numerical results will be written to a file called "pion_yields.txt",
+while the plots go into "FOPI_pions.pdf".

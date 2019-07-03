@@ -1,0 +1,106 @@
+Version: 1.5
+
+Logging:
+  default: WARN
+  #Legacy: ALL
+  #Main: ALL
+  #Experiment: ALL
+  #Box: ALL
+  #Collider: ALL
+  #Sphere: ALL
+  #ParticleType: ALL
+  #Action: ALL
+  #FindScatter: ALL
+  #DecayModes: ALL
+  #ScatterAction: ALL
+
+General:
+    # Modus decision
+    Modus:         Collider
+
+    # Mode of time stepping. Possible values: None, Fixed, Adaptive
+    Time_Step_Mode: Fixed
+
+    # temporal grid spacing
+    Delta_Time:    0.1
+
+    # end time of simulation
+    End_Time:      20.0
+
+    # initial random seed (auto-generated if negative)
+    Randomseed:    -1
+
+    # number of test particles
+    Testparticles: 1
+
+    # number of events
+    Nevents:       150000
+
+    # width of gaussians representing particles, fm
+    Gaussian_Sigma: 1.0
+
+    # distance at which gaussian values are small enough to set them zero
+    Gauss_Cutoff_In_Sigma: 4.0
+
+    # reduce the combinatorics by placing the particles in a grid structure
+    Use_Grid: True
+
+
+Output:
+    Output_Interval:  10.0
+    Density_Type:      "none"
+    Dileptons:
+        Format:             ["Binary"]
+        Extended:           True
+
+
+Collision_Term:
+    Two_to_One:             True
+    Force_Decays_At_End:    True
+    Isotropic:              False
+    Elastic_Cross_Section:  -1.0  # Globally used if non-negative, [mb]
+    Elastic_NN_Cutoff_Sqrts: 1.98 # Exclude the elastic collisions between the two
+                                 # nucleons with the square root s below the value [GeV].
+                                 # Exclusion is effectively turned off by setting any value
+                                 # below 1.88 (the threshold energy of the elastic collsion).
+                                     # And the value is at best not beyond 2.02 ( the threshold
+                                     # energy of the inelastic collision NN->NNpi)
+
+#    Pauli_Blocking:
+#        Spatial_Averaging_Radius:   1.86
+#        Momentum_Averaging_Radius:  0.08
+#        Gaussian_Cutoff:            2.2
+
+#Potentials:
+#    Skyrme:
+#        Skyrme_A: -209.2
+#        Skyrme_B: 156.4
+#        Skyrme_Tau: 1.35
+#    Symmetry:
+#        S_Pot: 18.0
+Modi:
+    Collider:
+        # Definitions for the projectile:
+        Projectile:
+            Particles: {2212: 1, 2112: 0}  # Proton
+        # Definitions for the target:
+        Target:
+            Particles: {2212: 41, 2112: 52}  # Nb
+
+        # Collision energy (E_Kin, P_Lab, Sqrtsnn).
+        #E_Kin: 3.5
+
+        # The reference frame in which to do the calculation.
+        # ("center of velocity", "center of mass", "fixed target")
+        Calculation_Frame: "fixed target"
+
+        # Specify an impact parameter
+        # max = r(Nb) + d(default)
+        Impact:
+            Max: 5.982
+
+        # Include Fermi motion
+        # ("off", "on", "frozen")
+        Fermi_Motion: "off"
+        # Determine whether the first collisions within the same nuclues are allowed
+        Collisions_Within_Nucleus: false

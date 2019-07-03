@@ -1,0 +1,12 @@
+nn$\leftrightarrow$Δ⁻p	0.997573618919	0.994626030273
+3$\times$(nn$\leftrightarrow$nΔ⁰)	0.997252063794	1.01426525314
+3/2$\times$(np$\leftrightarrow$Δ⁰p)	1.00695718211	0.995063296523
+3/2$\times$(np$\leftrightarrow$nΔ⁺)	1.00496573276	1.00055165786
+3$\times$(pp$\leftrightarrow$pΔ⁺)	0.992947609961	1.00448705411
+pp$\leftrightarrow$nΔ⁺⁺	0.997220395486	0.994090105065
+3/2$\times$(nn$\leftrightarrow$Δ⁰Δ⁰)	0.995517353414	0.99944390324
+nn$\leftrightarrow$Δ⁻Δ⁺	1.00008310903	1.01673289782
+18/43$\times$(np$\leftrightarrow$Δ⁰Δ⁺)	0.988203650008	0.987834142344
+18/67$\times$(np$\leftrightarrow$Δ⁻Δ⁺⁺)	0.996817571579	1.00339225966
+3/2$\times$(pp$\leftrightarrow$Δ⁺Δ⁺)	1.00821015401	0.993280133165
+pp$\leftrightarrow$Δ⁰Δ⁺⁺	1.00020486251	1.01027996322

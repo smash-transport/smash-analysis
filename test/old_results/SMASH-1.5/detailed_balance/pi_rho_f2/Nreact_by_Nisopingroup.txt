@@ -1,0 +1,9 @@
+channel	forward	backward
+ρ⁻ρ⁺$\leftrightarrow$f₂	1.00328075379	1.00307078554
+2$\times$(ρ⁰ρ⁰$\leftrightarrow$f₂)	0.995039500276	0.998608960395
+π⁻π⁰$\leftrightarrow$ρ⁻	1.00059329473	1.00067617642
+π⁻π⁺$\leftrightarrow$ρ⁰	0.999337637195	0.999362501701
+π⁰π⁺$\leftrightarrow$ρ⁺	0.999963393922	1.00006699603
+π⁻π⁺$\leftrightarrow$f₂	1.00211655838	1.00477456192
+2$\times$(π⁰π⁰$\leftrightarrow$f₂)	0.998326442213	0.994782437488
+# SMASH-1.5

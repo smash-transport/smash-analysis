@@ -1,0 +1,55 @@
+Version: 1.5
+
+Logging:
+  default: WARN
+
+General:
+    # Modus decision
+    Modus:         Box
+
+    # temporal grid spacing
+    Delta_Time:    0.1
+
+    # end time of simulation
+    End_Time:      100.0
+
+    # initial random seed (negative for time)
+    Randomseed:    -1
+
+    # number of test particle
+    Testparticles: 1
+
+    # number of events
+    Nevents:       2
+
+Output:
+    Output_Interval:        1.0
+    Collisions:
+        Format: ["Binary"]
+        Print_Start_End:    False
+    Particles:
+        Format: ["Binary"]
+        Only_Final:         False
+
+Modi:
+    Box:
+        # Cube size [fm]
+        Length: 10.0
+
+        # initialization temperature [GeV]
+        Temperature: 0.3
+
+        # initial condition ("thermal momenta" or "peaked momenta")
+        Initial_Condition: thermal momenta
+
+        # start time of simulation [fm/c]
+        Start_Time:    0.0
+
+        Init_Multiplicities:
+            111:    100
+            211:    100
+            -211:   100
+
+Collision_Term:
+    Force_Decays_At_End:  False
+    Strings:              False

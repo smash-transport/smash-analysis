@@ -1,0 +1,78 @@
+Version: 1.5
+
+Logging:
+  default: WARN
+  DecayModes: ERROR
+
+General:
+    # Modus decision
+    Modus:         Collider
+
+    # temporal grid spacing
+    Delta_Time:    0.1
+
+    # end time of simulation
+    End_Time:      80.0
+
+    # initial random seed (auto-generated if negative)
+    Randomseed:    -1
+
+    # number of events
+    Nevents:       10
+
+    Testparticles: 20  # 20 with potentials
+
+    # width of gaussians representing particles, fm
+    Gaussian_Sigma: 1.0
+
+Modi:
+    Collider:
+        Projectile:
+            Particles: {2212: 79, 2112: 118}  # Au197
+        Target:
+            Particles: {2212: 79, 2112: 118}  # Au197
+
+        # Collision energy (E_Kin, P_Lab, Sqrtsnn).
+        #E_Kin: XXX
+
+        Impact:
+            Value: 1.33
+            #Range: [0., 2.]
+
+        # The reference frame in which to do the calculation.
+        # ("center of velocity", "center of mass", "fixed target")
+        Calculation_Frame: "center of mass"
+
+        # Include Fermi motion
+        Fermi_Motion: on
+
+Potentials:
+    Skyrme:
+        Skyrme_A: -209.2
+        Skyrme_B: 156.4
+        Skyrme_Tau: 1.35
+    Symmetry:
+        S_Pot: 18.0
+
+Lattice:
+    Origin: [-10.0, -10.0, -10.0]    # Coordinates of the left, down, near corner of the lattice
+    Sizes: [20.0, 20.0, 20.0]  # Sizes in x, y, z directions in fm
+    Cell_Number: [40, 40, 40]   # Number of cells in x, y, z directions
+    Periodic: False             # Periodic continuation: x + i * lx is equivalent to x, same for y, z
+
+Collision_Term:
+    Two_to_One:           True
+    Force_Decays_At_End:  True
+    Pauli_Blocking:
+        Spatial_Averaging_Radius:   1.86
+        Momentum_Averaging_Radius:  0.08
+        Gaussian_Cutoff:            2.2
+
+Output:
+    # how much time before recording measurables
+    Output_Interval:  10.0
+
+    # output formats
+    Particles:
+        Format:  ["Binary"]
+        Only_Final:         True

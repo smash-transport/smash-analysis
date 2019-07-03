@@ -1,0 +1,12 @@
+3$\times$(K⁰n$\leftrightarrow$K⁰Δ⁰)	0.33527462881	0.382847380195
+K⁰n$\leftrightarrow$K⁺Δ⁻	0.325609053925	0.329535693722
+3$\times$(K⁺n$\leftrightarrow$K⁺Δ⁰)	1.66595244613	1.65009486233
+3$\times$(K⁺n$\leftrightarrow$K⁰Δ⁺)	1.67093625818	1.6555317482
+3$\times$(K⁰p$\leftrightarrow$K⁺Δ⁰)	1.66278092937	1.63106576178
+3$\times$(K⁰p$\leftrightarrow$K⁰Δ⁺)	1.67727929169	1.62381658061
+3$\times$(K⁺p$\leftrightarrow$K⁺Δ⁺)	0.333009259696	0.414109473962
+K⁺p$\leftrightarrow$K⁰Δ⁺⁺	0.320172168053	0.321984463343
+K̅⁻n$\leftrightarrow$K̅⁰Δ⁻	0.0	0.0
+3$\times$(K̅⁻n$\leftrightarrow$K̅⁻Δ⁰)	0.0	0.0
+3$\times$(K̅⁻p$\leftrightarrow$K̅⁰Δ⁰)	0.0	0.0
+3$\times$(K̅⁻p$\leftrightarrow$K̅⁻Δ⁺)	0.0	0.0

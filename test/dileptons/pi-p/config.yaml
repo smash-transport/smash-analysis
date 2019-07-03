@@ -1,0 +1,102 @@
+Version: 1.5
+
+Logging:
+  default: WARN
+  #Legacy: ALL
+  #Main: ALL
+  #Experiment: ALL
+  #Box: ALL
+  #Collider: ALL
+  #Sphere: ALL
+  #ParticleType: ALL
+  #Action: ALL
+  #FindScatter: ALL
+  #DecayModes: ALL
+  #ScatterAction: ALL
+
+General:
+    # Modus decision
+    Modus:         Collider
+
+    # Mode of time stepping. Possible values: None, Fixed, Adaptive
+    Time_Step_Mode: Fixed
+
+    # temporal grid spacing
+    Delta_Time:    10.0
+
+    # end time of simulation
+    End_Time:      10.0
+
+    # initial random seed (auto-generated if negative)
+    Randomseed:    -1
+
+    # number of test particles
+    Testparticles: 1
+
+    # number of events
+    Nevents:       1000000
+
+    # width of gaussians representing particles, fm
+    Gaussian_Sigma: 1.0
+
+    # distance at which gaussian values are small enough to set them zero
+    Gauss_Cutoff_In_Sigma: 4.0
+
+    # reduce the combinatorics by placing the particles in a grid structure
+    Use_Grid: True
+
+
+Output:
+    Output_Interval:  10.0
+    Density_Type:      "none"
+    Dileptons:
+        Format:             ["Binary"]
+        Extended:           True
+
+Collision_Term:
+    Two_to_One:             True
+    Force_Decays_At_End:    True
+    Isotropic:              False
+    Elastic_Cross_Section:  -1.0  # Globally used if non-negative, [mb]
+    Elastic_NN_Cutoff_Sqrts: 1.98 # Exclude the elastic collisions between the two
+                                 # nucleons with the square root s below the value [GeV].
+                                 # Exclusion is effectively turned off by setting any value
+                                 # below 1.88 (the threshold energy of the elastic collsion).
+                                     # And the value is at best not beyond 2.02 ( the threshold
+                                     # energy of the inelastic collision NN->NNpi)
+
+# Lattice:
+#     Origin: [0.0, 0.0, 0.0]    # Coordinates of the left, down, near corner of the lattice
+#     Sizes: [10.0, 10.0, 10.0]  # Sizes in x, y, z directions in fm
+#     Cell_Number: [20, 20, 20]   # Number of cells in x, y, z directions
+#     Periodic: True             # Periodic continuation: x + i * lx is equivalent to x, same for y, z
+#     Printout:
+#         # ("hadron", "baryon", "baryonic isospin", "pion"), baryon := net baryon
+#         Type:       "none"
+#         Quantities: ["rho_eckart", "tmn", "tmn_landau", "landau_velocity"]
+
+Modi:
+    Collider:
+        # Definitions for the projectile:
+        Projectile:
+            Particles: {-211: 1}  # pi-
+        # Definitions for the target:
+        Target:
+            Particles: {2212: 1, 2112: 0}  # Proton
+
+        # Collision energy (E_Kin, P_Lab, Sqrtsnn).
+        #E_Kin: 3.5
+
+        # The reference frame in which to do the calculation.
+        # ("center of velocity", "center of mass", "fixed target")
+        Calculation_Frame: "fixed target"
+
+        # Specify an impact parameter
+        Impact:
+            Value: 0.0
+
+        # Include Fermi motion
+        # ("off", "on", "frozen")
+        Fermi_Motion: "off"
+        # Determine whether the first collisions within the same nuclues are allowed
+        Collisions_Within_Nucleus: false

@@ -1,0 +1,4 @@
+# <PDG>
+# <ratio> <PDGs of decay particles>
+Δ
+1.  1  N π

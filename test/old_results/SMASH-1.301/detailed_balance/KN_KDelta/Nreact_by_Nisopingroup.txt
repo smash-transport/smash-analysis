@@ -1,0 +1,12 @@
+3$\times$(K⁰N⁰$\leftrightarrow$K⁰Δ⁰)	0.312936820181	0.449340430456
+K⁰N⁰$\leftrightarrow$K⁺Δ⁻	0.31096196868	0.309033402762
+3$\times$(K⁺N⁰$\leftrightarrow$K⁺Δ⁰)	1.67979634344	1.61420967369
+3$\times$(K⁺N⁰$\leftrightarrow$K⁰Δ⁺)	1.68914603101	1.62360564684
+3$\times$(K⁰N⁺$\leftrightarrow$K⁺Δ⁰)	1.68678546633	1.61643138162
+3$\times$(K⁰N⁺$\leftrightarrow$K⁰Δ⁺)	1.68900717427	1.62281879195
+3$\times$(K⁺N⁺$\leftrightarrow$K⁺Δ⁺)	0.316269382087	0.454940985883
+K⁺N⁺$\leftrightarrow$K⁰Δ⁺⁺	0.312751677852	0.311964822958
+K̅⁻N⁰$\leftrightarrow$K̅⁰Δ⁻	0.0	0.0
+3$\times$(K̅⁻N⁰$\leftrightarrow$K̅⁻Δ⁰)	0.0	0.0
+3$\times$(K̅⁻N⁺$\leftrightarrow$K̅⁰Δ⁰)	0.0	0.0
+3$\times$(K̅⁻N⁺$\leftrightarrow$K̅⁻Δ⁺)	0.0	0.0

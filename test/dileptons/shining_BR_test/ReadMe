@@ -1,0 +1,20 @@
+# Test for shining method
+
+This collection of scripts runs as a test for the shining method a box only
+filled with rho mesons.
+
+The idea is to scale the multiplicities and the BR with the BR at the pole mass
+of the dilepton decay and see in the plots if both contributions actually
+coincide at the pole mass, which means that the shining method reproduces
+the correct BR.
+
+All visible deviations at the pole mass, indicate potential problems with the dilepton decay treatment and the shining method in particular. Since the box is initialised with only rhos at the pole mass the statistics at exactly the pole mass are higher.
+
+This can be run via CMake by entering
+
+      make dileptons_shining_BR_test
+
+in the build directory.
+
+Note: It is not unusal for the analysis of the dilepton output to run rather
+long, since the Output-File is quite big.

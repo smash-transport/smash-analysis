@@ -1,0 +1,28 @@
+This directory contains scripts for producing dilepton spectra
+(mass, p_T and rapidity) for various collision systems.
+
+Acceptance filtering for the HADES detector is supported via the HAFT code from
+https://github.com/janusw/HAFT.
+
+
+User Guide:
+
+First run create_hist_from_event_output.py on binary dilepton output, which creates several 1D histogram in the dimensions invariant mass, pt, rapidity and azimutal angle.
+
+Those can be plotted with plot_hist.py.
+
+(See also CMakeLists.txt)
+
+
+Other scripts:
+
+All information that has to be shared between scripts or is lengthy in definition like bins, linestyle, channels and plot style can be found in defintions.py and is imported into all other scripts.
+
+Averages of the pion multiplicity is necessary for comparison with data and can be calculated with avg_pions.py. Be aware that the particle_lists.oscar output is needed for this.
+
+When running multiple events add_hist.py and add_avg.py are used to combine the different histograms or averages.
+
+For the other output options, the dilepton ROOT and OSCAR output,
+analysis_root.cc and analysis_oscar.py can be used. Those however will not work out of the box with the other scripts.
+
+See also documentation and comments in the source code, especially for command line arguments.

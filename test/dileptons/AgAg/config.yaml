@@ -1,0 +1,33 @@
+Version: 1.5 # minimal SMASH version to use with this config file
+
+Logging:
+    default: INFO
+
+General:
+    Modus:         Collider
+    Time_Step_Mode: Fixed
+    Delta_Time:    0.2
+    End_Time:      40.0
+    Randomseed:    -1
+    Nevents:       10000
+
+Output:
+    Output_Interval: 10.0
+    Dileptons:
+        Format:             ["Binary"]
+        Extended:           True
+
+Modi:
+    Collider:
+        Impact:
+            # HADES 0-40%
+            Sample: "uniform"
+            Range: [0.0, 7.7]
+        Projectile:
+            Particles: {2212: 47, 2112: 61} # Silver
+        Target:
+            Particles: {2212: 47, 2112: 61} # Silver
+
+        E_Kin: 1.58
+        Fermi_Motion: "frozen"
+        Calculation_Frame: "fixed target"
