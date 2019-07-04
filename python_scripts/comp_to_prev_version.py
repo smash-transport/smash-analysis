@@ -117,7 +117,7 @@ def plot_previous_results(observable, setup, filename, color_list = [], pdg = 0,
 
         elif observable == 'elastic_box':
             plt.errorbar(data['x'], data['y'], yerr=data['y_error'],
-                         fmt='s', markersize = 15, capsize=10, label=label,
+                         fmt='s', markersize = 15, capsize=10, label=label + " (geometric criterion)",
                          color = 'orange', zorder = 1)
 
         elif observable == 'energy_scan':

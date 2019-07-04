@@ -1,7 +1,6 @@
 project(elastic_box NONE)
 
 set(el_box_sims "")
-set(el_box_analysis "")
 set(el_box_plots "")
 
 function(run_one_test
@@ -16,21 +15,25 @@ function(run_one_test
     # Convert string to a list.
     separate_arguments(var_list)
 
-    # run SMASH
+    # run SMASH for both collision criteria
     set(i 0)
     set(multipl_opt "Modi: {Box: {Init_Multiplicities: {111: 200}}}")
+    set(stoch_crit_opt "Collision_Term: {Collision_Criterion: Stochastic}")
     set(data_files "")
     foreach(X IN LISTS var_list)
-        set(data_folder "${test_folder}/data/${i}")
-        set(data_file "${data_folder}/collisions_binary.bin")
-        list(APPEND data_files ${data_file})
+        set(data_geom_folder "${test_folder}/data-geometric/${i}")
+        set(data_stoch_folder "${test_folder}/data-stochastic/${i}")
         execute_process(COMMAND "echo" "${yaml_op_raw}"
                         COMMAND "sed" "s/_X_/${X}/"
                         OUTPUT_VARIABLE yaml_opt
                         OUTPUT_STRIP_TRAILING_WHITESPACE)
-        add_custom_command(OUTPUT "${data_file}" "${data_folder}/config.yaml"
+
+        # run with geometric criterion
+        set(data_file "${data_geom_folder}/collisions_binary.bin")
+        list(APPEND data_files ${data_file})
+        add_custom_command(OUTPUT "${data_file}" "${data_geom_folder}/config.yaml"
             COMMAND "${CMAKE_BINARY_DIR}/smash"
-                      "-o" "${data_folder}"
+                      "-o" "${data_geom_folder}"
                       "-i" "${CMAKE_CURRENT_SOURCE_DIR}/config.yaml"
                       "-p" "${CMAKE_CURRENT_SOURCE_DIR}/particles_only_pi0.txt"
                       "-d" "${CMAKE_CURRENT_SOURCE_DIR}/decaymodes_all_off.txt"
@@ -42,8 +45,29 @@ function(run_one_test
                     "${CMAKE_CURRENT_SOURCE_DIR}/particles_only_pi0.txt"
                     "${CMAKE_CURRENT_SOURCE_DIR}/decaymodes_all_off.txt"
             WORKING_DIRECTORY "${test_folder}"
-            COMMENT "Running SMASH for elastic_box/${test_name}=${X}."
+            COMMENT "Running SMASH with geometric criterion for elastic_box/${test_name}=${X}."
         )
+
+        # run with stochastic criterion
+        set(data_file "${data_stoch_folder}/collisions_binary.bin")
+        list(APPEND data_files ${data_file})
+        add_custom_command(OUTPUT "${data_file}" "${data_stoch_folder}/config.yaml"
+            COMMAND "${CMAKE_BINARY_DIR}/smash"
+                      "-o" "${data_stoch_folder}"
+                      "-i" "${CMAKE_CURRENT_SOURCE_DIR}/config.yaml"
+                      "-p" "${CMAKE_CURRENT_SOURCE_DIR}/particles_only_pi0.txt"
+                      "-d" "${CMAKE_CURRENT_SOURCE_DIR}/decaymodes_all_off.txt"
+                      "-c" "\\{${multipl_opt}, ${stoch_crit_opt} ,${yaml_opt}\\}"
+                      "-f"
+                      ">" "/dev/null"
+            DEPENDS "${CMAKE_BINARY_DIR}/smash"
+                    "${CMAKE_CURRENT_SOURCE_DIR}/config.yaml"
+                    "${CMAKE_CURRENT_SOURCE_DIR}/particles_only_pi0.txt"
+                    "${CMAKE_CURRENT_SOURCE_DIR}/decaymodes_all_off.txt"
+            WORKING_DIRECTORY "${test_folder}"
+            COMMENT "Running SMASH with stochastic criterion for elastic_box/${test_name}=${X}."
+        )
+
         # FIXME: redirect SMASH output
         math(EXPR i "${i} + 1")
     endforeach()
@@ -51,20 +75,36 @@ function(run_one_test
     set(all_data_files ${all_data_files};${data_files} PARENT_SCOPE)
     set(el_box_sims ${el_box_sims};${target} PARENT_SCOPE)
 
-    # analysis
+    # analysis results for geometric criterion
     # TODO: verify whether the name of the txt makes sense
-    set(output_file "${test_folder}/scatrate.txt")
-    set(el_box_analysis "${el_box_analysis};${output_file}" PARENT_SCOPE)
-    add_custom_command(OUTPUT "${test_folder}/scatrate.txt"
+    set(output_file_geometric "${test_folder}/scatrate-geometric.txt")
+    list(APPEND output_files ${output_file_geometric})
+    add_custom_command(OUTPUT "${test_folder}/scatrate-geometric.txt"
         COMMAND "python2"
                   "${CMAKE_CURRENT_SOURCE_DIR}/elastic_scatrate.py"
-                  "data" "scatrate.txt"
+                  "data-geometric" "scatrate-geometric.txt"
         WORKING_DIRECTORY "${test_folder}"
         DEPENDS
             "${CMAKE_CURRENT_SOURCE_DIR}/elastic_scatrate.py"
             "${CMAKE_SOURCE_DIR}/python_scripts/smash_basic_scripts.py"
-        COMMENT "Calculating scattering rate for elastic_box/${test_name}."
+        COMMENT "Calculating scattering rate for geometric criterion for elastic_box/${test_name}."
     )
+
+    # analysis results for stochastic criterion
+    set(output_file_stochastic "${test_folder}/scatrate-stochastic.txt")
+    list(APPEND output_files ${output_file_stochastic})
+    add_custom_command(OUTPUT "${test_folder}/scatrate-stochastic.txt"
+        COMMAND "python2"
+                  "${CMAKE_CURRENT_SOURCE_DIR}/elastic_scatrate.py"
+                  "data-stochastic" "scatrate-stochastic.txt"
+        WORKING_DIRECTORY "${test_folder}"
+        DEPENDS
+            "${CMAKE_CURRENT_SOURCE_DIR}/elastic_scatrate.py"
+            "${CMAKE_SOURCE_DIR}/python_scripts/smash_basic_scripts.py"
+        COMMENT "Calculating scattering rate for stochastic criterion for elastic_box/${test_name}."
+    )
+
+    set(all_output_files ${all_output_files};${output_files} PARENT_SCOPE)
 
     # plot
     set(output_plot "${test_folder}/scatrate.pdf")
@@ -74,7 +114,7 @@ function(run_one_test
                "${test_folder}/${test_name}.txt"
         COMMAND "python2"
                   "${CMAKE_CURRENT_SOURCE_DIR}/plotting/Ncoll_plotting.py"
-                  "--SMASH_data" "${test_folder}/scatrate.txt"
+                  "--SMASH_data" "'${test_folder}/scatrate-*.txt'"
                   "--output" "${test_folder}/scatrate.pdf"
                   "--setup" "${test_name}"
                   "--comp_prev_version"
@@ -91,7 +131,7 @@ function(run_one_test
     set(target elastic_box_${test_name}_analysis)
     add_custom_target(${target} ALL
         DEPENDS
-            "${output_file}"
+            "${output_files}"
             "${CMAKE_CURRENT_SOURCE_DIR}/elastic_scatrate.py"
             "${CMAKE_SOURCE_DIR}/python_scripts/smash_basic_scripts.py"
     )
@@ -133,7 +173,7 @@ add_custom_target(elastic_box_sims
 
 # target for analysis
 add_custom_target(elastic_box_analysis
-    DEPENDS ${el_box_analysis}
+    DEPENDS ${all_output_files}
 )
 
 # target for plotting
