@@ -116,9 +116,14 @@ def plot_previous_results(observable, setup, filename, color_list = [], pdg = 0,
                     zorder = 1, alpha = 0.2, label = label + " (all)")
 
         elif observable == 'elastic_box':
-            plt.errorbar(data['x'], data['y'], yerr=data['y_error'],
-                         fmt='s', markersize = 15, capsize=10, label=label + " (geometric criterion)",
-                         color = 'orange', zorder = 1)
+            if 'geometric' in filename:
+                plt.errorbar(data['x'], data['y'], yerr=data['y_error'],
+                             fmt='s', ecolor = 'midnightblue', markeredgecolor= 'midnightblue', markersize = 15, capsize=10, label=label,
+                             markerfacecolor= 'white', zorder = 1)
+            elif 'stochastic' in filename:
+                plt.errorbar(data['x'], data['y'], yerr=data['y_error'],
+                             fmt='s', ecolor = 'maroon', markeredgecolor= 'maroon', markersize = 15, capsize=10, label=label,
+                             markerfacecolor= 'white', zorder = 1)
 
         elif observable == 'energy_scan':
             if 'mtspectra' in filename:
