@@ -8,7 +8,7 @@ General:
     Modus:         Box
 
     # temporal grid spacing
-    Delta_Time:    0.1
+    Delta_Time:    0.01
 
     # end time of simulation
     End_Time:      60.0
