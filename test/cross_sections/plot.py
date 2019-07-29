@@ -117,8 +117,8 @@ if __name__ == '__main__':
         if args.elastic_xs and os.path.isfile(args.elastic_xs):
             if 'ced' not in sys.modules:
                 import comp_to_exp_data as ced
-            ced.plot_cross_section_data(args.total_xs, initial_masses,
-                                        total_xs = True)
+            ced.plot_cross_section_data(args.elastic_xs, initial_masses,
+                                        elastic_xs = True)
         # plot previous data here only for total
 
     # (4) Plot SMASH curves

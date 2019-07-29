@@ -168,7 +168,7 @@ function(cross_section_test
 
     # plotting
     if(has_elastic AND WITH_EXP_DATA)
-        set(data_elastic "${CMAKE_CURRENT_SOURCE_DIR}/../experimental_data/cross_sections/${test_name}/data_elastic.exp")
+        set(data_elastic "${EXP_DATA}/cross_sections/${test_name}/data_elastic.exp")
         set(data_elastic_arg "--elastic_xs")
     else()
         set(data_elastic "")

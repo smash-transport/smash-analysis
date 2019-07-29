@@ -144,7 +144,7 @@ def gen_document(body):
     <font size="4" face="Helvetica" color="black">
     {}
     <p style="font-size: small">
-    <a href="https://www.gsi.de/en/bottommenu/impressum.htm?no_cache=1&page=69"> Impressum</a>
+    <a href="https://www.gsi.de/bottommenu/impressum.htm"> Impressum</a>
     <a href="https://www.gsi.de/en/bottommenu/data_privacy_protection.htm"> Data privacy protection</a>
     </p>
     </font>

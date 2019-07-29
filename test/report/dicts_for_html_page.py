@@ -260,7 +260,7 @@ sorted_subtargets = {'angular_distributions' : ['np_1.194', 'pp_1.25', 'pp_1.75'
                      'detailed_balance' : ['thermal_box', 'pi_rho', 'pi_rho_f2', 'pi_rho_omega', 'pi_rho_sigma', 'pi_sigma',\
                                         'N_pi_Delta_12', 'N_pi_Delta_22', 'N_pi_Delta_all', 'N_1440', 'KN_KDelta', 'angular_NN_NDelta', \
                                         'Strangeness', 'N_pi_deutron'],
-                     'dileptons' : ['pp_1.25_filtered', 'pp_1.25_unfiltered', 'pp_3.5_filtered', 'pp_3.5_unfiltered', 'CC_2.0_filtered', 'CC_2.0_unfiltered', 'ArKCl_1.76_filtered', 'ArKCl_1.76_unfiltered', 'pNb_3.5_filtered', 'pNb_3.5_unfiltered'],
+                     'dileptons' : ['pp_1.25_filtered', 'pp_1.25_unfiltered', 'pp_3.5_filtered', 'pp_3.5_unfiltered', 'pNb_3.5_filtered', 'pNb_3.5_unfiltered', 'CC_2.0_filtered', 'CC_2.0_unfiltered', 'ArKCl_1.76_filtered', 'ArKCl_1.76_unfiltered'],
                      'cross_sections' : ['proton_proton', 'neutron_proton', 'piplus_proton', 'piminus_proton', 'piplus_piminus', 'kplus_proton', 'kminus_proton', 'kplus_neutron', 'kminus_proton'],
                      'elastic_box' : ['scatrate_vs_N', 'scatrate_vs_Ntest', 'scatrate_vs_T', 'scatrate_vs_V', 'scatrate_vs_dt', 'scatrate_vs_sigma'],
 }
