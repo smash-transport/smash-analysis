@@ -471,9 +471,9 @@ def is_elastic22(block):
     """Check if interaction is a 2->2 elastic collision."""
     p_in = block['incoming']['pdgid']
     p_out = block['outgoing']['pdgid']
-    return    (  block['nin']  == 2 and \
-                 block['nout'] == 2 and \
-        ( (p_in[0] == p_out[0] and p_in[1] == p_out[1]) or \
+    return    (  block['nin']  == 2 and
+                 block['nout'] == 2 and
+        ( (p_in[0] == p_out[0] and p_in[1] == p_out[1]) or
           (p_in[0] == p_out[1] and p_in[1] == p_out[0]) )  )
 
 def is_1to1(block):
