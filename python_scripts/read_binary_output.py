@@ -185,6 +185,51 @@ def _read_binary_block_v6(bfile):
     else:
         raise ValueError('This is not the start of a block.')
 
+def _read_binary_block_v7(bfile):
+    """Read one output block from SMASH binary file."""
+    particle_data_type = np.dtype([('r','d',4),('mass','d'),('p','d',4),('pdgid','i4'),('id','i4'),('charge','i4')])
+
+    block_type = bfile.read(1)
+    if (block_type == 'p'):
+        # got particles block
+        npart = np.fromfile(bfile, dtype='i4', count=1)[0]
+        particles = np.fromfile(bfile, dtype=particle_data_type, count=npart)
+        return {'type': block_type,
+                'npart': npart,
+                'part': particles}
+    elif (block_type == 'i'):
+        # got interaction block
+        n_inout  = np.fromfile(bfile, dtype='i4', count=2)
+        rho      = np.fromfile(bfile, dtype='d',  count=1)[0]
+        sigma    = np.fromfile(bfile, dtype='d',  count=1)[0]
+        sigma_p  = np.fromfile(bfile, dtype='d',  count=1)[0]
+        process  = np.fromfile(bfile, dtype='i4', count=1)[0]
+        incoming = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[0])
+        outgoing = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[1])
+        return {'type': block_type,
+                'nin': n_inout[0],
+                'nout': n_inout[1],
+                'incoming': incoming,
+                'outgoing': outgoing,
+                'density': rho,
+                'total_cross_section': sigma,
+                'partial_cross_section': sigma_p,
+                'process_type': process}
+    elif (block_type == 'f'):
+        n_event = np.fromfile(bfile, dtype='i4', count=1)[0]
+        impact_parameter = np.fromfile(bfile, dtype='d',  count=1)[0]
+        empty_event = ord(bfile.read(1))
+        return {'type': block_type,
+              'nevent': n_event,
+              'b' : impact_parameter,
+              'empty_event': bool(empty_event)}
+        # got file end block
+    elif (block_type == ''):
+        # got eof
+        return
+    else:
+        raise ValueError('This is not the start of a block: 0x{:02x}'.format(ord(block_type)))
+
 def _read_binary_block_v4_extended(bfile):
     """Read one output block from SMASH binary file."""
     particle_data_type = np.dtype([('r','d',4),('mass','d'),('p','d',4),('pdgid','i4'),('id','i4'),('Ncoll','i4'),('formation_time','d'),('cross_section_scaling_factor','f'),('process_ID_origin','i4'),('process_type_origin', 'i4'),('time_of_origin','f'),('PDG_mother1','i4'),('PDG_mother2','i4')])
@@ -305,6 +350,50 @@ def _read_binary_block_v6_extended(bfile):
     else:
         raise ValueError('This is not the start of a block.')
 
+def _read_binary_block_v7_extended(bfile):
+    """Read one output block from SMASH binary file."""
+    particle_data_type = np.dtype([('r','d',4),('mass','d'),('p','d',4),('pdgid','i4'),('id','i4'),('charge','i4'),('Ncoll','i4'),('formation_time','d'),('cross_section_scaling_factor','d'),('process_ID_origin','i4'),('process_type_origin', 'i4'),('time_of_origin','d'),('PDG_mother1','i4'),('PDG_mother2','i4')])
+
+    block_type = bfile.read(1)
+    if (block_type == 'p'):
+        # got particles block
+        npart = np.fromfile(bfile, dtype='i4', count=1)[0]
+        particles = np.fromfile(bfile, dtype=particle_data_type, count=npart)
+        return {'type': block_type,
+                'npart': npart,
+                'part': particles}
+    elif (block_type == 'i'):
+        # got interaction block
+        n_inout  = np.fromfile(bfile, dtype='i4', count=2)
+        rho      = np.fromfile(bfile, dtype='d',  count=1)[0]
+        sigma    = np.fromfile(bfile, dtype='d',  count=1)[0]
+        sigma_p  = np.fromfile(bfile, dtype='d',  count=1)[0]
+        process  = np.fromfile(bfile, dtype='i4', count=1)[0]
+        incoming = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[0])
+        outgoing = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[1])
+        return {'type': block_type,
+                'nin': n_inout[0],
+                'nout': n_inout[1],
+                'incoming': incoming,
+                'outgoing': outgoing,
+                'density': rho,
+                'total_cross_section': sigma,
+                'partial_cross_section': sigma_p,
+                'process_type': process}
+    elif (block_type == 'f'):
+        n_event = np.fromfile(bfile, dtype='i4', count=1)[0]
+        impact_parameter = np.fromfile(bfile, dtype='d',  count=1)[0]
+        empty_event = np.fromfile(bfile, dtype='B', count=1)[0]
+        return {'type': block_type,
+              'nevent': n_event,
+              'b' : impact_parameter,
+              'empty_event': bool(empty_event)}
+    elif (block_type == ''):
+        # got eof
+        return
+    else:
+        raise ValueError('This is not the start of a block.')
+
 class BinaryReader:
     """A reader for SMASH binary files.
 
@@ -319,7 +408,12 @@ class BinaryReader:
     def __init__(self, path):
         self.__file = open(path, 'rb')
         self.smash_version, self.format_extended, self.format_version = _read_binary_header(self.__file)
-        if self.format_version == 6:
+        if self.format_version == 7:
+            if self.format_extended == 1:
+                self.__read_block = _read_binary_block_v7_extended
+            elif self.format_extended == 0:
+                self.__read_block = _read_binary_block_v7
+        elif self.format_version == 6:
             if self.format_extended == 1:
                 self.__read_block = _read_binary_block_v6_extended
             elif self.format_extended == 0:
