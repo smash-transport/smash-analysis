@@ -176,6 +176,15 @@ class DataTree:
             midrapidity_cut = data.midrapidity_cut
             for q in quantities_list:
                 for i in xrange(Npdg):
+                    # Lambdas and antilambdas need Sigma^0 to be added, because in AA collisions
+                    # Lambda and Sigma^0 are indistinguishable
+                    if (colliding_system != 'pp' and abs(pdglist[i]) == 3122):
+                        pdg_to_find = 3212 if pdglist[i] == 3122 else -3212
+                        j = pdglist.index(pdg_to_find)
+                        data.total_multiplicity[i] += data.total_multiplicity[j]
+                        data.midrapidity_yield[i] += data.midrapidity_yield[j]
+                        data.mthist[i] += data.mthist[j]
+                        data.pthist_midrapidity[i] += data.pthist_midrapidity[j]
                     if (q == 'total_multiplicity'): to_dict = float(data.total_multiplicity[i]) / data.nevents
                     elif (q == 'midrapidity_yield'): to_dict = float(data.midrapidity_yield[i]) / data.nevents
                     elif (q == 'meanpt_midrapidity'): to_dict = float(data.meanpt_midrapidity[i])
@@ -471,7 +480,9 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                                        2212 : 0.938,
                                        3122 : 1.116,
                                        3312 : 1.321,
-                                       3334 : 1.672 }
+                                       3334 : 1.672,
+                                       1000010020 : 1.8756,
+                                       3212 : 1.189 }
                         m0 = pole_masses[abs(pdg)]
                         if (quantity == 'mtspectra'):
                             scaling_counter += 1
