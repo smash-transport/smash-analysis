@@ -1,0 +1,5 @@
+channel	forward	backward
+π⁻π⁰$\leftrightarrow$ρ⁻	0.994970684039088	0.994970684039088
+π⁻π⁺$\leftrightarrow$ρ⁰	1.005446254071661	1.0052377850162866
+π⁰π⁺$\leftrightarrow$ρ⁺	1.0008599348534202	0.998514657980456
+# SMASH-1.6
