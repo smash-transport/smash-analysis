@@ -111,16 +111,22 @@ descriptions_targetpage = {
    'angular_distributions': 'Non-isotropic angular distributions for NN &#10231 N&#916 scattering. <br> For details on the implementation, \
                              see the <a href="http://inspirehep.net/record/1471536"> SMASH paper</a> (Sections II D 8 and III B).',
    'dileptons': 'Invariant mass spectra for dileptons from different elementary and heavy-ion collisions compared to HADES data.',
-   'total_multiplicity': 'Total particle multiplicities for &#960, K, P, &#923, &#926 and &#937 multiplets as a function of center-of-mass energy in pp and AuAu/PbPb collisions. <br> \
-                         Note: Kink in the region of &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> &#x2248 4 - 6 GeV is due to uncertainties in the transition from resonances to strings.',
-   'midrapidity_yield':'Particle yields at midrapidity for &#960, K, P, &#923, &#926 and &#937 multiplets as a function of center-of-mass energy in pp and AuAu/PbPb collisions. <br> \
-                         Note: Kink in the region of &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> &#x2248 4 - 6 GeV is due to uncertainties in the transition from resonances to strings.',
-   'meanmt': 'Mean transverse mass at midrapidity for &#960, K, P, &#923, &#926 and &#937 multiplets as a function of center-of-mass energy in pp and AuAu/PbPb collisions. <br> \
-                         Note: Peak in the region of &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> &#x2248 4 - 6 GeV is due to uncertainties in the transition from resonances to strings.',
-   'meanpt': 'Mean transverse momentum at midrapidity for &#960, K, P, &#923, &#926 and &#937 multiplets as a function of center-of-mass energy in pp and AuAu/PbPb collisions. <br> \
-                         Note: Peak in the region of &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> &#x2248 4 - 6 GeV is due to uncertainties in the transition from resonances to strings.',
-   'mtspectra': 'Transverse mass spectra for &#960, K, P, &#923, &#926 and &#937 multiplets at AGS, SPS and RHIC/LHC energies.',
-   'yspectra': 'Rapidity spectra for &#960, K, P, &#923, &#926 and &#937 multiplets at AGS, SPS and RHIC/LHC energies in pp and AuAu/PbPb collisions.',
+   'total_multiplicity': 'Total particle multiplicities for &#960, K, P, &#923, &#926 and &#937 multiplets as a function of center-of-mass energy in pp and AuAu/PbPb collisions. <br> <br> \
+                         Note: Kink in the region of &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> &#x2248 4 - 6 GeV is due to uncertainties in the transition from resonances to strings. <br> \
+                         Note: The &#931<sup>0</sup> contribution is currently not accounted for in the &#923 spectra.',
+   'midrapidity_yield':'Particle yields at midrapidity for &#960, K, P, &#923, &#926 and &#937 multiplets as a function of center-of-mass energy in pp and AuAu/PbPb collisions. <br> <br> \
+                         Note: Kink in the region of &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> &#x2248 4 - 6 GeV is due to uncertainties in the transition from resonances to strings. <br> \
+                         Note: The &#931<sup>0</sup> contribution is currently not accounted for in the &#923 spectra.',
+   'meanmt': 'Mean transverse mass at midrapidity for &#960, K, P, &#923, &#926 and &#937 multiplets as a function of center-of-mass energy in pp and AuAu/PbPb collisions. <br> <br> \
+                         Note: Peak in the region of &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> &#x2248 4 - 6 GeV is due to uncertainties in the transition from resonances to strings. <br> \
+                         Note: The &#931<sup>0</sup> contribution is currently not accounted for in the &#923 spectra.',
+   'meanpt': 'Mean transverse momentum at midrapidity for &#960, K, P, &#923, &#926 and &#937 multiplets as a function of center-of-mass energy in pp and AuAu/PbPb collisions. <br> <br> \
+                         Note: Peak in the region of &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> &#x2248 4 - 6 GeV is due to uncertainties in the transition from resonances to strings. <br> \
+                         Note: The &#931<sup>0</sup> contribution is currently not accounted for in the &#923 spectra.',
+   'mtspectra': 'Transverse mass spectra for &#960, K, P, &#923, &#926 and &#937 multiplets at AGS, SPS and RHIC/LHC energies. <br> <br> \
+   Note: The &#931<sup>0</sup> contribution is currently not accounted for in the &#923 spectra.',
+   'yspectra': 'Rapidity spectra for &#960, K, P, &#923, &#926 and &#937 multiplets at AGS, SPS and RHIC/LHC energies in pp and AuAu/PbPb collisions. <br> <br> \
+   Note: The &#931<sup>0</sup> contribution is currently not accounted for in the &#923 spectra.',
 }
 
 descriptions_frontpage = {
