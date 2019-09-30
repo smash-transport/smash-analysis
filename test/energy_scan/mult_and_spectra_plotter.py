@@ -349,6 +349,8 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
         collected_results_pp = [[],[],[]]
         collected_results_AuAuPbPb = [[],[],[]]
         for pdg_abs in pdglist_abs:
+            if (pdg_abs == 3212): continue
+            if (pdg_abs == 1000010020): continue
             pdg_one_sort = []
             if (pdg_abs in pdglist): pdg_one_sort.append(pdg_abs)
             if (-pdg_abs in pdglist): pdg_one_sort.append(-pdg_abs)
@@ -444,6 +446,8 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
         if (quantity not in ['yspectra', 'mtspectra', 'ptspectra', 'v2spectra']): continue
         if (quantity == 'v2spectra' and not args.with_v2): continue
         for pdg in pdglist:
+            if (abs(pdg) == 3212): continue
+            if (abs(pdg) == 1000010020): continue
             collected_results_pp = [[],[],[]]
             collected_results_AuAuPbPb = [[],[],[]]
             for colliding_system in colliding_systems:
@@ -495,7 +499,7 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                         if (quantity == 'ptspectra'):
                             scaling_counter += 1
                             y /= (bin_width * x) * (2.0 * data1.midrapidity_cut)  # factor 2 because [-y_cut; y_cut]
-                            if np.all(y == 0):          # rescale y-axis to be linear if ptspectra of current energy are 0, but those 
+                            if np.all(y == 0):          # rescale y-axis to be linear if ptspectra of current energy are 0, but those
                                 plt.yscale('linear')    # of the previous energy were not, so that the scale was already set to log scale.
                             plt.plot(x, y * 10**scaling_counter, '-', lw = 4, color = plot_color,
                                     label = str(energy) + r' $\times \ $10$^{\mathsf{' + str(scaling_counter) + r'}}$')
