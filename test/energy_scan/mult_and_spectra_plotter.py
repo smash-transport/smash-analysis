@@ -349,7 +349,10 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
         collected_results_pp = [[],[],[]]
         collected_results_AuAuPbPb = [[],[],[]]
         for pdg_abs in pdglist_abs:
+            # Sigma0 is added to Lambda plots
             if (pdg_abs == 3212): continue
+            # We do not want the Deuteron plots to be displayed, because SMASH
+            # needs to be modified for useful results (cross section cut off)
             if (pdg_abs == 1000010020): continue
             pdg_one_sort = []
             if (pdg_abs in pdglist): pdg_one_sort.append(pdg_abs)
