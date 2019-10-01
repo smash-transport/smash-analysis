@@ -176,6 +176,15 @@ class DataTree:
             midrapidity_cut = data.midrapidity_cut
             for q in quantities_list:
                 for i in xrange(Npdg):
+                    # Lambdas and antilambdas need Sigma^0 to be added, because in AA collisions
+                    # Lambda and Sigma^0 are indistinguishable
+                    if (colliding_system != 'pp' and abs(pdglist[i]) == 3122):
+                        pdg_to_find = 3212 if pdglist[i] == 3122 else -3212
+                        j = pdglist.index(pdg_to_find)
+                        data.total_multiplicity[i] += data.total_multiplicity[j]
+                        data.midrapidity_yield[i] += data.midrapidity_yield[j]
+                        data.mthist[i] += data.mthist[j]
+                        data.pthist_midrapidity[i] += data.pthist_midrapidity[j]
                     if (q == 'total_multiplicity'): to_dict = float(data.total_multiplicity[i]) / data.nevents
                     elif (q == 'midrapidity_yield'): to_dict = float(data.midrapidity_yield[i]) / data.nevents
                     elif (q == 'meanpt_midrapidity'): to_dict = float(data.meanpt_midrapidity[i])
@@ -340,6 +349,11 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
         collected_results_pp = [[],[],[]]
         collected_results_AuAuPbPb = [[],[],[]]
         for pdg_abs in pdglist_abs:
+            # Sigma0 is added to Lambda plots
+            if (pdg_abs == 3212): continue
+            # We do not want the Deuteron plots to be displayed, because SMASH
+            # needs to be modified for useful results (cross section cut off)
+            if (pdg_abs == 1000010020): continue
             pdg_one_sort = []
             if (pdg_abs in pdglist): pdg_one_sort.append(pdg_abs)
             if (-pdg_abs in pdglist): pdg_one_sort.append(-pdg_abs)
@@ -435,6 +449,8 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
         if (quantity not in ['yspectra', 'mtspectra', 'ptspectra', 'v2spectra']): continue
         if (quantity == 'v2spectra' and not args.with_v2): continue
         for pdg in pdglist:
+            if (abs(pdg) == 3212): continue
+            if (abs(pdg) == 1000010020): continue
             collected_results_pp = [[],[],[]]
             collected_results_AuAuPbPb = [[],[],[]]
             for colliding_system in colliding_systems:
@@ -471,7 +487,9 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                                        2212 : 0.938,
                                        3122 : 1.116,
                                        3312 : 1.321,
-                                       3334 : 1.672 }
+                                       3334 : 1.672,
+                                       1000010020 : 1.8756,
+                                       3212 : 1.189 }
                         m0 = pole_masses[abs(pdg)]
                         if (quantity == 'mtspectra'):
                             scaling_counter += 1
@@ -484,7 +502,7 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                         if (quantity == 'ptspectra'):
                             scaling_counter += 1
                             y /= (bin_width * x) * (2.0 * data1.midrapidity_cut)  # factor 2 because [-y_cut; y_cut]
-                            if np.all(y == 0):          # rescale y-axis to be linear if ptspectra of current energy are 0, but those 
+                            if np.all(y == 0):          # rescale y-axis to be linear if ptspectra of current energy are 0, but those
                                 plt.yscale('linear')    # of the previous energy were not, so that the scale was already set to log scale.
                             plt.plot(x, y * 10**scaling_counter, '-', lw = 4, color = plot_color,
                                     label = str(energy) + r' $\times \ $10$^{\mathsf{' + str(scaling_counter) + r'}}$')

@@ -306,7 +306,7 @@ if __name__ == '__main__':
         files_to_read_list = zip(*(iter(args.input_files),) * 8)
         BulkObservables.merge_basic_spectra(files_to_read_list, args.output_files)
     else:
-        pdg_list = [211,-211,111,321,-321,2212,-2212,3122,-3122,3312,-3312,3334,-3334]
+        pdg_list = [211,-211,111,321,-321,2212,-2212,3122,-3122,1000010020,-1000010020,3312,-3312,3334,-3334,3212,-3212]
 
         def get_bulk_observables_from_file(input_file):
             b = BulkObservables(pdg_list = pdg_list)
