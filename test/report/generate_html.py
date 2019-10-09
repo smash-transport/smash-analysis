@@ -466,7 +466,11 @@ def walk_tree(tree, source_directory, with_configs, with_plots):
         print '-> Copying configs ... ',
         # copy configs
         for c in configs:
-            left, right = c.split('/data/')
+            if 'elastic_box' in c:
+                # two data directories: data-geometric and data-stochastic
+                left, right = c.split('/data-')
+            else:
+                left, right = c.split('/data/')
             config = os.path.join(left, right)
             basedir, filename = get_basedir_filename(config, source_directory, '')
             new_configs.append(filename)
