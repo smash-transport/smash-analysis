@@ -405,7 +405,7 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
 
             if args.comp_prev_version:
                 #dummy, for combined legend entry of previous results.
-                plt.plot(1, 0.5, linestyle = '-', linewidth = 10, zorder = 1,
+                plt.plot(1, 0.0, linestyle = '-', linewidth = 10, zorder = 1,
                         alpha = 0.2, color='dimgrey',label=prev_SMASH_version)
 
             plt.xlabel('$\sqrt{s_{NN}} [GeV]$')
@@ -573,7 +573,7 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                     if (determine_collider(energy) != determine_collider(energies[(element + 1) % len(energies)])):
                         if args.comp_prev_version:
                             #dummy for legend entry of combined previous results.
-                            plt.plot(1,0.5, linestyle = '-', linewidth = 10, zorder = 1,
+                            plt.plot(1,0.0, linestyle = '-', linewidth = 10, zorder = 1,
                                     color='dimgrey', label=prev_SMASH_version, alpha = 0.2)
                         plt.legend(loc= 'upper right', title = '$\sqrt{s} \ $ [GeV] =' , ncol = 1, fontsize = 26)
                         plt.savefig(output_folder + '/' + quantity + '_' + colliding_system.replace('/', '') + '_' + str(determine_collider(energy)) + '_' + str(pdg) + '.pdf')
