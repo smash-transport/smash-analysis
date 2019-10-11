@@ -185,6 +185,7 @@ class DataTree:
                         data.midrapidity_yield[i] += data.midrapidity_yield[j]
                         data.mthist[i] += data.mthist[j]
                         data.pthist_midrapidity[i] += data.pthist_midrapidity[j]
+                        data.yhist[i] += data.yhist[j]
                     if (q == 'total_multiplicity'): to_dict = float(data.total_multiplicity[i]) / data.nevents
                     elif (q == 'midrapidity_yield'): to_dict = float(data.midrapidity_yield[i]) / data.nevents
                     elif (q == 'meanpt_midrapidity'): to_dict = float(data.meanpt_midrapidity[i])

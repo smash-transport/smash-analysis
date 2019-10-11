@@ -113,20 +113,18 @@ descriptions_targetpage = {
    'dileptons': 'Invariant mass spectra for dileptons from different elementary and heavy-ion collisions compared to HADES data.',
    'total_multiplicity': 'Total particle multiplicities for &#960, K, P, &#923, &#926 and &#937 multiplets as a function of center-of-mass energy in pp and AuAu/PbPb collisions. <br> <br> \
                          Note: Kink in the region of &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> &#x2248 3 - 5 GeV is due to uncertainties in the transition from resonances to strings. <br> \
-                         Note: &#931<sup>0</sup> contribution is added to &#923.',
+                         Note: &#931<sup>0</sup> contribution is added to &#923 in AuAu and PbPb collisions.',
    'midrapidity_yield':'Particle yields at midrapidity for &#960, K, P, &#923, &#926 and &#937 multiplets as a function of center-of-mass energy in pp and AuAu/PbPb collisions. <br> <br> \
                          Note: Kink in the region of &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> &#x2248 3 - 5 GeV is due to uncertainties in the transition from resonances to strings. <br> \
-                         Note: &#931<sup>0</sup> contribution is added to &#923.',
+                         Note: &#931<sup>0</sup> contribution is added to &#923 in AuAu and PbPb collisions.',
    'meanmt': 'Mean transverse mass at midrapidity for &#960, K, P, &#923, &#926 and &#937 multiplets as a function of center-of-mass energy in pp and AuAu/PbPb collisions. <br> <br> \
-                         Note: Peak in the region of &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> &#x2248 3 - 5 GeV is due to uncertainties in the transition from resonances to strings. <br> \
-                         Note: &#931<sup>0</sup> contribution is added to &#923.',
+                         Note: Peak in the region of &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> &#x2248 3 - 5 GeV is due to uncertainties in the transition from resonances to strings.',
    'meanpt': 'Mean transverse momentum at midrapidity for &#960, K, P, &#923, &#926 and &#937 multiplets as a function of center-of-mass energy in pp and AuAu/PbPb collisions. <br> <br> \
-                         Note: Peak in the region of &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> &#x2248 3 - 5 GeV is due to uncertainties in the transition from resonances to strings. <br> \
-                         Note: &#931<sup>0</sup> contribution is added to &#923.',
+                         Note: Peak in the region of &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> &#x2248 3 - 5 GeV is due to uncertainties in the transition from resonances to strings.',
    'mtspectra': 'Transverse mass spectra for &#960, K, P, &#923, &#926 and &#937 multiplets at AGS, SPS and RHIC/LHC energies. <br> <br> \
-   Note: &#931<sup>0</sup> contribution is added to &#923.',
+   Note: &#931<sup>0</sup> contribution is added to &#923 in AuAu and PbPb collisions.',
    'yspectra': 'Rapidity spectra for &#960, K, P, &#923, &#926 and &#937 multiplets at AGS, SPS and RHIC/LHC energies in pp and AuAu/PbPb collisions. <br> <br> \
-   Note: &#931<sup>0</sup> contribution is added to &#923.',
+   Note: &#931<sup>0</sup> contribution is added to &#923 in AuAu and PbPb collisions.',
 }
 
 descriptions_frontpage = {
