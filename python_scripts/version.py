@@ -13,7 +13,7 @@ def analysis_version_string():
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
     try:
         version_string = subprocess.check_output(["git", "describe"]).rstrip('\n')
-    except:
+    except subprocess.CalledProcessError:
         version_string = 'SMASHana - unknown version'
     os.chdir(old_dir)
     return version_string
