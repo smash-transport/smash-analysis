@@ -56,7 +56,6 @@ Output:
     Particles:
         Format:             ["Oscar2013"]
         Extended:           False
-        Only_Final:         True
     Dileptons:
         Format:             ["Binary"]
         Extended:           True

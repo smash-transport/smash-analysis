@@ -17,7 +17,7 @@ Output:
         Print_Start_End:    False
     Particles:
         Format: ["Binary"]
-        Only_Final:         False
+        Only_Final:         No
 
 Collision_Term:
     Two_to_One:             True

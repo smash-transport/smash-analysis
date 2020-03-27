@@ -34,7 +34,7 @@ General:
         Oscar_Particlelist:
             Enable:             False
             2013_Format:        True
-            Only_Final:         True
+            Only_Final:         Yes
         Vtk:
             Enable:             False
         Root:
@@ -47,7 +47,7 @@ General:
             Print_Start_End:    True
         Binary_Particles:
             Enable:             False
-            Only_Final:         False
+            Only_Final:         No
 
     # how much time before recording measurables
     Output_Interval:  25.0

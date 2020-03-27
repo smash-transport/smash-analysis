@@ -17,7 +17,7 @@ Output:
         Print_Start_End:    False
     Particles:
         Format: ["Binary"]
-        Only_Final:         False
+        Only_Final:         No
 
 Collision_Term:
     Included_2to2: ["Elastic","Strangeness_exchange","KN_to_KN","KN_to_KDelta"]

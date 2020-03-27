@@ -21,7 +21,6 @@ Output:
     Particles:
         Format:             ["Binary"]
         Extended:           False
-        Only_Final:         True
 
 Collision_Term:
     Two_to_One:             True

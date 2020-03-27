@@ -75,4 +75,3 @@ Output:
     # output formats
     Particles:
         Format:  ["Binary"]
-        Only_Final:         True
