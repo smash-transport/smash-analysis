@@ -6,19 +6,20 @@
 #SBATCH --mem=MaxMemPerNode
 #SBATCH --partition=long
 
-if [ "$#" -ne 6 ]; then
-    echo "Expected 6 arguments, got $#."
+if [ "$#" -ne 7 ]; then
+    echo "Expected 7 arguments, got $#."
     echo
-    echo "Usage: sbatch $0 CMAKE_TARGET SMASH_SRC_DIR EIGEN_SRC_DIR PYTHIA_DIR ANALYSIS_SRC_DIR OUTPUT_DIR"
+    echo "Usage: sbatch $0 CMAKE_TARGET SMASH_SRC_DIR EIGEN_SRC_DIR GSL_DIR PYTHIA_DIR ANALYSIS_SRC_DIR OUTPUT_DIR"
     exit 1
 fi
 
 target=$1
 smash_dir=$2
 eigen_dir=$3
-pythia_dir=$4
-analysis_dir=$5
-output_dir=$6
+gsl_dir=$4
+pythia_dir=$5
+analysis_dir=$6
+output_dir=$7
 
 #build_dir=$(mktemp -d /tmp/smash-build.XXXXXXXXXX)
 build_dir=$output_dir/build
@@ -40,7 +41,7 @@ date
 
 mkdir -p $output_dir \
 && cd $smash_dir \
-&& cmake -DCMAKE_BUILD_TYPE=Release -DPythia_CONFIG_EXECUTABLE=$pythia_dir/bin/pythia8-config -DCMAKE_INSTALL_PREFIX=$eigen_dir -B$build_dir -H$smash_dir \
+&& cmake -DCMAKE_BUILD_TYPE=Release -DGSL_ROOT_DIR=$gsl_dir -DPythia_CONFIG_EXECUTABLE=$pythia_dir/bin/pythia8-config -DCMAKE_INSTALL_PREFIX=$eigen_dir -B$build_dir -H$smash_dir \
 && cd $build_dir \
 && make smash -j$SLURM_CPUS_ON_NODE \
 && cd $output_dir \

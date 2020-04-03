@@ -16,7 +16,7 @@ def numeric_compare(x, y):
 def add(spectrum):
     n_folders = 0
 
-    for i in sorted([f for f in os.listdir("data/") if not f.startswith('.')], cmp=numeric_compare):
+    for i in sorted([f for f in os.listdir("data/") if not (f.startswith('.') or f == 'tabulations')], cmp=numeric_compare):
         # loop over folders, ignore hidden files
         if os.path.isdir("data/" + i):
             n_folders += 1
