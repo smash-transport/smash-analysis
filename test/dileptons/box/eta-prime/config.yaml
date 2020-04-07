@@ -1,4 +1,4 @@
-Version: 1.5
+Version: 1.8
 
 Logging:
   default: WARN
@@ -50,3 +50,5 @@ Modi:
 Collision_Term:
     Force_Decays_At_End:  True
     Strings:              False
+    Dileptons:
+        Decays: True

@@ -76,6 +76,9 @@ Collision_Term:
                                  # below 1.88 (the threshold energy of the elastic collsion).
                                  # And the value is at best not beyond 2.02 ( the threshold
                                  # energy of the inelastic collision NN->NNpi)
+    Dileptons:
+        Decays: True
+
 #    Pauli_Blocking:
 #        Spatial_Averaging_Radius:   1.86
 #        Momentum_Averaging_Radius:  0.08

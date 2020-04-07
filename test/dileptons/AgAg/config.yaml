@@ -31,3 +31,7 @@ Modi:
         E_Kin: 1.58
         Fermi_Motion: "frozen"
         Calculation_Frame: "fixed target"
+
+Collision_Term:
+    Dileptons:
+        Decays: True

@@ -3,7 +3,7 @@
 if [ "$#" -ne 3 ]; then
     echo "Expected 3 arguments, received $#."
     echo
-    echo "Usage: bash $0 SMASH_VERSION PDF_CONGIG_DIR REPORT_DIR"
+    echo "Usage: bash $0 SMASH_VERSION PDF_CONFIG_DIR REPORT_DIR"
     exit 1
 fi
 

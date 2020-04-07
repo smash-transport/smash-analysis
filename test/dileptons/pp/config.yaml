@@ -64,6 +64,8 @@ Collision_Term:
                                  # below 1.88 (the threshold energy of the elastic collsion).
                                      # And the value is at best not beyond 2.02 ( the threshold
                                      # energy of the inelastic collision NN->NNpi)
+    Dileptons:
+        Decays: True
 
 # Lattice:
 #     Origin: [0.0, 0.0, 0.0]    # Coordinates of the left, down, near corner of the lattice
