@@ -89,7 +89,7 @@ Modi:
             Particles: {2212: 18, 2112: 22}  # 40Ar
         # Definitions for the target:
         Target:
-            Particles: {2212: 18, 2112: 19}  # 38Ar
+            Particles: {2212: 18, 2112: 19}  # 37Ar
 
         # Collision energy (E_Kin, P_Lab, Sqrtsnn).
         #E_Kin: 3.5
