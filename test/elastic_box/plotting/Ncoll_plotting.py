@@ -27,7 +27,7 @@ parser.add_argument("--comp_prev_version", action='store_true',
                     help = "Plot comparison to previous SMASH version.")
 args = parser.parse_args()
 
-input_txt_files  = glob(args.SMASH_data)  # for geometic and stochastic criterion
+input_txt_files  = glob(args.SMASH_data)  # for geometic, stochastic and covariant criterion
 output_pic_file = args.output
 xvar            = args.setup.split('scatrate_vs_')[1] # Variable to be on x axis
 
@@ -81,12 +81,13 @@ def plot_data(input_txt_file, plot_position, plot_color):
     s.append("$N_{ev}$ = %i"            % data['Nevents'][0])
     box_label = '\n'.join(s)
 
-    if plot_position == 211:  # only print title and input box once
+    if plot_position == 311:  # only print title and input box once
         plt.annotate(box_label, xy=(1.02, 0.97), ha="left", va="top", xycoords='axes fraction', fontsize=30)
         plt.title('only $\pi^0$, only elastic collisions', fontsize=30, y=1.02)
-    if plot_position == 212:
-        plt.annotate(y_label_defintion, xy=(0.62, 0.125), xycoords='axes fraction', fontsize =40)
-
+    if plot_position == 312:
+        plt.annotate(y_label_defintion, xy=(1.02, 0.65), va="top", xycoords='axes fraction', fontsize =40)
+    if plot_position == 313:
+        plt.annotate(y_label_definition, xy=(0.72, 0.175), xycoords='axes fraction', fontsize=30)
 
     # Number of collisions is expected to be equal to this norm (for <v> = c)
     norm = data['Nevents'] * data['t_run'] * (data['sigma'] * 0.5 * data['N'] * data['N'] * data['Ntest'] / data['V'])
@@ -121,14 +122,17 @@ def plot_data(input_txt_file, plot_position, plot_color):
         smash_version,
     )
 
-    plt.legend(loc = 'upper right')
+#    plt.legend(loc = 'upper right')
     plt.axhline(1, linewidth=3, linestyle='--', color='black', zorder = 0)
-    plt.ylabel(y_label, fontsize=50)
-    if plot_position == 212: plt.xlabel(x_labels[xvar])
+    if plot_position == 312:
+        plt.ylabel(y_label, fontsize=50)
+        ax = plt.subplot(312)
+        #ax.yaxis.set_label_coords(-0.15, 0.25)
+    if plot_position == 313: plt.xlabel(x_labels[xvar])
 
-
-plot_data(input_txt_files[0], 211, "midnightblue")
-plot_data(input_txt_files[1], 212, "maroon")
+plot_data(input_txt_files[0], 311, "midnightblue")
+plot_data(input_txt_files[1], 312, "maroon")
+plot_data(input_txt_files[2], 313, "forestgreen")
 
 plt.figtext(0.8, 0.95, "SMASH analysis: %s" % \
              (sb.analysis_version_string()), \
