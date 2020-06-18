@@ -51,5 +51,6 @@ Modi:
             -211:   100
 
 Collision_Term:
+    Collision_Criterion: Covariant
     Force_Decays_At_End:  False
     Strings:              False

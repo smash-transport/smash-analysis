@@ -20,6 +20,7 @@ Output:
         Only_Final:         No
 
 Collision_Term:
+    Collision_Criterion: Covariant
     Two_to_One:             True
     Strings:                False
     Force_Decays_At_End:    False

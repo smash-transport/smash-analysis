@@ -54,6 +54,7 @@ Modi:
             2112:    50
 
 Collision_Term:
+    Collision_Criterion: Covariant
     Force_Decays_At_End:  False
     Two_to_One:           True
     Included_2to2:        ["Elastic"]

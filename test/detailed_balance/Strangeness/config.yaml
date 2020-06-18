@@ -20,6 +20,7 @@ Output:
         Only_Final:         No
 
 Collision_Term:
+    Collision_Criterion: Covariant
     Included_2to2: ["Elastic","Strangeness_exchange","KN_to_KN","KN_to_KDelta"]
     Two_to_One:             False
     Strings:                False
