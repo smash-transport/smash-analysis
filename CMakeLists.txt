@@ -25,7 +25,7 @@ find_python_module(numpy VERSION 1.14.0 REQUIRED)
 find_python_module(scipy VERSION 0.10.1 REQUIRED)
 find_python_module(matplotlib VERSION 1.3.1 REQUIRED)
 find_python_module(argparse VERSION 1.1 REQUIRED)
-find_python_module(pyyaml VERSION 3.11 REQUIRED)
+find_python_module(yaml VERSION 3.11 REQUIRED)
 find_python_module(pandas VERSION 0.14.1 REQUIRED)
 
 find_program(SMASH smash PATHS ${SMASH_PATH})
