@@ -1,0 +1,6 @@
+# NAME MASS[GEV] WIDTH[GEV] PARITY PDG
+
+########## unflavored mesons ##########
+
+π               0.138   7.7e-9    -      111     211
+ω               0.783   8.49e-3   -      223

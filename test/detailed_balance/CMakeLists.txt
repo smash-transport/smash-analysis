@@ -240,6 +240,12 @@ one_balance_test("pi_rho_f2"
     "300.0"
 )
 
+one_balance_test("pi3_omega"
+    "π⁰,π⁺,π⁻,ω"
+    "π⁰,π⁺,π⁻:ω"
+    "120.0"
+)
+
 ########## baryonic boxes ##########
 
 # N-pi-Delta, 1 <--> 2 reactions only (Delta <--> pi + N)
