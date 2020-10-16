@@ -207,7 +207,6 @@ one_balance_test("N_pi_deutron"
     "500.0"
 )
 
-
 ########## mesonic boxes ##########
 
 one_balance_test("pi_rho"
@@ -240,7 +239,9 @@ one_balance_test("pi_rho_f2"
     "300.0"
 )
 
-one_balance_test("pi3_omega"
+########## multi-particle reactions ########
+
+one_balance_test("multi_pi_omega_31"
     "π⁰,π⁺,π⁻,ω"
     "π⁰,π⁺,π⁻:ω"
     "120.0"
