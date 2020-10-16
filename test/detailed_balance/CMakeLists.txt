@@ -247,10 +247,16 @@ one_balance_test("multi_pi3_omega"
     "120.0"
 )
 
-+one_balance_test("multi_pi3_phi"
-+    "π⁰,π⁺,π⁻,φ"
-+    "π⁰,π⁺,π⁻:φ"
-     "120.0"
+one_balance_test("multi_pi3_phi"
+    "π⁰,π⁺,π⁻,φ"
+    "π⁰,π⁺,π⁻:φ"
+    "120.0"
+ )
+
+one_balance_test("multi_pi2_eta_etaprime"
+    "π⁰,π⁺,π⁻,η,η'"
+    "π⁺,π⁻,η:η'|π⁰,π⁰,η:η'"
+    "2500.0"
  )
 
 
