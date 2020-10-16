@@ -9,6 +9,7 @@ General:
     End_Time:      100.0
     Randomseed:    -1
     Nevents:       1
+    Testparticles: 10
 
 Output:
     Output_Interval:  1.0
