@@ -33,7 +33,7 @@ function(one_balance_test_general
                 "-p" "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/particles.txt"
                 "-d" "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/decaymodes.txt"
                 "-f"
-                ">" "/dev/null"
+                "-q"
             DEPENDS "${CMAKE_BINARY_DIR}/smash"
                 "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/config.yaml"
                 "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/particles.txt"
