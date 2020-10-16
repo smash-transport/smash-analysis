@@ -241,11 +241,18 @@ one_balance_test("pi_rho_f2"
 
 ########## multi-particle reactions ########
 
-one_balance_test("multi_pi_omega_31"
+one_balance_test("multi_pi3_omega"
     "π⁰,π⁺,π⁻,ω"
     "π⁰,π⁺,π⁻:ω"
     "120.0"
 )
+
++one_balance_test("multi_pi3_phi"
++    "π⁰,π⁺,π⁻,φ"
++    "π⁰,π⁺,π⁻:φ"
+     "120.0"
+ )
+
 
 ########## baryonic boxes ##########
 

@@ -22,10 +22,10 @@ Output:
 
 
 Collision_Term:
-    Force_Decays_At_End:     False
-    Strings:                 False
-    Collision_Criterion:     Stochastic
-    Include_Stochastic_3to1: True
+    Force_Decays_At_End:       False
+    Strings:                   False
+    Collision_Criterion:       Stochastic
+    Multi_Particle_Reactions: ["Meson_3to1"]
 
 
 Modi:
@@ -36,7 +36,7 @@ Modi:
         Start_Time:    0.0
 
         Init_Multiplicities:
-          223: 200
+          333: 200
           # 111:    200
           # 211:    200
           # -211:   200
