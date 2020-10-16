@@ -24,7 +24,7 @@ function(run_one_energy
               "-o" "${data_folder}"
               "-i" "${CMAKE_CURRENT_SOURCE_DIR}/config.yaml"
               "-f"
-              ">" "/dev/null"
+              "-q"
           DEPENDS
               "${CMAKE_CURRENT_SOURCE_DIR}/config.yaml"
               "${CMAKE_BINARY_DIR}/smash"
