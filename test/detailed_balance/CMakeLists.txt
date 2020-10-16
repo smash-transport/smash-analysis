@@ -259,6 +259,12 @@ one_balance_test("multi_pi2_eta_etaprime"
     "2500.0"
  )
 
+ one_balance_test("multi_N_pi_deutron"
+    "π⁺,π⁻,π⁰,N⁺,N⁰,d,N̅⁰,N̅⁻,d̅"
+    "π⁺,d:N⁺,N⁺|π⁰,d:N⁺,N⁰|π⁻,d:N⁰,N⁰|π⁺,d̅:N̅⁰,N̅⁰|π⁻,d̅:N̅⁻,N̅⁻|π⁰,d̅:N̅⁻,N̅⁰|π⁺,d:π⁺,N⁺,N⁰|π⁰,d:π⁰,N⁺,N⁰|π⁻,d:π⁻,N⁺,N⁰|N⁺,d:N⁺,N⁺,N⁰|N⁰,d:N⁰,N⁺,N⁰|N⁰,d̅:N⁰,N̅⁻,N̅⁰|N⁺,d̅:N⁺,N̅⁻,N̅⁰|N̅⁻,d:N̅⁻,N⁺,N⁰|N̅⁰,d:N̅⁰,N⁺,N⁰|π⁰,d̅:π⁰,N̅⁻,N̅⁰|π⁺,d̅:π⁺,N̅⁻,N̅⁰|π⁻,d̅:π⁻,N̅⁻,N̅⁰|N̅⁰,d̅:N̅⁰,N̅⁻,N̅⁰|N̅⁻,d̅:N̅⁻,N̅⁻,N̅⁰"
+    "50.0"
+ )
+
 
 ########## baryonic boxes ##########
 
