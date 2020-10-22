@@ -77,7 +77,7 @@ function(dilepton_test
                 "-d" "${CMAKE_CURRENT_SOURCE_DIR}/decaymodes.txt"
                 "-f"
                 ${kinetic_energy_config}
-                ">" "/dev/null"
+                "-q"
             DEPENDS
                 "${config_file}"
                 "${CMAKE_CURRENT_SOURCE_DIR}/decaymodes.txt"
