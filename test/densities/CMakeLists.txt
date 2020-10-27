@@ -49,7 +49,7 @@ function(run_one_test
     endforeach()
 
     set(all_data_files ${all_data_files};${data_files} PARENT_SCOPE)
-    set(el_box_sims ${el_box_sims};${target} PARENT_SCOPE)
+    set(dens_box_sims ${dens_box_sims};${target} PARENT_SCOPE)
 
     # analysis results
 
@@ -64,17 +64,15 @@ function(run_one_test
     set(target densities_${test_name}_analysis)
     add_custom_target(${target} ALL
         DEPENDS
-            "${output_files}"
-            "${CMAKE_CURRENT_SOURCE_DIR}/elastic_scatrate.py"
-            "${CMAKE_SOURCE_DIR}/python_scripts/smash_basic_scripts.py"
+
+
     )
 
     set(target densities_${test_name}_plots)
     add_custom_target(${target} ALL
         DEPENDS
-            "${output_plot}"
-            "${CMAKE_CURRENT_SOURCE_DIR}/plotting/Ncoll_plotting.py"
-            "${CMAKE_SOURCE_DIR}/python_scripts/common_plotting.py"
+
+            
     )
 
 endfunction()
