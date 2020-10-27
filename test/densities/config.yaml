@@ -1,0 +1,36 @@
+Version: 1.8
+Logging:
+    default: INFO
+
+General:
+    Modus:         Box
+    Time_Step_Mode: Fixed
+    Delta_Time:    0.5
+    End_Time:   10.0
+    Randomseed:    -1
+    Nevents:   250
+
+Output:
+    Output_Times: [0.0, 50.0]
+    Particles:
+        Format:          ["Binary"]
+        Only_Final: No
+
+
+Modi:
+    Box:
+        Length: 12.0
+        Temperature: 0.16
+        Initial_Condition: "thermal momenta"
+        Use_Thermal_Multiplicities: True
+
+
+Collision_Term:
+    Use_AQM: False
+    Two_to_One: True
+    Included_2to2: ["All"] #  ['Elastic', 'NN_to_NR', 'NN_to_DR', 'KN_to_KN', 'KN_to_KDelta']
+    Force_Decays_At_End: False
+    Strings: False
+    NNbar_Treatment: "no annihilation"
+    Elastic_NN_Cutoff_Sqrts: 1.8
+    Elastic_Cross_Section:  -30.0
