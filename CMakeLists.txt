@@ -22,7 +22,7 @@ if (PYTHONLIBS_FOUND AND CYTHON_FOUND)
 endif()
 
 find_python_module(numpy VERSION 1.14.0 REQUIRED)
-find_python_module(scipy VERSION 0.10.1 REQUIRED)
+#find_python_module(scipy VERSION 0.10.1 REQUIRED)
 find_python_module(matplotlib VERSION 1.3.1 REQUIRED)
 find_python_module(argparse VERSION 1.1 REQUIRED)
 find_python_module(yaml VERSION 3.11 REQUIRED)
@@ -72,6 +72,7 @@ add_subdirectory(test/angular_distributions)
 # 2) box tests
 add_subdirectory(test/detailed_balance)
 add_subdirectory(test/elastic_box)
+add_subdirectory(test/densities)
 
 # 3) collider tests
 add_subdirectory(test/FOPI_pions)
