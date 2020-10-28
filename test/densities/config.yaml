@@ -6,12 +6,13 @@ General:
     Modus:         Box
     Time_Step_Mode: Fixed
     Delta_Time:    0.5
-    End_Time:   10.0
+    End_Time:   50.0
     Randomseed:    -1
-    Nevents:   250
+    Nevents:   10
 
 Output:
-    Output_Times: [0.0, 50.0]
+    # Output_Times: [0.0, 50.0]
+    Output_Interval: 50.0
     Particles:
         Format:          ["Binary"]
         Only_Final: No

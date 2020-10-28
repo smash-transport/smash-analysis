@@ -15,7 +15,7 @@ function(run_one_test
     # Convert string to a list.
     separate_arguments(var_list)
 
-    # run SMASH for both collision criteria
+    # run SMASH
     set(i 0)
     set(data_files "")
     foreach(X IN LISTS var_list)
@@ -52,27 +52,43 @@ function(run_one_test
     set(dens_box_sims ${dens_box_sims};${target} PARENT_SCOPE)
 
     # analysis results
+    set(output_file_density "${test_folder}/density_grid.dat")
+    list(APPEND output_files ${output_file_density})
+    add_custom_command(
+        OUTPUT "${test_folder}/density_grid.dat"
+        COMMAND "python2"
+                  "${CMAKE_CURRENT_SOURCE_DIR}/CalcDensityEvolution.py"
+                  "${test_folder}/data/"
+                  "${CMAKE_CURRENT_SOURCE_DIR}/config.yaml"
+                  "${test_folder}/density_grid.dat"
 
+        WORKING_DIRECTORY "${test_folder}"
+        DEPENDS
+            "${CMAKE_CURRENT_SOURCE_DIR}/CalcDensityEvolution.py"
+        COMMENT "Calculating mean density grid for /${test_name}."
+    )
+
+    set(all_output_files ${all_output_files};${output_files} PARENT_SCOPE)
 
     # plot
 
 
     # targets for each setup
+    # sims
     set(target densities_${test_name}_sims)
     add_custom_target(${target} ALL DEPENDS ${data_files})
 
+    # analysis
     set(target densities_${test_name}_analysis)
     add_custom_target(${target} ALL
         DEPENDS
-
-
+            "${output_files}"
+            "${CMAKE_CURRENT_SOURCE_DIR}/CalcDensityEvolution.py"
     )
 
     set(target densities_${test_name}_plots)
     add_custom_target(${target} ALL
         DEPENDS
-
-            
     )
 
 endfunction()
@@ -84,16 +100,14 @@ run_one_test("pi_rho" " " "0 1 2 3 4 5 6 7 8 9 10")
 run_one_test("pi_k_n_lambda" " " "0 1 2 3 4 5 6 7 8 9 10")
 
 # target for all simulations
-add_custom_target(density_box_sims
+add_custom_target(densities_box_sims
     DEPENDS ${all_data_files}
 )
 
 # target for analysis
-add_custom_target(density_box_analysis
+add_custom_target(densities_box_analysis
     DEPENDS ${all_output_files}
 )
 
+
 # target for plotting
-add_custom_target(density_box_plots
-    DEPENDS ${el_box_plots}
-)
