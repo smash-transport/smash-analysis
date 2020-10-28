@@ -35,7 +35,7 @@ function(run_one_test
                       "-p" "${CMAKE_CURRENT_SOURCE_DIR}/particles_${test_name}.txt"
                       "-d" "${CMAKE_CURRENT_SOURCE_DIR}/decaymodes_${test_name}.txt"
                       "-f"
-                      "-q"
+                      "-q" # somehow not working ??
             DEPENDS "${CMAKE_BINARY_DIR}/smash"
                     "${CMAKE_CURRENT_SOURCE_DIR}/config.yaml"
                     "${CMAKE_CURRENT_SOURCE_DIR}/particles_${test_name}.txt"
@@ -71,7 +71,18 @@ function(run_one_test
     set(all_output_files ${all_output_files};${output_files} PARENT_SCOPE)
 
     # plot
-
+    set(output_plot "${test_folder}/2d_density_${test_name}.pdf")
+    set(dens_box_plots "${dens_box_plots};${output_plot}" PARENT_SCOPE)
+    add_custom_command(
+        OUTPUT "${test_folder}/2d_density_${test_name}.pdf"
+        COMMAND "python2"
+                  "${CMAKE_CURRENT_SOURCE_DIR}/plot_2d_density.py"
+                  "${test_folder}/density_grid.dat"
+                  "${test_folder}/2d_density_${test_name}.pdf"
+        WORKING_DIRECTORY "${test_folder}"
+        DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/plot_2d_density.py"
+        COMMENT "Plotting 2d density densities/${test_name}."
+    )
 
     # targets for each setup
     # sims
@@ -86,9 +97,13 @@ function(run_one_test
             "${CMAKE_CURRENT_SOURCE_DIR}/CalcDensityEvolution.py"
     )
 
+    # plotting
     set(target densities_${test_name}_plots)
     add_custom_target(${target} ALL
         DEPENDS
+            "${output_plot}"
+            "${CMAKE_CURRENT_SOURCE_DIR}/plot_2d_density.py"
+
     )
 
 endfunction()
@@ -109,5 +124,7 @@ add_custom_target(densities_box_analysis
     DEPENDS ${all_output_files}
 )
 
-
 # target for plotting
+add_custom_target(densities_box_plots
+    DEPENDS ${dens_box_plots}
+)

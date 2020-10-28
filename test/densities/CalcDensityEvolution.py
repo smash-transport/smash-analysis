@@ -68,7 +68,7 @@ Loc = sys.argv[1]
 config = sys.argv[2]
 OutFile = sys.argv[3]
 # DEFAULT Values
-dim_grid = 30
+dim_grid = 40
 NFolders = 10
 with open(config, 'r') as f: config_file = yaml.safe_load(f)
 TimeSteps = config_file['Output']['Output_Interval']
