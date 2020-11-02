@@ -33,7 +33,7 @@ function(one_balance_test_general
                 "-p" "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/particles.txt"
                 "-d" "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/decaymodes.txt"
                 "-f"
-                ">" "/dev/null"
+                "-q"
             DEPENDS "${CMAKE_BINARY_DIR}/smash"
                 "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/config.yaml"
                 "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/particles.txt"
@@ -207,7 +207,6 @@ one_balance_test("N_pi_deutron"
     "500.0"
 )
 
-
 ########## mesonic boxes ##########
 
 one_balance_test("pi_rho"
@@ -239,6 +238,32 @@ one_balance_test("pi_rho_f2"
     "π⁰,π⁺:ρ⁺|π⁻,π⁰:ρ⁻|π⁻,π⁺:ρ⁰|π⁺,π⁻:f₂|2xπ⁰,π⁰:f₂|ρ⁺,ρ⁻:f₂|2xρ⁰,ρ⁰:f₂"
     "300.0"
 )
+
+########## multi-particle reactions ########
+
+one_balance_test("multi_pi3_omega"
+    "π⁰,π⁺,π⁻,ω"
+    "π⁰,π⁺,π⁻:ω"
+    "150.0"
+)
+
+one_balance_test("multi_pi3_phi"
+    "π⁰,π⁺,π⁻,φ"
+    "π⁰,π⁺,π⁻:φ"
+    "150.0"
+ )
+
+one_balance_test("multi_pi2_eta_etaprime"
+    "π⁰,π⁺,π⁻,η,η'"
+    "π⁺,π⁻,η:η'|π⁰,π⁰,η:η'"
+    "2500.0"
+ )
+
+ one_balance_test("multi_N_pi_deutron"
+    "π⁺,π⁻,π⁰,N⁺,N⁰,d,N̅⁰,N̅⁻,d̅"
+    "π⁺,d:N⁺,N⁺|π⁰,d:N⁺,N⁰|π⁻,d:N⁰,N⁰|π⁺,d̅:N̅⁰,N̅⁰|π⁻,d̅:N̅⁻,N̅⁻|π⁰,d̅:N̅⁻,N̅⁰|π⁺,d:π⁺,N⁺,N⁰|π⁰,d:π⁰,N⁺,N⁰|π⁻,d:π⁻,N⁺,N⁰|N⁺,d:N⁺,N⁺,N⁰|N⁰,d:N⁰,N⁺,N⁰|N⁰,d̅:N⁰,N̅⁻,N̅⁰|N⁺,d̅:N⁺,N̅⁻,N̅⁰|N̅⁻,d:N̅⁻,N⁺,N⁰|N̅⁰,d:N̅⁰,N⁺,N⁰|π⁰,d̅:π⁰,N̅⁻,N̅⁰|π⁺,d̅:π⁺,N̅⁻,N̅⁰|π⁻,d̅:π⁻,N̅⁻,N̅⁰|N̅⁰,d̅:N̅⁰,N̅⁻,N̅⁰|N̅⁻,d̅:N̅⁻,N̅⁻,N̅⁰"
+    "50.0"
+ )
 
 ########## baryonic boxes ##########
 

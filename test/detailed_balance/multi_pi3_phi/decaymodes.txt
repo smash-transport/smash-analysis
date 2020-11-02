@@ -1,0 +1,12 @@
+# Format of this file:
+# anything after a # is a comment and will be ignored
+# The decays for a given particle are given as:
+# <name of decaying particle>
+# <branching ratio> <angular momentum L> <names of decay products>
+# <branching ratio> <angular momentum L> <names of decay products>
+# ...
+
+#################### non-strange mesons ####################
+
+φ
+0.152   1  π⁺ π⁻ π⁰           # 15.24 +- 0.33 %

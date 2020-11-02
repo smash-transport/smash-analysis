@@ -1,0 +1,39 @@
+Version: 1.8
+
+Logging:
+  default: WARN
+
+General:
+    Modus:         Box
+    Delta_Time:    0.1
+    End_Time:      3000.0
+    Randomseed:    -1
+    Testparticles: 1
+    Nevents:       2
+
+Output:
+    Output_Interval:  1.0
+    Collisions:
+        Format:  ["Binary"]
+        Print_Start_End:    False
+    Particles:
+        Format:  ["Binary"]
+        Only_Final:         No
+
+
+Collision_Term:
+    Force_Decays_At_End:       False
+    Strings:                   False
+    Collision_Criterion:       Stochastic
+    Multi_Particle_Reactions: ["Meson_3to1"]
+
+
+Modi:
+    Box:
+        Length: 10.0
+        Temperature: 0.3
+        Initial_Condition: "thermal momenta"
+        Start_Time:    0.0
+
+        Init_Multiplicities:
+          331: 200
