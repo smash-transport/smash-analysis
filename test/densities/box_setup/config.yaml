@@ -8,7 +8,7 @@ General:
     Delta_Time:    0.5
     End_Time:   50.0
     Randomseed:    -1
-    Nevents:   2000
+    Nevents:   3
 
 Output:
     # Output_Times: [0.0, 50.0]
