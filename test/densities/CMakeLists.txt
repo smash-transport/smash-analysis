@@ -166,6 +166,7 @@ function(run_collider_test
                   "${CMAKE_CURRENT_SOURCE_DIR}/collider_setup/config.yaml"
                   "${test_folder}/density_central_cell.dat"
                   "${test_folder}/density_central_cell_${test_name}.pdf"
+                  "comp_prev_version"
 
         WORKING_DIRECTORY "${test_folder}"
         DEPENDS
