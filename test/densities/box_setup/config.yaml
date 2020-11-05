@@ -8,10 +8,9 @@ General:
     Delta_Time:    0.5
     End_Time:   50.0
     Randomseed:    -1
-    Nevents:   3
+    Nevents:   300
 
 Output:
-    # Output_Times: [0.0, 50.0]
     Output_Interval: 50.0
     Particles:
         Format:          ["Binary"]

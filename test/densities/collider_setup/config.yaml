@@ -13,7 +13,7 @@ General:
   Delta_Time: 0.1
   End_Time: 100.0
   Randomseed: -1
-  Nevents: 5
+  Nevents: 50
 Output:
   Output_Interval: 1.0
   Thermodynamics:
