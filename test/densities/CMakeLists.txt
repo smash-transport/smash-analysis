@@ -156,6 +156,7 @@ function(run_collider_test
                   "${CMAKE_CURRENT_SOURCE_DIR}/plot_density_central_cell.py"
                   "${test_folder}/density_central_cell.dat"
                   "${test_folder}/density_central_cell.pdf"
+                  "comp_prev_version"
         WORKING_DIRECTORY "${test_folder}"
         DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/plot_density_central_cell.py"
         COMMENT "Plotting central cell density densities/${test_name}."

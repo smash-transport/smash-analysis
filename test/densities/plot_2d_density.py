@@ -50,9 +50,9 @@ for i, tstep in enumerate(times):
     axs[i].set_xlabel('x', fontsize=18)
     axs[i].set_ylabel('y', fontsize=18)
 
-plt.figtext(0.4, 0.8, " SMASH code:      %s\n SMASH analysis: %s\n" % \
+plt.figtext(0.75, 0.8, " SMASH code:      %s\n SMASH analysis: %s\n" % \
             (smash_version, smash_analysis_version), \
-            color = "gray", fontsize = 10)
+            color = "gray", fontsize = 5)
 cbar = fig.colorbar(im, ax=axs.ravel(), fraction=0.022, pad=0.04, norm=norm)
 #cbar.set_label(r'$\langle N\rangle$',fontsize=18)
 cbar.set_label(r'$\rho\;\rm [1 / fm^3]$',fontsize=16)
