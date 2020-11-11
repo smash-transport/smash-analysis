@@ -1,9 +1,9 @@
 project(densities NONE)
 
 set(dens_box_sims "")
-set(dens_box_plots "")
 set(dens_collider_sims "")
-set(dens_collider_plots "")
+# set(dens_collider_plots "")
+set(dens_plots "")
 
 function(run_box_test
          test_name
@@ -70,7 +70,7 @@ function(run_box_test
 
     # plot
     set(output_plot "${test_folder}/2d_density_${test_name}.pdf")
-    set(dens_box_plots "${dens_box_plots};${output_plot}" PARENT_SCOPE)
+    set(dens_plots "${dens_plots};${output_plot}" PARENT_SCOPE)
     add_custom_command(
         OUTPUT "${test_folder}/2d_density_${test_name}.pdf"
         COMMAND "python2"
@@ -125,7 +125,6 @@ function(run_collider_test
                         OUTPUT_VARIABLE yaml_opt
                         OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-        # run box
         set(data_file "${data_density_collider}/collisions_binary.bin")
         list(APPEND data_files ${data_file})
         add_custom_command(OUTPUT "${data_file}" "${data_density_collider}/config.yaml"
@@ -147,26 +146,39 @@ function(run_collider_test
     set(all_data_files ${all_data_files};${data_files} PARENT_SCOPE)
     set(dens_collider_sims ${dens_collider_sims};${target} PARENT_SCOPE)
 
-    # analysis + plot
+    # analysis
     set(output_file_density "${test_folder}/density_central_cell.dat")
     list(APPEND output_files ${output_file_density})
     add_custom_command(
         OUTPUT "${test_folder}/density_central_cell.dat"
         COMMAND "python2"
-                  "${CMAKE_CURRENT_SOURCE_DIR}/plot_density_central_cell.py"
+                  "${CMAKE_CURRENT_SOURCE_DIR}/WriteOutDensityCentralCell.py"
                   "${test_folder}/data"
                   "${CMAKE_CURRENT_SOURCE_DIR}/collider_setup/config.yaml"
                   "${test_folder}/density_central_cell.dat"
-                  "${test_folder}/density_central_cell_${test_name}.pdf"
-                  "comp_prev_version"
 
         WORKING_DIRECTORY "${test_folder}"
         DEPENDS
-            "${CMAKE_CURRENT_SOURCE_DIR}/plot_density_central_cell.py"
-        COMMENT "Analyse and plot ${test_name}."
+            "${CMAKE_CURRENT_SOURCE_DIR}/WriteOutDensityCentralCell.py"
+        COMMENT "Analyse ${test_name}."
     )
 
     set(all_output_files ${all_output_files};${output_files} PARENT_SCOPE)
+
+    # plot
+    set(output_plot "${test_folder}/density_central_cell.pdf")
+    set(dens_plots "${dens_plots};${output_plot}" PARENT_SCOPE)
+    add_custom_command(
+        OUTPUT "${test_folder}/density_central_cell.pdf"
+        COMMAND "python2"
+                  "${CMAKE_CURRENT_SOURCE_DIR}/plot_density_central_cell.py"
+                  "${test_folder}/density_central_cell.dat"
+                  "${test_folder}/density_central_cell.pdf"
+        WORKING_DIRECTORY "${test_folder}"
+        DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/plot_density_central_cell.py"
+        COMMENT "Plotting central cell density densities/${test_name}."
+    )
+
 
     # targets for each setup
     # sims
@@ -178,8 +190,20 @@ function(run_collider_test
     add_custom_target(${target} ALL
         DEPENDS
             "${output_files}"
-            "${CMAKE_CURRENT_SOURCE_DIR}/plot_density_central_cell.py"
+            "${CMAKE_CURRENT_SOURCE_DIR}/WriteOutDensityCentralCell.py"
     )
+
+    # plotting
+    set(target densities_${test_name}_plots)
+    add_custom_target(${target} ALL
+        DEPENDS
+            "${output_plot}"
+            "${CMAKE_CURRENT_SOURCE_DIR}/plot_density_central_cell.py"
+
+    )
+
+
+    ####################
 
 endfunction()
 
@@ -204,6 +228,6 @@ add_custom_target(densities_analysis
 )
 
 # target for plotting
-add_custom_target(densities_box_plots
-    DEPENDS ${dens_box_plots}
+add_custom_target(densities_plots
+    DEPENDS ${dens_plots}
 )
