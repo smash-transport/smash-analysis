@@ -17,7 +17,7 @@ function(run_box_test
     # run SMASH box
     set(i 0)
     set(data_files "")
-    foreach(X RANGE 0 ${NFolder} 1)
+    foreach(X RANGE 0 ${NFolder} 1) # inclusive, runs until $NFolder
         set(data_density_box "${test_folder}/data/${i}")
         execute_process(COMMAND "echo" "${yaml_op_raw}"
                         COMMAND "sed" "s/_X_/${X}/"
@@ -40,10 +40,9 @@ function(run_box_test
                     "${CMAKE_CURRENT_SOURCE_DIR}/box_setup/particles_${test_name}.txt"
                     "${CMAKE_CURRENT_SOURCE_DIR}/box_setup/decaymodes_${test_name}.txt"
             WORKING_DIRECTORY "${test_folder}"
-            COMMENT "Running SMASH for densities/${test_name}=${X}."
+            COMMENT "Running SMASH for densities/${test_name} (${X}/${NFolder})"
         )
 
-        # FIXME: redirect SMASH output
         math(EXPR i "${i} + 1")
     endforeach()
 
@@ -64,7 +63,7 @@ function(run_box_test
         WORKING_DIRECTORY "${test_folder}"
         DEPENDS
             "${CMAKE_CURRENT_SOURCE_DIR}/CalcDensityEvolution.py"
-        COMMENT "Calculating mean density grid for /${test_name}."
+        COMMENT "Calculating mean density grid for ${test_name}."
     )
 
     set(all_output_files ${all_output_files};${output_files} PARENT_SCOPE)
@@ -138,10 +137,9 @@ function(run_collider_test
             DEPENDS "${CMAKE_BINARY_DIR}/smash"
                     "${CMAKE_CURRENT_SOURCE_DIR}/collider_setup/config.yaml"
             WORKING_DIRECTORY "${test_folder}"
-            COMMENT "Running SMASH for densities/${test_name}=${X}."
+            COMMENT "Running SMASH for densities/${test_name} (${X}/${NFolder})"
         )
 
-        # FIXME: redirect SMASH output
         math(EXPR i "${i} + 1")
 
     endforeach()
@@ -165,7 +163,7 @@ function(run_collider_test
         WORKING_DIRECTORY "${test_folder}"
         DEPENDS
             "${CMAKE_CURRENT_SOURCE_DIR}/plot_density_central_cell.py"
-        COMMENT "Analyse and plot /${test_name}."
+        COMMENT "Analyse and plot ${test_name}."
     )
 
     set(all_output_files ${all_output_files};${output_files} PARENT_SCOPE)
