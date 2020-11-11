@@ -2,12 +2,10 @@ project(densities NONE)
 
 set(dens_box_sims "")
 set(dens_collider_sims "")
-# set(dens_collider_plots "")
 set(dens_plots "")
 
 function(run_box_test
          test_name
-         yaml_op_raw
          NFolder
     )
     message(STATUS "Configuring densities/${test_name}.")
@@ -15,14 +13,9 @@ function(run_box_test
     file(MAKE_DIRECTORY ${test_folder})
 
     # run SMASH box
-    set(i 0)
     set(data_files "")
-    foreach(X RANGE 0 ${NFolder} 1) # inclusive, runs until $NFolder
-        set(data_density_box "${test_folder}/data/${i}")
-        execute_process(COMMAND "echo" "${yaml_op_raw}"
-                        COMMAND "sed" "s/_X_/${X}/"
-                        OUTPUT_VARIABLE yaml_opt
-                        OUTPUT_STRIP_TRAILING_WHITESPACE)
+    foreach(X RANGE 0 ${NFolder}) # inclusive, runs until $NFolder
+        set(data_density_box "${test_folder}/data/${X}")
 
         # run box
         set(data_file "${data_density_box}/collisions_binary.bin")
@@ -42,8 +35,6 @@ function(run_box_test
             WORKING_DIRECTORY "${test_folder}"
             COMMENT "Running SMASH for densities/${test_name} (${X}/${NFolder})"
         )
-
-        math(EXPR i "${i} + 1")
     endforeach()
 
     set(all_data_files ${all_data_files};${data_files} PARENT_SCOPE)
@@ -108,7 +99,6 @@ endfunction()
 
 function(run_collider_test
          test_name
-         yaml_op_raw
          NFolder
     )
     message(STATUS "Configuring densities/${test_name}.")
@@ -116,14 +106,9 @@ function(run_collider_test
     file(MAKE_DIRECTORY ${test_folder})
 
     # run SMASH collider
-    set(i 0)
     set(data_files "")
-    foreach(X RANGE 0 ${NFolder} 1)
-        set(data_density_collider "${test_folder}/data/${i}")
-        execute_process(COMMAND "echo" "${yaml_op_raw}"
-                        COMMAND "sed" "s/_X_/${X}/"
-                        OUTPUT_VARIABLE yaml_opt
-                        OUTPUT_STRIP_TRAILING_WHITESPACE)
+    foreach(X RANGE 0 ${NFolder})
+        set(data_density_collider "${test_folder}/data/${X}")
 
         set(data_file "${data_density_collider}/collisions_binary.bin")
         list(APPEND data_files ${data_file})
@@ -138,9 +123,6 @@ function(run_collider_test
             WORKING_DIRECTORY "${test_folder}"
             COMMENT "Running SMASH for densities/${test_name} (${X}/${NFolder})"
         )
-
-        math(EXPR i "${i} + 1")
-
     endforeach()
 
     set(all_data_files ${all_data_files};${data_files} PARENT_SCOPE)
@@ -209,13 +191,13 @@ endfunction()
 
 
 # Pi-Rho System
-run_box_test("pi_rho" " " "10")
+run_box_test("pi_rho" "10")
 
 # Pi K N L System
-run_box_test("pi_k_n_lambda" " " "10")
+run_box_test("pi_k_n_lambda" "10")
 
 # Au Au E_kin = 1.23
-run_collider_test("AuAu_central_cell" " " "10")
+run_collider_test("AuAu_central_cell" "10")
 
 # target for all simulations
 add_custom_target(densities_sims
