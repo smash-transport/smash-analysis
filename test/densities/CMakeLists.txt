@@ -8,19 +8,16 @@ set(dens_collider_plots "")
 function(run_box_test
          test_name
          yaml_op_raw
-         var_list
+         NFolder
     )
     message(STATUS "Configuring densities/${test_name}.")
     set(test_folder ${CMAKE_CURRENT_BINARY_DIR}/${test_name})
     file(MAKE_DIRECTORY ${test_folder})
 
-    # Convert string to a list.
-    separate_arguments(var_list)
-
     # run SMASH box
     set(i 0)
     set(data_files "")
-    foreach(X IN LISTS var_list)
+    foreach(X RANGE 0 ${NFolder} 1)
         set(data_density_box "${test_folder}/data/${i}")
         execute_process(COMMAND "echo" "${yaml_op_raw}"
                         COMMAND "sed" "s/_X_/${X}/"
@@ -113,19 +110,16 @@ endfunction()
 function(run_collider_test
          test_name
          yaml_op_raw
-         var_list
+         NFolder
     )
     message(STATUS "Configuring densities/${test_name}.")
     set(test_folder ${CMAKE_CURRENT_BINARY_DIR}/${test_name})
     file(MAKE_DIRECTORY ${test_folder})
 
-    # Convert string to a list.
-    separate_arguments(var_list)
-
     # run SMASH collider
     set(i 0)
     set(data_files "")
-    foreach(X IN LISTS var_list)
+    foreach(X RANGE 0 ${NFolder} 1)
         set(data_density_collider "${test_folder}/data/${i}")
         execute_process(COMMAND "echo" "${yaml_op_raw}"
                         COMMAND "sed" "s/_X_/${X}/"
@@ -193,13 +187,13 @@ endfunction()
 
 
 # Pi-Rho System
-run_box_test("pi_rho" " " "0 1 2 3 4 5 6 7 8 9 10")
+run_box_test("pi_rho" " " "10")
 
 # Pi K N L System
-run_box_test("pi_k_n_lambda" " " "0 1 2 3 4 5 6 7 8 9 10")
+run_box_test("pi_k_n_lambda" " " "10")
 
 # Au Au E_kin = 1.23
-run_collider_test("AuAu_central_cell" " " "0 1 2 3 4 5 6 7 8 9 10")
+run_collider_test("AuAu_central_cell" " " "10")
 
 # target for all simulations
 add_custom_target(densities_sims
