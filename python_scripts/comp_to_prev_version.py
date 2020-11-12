@@ -147,5 +147,10 @@ def plot_previous_results(observable, setup, filename, color_list = [], pdg = 0,
             plt.plot(data['x'], data['y'], label=label, color = 'dimgrey',
                         linestyle = "-", alpha = 0.2, zorder=1, linewidth = 20)
 
+        elif observable == 'densities':
+            plt.plot(data['x'], data['y'], label=label, color = 'dimgrey',
+                        linestyle = "-", alpha = 0.2, zorder=1, linewidth = 7)
+
+
         else:
             print 'Error: Could not plot comparison to previous data. Unknown observable'

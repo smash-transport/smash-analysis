@@ -1,0 +1,34 @@
+Version: 1.8 # minimal SMASH version to use with this config file
+
+Logging:
+    default: WARN
+
+General:
+    Modus:          Collider
+    Time_Step_Mode: Fixed
+    Delta_Time:     0.1
+    End_Time:       100.0
+    Randomseed:     -1
+    Nevents:        50
+
+Output:
+    Output_Interval: 1.0
+    Thermodynamics:
+        Format: [ASCII]
+        Quantities: [rho_eckart]
+        Type: baryon
+        Position: [0., 0., 0.]
+
+Modi:
+    Collider:
+        Projectile:
+            Particles: {2212: 79, 2112: 118} #Gold197
+        Target:
+            Particles: {2212: 79, 2112: 118} #Gold197
+
+        E_Kin: 1.23
+        Fermi_Motion: "frozen"
+        Calculation_Frame: "center of mass"
+        Impact:
+            Sample: uniform
+            Range: [0.0, 9.3]

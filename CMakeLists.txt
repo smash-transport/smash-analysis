@@ -72,6 +72,7 @@ add_subdirectory(test/angular_distributions)
 # 2) box tests
 add_subdirectory(test/detailed_balance)
 add_subdirectory(test/elastic_box)
+add_subdirectory(test/densities)
 
 # 3) collider tests
 add_subdirectory(test/FOPI_pions)

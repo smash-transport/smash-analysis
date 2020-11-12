@@ -1,0 +1,6 @@
+# NAME MASS[GEV] WIDTH[GEV] PARITY PDG
+
+########## unflavored mesons ##########
+
+π               0.138   7.7e-9    -      111     211
+ρ               0.776   0.149     -      113     213     # mass required by EOS code

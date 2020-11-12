@@ -1,0 +1,57 @@
+# Format of this file:
+# anything after a # is a comment and will be ignored
+# The decays for a given particle are given as:
+# <name of decaying particle>
+# <branching ratio> <angular momentum L> <names of decay products>
+# <branching ratio> <angular momentum L> <names of decay products>
+# ...
+
+#################### non-strange mesons ####################
+
+σ
+1.      0  π π
+
+ρ
+1.      1  π π
+
+#################### strange mesons ####################
+
+K*(892)
+1.0    1   K π
+# other decays < 3e-3
+
+#################### N baryons ####################
+
+N(1440)
+0.60   1  N π  # 55 - 75 %
+#0.00   0  N η  #     < 1 %
+0.24   1  Δ π  #  6 - 27 %
+0.16   0  N σ  # 11 - 23 %
+
+N(1520)
+0.65   2  N π  # 55 - 65 %
+0.15   0  Δ π  # 15 - 23 %
+0.07   2  Δ π  #  7 - 11 %
+0.11   0  N ρ  # serves as proxy for N(1520) dilepton Dalitz decay
+0.02   1  N σ  #     < 2 %
+
+N(1535)
+0.38   0  N π        # 35 - 52 %
+0.52   0  N η        # 32 - 55 %
+0.06   0  N(1440) π  #  5 - 12 %
+0.02   2  Δ π        #  1 -  4 %
+0.02   1  N σ        #  2 - 10 %
+
+N(1650)
+0.51   0  N π        # 50 - 70 %
+0.20   0  N η        # 15 - 35 %
+0.04   0  Λ K        #  5 - 15 %, HADES PWA 7 ± 4 %, tuned for Nπ->ΛK
+0.10   2  Δ π        #  6 - 18 %
+0.04   1  N σ        #  2 - 18 %
+0.11   0  N(1440) π  #  6 - 26 %
+
+
+#################### Δ baryons ####################
+
+Δ
+1.     1  N π
