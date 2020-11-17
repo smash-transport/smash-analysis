@@ -42,7 +42,6 @@ x_labels = {'V': "Box volume V, fm$^3$",
             'Kn': "Knudsen number"}
 
 y_label =  ('${N_{coll}^{SMASH}}\\left/{N_{coll}^{theory}} \\right.$')
-#y_label = ('$\\frac{N_{coll}^{SMASH}}{N_{coll}^{theory}}$')
 y_label_defintion =  ('$\\frac{N_{coll}^{SMASH}}{N_{coll}^{theory}} \, = \,$'
                       '$\\frac{1}{N \, N_{test} \,/ 2} \,'
                        '\\frac{N_{coll}}{N_{ev} t_{tot}}\,'
@@ -50,7 +49,6 @@ y_label_defintion =  ('$\\frac{N_{coll}^{SMASH}}{N_{coll}^{theory}} \, = \,$'
 
 
 def plot_data(input_txt_file, plot_position, plot_color):
-
 
     plt.subplot(gs[plot_position,0])
 
