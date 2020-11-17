@@ -188,9 +188,7 @@ run_one_test("scatrate_vs_V" "Modi: {Box: {Length: _X_}}" "3.0 4.0 5.0 6.0 7.0 8
 #  It seems to work if we only escape the outmost braces in `run_one_test`.
 
 # SCATTERING RATE VERSUS PARTICLE NUMBER
-#run_one_test("scatrate_vs_N" "Modi: {Box: {Init_Multiplicities: {111: _X_}}}" "20 40 60 100 120 140 160 180 200 240 280 330 400")
-#zum testen weniger Durchläufe
-run_one_test("scatrate_vs_N" "Modi: {Box: {Init_Multiplicities: {111: _X_}}}" "20 100 140 200 280 400")
+run_one_test("scatrate_vs_N" "Modi: {Box: {Init_Multiplicities: {111: _X_}}}" "20 40 60 100 120 140 160 180 200 240 280 330 400")
 
 # SCATTERING RATE VERSUS CROSS-SECTION
 run_one_test("scatrate_vs_sigma" "Collision_Term: {Elastic_Cross_Section: _X_}" "1.0 3.0 5.0 8.0 12.0 20.0 30.0 50.0 80.0")
