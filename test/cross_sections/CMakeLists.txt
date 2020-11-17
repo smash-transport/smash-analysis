@@ -397,6 +397,8 @@ cross_section_test("piminus_proton" "-211" "2212" "1.08" "5.08" "300" "yes")
 partial_cross_section("piplus_proton" "sigmaplus_kplus" "Σ⁺+K⁺" "no")
 cross_section_test("piplus_proton"  "211" "2212" "1.08" "5.08" "200" "yes")
 
+cross_section_test("antiproton_proton" "-2212" "2212" "1.96" "6.96" "200" "yes") 
+
 partial_cross_section("proton_proton" "neutron_deltaplusplus" "n+Δ⁺⁺" "yes")
 partial_cross_section("proton_proton" "piplus_X" "π⁺+X" "no")
 partial_cross_section("proton_proton" "proton_proton_pizero" "p+p+π⁰" "no")

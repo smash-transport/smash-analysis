@@ -64,8 +64,7 @@ b_bins = numpy.linspace(0, bmax, nbins+1)[1:]
 b_bins_tot = numpy.zeros(nbins)
 b_bins_scat = numpy.zeros(nbins)
 
-def transverse_distance(
-        momentum_a, momentum_b, position_a, position_b):
+def transverse_distance(momentum_a, momentum_b, position_a, position_b):
     """Compute transverse distance between particles in their local rest frame.
 
     This function computes the transverse distance between two particles
@@ -223,6 +222,20 @@ def update_process_list(process_list, tag, pdg_to_name, final_pdgs):
     process_list[tag].add(process)
     return process
 
+def is_string(type_id):
+    """Checks if the process is a string-like process"""
+    isstr=False
+    if ( type_id >= 41 and type_id <= 47):
+        isstr = True
+    return isstr
+    
+def is_fail(type_id):
+    """Checks if the process is a string-like process"""
+    isstr=False
+    if ( type_id == 47 ):
+        isstr = True
+    return isstr
+        
 def dict_to_str(d):
     """Convert a dict to a human-readable string."""
     return '{' + ',\n'.join('{}: {}'.format(k, v) for k, v in sorted(d.iteritems())) + '}'
@@ -279,6 +292,9 @@ class Processor:
         # - 'hard string'
         # types such as 'nothing', 'resonance decay', 'wall transition' are not
         # included since they don't happen initially.
+        self.isstring=False
+        self.isfail=False
+        self.tag=0
         self.energyindex = 0
         # This is used to check whether all the events have the same energy
         self.energyindex_old = None
@@ -328,7 +344,6 @@ class Processor:
         # Check whether the event has the same energy as the previous event
         assert (self.energyindex == self.energyindex_old or self.energyindex_old == None)
         self.energyindex_old = self.energyindex
-
         if datablock['type'] == 'i':
            b_bins_scat[id_T] += 1
            final_pdgs = datablock['outgoing']['pdgid']
@@ -337,11 +352,15 @@ class Processor:
            process_gen = update_process_list(
                self.process_list, 'grouped', self.unify_name, final_pdgs)
            self.process_name = process
+
            self.process_name_generic = process_gen
            self.process_count[('individual', process)] += 1
            self.process_count[('grouped', process_gen)] += 1
            self.process_count['total'] += 1
            type_id = datablock['process_type']
+           self.tag=type_id
+           self.isstring=is_string(type_id)
+           self.isfail=is_fail(type_id)
            # Get the type of the action. Elastic scatterings are not counted
            # here, they'll be counted according to the final states
            if (type_id == 1):
@@ -359,7 +378,7 @@ class Processor:
               # in SMASH at the moment, we assume the above assumption is justified.
               #
               # In the case of the kaon-nucleon interactions, the story is different:
-              # Since the inelastic 2->2 K-N cross sections are parameterized,
+              # Since the inelastic 2->2 K-N cross sections are parametrized,
               # they do not rely purely on resonance formations.
               # Here, we will denote those processes as 'parametrized-inelastic' to
               # make it clear, we are using a parametrization.
@@ -377,6 +396,8 @@ class Processor:
               p_type = 'soft-string'
            elif (type_id == 46):
               p_type = 'hard-string'
+           elif (type_id == 47):
+              p_type = 'failed-string'
            if p_type != 'elastic':
               self.type_count[p_type] += 1
 
@@ -395,6 +416,7 @@ class Processor:
         assert datablock['type'] == 'p'
         assert isinstance(self.initial_pdgs, list)
         final_pdgs = sorted(datablock['part']['pdgid'])
+        
 
         # determine total 4-mom
         ptot = datablock['part']['p'].sum(axis=0)
@@ -413,28 +435,31 @@ class Processor:
 
         # elastic and total cross section
         if datablock['npart'] == 2 and self.initial_pdgs == final_pdgs:
-            # momentum of first particle
-            momentum_a_out = datablock['part']['p'][0, :]
-            # only count particles with transverse momentum
-            if abs(momentum_a_out[1]) > 1e-6 or abs(momentum_a_out[2]) > 1e-6:
-                self.process_count['elastic'] += 1
-                self.type_count['elastic'] += 1
-                self.process_count[('final_individual',
-                                    process_individual)] += 1
+            if self.isstring==False:
+                # momentum of first particle, but checks that Failed-Strings are excluded
+                momentum_a_out = datablock['part']['p'][0, :]
+                # only count particles with transverse momentum
+
+                if abs(momentum_a_out[1]) > 1e-6 or abs(momentum_a_out[2]) > 1e-6:
+
+                    self.process_count['elastic'] += 1
+                    self.type_count['elastic'] += 1
+                    self.process_count[('final_individual', process_individual)] += 1
+                    self.process_count[(
+                        'final_grouped', process_generic)] += 1
+        else:
+            if self.isfail==False:
+                self.process_count[('final_individual',process_individual)] += 1
+
+                process_individual_per_res = '{}→{}'.format(self.process_name, process_individual)
+                self.process_list['final_individual'].add(process_individual_per_res)
+                self.process_count[('final_individual', process_individual_per_res)] += 1
+
                 self.process_count[(
                     'final_grouped', process_generic)] += 1
-        else:
-            self.process_count[('final_individual',
-                                process_individual)] += 1
-            process_individual_per_res = '{}→{}'.format(self.process_name, process_individual)
-            self.process_list['final_individual'].add(process_individual_per_res)
-            self.process_count[('final_individual', process_individual_per_res)] += 1
-
-            self.process_count[(
-                'final_grouped', process_generic)] += 1
-            process_generic_per_res = '{}→{}'.format(smash.strip_charge(self.process_name_generic), process_generic)
-            self.process_list['final_grouped'].add(process_generic_per_res)
-            self.process_count[('final_grouped', process_generic_per_res)] += 1
+                process_generic_per_res = '{}→{}'.format(smash.strip_charge(self.process_name_generic), process_generic)
+                self.process_list['final_grouped'].add(process_generic_per_res)
+                self.process_count[('final_grouped', process_generic_per_res)] += 1
 
         # unstable final states
 
@@ -554,6 +579,7 @@ class Processor:
     def print_to_file(self, out, tag, process_el=""):
         """Print data (process_list, process_count) to output file 'out'."""
         process_list = sorted(self.process_list[tag])
+        
         # look for the possible elastic process and move it to the front
         if process_el:
             try:
