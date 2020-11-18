@@ -11,6 +11,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../../../python_s
 from txt_io import save_table
 import smash_basic_scripts as sb
 import argparse
+from matplotlib import gridspec
 
 # Preambula configuration for plotting
 execfile(os.path.dirname(os.path.abspath(__file__))+'/../../../python_scripts/common_plotting.py')
@@ -49,7 +50,7 @@ y_label_defintion =  ('$\\frac{N_{coll}^{SMASH}}{N_{coll}^{theory}} \, = \,$'
 
 def plot_data(input_txt_file, plot_position, plot_color):
 
-    plt.subplot(plot_position)
+    plt.subplot(gs[plot_position,0])
 
     coll_criterion_name = os.path.basename(input_txt_file)[9:-4]
     plt.annotate(coll_criterion_name + " criterion",
@@ -81,11 +82,11 @@ def plot_data(input_txt_file, plot_position, plot_color):
     s.append("$N_{ev}$ = %i"            % data['Nevents'][0])
     box_label = '\n'.join(s)
 
-    if plot_position == 211:  # only print title and input box once
+    if plot_position == 0:  # only print title and input box once
         plt.annotate(box_label, xy=(1.02, 0.97), ha="left", va="top", xycoords='axes fraction', fontsize=30)
         plt.title('only $\pi^0$, only elastic collisions', fontsize=30, y=1.02)
-    if plot_position == 212:
-        plt.annotate(y_label_defintion, xy=(0.62, 0.125), xycoords='axes fraction', fontsize =40)
+    if plot_position == 2:  # print xlabel only once
+        plt.annotate(y_label_defintion, xy=(0.72, 0.175), xycoords='axes fraction', fontsize =30)
 
 
     # Number of collisions is expected to be equal to this norm (for <v> = c)
@@ -103,12 +104,12 @@ def plot_data(input_txt_file, plot_position, plot_color):
                 zorder = 2, markeredgecolor= plot_color, color=plot_color)
 
     if args.comp_prev_version:
-        import comp_to_prev_version as cpv
-        # plot reference data from previous SMASH version
-        cpv.plot_previous_results('elastic_box', args.setup, '-' + coll_criterion_name + '.txt')
+       import comp_to_prev_version as cpv
+       # plot reference data from previous SMASH version
+       cpv.plot_previous_results('elastic_box', args.setup, '-' + coll_criterion_name + '.txt')
 
     plt.xlim(0.0, 1.05 * x.max())
-    plt.ylim(ymin=0.4, ymax=max(1.5, 1.05 * y.max()))
+    plt.ylim(ymin=0.4, ymax=max(1.75, 1.1 * y.max()))
     if (xvar == 'dt'):
         plt.xscale('log')
         plt.xlim(1.e-4, 2.0 * x.max())
@@ -121,19 +122,24 @@ def plot_data(input_txt_file, plot_position, plot_color):
         smash_version,
     )
 
-    plt.legend(loc = 'upper right')
+    plt.legend(loc = 'upper right', fontsize = 30)
     plt.axhline(1, linewidth=3, linestyle='--', color='black', zorder = 0)
-    plt.ylabel(y_label, fontsize=50)
-    if plot_position == 212: plt.xlabel(x_labels[xvar])
+    if plot_position == 1:
+        plt.ylabel(y_label, fontsize=50)
+    if plot_position == 2:
+        plt.xlabel(x_labels[xvar])
 
+fig, ax = plt.subplots()
+gs = gridspec.GridSpec(3, 1, width_ratios=[1],
+         wspace=0.2, hspace=0.3, top=0.94, bottom=0.05, left=0.1, right=0.99)
 
-plot_data(input_txt_files[0], 211, "midnightblue")
-plot_data(input_txt_files[1], 212, "maroon")
+plot_data(input_txt_files[2], 0, "forestgreen")
+plot_data(input_txt_files[0], 1, "midnightblue")
+plot_data(input_txt_files[1], 2, "maroon")
 
 plt.figtext(0.8, 0.95, "SMASH analysis: %s" % \
              (sb.analysis_version_string()), \
              color = "gray", fontsize = 10)
-plt.tight_layout()
 
 # Save picture and/or show it
 plt.savefig(output_pic_file, bbox_inches = "tight", pad_inches=0.5)
