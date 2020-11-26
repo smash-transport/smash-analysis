@@ -19,21 +19,23 @@ function(run_one_test
     set(i 0)
     set(multipl_opt "Modi: {Box: {Init_Multiplicities: {111: 200}}}")
     set(stoch_crit_opt "Collision_Term: {Collision_Criterion: Stochastic}")
+    set(geom_crit_opt "Collision_Term: {Collision_Criterion: Geometric}")
     set(data_files "")
     foreach(X IN LISTS var_list)
         set(data_geom_folder "${test_folder}/data-geometric/${i}")
         set(data_stoch_folder "${test_folder}/data-stochastic/${i}")
+        set(data_cov_folder "${test_folder}/data-covariant/${i}")
         execute_process(COMMAND "echo" "${yaml_op_raw}"
                         COMMAND "sed" "s/_X_/${X}/"
                         OUTPUT_VARIABLE yaml_opt
                         OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-        # run with geometric criterion
-        set(data_file "${data_geom_folder}/collisions_binary.bin")
+        # run with covariant criterion
+        set(data_file "${data_cov_folder}/collisions_binary.bin")
         list(APPEND data_files ${data_file})
-        add_custom_command(OUTPUT "${data_file}" "${data_geom_folder}/config.yaml"
+        add_custom_command(OUTPUT "${data_file}" "${data_cov_folder}/config.yaml"
             COMMAND "${CMAKE_BINARY_DIR}/smash"
-                      "-o" "${data_geom_folder}"
+                      "-o" "${data_cov_folder}"
                       "-i" "${CMAKE_CURRENT_SOURCE_DIR}/config.yaml"
                       "-p" "${CMAKE_CURRENT_SOURCE_DIR}/particles_only_pi0.txt"
                       "-d" "${CMAKE_CURRENT_SOURCE_DIR}/decaymodes_all_off.txt"
@@ -45,7 +47,7 @@ function(run_one_test
                     "${CMAKE_CURRENT_SOURCE_DIR}/particles_only_pi0.txt"
                     "${CMAKE_CURRENT_SOURCE_DIR}/decaymodes_all_off.txt"
             WORKING_DIRECTORY "${test_folder}"
-            COMMENT "Running SMASH with geometric criterion for elastic_box/${test_name}=${X}."
+            COMMENT "Running SMASH with covariant criterion for elastic_box/${test_name}=${X}."
         )
 
         # run with stochastic criterion
@@ -68,6 +70,26 @@ function(run_one_test
             COMMENT "Running SMASH with stochastic criterion for elastic_box/${test_name}=${X}."
         )
 
+        # run with geometric criterion
+        set(data_file "${data_geom_folder}/collisions_binary.bin")
+        list(APPEND data_files ${data_file})
+        add_custom_command(OUTPUT "${data_file}" "${data_geom_folder}/config.yaml"
+            COMMAND "${CMAKE_BINARY_DIR}/smash"
+                      "-o" "${data_geom_folder}"
+                      "-i" "${CMAKE_CURRENT_SOURCE_DIR}/config.yaml"
+                      "-p" "${CMAKE_CURRENT_SOURCE_DIR}/particles_only_pi0.txt"
+                      "-d" "${CMAKE_CURRENT_SOURCE_DIR}/decaymodes_all_off.txt"
+                      "-c" "\\{${multipl_opt}, ${geom_crit_opt} ,${yaml_opt}\\}"
+                      "-f"
+                      ">" "/dev/null"
+            DEPENDS "${CMAKE_BINARY_DIR}/smash"
+                    "${CMAKE_CURRENT_SOURCE_DIR}/config.yaml"
+                    "${CMAKE_CURRENT_SOURCE_DIR}/particles_only_pi0.txt"
+                    "${CMAKE_CURRENT_SOURCE_DIR}/decaymodes_all_off.txt"
+            WORKING_DIRECTORY "${test_folder}"
+            COMMENT "Running SMASH with geometric criterion for elastic_box/${test_name}=${X}."
+        )
+
         # FIXME: redirect SMASH output
         math(EXPR i "${i} + 1")
     endforeach()
@@ -76,7 +98,6 @@ function(run_one_test
     set(el_box_sims ${el_box_sims};${target} PARENT_SCOPE)
 
     # analysis results for geometric criterion
-    # TODO: verify whether the name of the txt makes sense
     set(output_file_geometric "${test_folder}/scatrate-geometric.txt")
     list(APPEND output_files ${output_file_geometric})
     add_custom_command(OUTPUT "${test_folder}/scatrate-geometric.txt"
@@ -102,6 +123,20 @@ function(run_one_test
             "${CMAKE_CURRENT_SOURCE_DIR}/elastic_scatrate.py"
             "${CMAKE_SOURCE_DIR}/python_scripts/smash_basic_scripts.py"
         COMMENT "Calculating scattering rate for stochastic criterion for elastic_box/${test_name}."
+    )
+
+    # analysis results for covariant criterion
+    set(output_file_covariant "${test_folder}/scatrate-covariant.txt")
+    list(APPEND output_files ${output_file_covariant})
+    add_custom_command(OUTPUT "${test_folder}/scatrate-covariant.txt"
+        COMMAND "python2"
+                  "${CMAKE_CURRENT_SOURCE_DIR}/elastic_scatrate.py"
+                  "data-covariant" "scatrate-covariant.txt"
+        WORKING_DIRECTORY "${test_folder}"
+        DEPENDS
+            "${CMAKE_CURRENT_SOURCE_DIR}/elastic_scatrate.py"
+            "${CMAKE_SOURCE_DIR}/python_scripts/smash_basic_scripts.py"
+        COMMENT "Calculating scattering rate for covariant criterion for elastic_box/${test_name}."
     )
 
     set(all_output_files ${all_output_files};${output_files} PARENT_SCOPE)
