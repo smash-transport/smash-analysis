@@ -13,6 +13,7 @@ target_dict = {
     'FOPI_pions': 'FOPI Pions',
     'pp_collisions': 'PP Collisions',
     'spectra': 'Spectra',
+    'densities': 'Densities',
     'energy_scan': 'Energy Scan',
     'total_multiplicity': 'Total Multiplicity',
     'midrapidity_yield' : 'Midrapidity Yield',
@@ -71,6 +72,10 @@ comments = {'cross_sections': {
         'pp_1.25_unfiltered': '-',
         'pp_3.5_unfiltered': '-',
         'pNb_3.5_unfiltered': '-',
+    }, 'densities': {
+        'AuAu_central_cell': '-',
+        'pi_k_n_lambda': '-',
+        'pi_rho': '-'
     }, 'energy_scan': {
         'total_multiplicity': '-',
         'midrapidity_yield':'-',
@@ -111,6 +116,7 @@ descriptions_targetpage = {
    'angular_distributions': 'Non-isotropic angular distributions for NN &#10231 N&#916 scattering. <br> For details on the implementation, \
                              see the <a href="http://inspirehep.net/record/1471536"> SMASH paper</a> (Sections II D 8 and III B).',
    'dileptons': 'Invariant mass spectra for dileptons from different elementary and heavy-ion collisions compared to HADES data.',
+   'densities' : 'Time evolution of the baryon density in the central cell of a Au + Au collision and of the particle density in infinite matter simulations (box) for different degrees of freedom.',
    'total_multiplicity': 'Total particle multiplicities for &#960, K, P, &#923, &#926 and &#937 multiplets as a function of center-of-mass energy in pp and AuAu/PbPb collisions. <br> <br> \
                          Note: Kink in the region of &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> &#x2248 3 - 5 GeV is due to uncertainties in the transition from resonances to strings. <br> \
                          Note: &#931<sup>0</sup> contribution is added to &#923 in AuAu and PbPb collisions.',
@@ -137,7 +143,8 @@ descriptions_frontpage = {
                    Sensitivity of scattering rates to variation of different setup parameters is investigated.',
    'FOPI_pions': 'Pion production compared to experimental data by the FOPI collaboration.',
    'angular_distributions': 'Non-isotropic angular distributions for NN &#10231 N&#916 scattering.',
-   'dileptons': 'Invariant mass spectra for dileptons from different elementary and heavy-ion collisions compared to HADES data.'
+   'dileptons': 'Invariant mass spectra for dileptons from different elementary and heavy-ion collisions compared to HADES data.',
+   'densities': 'Time evolution of the densities in collider and infinite matter simulations.'
 
 }
 
@@ -190,6 +197,10 @@ target_headers = {'cross_sections': {
         'pp_1.25_unfiltered': 'p + p @ E<sub>kin</sub> = 1.25 GeV',
         'pp_3.5_unfiltered': 'p + p @ E<sub>kin</sub> = 3.5 GeV',
         'pNb_3.5_unfiltered': 'p + Nb @ E<sub>kin</sub> = 3.5 GeV',
+    }, 'densities' : {
+        'AuAu_central_cell': 'Au + Au @ E<sub>kin</sub> = 1.23 GeV',
+        'pi_k_n_lambda': 'Thermal box at T = 160 MeV with &#961, K, N, &#916',
+        'pi_rho': 'Thermal box at T = 160 MeV with &#960, &#961'
     }, 'energy_scan': {
         'total_multiplicity': 'Total Multiplicity',
         'midrapidity_yield':'Midrapidity Yield',
