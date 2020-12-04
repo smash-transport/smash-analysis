@@ -30,6 +30,7 @@ comments = {'cross_sections': {
         'kminus_proton': 'Lambda(1520) peak could be higher, but it is tightly constrained by PDG branching ratios. At high energies, there are no resonances.',
         'neutron_proton': 'Double pion production is tricky and needs to be investigated (#5370).',
         'proton_proton': 'Double pion production is tricky and needs to be investigated (#5370).',
+        'antiproton_proton': '-',
         'piplus_proton': 'Hyperon production discussed in <a href="https://arxiv.org/pdf/1809.03828.pdf"> strangeness paper</a>.',
         'piplus_piminus': '-',
         'piminus_proton': 'Hyperon production discussed in <a href="https://arxiv.org/pdf/1809.03828.pdf"> strangeness paper</a>.',
@@ -56,6 +57,10 @@ comments = {'cross_sections': {
         'thermal_box': 'Shows only most violating reactions. Huge cross-sections are problematic. Increasing the maximum cross-section will partially improve it.',
         'Strangeness': 'Shows only most violating reactions.',
         'N_pi_deutron': '-',
+        'multi_pi2_eta_etaprime': '-',
+        'multi_pi3_omega': '-',
+        'multi_pi3_phi': '-',
+        'multi_N_pi_deutron': '-',
     }, 'angular_distributions': {
         'np_1.194': '-',
         'pp_1.25': '-',
@@ -155,6 +160,7 @@ target_headers = {'cross_sections': {
         'kminus_proton': 'K<sup>-</sup> + p',
         'neutron_proton': 'n + p',
         'proton_proton': 'p + p',
+        'antiproton_proton': 'p + p&#772',
         'piplus_proton': '&#960<sup>+</sup> + p',
         'piplus_piminus': '&#960<sup>+</sup> + &#960<sup>-</sup>',
         'piminus_proton': '&#960<sup>-</sup> + p',
@@ -181,6 +187,10 @@ target_headers = {'cross_sections': {
         'thermal_box': 'Full Thermal Box with All Mesons and Baryons',
         'Strangeness': 'Strangeness Exchange',
         'N_pi_deutron': 'Deuteron: N + N &#10231 d&#8242;, &emsp; N + d &#10231 N + d&#8242, &emsp; &#960 + d &#10231 N + N, &emsp; &#960 + d &#10231 &#960 + d&#8242' ,
+        'multi_pi2_eta_etaprime': 'Multiparticle: &#951&#8242 &#10231 &#960 + &#960 + &#951 ' ,
+        'multi_pi3_omega': 'Multiparticle: &#969 &#10231 &#960 + &#960 + &#960' ,
+        'multi_pi3_phi': 'Multiparticle: &#966 &#10231 &#960 + &#960 + &#960' ,
+        'multi_N_pi_deutron': 'Multiparticle: d &#10231 N + &#960' ,
     }, 'angular_distributions': {
         'np_1.194': 'n + p @ p<sub>lab</sub> = 1.194 GeV',
         'pp_1.25': 'p + p @ p<sub>lab</sub> = 1.25 GeV',
@@ -274,9 +284,9 @@ energy_scan_sorted_spectra = ['pp_AGS', 'AuAuPbPb_AGS', 'pp_SPS', 'AuAuPbPb_SPS'
 sorted_subtargets = {'angular_distributions' : ['np_1.194', 'pp_1.25', 'pp_1.75', 'pp_2.80'],
                      'detailed_balance' : ['thermal_box', 'pi_rho', 'pi_rho_f2', 'pi_rho_omega', 'pi_rho_sigma', 'pi_sigma',\
                                         'N_pi_Delta_12', 'N_pi_Delta_22', 'N_pi_Delta_all', 'N_1440', 'KN_KDelta', 'angular_NN_NDelta', \
-                                        'Strangeness', 'N_pi_deutron'],
+                                        'Strangeness', 'N_pi_deutron', 'multi_pi2_eta_etaprime', 'multi_pi3_omega', 'multi_pi3_phi', 'multi_N_pi_deutron'],
                      'dileptons' : ['pp_1.25_filtered', 'pp_1.25_unfiltered', 'pp_3.5_filtered', 'pp_3.5_unfiltered', 'pNb_3.5_filtered', 'pNb_3.5_unfiltered', 'CC_2.0_filtered', 'CC_2.0_unfiltered', 'ArKCl_1.76_filtered', 'ArKCl_1.76_unfiltered'],
-                     'cross_sections' : ['proton_proton', 'neutron_proton', 'piplus_proton', 'piminus_proton', 'piplus_piminus', 'kplus_proton', 'kminus_proton', 'kplus_neutron', 'kminus_proton'],
+                     'cross_sections' : ['proton_proton', 'neutron_proton', 'antiproton_proton', 'piplus_proton', 'piminus_proton', 'piplus_piminus', 'kplus_proton', 'kminus_proton', 'kplus_neutron', 'kminus_proton'],
                      'elastic_box' : ['scatrate_vs_N', 'scatrate_vs_Ntest', 'scatrate_vs_T', 'scatrate_vs_V', 'scatrate_vs_dt', 'scatrate_vs_sigma'],
 }
 
