@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 import sys
 from mpl_toolkits import mplot3d
-import matplotlib.pyplot as plt
 import matplotlib as mpl
+mpl.use('Agg')
+import matplotlib.pyplot as plt
 from matplotlib import rc
 import numpy as np
 import math
@@ -35,26 +36,29 @@ for num in range(len(times)):
 
 ncols = 2 # fixed
 nrows = int(math.ceil(float(len(times))/ncols))
-fig, axs = plt.subplots(nrows=nrows, ncols=ncols,figsize=(8,6))
-axs = axs.ravel()
-fig.subplots_adjust(hspace=.1, wspace=.25)
+fig, axs = plt.subplots(nrows=nrows, ncols=ncols,figsize=(8,5))
+fig.subplots_adjust(right=0.8, hspace=0.0, wspace=.05)
 norm_mean = np.mean(Grid[0])
 norm_min = np.min(Grid[0]) - .015 * norm_mean
 norm_max = np.max(Grid[0]) + .015 * norm_mean
 norm = mpl.colors.Normalize(vmin=norm_min, vmax=norm_max)
 
-for i, tstep in enumerate(times):
+i = 0
+for ax in axs.flat:
+    tstep = times[i]
     rho_grid = Grid[i].reshape(dim_grid, dim_grid)
-    axs[i].set_title('t = {} fm'.format(tstep), fontsize=15)
-    im = axs[i].imshow(rho_grid, cmap='viridis', norm=norm)
-    axs[i].set_xlabel('x', fontsize=18)
-    axs[i].set_ylabel('y', fontsize=18)
+    ax.set_title('t = {} fm'.format(tstep), fontsize=15)
+    im = ax.imshow(rho_grid, cmap='GnBu_r', norm=norm, vmin = norm_min, vmax = norm_max)
+    ax.set_xlabel('x', fontsize=18)
+    if i > 0: ax.set_yticklabels([])
+    else: ax.set_ylabel('y', fontsize=18)
+    i = i + 1
 
 plt.figtext(0.75, 0.8, " SMASH code:      %s\n SMASH analysis: %s\n" % \
             (smash_version, smash_analysis_version), \
             color = "gray", fontsize = 5)
-cbar = fig.colorbar(im, ax=axs.ravel(), fraction=0.022, pad=0.04, norm=norm)
-#cbar.set_label(r'$\langle N\rangle$',fontsize=18)
-cbar.set_label(r'$\rho\;\rm [1 / fm^3]$',fontsize=16)
-#plt.tight_layout()
-plt.savefig(outfile_name)
+cbar_ax = fig.add_axes([0.815, 0.236, 0.03, 0.526])
+cbar = fig.colorbar(im, cax=cbar_ax)
+cbar.set_label(r'$\mathbf{\rho}$ [1/fm$^3$]',fontsize=16)
+plt.savefig(outfile_name, bbox_inches='tight')
+plt.close()

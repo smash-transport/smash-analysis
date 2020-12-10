@@ -13,12 +13,8 @@ import smash_basic_scripts as sb
 import glob
 import yaml
 
-matplotlib.rcParams.update({'font.size': 16,
-                            'axes.labelsize': 22,
-                            'mathtext.default':'rm',
-                            'legend.fontsize': 10,
-                            'font.sans-serif':['Helvetica'],
-                            'font.family':'sans-serif'})
+# Preambula configuration for plotting
+execfile(os.path.dirname(os.path.abspath(__file__))+'/../../python_scripts/common_plotting.py')
 
 DataOutfile = sys.argv[1]
 PlotName = sys.argv[2]
@@ -37,7 +33,7 @@ smash_analysis_version = versions.split()[2]
 
 TimeSteps, dens_arr = np.loadtxt(DataOutfile, unpack=True, skiprows=5)
 
-plt.plot(TimeSteps, dens_arr, linewidth=2, linestyle="-", label='AuAu', color = 'darkred')
+plt.plot(TimeSteps, dens_arr, label=smash_version, color = 'darkred')
 
 # old version ?
 if comp_prev_version:
@@ -45,14 +41,15 @@ if comp_prev_version:
     processes = []
     cpv.plot_previous_results('densities', DataOutfile.split('/')[-2], '/' + DataOutfile.split('/')[-1])
 
-plt.title(r'Density central cell', loc='left')
-plt.figtext(0.7, 0.9, " SMASH code:      %s\n SMASH analysis: %s" % \
-             (smash_version, smash_analysis_version), \
-             color = "gray", fontsize = 5)
-plt.xlabel(r'$t\rm [fm]$')
-plt.ylabel(r'$\rho_B/\rho_0$')
+plt.title(r'Density central cell', loc='left', fontsize = 30)
+plt.figtext(0.8, 0.95, "SMASH analysis: %s" % \
+             (sb.analysis_version_string()), \
+             color = "gray", fontsize = 10)
+plt.xlabel(r't [fm]')
+plt.ylabel(r'$\rho_\mathsf{B}/\rho_0$')
 plt.xlim(0,40)
 plt.ylim(0,5)
 plt.tight_layout()
 plt.legend()
-plt.savefig(PlotName)
+plt.savefig(PlotName, bbox_inches = "tight")
+plt.close()
