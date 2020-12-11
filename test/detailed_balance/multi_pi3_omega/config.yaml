@@ -26,6 +26,7 @@ Collision_Term:
     Strings:                   False
     Collision_Criterion:       Stochastic
     Multi_Particle_Reactions: ["Meson_3to1"]
+    Only_Warn_For_High_Probability: True
 
 
 Modi:

@@ -60,6 +60,8 @@ find energy_scan -maxdepth 2 -name "meanmt*.pdf" | xargs cp -t ${collection_dir}
 find energy_scan -maxdepth 2 -name "meanpt*.pdf" | xargs cp -t ${collection_dir}/energy_scan/meanpt/
 find energy_scan -maxdepth 2 -name "midrapidity_yield*.pdf" | xargs cp -t ${collection_dir}/energy_scan/midrapidity_yield/
 find energy_scan -maxdepth 2 -name "total_multiplicity*.pdf" | xargs cp -t ${collection_dir}/energy_scan/total_multiplicity/
+cd ${results}/densities/test
+find densities -maxdepth 2 -name "*.pdf" | xargs cp --parents -t ${collection_dir}/
 
 
 echo "Done copying pdf files."
@@ -81,6 +83,8 @@ cd ${results}/FOPI_pions/test
 find FOPI_pions -maxdepth 4 -name "config.yaml" | xargs cp --parents -t ${collection_dir}/
 cd ${results}/energy_scan/test
 find energy_scan -maxdepth 5 -name "config.yaml" | xargs cp --parents -t ${collection_dir}/
+cd ${results}/densities/test
+find densities -maxdepth 4 -name "config.yaml" | xargs cp --parents -t ${collection_dir}/
 echo "Done copying config files."
 echo ""
 echo "Finished copying PDFs and configs."
