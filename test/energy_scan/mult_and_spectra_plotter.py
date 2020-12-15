@@ -13,8 +13,6 @@ from txt_io import load_table
 from glob import glob
 import smash_basic_scripts as sb
 execfile(os.path.dirname(os.path.abspath(__file__))+'/../../python_scripts/common_plotting.py')
-import seaborn as sns   # For nice color palette
-sns.set_color_codes()
 import comp_to_prev_version as cpv
 
 colours = ["darkred","deepskyblue","deeppink","limegreen","orange","red", "magenta", "chartreuse", "cyan", "darkmagenta", "yellow"]# , "lavender", "navajowhite", "midnightblue", "yellow", "blue", "gold", "darkgreen"]
@@ -371,10 +369,10 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
 
                     if (colliding_system == 'pp'):
                         linewidth = 5
-                        plot_color = 'b'
+                        plot_color = 'midnightblue'
                     else:
                         linewidth = 5
-                        plot_color = 'r'
+                        plot_color = 'darkred'
                     if data1.is_in_dict([quantity, colliding_system, pdg]):
                         theory_vs_energy = data1.the_dict[quantity][colliding_system][pdg]
                         x, y  = zip(*sorted(theory_vs_energy.iteritems()))
@@ -459,7 +457,7 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                 #if not data1.is_in_dict([quantity, colliding_system, pdg]): continue
 
                 # colors list for plotting
-                col = cycle(sns.color_palette(colours))
+                col = cycle(colours)
                 # to scale curves in mT and pT spectra by powers of 10 -> readability
                 scaling_counter = -1
                 for element, energy in enumerate(energies):

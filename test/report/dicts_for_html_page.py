@@ -85,7 +85,7 @@ comments = {'cross_sections': {
         'total_multiplicity': '-',
         'midrapidity_yield':'-',
         'meanmt': '-',
-        'meanpt': 'The cross section scaling factors increase linearly below &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> = 200 Gev and follow a step function above &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> = 200 GeV to enable running at high beam energies. This explains the abrpubt change at &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> = 200 GeV.',
+        'meanpt': '-',
         'mtspectra': '-',
         'yspectra': '-',
     }, 'total_multiplicity': {'pi0' : '-', 'pi' : 'Pion multiplicities at low energies known to deviate.\
@@ -131,7 +131,8 @@ descriptions_targetpage = {
    'meanmt': 'Mean transverse mass at midrapidity for &#960, K, P, &#923, &#926 and &#937 multiplets as a function of center-of-mass energy in pp and AuAu/PbPb collisions. <br> <br> \
                          Note: Peak in the region of &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> &#x2248 3 - 5 GeV is due to uncertainties in the transition from resonances to strings.',
    'meanpt': 'Mean transverse momentum at midrapidity for &#960, K, P, &#923, &#926 and &#937 multiplets as a function of center-of-mass energy in pp and AuAu/PbPb collisions. <br> <br> \
-                         Note: Peak in the region of &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> &#x2248 3 - 5 GeV is due to uncertainties in the transition from resonances to strings.',
+                         Note: Peak in the region of &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> &#x2248 3 - 5 GeV is due to uncertainties in the transition from resonances to strings. <br> <br> \
+                         Note: The cross section scaling factors increase linearly below &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> = 200 Gev and follow a step function above &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> = 200 GeV to enable running at high beam energies. This explains the abrpubt change at &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> = 200 GeV.',
    'mtspectra': 'Transverse mass spectra for &#960, K, P, &#923, &#926 and &#937 multiplets at AGS, SPS and RHIC/LHC energies. <br> <br> \
    Note: &#931<sup>0</sup> contribution is added to &#923 in AuAu and PbPb collisions.',
    'yspectra': 'Rapidity spectra for &#960, K, P, &#923, &#926 and &#937 multiplets at AGS, SPS and RHIC/LHC energies in pp and AuAu/PbPb collisions. <br> <br> \
