@@ -31,6 +31,7 @@ then
   sbatch --job-name=smash-el_box $root/slurm-job.sh elastic_box $1 $2 $3 $4 $root $output/elastic_box
   sbatch --job-name=smash-e_scan $root/slurm-job.sh energy_scan $1 $2 $3 $4 $root $output/energy_scan
   sbatch --job-name=smash-FOPI $root/slurm-job.sh FOPI_pions $1 $2 $3 $4 $root $output/FOPI_pions
+  sbatch --job-name=smash-dens $root/slurm-job.sh densities $1 $2 $3 $4 $root $output/densities
 else
   sbatch --job-name=smash-$target $root/slurm-job.sh $target $1 $2 $3 $4 $root $output
 fi
