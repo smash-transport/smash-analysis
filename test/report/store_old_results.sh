@@ -37,6 +37,9 @@ cd ${results}/FOPI_pions/test
 find FOPI_pions -maxdepth 2 -name "*.txt" | xargs cp --parents -t ${store_dir}/
 cd ${results}/energy_scan/test
 find energy_scan -maxdepth 2 -name "*.txt" | xargs cp --parents -t ${store_dir}/
+cd ${results}/densities/test
+find densities -maxdepth 3 -name "*.dat" | xargs cp --parents -t ${store_dir}/
+
 
 echo "Done copying old data files"
 echo "Finished successfully."
