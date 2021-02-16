@@ -14,6 +14,8 @@ this repository are:
 - **Cross Sections**<br/>
   Inclusive and exclusive cross sections for different
   elementary scattering processes.
+- **Densities**<br/>
+  Density distribution in an infinite matter simulation (box) and density evolution in the central cell of a Au+Au collision.
 - **Detailed Balance**<br/>
   Detailed balance tests in an infinite matter simulation (box) with different
   particle species.
