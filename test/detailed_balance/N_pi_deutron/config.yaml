@@ -6,7 +6,7 @@ Logging:
 General:
     Modus:         Box
     Delta_Time:    0.1
-    End_Time:      1000.0
+    End_Time:      6000.0
     Randomseed:    -1
     Nevents:       2
 

@@ -204,7 +204,7 @@ one_balance_test("KN_KDelta"
 one_balance_test("N_pi_deutron"
     "π⁺,π⁻,π⁰,N⁺,N⁰,d,d',N̅⁰,N̅⁻,d̅,d̅'"
     "N⁺,N⁰:d'|N⁺,d:N⁺,d'|N⁰,d:N⁰,d'|π⁺,d:N⁺,N⁺|π⁰,d:N⁺,N⁰|π⁻,d:N⁰,N⁰|π⁺,d:π⁺,d'|π⁰,d:π⁰,d'|π⁻,d:π⁻,d'|N̅⁻,N̅⁰:d̅'|N̅⁻,d:N̅⁻,d'|N̅⁰,d:N̅⁰,d'|π⁺,d̅:N̅⁰,N̅⁰|π⁰,d̅:N̅⁻,N̅⁰|d̅,N⁰:d̅',N⁰|d̅,N̅⁰:d̅',N̅⁰"
-    "500.0"
+    "4000.0"
 )
 
 ########## mesonic boxes ##########
