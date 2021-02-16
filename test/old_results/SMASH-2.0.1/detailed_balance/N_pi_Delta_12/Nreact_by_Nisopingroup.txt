@@ -1,0 +1,8 @@
+channel	forward	backward
+π⁻n$\leftrightarrow$Δ⁻	0.9780051247445886	0.9774954816363318
+3$\times$(π⁻p$\leftrightarrow$Δ⁰)	1.0056957336265353	1.0016185887604818
+3/2$\times$(π⁰n$\leftrightarrow$Δ⁰)	0.997626384412471	0.9999197783996261
+3/2$\times$(π⁰p$\leftrightarrow$Δ⁺)	0.9999197783996261	1.00340233963938
+3$\times$(π⁺n$\leftrightarrow$Δ⁺)	1.0096029974565033	1.0012788266883106
+π⁺p$\leftrightarrow$Δ⁺⁺	1.0133970072624143	1.0120379589737298
+# SMASH-2.0.1
