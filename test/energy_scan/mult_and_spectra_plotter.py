@@ -309,7 +309,8 @@ class DataTree:
                 'antiomega' : -3334,
             }
             for part_name in name_to_pdg.keys():
-                if part_name == exp_file.split('/')[-1].split('.')[0].split('_')[-1]:
+                if (part_name == exp_file.split('/')[-1].split('_cent')[0].split('_')[-1] or
+                    part_name == exp_file.split('/')[-1].split('.')[0].split('_')[-1]):
                     break
 
             pdg = name_to_pdg[part_name]
