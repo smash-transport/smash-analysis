@@ -28,7 +28,7 @@ find_python_module(argparse VERSION 1.1 REQUIRED)
 find_python_module(yaml VERSION 3.11 REQUIRED)
 find_python_module(pandas VERSION 0.14.1 REQUIRED)
 
-find_program(SMASH smash PATHS ${SMASH_PATH})
+find_program(SMASH smash PATHS ${SMASH_PATH} NO_DEFAULT_PATH)
 if(NOT SMASH)
     message(FATAL_ERROR
         "SMASH not found. Please specify a path to the SMASH build directory "
