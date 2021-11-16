@@ -18,7 +18,10 @@ function(run_one_test
     # run SMASH for both collision criteria
     set(i 0)
     set(multipl_opt "Modi: {Box: {Init_Multiplicities: {111: 200}}}")
-    set(stoch_crit_opt "Collision_Term: {Collision_Criterion: Stochastic}")
+    # The cell length is explicitly reduced for the stochastic criterion below
+    # to match the geometric criterion case, where the maximum cross section is
+    # automatically set as the elastic cross section for elastic boxes.
+    set(stoch_crit_opt "Collision_Term: {Collision_Criterion: Stochastic}, Collision_Term: {Fixed_Min_Cell_Length: 0.6}")
     set(geom_crit_opt "Collision_Term: {Collision_Criterion: Geometric}")
     set(data_files "")
     foreach(X IN LISTS var_list)
