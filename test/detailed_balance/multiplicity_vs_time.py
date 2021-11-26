@@ -43,7 +43,7 @@ def get_multiplicity(file_to_analyze):
                 blocks_per_event = tcounter
                 tcounter = 0
             if (block['type'] == 'i'):  # interaction
-                print 'Error: there should be no interactions in this file!'
+                print('Error: there should be no interactions in this file!')
                 sys.exit(1)
             if (block['type'] == 'p'):  # particles
                 if (event_num == 0):

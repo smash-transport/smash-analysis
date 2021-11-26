@@ -1,5 +1,4 @@
 #/usr/bin/python
-# coding=UTF-8
 
 import sys
 import os  # operating system interface
@@ -33,12 +32,9 @@ config_file = args.config
 setup = args.setup
 results_file = os.path.dirname(args.SMASH_data)+'/Nreact_by_Nisopingroup.txt'
 
-reload(sys)
-sys.setdefaultencoding('utf-8')
-
 def isospin_form(react):
-    lhs = sorted([sb.pdg_to_name(x ,config_file).translate(None, '0+-⁺⁰⁻\^{}$').replace('p','n') for x in react[0]])
-    rhs = sorted([sb.pdg_to_name(x, config_file).translate(None, '0+-⁺⁰⁻\^{}$').replace('p','n') for x in react[1]])
+    lhs = sorted([sb.pdg_to_name(x ,config_file).strip('0+-⁺⁰⁻\^{}$').replace('p','n') for x in react[0]])
+    rhs = sorted([sb.pdg_to_name(x, config_file).strip('0+-⁺⁰⁻\^{}$').replace('p','n') for x in react[1]])
     return ' '.join(lhs) + '-' + ' '.join(rhs)
 
 def clebsch_from_str(s):
@@ -50,18 +46,18 @@ def clebsch_from_str(s):
 
 def get_descr(clebsch, part_in, part_out, arrow):
     """Return text description of a reaction in->out."""
-    descr = u''
-    for i in xrange(part_in.shape[0]):
+    descr = ''
+    for i in range(part_in.shape[0]):
         descr += sb.pdg_to_name(part_in[i], config_file)
     descr += arrow
-    for i in xrange(part_out.shape[0]):
+    for i in range(part_out.shape[0]):
         descr += sb.pdg_to_name(part_out[i], config_file)
     if (clebsch_from_str(clebsch) != 1.0):
        descr = clebsch.replace(' ','') + '$\\times$(' + descr + ')'
     return descr
 
 # Preambula configuration for plotting
-execfile(os.path.dirname(os.path.abspath(__file__))+'/../../../python_scripts/common_plotting.py')
+exec(compile(open(os.path.dirname(os.path.abspath(__file__))+'/../../../python_scripts/common_plotting.py', "rb").read(), os.path.dirname(os.path.abspath(__file__))+'/../../../python_scripts/common_plotting.py', 'exec'))
 
 with open(input_file, 'r') as f:
     f.readline()
@@ -112,7 +108,7 @@ plt.yscale('log')
 largest_x = 0.0
 smallest_x = 5.0
 
-for i in xrange(react_num):
+for i in range(react_num):
     binwidth = (contents[3*i][1] - contents[3*i][0])
     reaction_lhs = reactions_list[i][0]
     reaction_rhs = reactions_list[i][1]
@@ -131,14 +127,14 @@ for i in xrange(react_num):
         if (M_inv[-1] > largest_x): largest_x = M_inv[-1]
         if (M_inv[0] < smallest_x): smallest_x = M_inv[0]
     else:
-        print "WARN: no forward reactions for {} have been observed.".format(descr_both[i])
+        print("WARN: no forward reactions for {} have been observed.".format(descr_both[i]))
     if (backward_rate > 0).any():
         plt.errorbar(M_inv, backward_rate * react_factor,
                         yerr=np.sqrt(backward_rate) * react_factor, color=color, fmt='<', label = descr_both[i])
         if (M_inv[-1] > largest_x): largest_x = M_inv[-1]
         if (M_inv[0] < smallest_x): smallest_x = M_inv[0]
     else:
-        print "WARN: no backward reactions for {} have been observed.".format(descr_both[i])
+        print("WARN: no backward reactions for {} have been observed.".format(descr_both[i]))
 
     # store difference between forward and backward reactions for second subplot (normalized to forward reactions)
     if (forward_rate > 0).any() and (backward_rate > 0).any():
@@ -154,12 +150,12 @@ n_isospin_groups = len(descr_isospinless_unique)
 n_reactions_in_isospin_group = np.zeros(n_isospin_groups)
 total_nscat_in_isospin_group = np.zeros(n_isospin_groups)
 norm_isospin_group = np.zeros(react_num)
-for i in xrange(react_num):
+for i in range(react_num):
     i_group = in_which_isospin_group[i]
     n_reactions_in_isospin_group[i_group] += 2
     total_nscat_in_isospin_group[i_group] += contents[3*i+1].sum() * clebsch_factors_num[i]
     total_nscat_in_isospin_group[i_group] += contents[3*i+2].sum() * clebsch_factors_num[i]
-for i in xrange(react_num):
+for i in range(react_num):
     i_group = in_which_isospin_group[i]
     norm_isospin_group[i] = total_nscat_in_isospin_group[i_group]/n_reactions_in_isospin_group[i_group]
 
@@ -178,7 +174,7 @@ if (bins_descr == "M_inv"):
 elif (bins_descr == "|t|"):
     plt.ylabel("$\\frac{dN_{react}}{dt d\\tau}$ [$GeV^{-2}$ $fm^{-1}$]", fontsize = 32)
 else:
-    print "Unexpected bins description ", bins_descr
+    print("Unexpected bins description ", bins_descr)
 
 
 plt.subplot(gs[13:24, :3])
@@ -189,7 +185,7 @@ elif (bins_descr == "|t|"):
     plt.xlabel("$|t|$, [$GeV^{2}$]", fontsize = 32)
     plt.ylabel("$\\frac{\\frac{dN_{react}^{\\qquad \\blacktriangleright}}{dM_{inv} dt} - \\frac{dN_{react}^{\\qquad \\blacktriangleleft}}{dM_{inv} dt}}{\\frac{dN_{react}^{\\qquad \\blacktriangleright}}{dM_{inv} dt}}$", fontsize = 32)
 else:
-    print "Unexpected bins description ", bins_descr
+    print("Unexpected bins description ", bins_descr)
 
 for i in range(0,len(forward_backward_difference)):
     plt.plot(forward_backward_difference[i][0],
@@ -225,7 +221,7 @@ plt.errorbar(np.arange(react_num) + 0.05, contents[2::3].sum(axis=1)*react_norm,
 with open(results_file,"w") as f:
     f.write('channel' + '\t' + 'forward' + '\t' + 'backward' + '\n')
     for i in range(0,len(descr_both)):
-        f.write(unicode(descr_both[i]) + '\t' + str((contents[1::3].sum(axis=1)*react_norm)[i]) + '\t' +
+        f.write(str(descr_both[i]) + '\t' + str((contents[1::3].sum(axis=1)*react_norm)[i]) + '\t' +
          str((contents[2::3].sum(axis=1)*react_norm)[i]) + '\n')
     f.write('# ' + smash_code_version)
 
@@ -239,7 +235,7 @@ if args.comp_prev_version:
 plt.plot(1,ymax * 4.0,linestyle = 'none', markersize = 20,
         color='black', marker = ">",label=str(smash_code_version))
 plt.axhline(y = 1, linestyle = '-', color = 'grey', zorder = 0, lw = 1)
-plt.xticks(range(react_num), descr_both, fontsize=15, rotation = 35)
+plt.xticks(list(range(react_num)), descr_both, fontsize=15, rotation = 35)
 plt.yticks([0,0.5,1,1.5,2,2.5,3,3.5,4], fontsize = 35)
 plt.ylim(0.0, ymax * 1.5)
 plt.xlim(-0.5, react_num-0.5)

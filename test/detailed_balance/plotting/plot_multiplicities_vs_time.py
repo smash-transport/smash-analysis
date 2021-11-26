@@ -13,7 +13,7 @@ tstart = float(sys.argv[3])
 config_file = sys.argv[4]
 
 # Preambula configuration for plotting
-execfile(os.path.dirname(os.path.abspath(__file__))+'/../../../python_scripts/common_plotting.py')
+exec(compile(open(os.path.dirname(os.path.abspath(__file__))+'/../../../python_scripts/common_plotting.py', "rb").read(), os.path.dirname(os.path.abspath(__file__))+'/../../../python_scripts/common_plotting.py', 'exec'))
 
 with open(input_file, 'r') as f:
     f.readline()
@@ -37,7 +37,7 @@ plt.figtext(0.8, 0.94, " %d events\n SMASH code:      %s\n SMASH analysis: %s" %
              color = "gray", fontsize = 10)
 
 for i in np.arange(n_pdgs):
-    label = sb.pdg_to_name(int(pdg_list[i]), config_file).decode("utf-8")
+    label = sb.pdg_to_name(int(pdg_list[i]), config_file)
     plt.plot(time, contents[2*i + 1], label=label, lw=3)
     x = time[time > tstart]
     y = contents[2*i + 1][time > tstart]

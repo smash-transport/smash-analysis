@@ -36,8 +36,8 @@ Arho = AGfunc(mrho, 2*mpi, gamrho, grho, T, V)
 
 l = ( - Api + np.sqrt( Api**2 +8 * Arho * N0) ) / (4. * Arho)
 
-print "Should be zero: ", 2* Arho*l*l + Api*l - N0
-print "Arho, Arho with width: ", Afunc(mrho, grho, T, V), AGfunc(mrho, 2*mpi, gamrho, grho, T, V)
-print "one pion sort multiplicity: ", Api * l / 3.
-print "one rho sort multiplicity: ", Arho * l**2 /3.
+print("Should be zero: ", 2* Arho*l*l + Api*l - N0)
+print("Arho, Arho with width: ", Afunc(mrho, grho, T, V), AGfunc(mrho, 2*mpi, gamrho, grho, T, V))
+print("one pion sort multiplicity: ", Api * l / 3.)
+print("one rho sort multiplicity: ", Arho * l**2 /3.)
 
