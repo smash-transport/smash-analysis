@@ -1,5 +1,3 @@
-# -*- encoding: utf-8 -*-
-
 """
 Combine analysis output files for different energies into one file.
 
@@ -14,10 +12,12 @@ sys.path.append(
     os.path.dirname(
         os.path.abspath(__file__)) +
     '/../../python_scripts')
-from ordered_default_dict import OrderedDefaultDict, OrderedSet
+#from ordered_default_dict import OrderedDefaultDict, OrderedSet
+from ordered_default_dict import OrderedSet
+from collections import defaultdict
 
-reload(sys)
-sys.setdefaultencoding('utf-8')
+#reload(sys)
+#sys.setdefaultencoding('utf-8')
 
 def parse_arguments():
     """Parse and return the command line arguments."""
@@ -39,7 +39,9 @@ def flatten(iterable):
 
 if __name__ == '__main__':
     args = parse_arguments()
-    cross_sections = OrderedDefaultDict(float)
+    cross_sections = defaultdict(float)
+    print("In combinbe.py - main:")
+    print(str(cross_sections))
     energies = OrderedSet()
     colnames = OrderedSet()
 
@@ -77,10 +79,11 @@ if __name__ == '__main__':
                         values = line.split(' ')
                         energy = values[0]
                         energies.add(energy)
-                        for i in xrange(1, len(values)):
+                        for i in range(1, len(values)):
                             colname = current_colnames[i]
                             if (energy, colname) in cross_sections:
-                                print 'WARN: duplicate (energy, colname) = ({}, {}) when combining data\nold: {}, new: {}'.format(energy, colname, cross_sections[(energy, colname)], values[i])
+                                print("In cycle: "+energy+"  "+colname+"  "+str(cross_sections[(energy, colname)]))
+                                print('WARN: duplicate (energy, colname) = ({}, {}) when combining data\nold: {}, new: {}'.format(energy, colname, cross_sections[(energy, colname)], values[i]))
                                 value = max(cross_sections[(energy, colname)], values[i])
                             else:
                                 value = values[i]
@@ -128,12 +131,12 @@ if __name__ == '__main__':
         out.write('\n')
 
         for energy in energies:
-            print >> out, energy,
+            print(energy, end=' ', file=out)
             # Output the cross sections (and skip energy)
             for colname in colnames[1:]:
                 xs = cross_sections[(energy, colname)]
-                print >> out, xs,
-            print >> out
+                print(xs, end=' ', file=out)
+            print(file=out)
 
         # generate output file for comparison to previous version
         # just necessary for 1 of the 4 runs, randomly pick xs_final
