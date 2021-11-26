@@ -36,7 +36,7 @@ while True:
     if (block['type'] == 'f'):  # end of event
         event_num = block['nevent'] + 1
         if (event_num % 20 == 0):
-            print "finished analyzing event ", event_num
+            print("finished analyzing event ", event_num)
     if (block['type'] == 'i' and sb.is_elastic22(block)): # 2->2 elastic
             coll_time = sb.get_block_time(block)
             #if (block['incoming']['r'][:,1].max() > L):

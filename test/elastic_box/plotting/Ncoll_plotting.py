@@ -14,7 +14,7 @@ import argparse
 from matplotlib import gridspec
 
 # Preambula configuration for plotting
-execfile(os.path.dirname(os.path.abspath(__file__))+'/../../../python_scripts/common_plotting.py')
+exec(compile(open(os.path.dirname(os.path.abspath(__file__))+'/../../../python_scripts/common_plotting.py', "rb").read(), os.path.dirname(os.path.abspath(__file__))+'/../../../python_scripts/common_plotting.py', 'exec'))
 
 # Get arguments
 parser = argparse.ArgumentParser()

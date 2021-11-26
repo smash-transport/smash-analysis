@@ -18,11 +18,7 @@ function(run_one_test
     # run SMASH for both collision criteria
     set(i 0)
     set(multipl_opt "Modi: {Box: {Init_Multiplicities: {111: 200}}}")
-    # The cell length is explicitly reduced for the stochastic criterion below
-    # such that 2x2x2 grid fits into all box sizes that are tested. This is
-    # also closer to the geometric case (where the maximum cross section is
-    # automatically set to the elastic cross section).
-    set(stoch_crit_opt "Collision_Term: {Collision_Criterion: Stochastic}, Collision_Term: {Fixed_Min_Cell_Length: 1.5}")
+    set(stoch_crit_opt "Collision_Term: {Collision_Criterion: Stochastic}")
     set(geom_crit_opt "Collision_Term: {Collision_Criterion: Geometric}")
     set(data_files "")
     foreach(X IN LISTS var_list)
@@ -105,7 +101,7 @@ function(run_one_test
     set(output_file_geometric "${test_folder}/scatrate-geometric.txt")
     list(APPEND output_files ${output_file_geometric})
     add_custom_command(OUTPUT "${test_folder}/scatrate-geometric.txt"
-        COMMAND "python2"
+        COMMAND "python3"
                   "${CMAKE_CURRENT_SOURCE_DIR}/elastic_scatrate.py"
                   "data-geometric" "scatrate-geometric.txt"
         WORKING_DIRECTORY "${test_folder}"
@@ -119,7 +115,7 @@ function(run_one_test
     set(output_file_stochastic "${test_folder}/scatrate-stochastic.txt")
     list(APPEND output_files ${output_file_stochastic})
     add_custom_command(OUTPUT "${test_folder}/scatrate-stochastic.txt"
-        COMMAND "python2"
+        COMMAND "python3"
                   "${CMAKE_CURRENT_SOURCE_DIR}/elastic_scatrate.py"
                   "data-stochastic" "scatrate-stochastic.txt"
         WORKING_DIRECTORY "${test_folder}"
@@ -133,7 +129,7 @@ function(run_one_test
     set(output_file_covariant "${test_folder}/scatrate-covariant.txt")
     list(APPEND output_files ${output_file_covariant})
     add_custom_command(OUTPUT "${test_folder}/scatrate-covariant.txt"
-        COMMAND "python2"
+        COMMAND "python3"
                   "${CMAKE_CURRENT_SOURCE_DIR}/elastic_scatrate.py"
                   "data-covariant" "scatrate-covariant.txt"
         WORKING_DIRECTORY "${test_folder}"
@@ -151,7 +147,7 @@ function(run_one_test
     add_custom_command(
         OUTPUT "${test_folder}/scatrate.pdf"
                "${test_folder}/${test_name}.txt"
-        COMMAND "python2"
+        COMMAND "python3"
                   "${CMAKE_CURRENT_SOURCE_DIR}/plotting/Ncoll_plotting.py"
                   "--SMASH_data" "'${test_folder}/scatrate-*.txt'"
                   "--output" "${test_folder}/scatrate.pdf"
