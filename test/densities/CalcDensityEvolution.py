@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 
 import numpy as np
 import sys
@@ -61,8 +60,6 @@ class DensityEvolution:
             Grids.append(density_grid)
         return Grids, smash_version
  ##############################################################################
-# with open(args.config_file, 'r') as f: d = yaml.load(f)
-
 
 Loc = sys.argv[1]
 config = sys.argv[2]
