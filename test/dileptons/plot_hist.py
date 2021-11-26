@@ -33,7 +33,7 @@ args = parser.parse_args()
 plot_with_data = False
 if args.data_dir != "":
     plot_with_data = True
-    print "Plotting with (HADES) data ..."
+    print("Plotting with (HADES) data ...")
 
 cross_sections_dict = {"pp1.25": 46.96,
                        "pp2.2": 42.16,
@@ -48,7 +48,7 @@ def normalization_AA():  # CC and ArKCl
     with open("other.avg_pion.dat") as avg:
         raw_norm = np.loadtxt(avg)
         norm_AA = raw_norm[1]  # use average of (n_piz+n_pim)/2
-        print "Using avg. no. of pion =", norm_AA, "for normalization off AA spectra ..."
+        print("Using avg. no. of pion =", norm_AA, "for normalization off AA spectra ...")
     return norm_AA
 
 # create wider bins
@@ -132,7 +132,7 @@ def plot(name, bin_factor, ch_list, style_dict, datafile="", cut_legend=""):
         elif 'y' in name:
             data_path = os.path.join(args.data_dir + 'y_spectrum/' + args.system + '/',datafile)
         else:
-            print 'No experimental data found.'
+            print('No experimental data found.')
 
         with open(data_path) as df:
             data = np.loadtxt(df, unpack=True)

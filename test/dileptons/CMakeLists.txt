@@ -89,7 +89,7 @@ function(dilepton_test
 
         # run analysis
         add_custom_command(OUTPUT "${hist_file}" "${data_folder}/other.version.dat"
-            COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/create_hist_from_binary_output.py" ${data_file}
+            COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/create_hist_from_binary_output.py" ${data_file}
                     "${acc_file}" "${plep_min}" "${plep_max}" "${resolution}"
             DEPENDS
                 "${CMAKE_CURRENT_SOURCE_DIR}/create_hist_from_binary_output.py"
@@ -102,7 +102,7 @@ function(dilepton_test
 
         # count also pions for CC or ArKCl plots
         add_custom_command(OUTPUT "${pion_file}"
-            COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/avg_pions.py" "${data_folder}/particle_lists.oscar"
+            COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/avg_pions.py" "${data_folder}/particle_lists.oscar"
             DEPENDS
                 "${CMAKE_CURRENT_SOURCE_DIR}/avg_pions.py"
                 "${data_folder}/particle_lists.oscar"
@@ -123,7 +123,7 @@ function(dilepton_test
 
     # add up all histograms
     add_custom_command(OUTPUT "${test_folder}/hist_mass.txt" "${test_folder}/other.version.dat"
-        COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/add_hist.py"
+        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/add_hist.py"
         DEPENDS
             "${CMAKE_CURRENT_SOURCE_DIR}/add_hist.py"
             ${hist_files}
@@ -135,7 +135,7 @@ function(dilepton_test
 
     # adding pion averages for total average for CC or ArKCl
     add_custom_command(OUTPUT "${test_folder}/other.avg_pion.dat"
-        COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/add_avg.py"
+        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/add_avg.py"
         DEPENDS
             "${CMAKE_CURRENT_SOURCE_DIR}/add_avg.py"
             ${pion_files}
@@ -146,7 +146,7 @@ function(dilepton_test
     # plotting
     if (NOT WITH_EXP_DATA) # plot without experimental data
       add_custom_command(OUTPUT ${test_folder}/plot_mass.pdf
-          COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/plot_hist.py"
+          COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/plot_hist.py"
                   "--system" "${system}"
                   "--energy" "${Ekin}"
                   "--comp_prev_version"
@@ -161,7 +161,7 @@ function(dilepton_test
       )
     else() # plot with experimental data
       add_custom_command(OUTPUT ${test_folder}/plot_mass.pdf
-          COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/plot_hist.py"
+          COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/plot_hist.py"
                   "--system" "${system}"
                   "--energy" "${Ekin}"
                   "--comp_prev_version"
@@ -261,7 +261,7 @@ function(box_test
             )
         # run analysis
         add_custom_command(OUTPUT "${hist_file}"
-            COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/create_hist_from_binary_output.py" ${data_file}
+            COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/create_hist_from_binary_output.py" ${data_file}
             DEPENDS
                 "${CMAKE_CURRENT_SOURCE_DIR}/create_hist_from_binary_output.py"
                 ${data_file}
@@ -273,7 +273,7 @@ function(box_test
 
     # add up all histograms
     add_custom_command(OUTPUT "${test_folder}/hist_mass.txt"
-        COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/add_hist.py"
+        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/add_hist.py"
         DEPENDS
             "${CMAKE_CURRENT_SOURCE_DIR}/add_hist.py"
             ${hist_files}
@@ -283,7 +283,7 @@ function(box_test
 
     # plotting
     add_custom_command(OUTPUT ${test_folder}/plot_mass.pdf
-        COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/plot_hist.py"  "box" "0.2"
+        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/plot_hist.py"  "box" "0.2"
         DEPENDS
             "${CMAKE_CURRENT_SOURCE_DIR}/plot_hist.py"
             "${test_folder}/hist_mass.txt"
@@ -330,7 +330,7 @@ function(shining_BR_test
 
     # run analysis dileptons
     add_custom_command(OUTPUT "${hist_dilepton_file}"
-        COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/analysis.py" "${data_dilepton_file}" "11"
+        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/analysis.py" "${data_dilepton_file}" "11"
         DEPENDS
             "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/analysis.py"
             "${data_dilepton_file}"
@@ -340,7 +340,7 @@ function(shining_BR_test
 
     # run analysis pions
     add_custom_command(OUTPUT "${hist_pion_file}"
-        COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/analysis.py" "${data_hadrons_file}" "211"
+        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/analysis.py" "${data_hadrons_file}" "211"
         DEPENDS
             "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/analysis.py"
             "${data_hadrons_file}"
@@ -350,7 +350,7 @@ function(shining_BR_test
 
     # plotting multiplicities
     add_custom_command(OUTPUT "${test_folder}/plot_mass_n.pdf"
-        COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/plot_multip.py"  "box" "0.2"
+        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/plot_multip.py"  "box" "0.2"
         DEPENDS
             "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/plot_multip.py"
             "${hist_dilepton_file}"
@@ -361,7 +361,7 @@ function(shining_BR_test
 
     # plotting BR
     add_custom_command(OUTPUT "${test_folder}/plot_mass_br.pdf"
-        COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/plot_br.py"  "box" "0.2"
+        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/plot_br.py"  "box" "0.2"
         DEPENDS
             "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/plot_br.py"
             "${hist_pion_file}"

@@ -146,7 +146,7 @@ with sbs.BinaryReader(args.data_file) as reader:
                 "Error: Found particle block in dilepton binary collision output.")
         if block["type"] == 'i':
             if not (block["nin"] == 1 and block["nout"] != 1):  # not an decay
-                print "Warning: Found a non-decay interaction block in Dilepton Output. (nin =", block["nin"], ", nout =", block["nout"], ")"
+                print("Warning: Found a non-decay interaction block in Dilepton Output. (nin =", block["nin"], ", nout =", block["nout"], ")")
                 continue
 
             shining_weight = block["total_cross_section"]
@@ -213,7 +213,7 @@ with sbs.BinaryReader(args.data_file) as reader:
                 if decay_channel == 0:  # rho
                     rho_ch = get_channel(rho_channels, origin_pdg)
                     if rho_ch == 0:
-                        print "Warning: Potential double counting. Found rho dilepton decay originating from omega."
+                        print("Warning: Potential double counting. Found rho dilepton decay originating from omega.")
                     elif rho_ch == rho_channels["other"] and origin_pdg not in unknown_rho_ch:
                         unknown_rho_ch.append(origin_pdg)
                     hist_mass_rho [np.digitize([inv_mass], bins_m),  rho_ch] += shining_weight
@@ -227,9 +227,9 @@ with sbs.BinaryReader(args.data_file) as reader:
                     hist_pt_omega   [np.digitize([pt],       bins_pt), omega_ch] += shining_weight
                     hist_y_omega    [np.digitize([y],        bins_y),  omega_ch] += shining_weight
 
-if unknown_ch != []:       print "Warning: Unknown dilepton decay(s) found! -->", unknown_ch
-if unknown_rho_ch != []:   print "Warning: Unknown dilepton decay origin(s) for rho! -->", unknown_rho_ch
-if unknown_omega_ch != []: print "Warning: Unknown dilepton decay origin(s) for omega! -->", unknown_omega_ch
+if unknown_ch != []:       print("Warning: Unknown dilepton decay(s) found! -->", unknown_ch)
+if unknown_rho_ch != []:   print("Warning: Unknown dilepton decay origin(s) for rho! -->", unknown_rho_ch)
+if unknown_omega_ch != []: print("Warning: Unknown dilepton decay origin(s) for omega! -->", unknown_omega_ch)
 
 num_events = int(num_events) + 1  # FIXME: event counting starts at zero in binary output
 

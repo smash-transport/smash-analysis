@@ -179,7 +179,7 @@ with open(args.data_file) as f:
       if line[1] == "interaction":
 
         # check if iterator works corecctly
-        if iterr != 0: print "ERROR: Iterator fault"
+        if iterr != 0: print("ERROR: Iterator fault")
 
         # grab weight, n_out and set iterator
         n_out = int(line[5])
@@ -245,7 +245,7 @@ def output(hist, bins, name):
 
 
 if num_events==0:
-  print "zero events found!"
+  print("zero events found!")
 else:
   #print num_events, "events"
   output(hist_mass,       bins_m, "mass")
