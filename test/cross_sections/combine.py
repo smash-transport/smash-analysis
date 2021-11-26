@@ -16,9 +16,6 @@ sys.path.append(
 from ordered_default_dict import OrderedSet
 from collections import defaultdict
 
-#reload(sys)
-#sys.setdefaultencoding('utf-8')
-
 def parse_arguments():
     """Parse and return the command line arguments."""
     parser = argparse.ArgumentParser()
@@ -40,8 +37,6 @@ def flatten(iterable):
 if __name__ == '__main__':
     args = parse_arguments()
     cross_sections = defaultdict(float)
-    print("In combinbe.py - main:")
-    print(str(cross_sections))
     energies = OrderedSet()
     colnames = OrderedSet()
 
