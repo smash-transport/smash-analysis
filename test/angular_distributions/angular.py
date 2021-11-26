@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 
 # angular.py
 #
@@ -86,8 +86,8 @@ for name in args.filename:
                 format_previous = formatversion
                 firstfile = False
             elif (smashversion != smash_previous or formatversion != format_previous):
-                print "# Data from different versions detected!"
-                print "# Above version from file", name
+                print("# Data from different versions detected!")
+                print("# Above version from file", name)
             # loop over all data blocks in the file
             for datablock in reader:
                 # if interaction block, do the analysis
@@ -143,31 +143,31 @@ process_list.sort()
 ### write out theta histogram
 f = open('theta.dat', 'w+')
 # print header
-print >>f, "theta total",
+print("theta total", end=' ', file=f)
 for proc in process_list:
-    print >> f, proc,
-print >> f
+    print(proc, end=' ', file=f)
+print(file=f)
 # print data
 for i in sorted(theta_counts):
   theta = (i+0.5)*thetabin    # use the center of the bin
-  print >> f, theta, theta_counts[i]*sigma_tot/(num_tot*thetabin),
+  print(theta, theta_counts[i]*sigma_tot/(num_tot*thetabin), end=' ', file=f)
   for proc in process_list:
-    print >> f, theta_hist[(proc,i)]*sigma_tot/(num_tot*thetabin),
-  print >> f
-print >>f, "#", smashversion
+    print(theta_hist[(proc,i)]*sigma_tot/(num_tot*thetabin), end=' ', file=f)
+  print(file=f)
+print("#", smashversion, file=f)
 
 ### write out t histogram
 f = open('t.dat', 'w+')
 # print header
-print >>f, "t total",
+print("t total", end=' ', file=f)
 for proc in process_list:
-    print >> f, proc,
-print >> f
+    print(proc, end=' ', file=f)
+print(file=f)
 # print data
 for i in sorted(t_counts):
   t = (i+0.5)*tbin    # use the center of the bin
-  print >> f , t, t_counts[i]*sigma_tot/(num_tot*tbin),
+  print(t, t_counts[i]*sigma_tot/(num_tot*tbin), end=' ', file=f)
   for proc in process_list:
-    print >>f , t_hist[(proc,i)]*sigma_tot/(num_tot*tbin),
-  print >> f
-print >>f, "#", smashversion
+    print(t_hist[(proc,i)]*sigma_tot/(num_tot*tbin), end=' ', file=f)
+  print(file=f)
+print("#", smashversion, file=f)

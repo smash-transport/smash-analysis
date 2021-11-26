@@ -41,10 +41,10 @@ base = os.path.splitext(input_file)[0]
 output_file = base + ".pdf"
 
 # Preambula configuration for plotting and colour encoding
-execfile(os.path.dirname(os.path.abspath(__file__))+'/../../python_scripts/common_plotting.py')
+exec(compile(open(os.path.dirname(os.path.abspath(__file__))+'/../../python_scripts/common_plotting.py', "rb").read(), os.path.dirname(os.path.abspath(__file__))+'/../../python_scripts/common_plotting.py', 'exec'))
 colours = ["blue","red","green","darkmagenta","orange","deepskyblue", "magenta", "chartreuse", "cyan","limegreen"]
-channels = [u'total',u'N+N',u'N+N*',u'N*+Δ',u'N+Δ',u'N+Δ*',u'Δ+Δ',u'Δ+Δ*']
-colour_coding = OrderedDict(zip(channels,colours))
+channels = ['total','N+N','N+N*','N*+Δ','N+Δ','N+Δ*','Δ+Δ','Δ+Δ*']
+colour_coding = OrderedDict(list(zip(channels,colours)))
 
 ### (1) read particles and determine kinematics for plot
 particle1 = pdg_to_name(int(pdg1),os.path.dirname(os.path.realpath(input_file)) + '/data/1/config.yaml')
@@ -66,7 +66,7 @@ t = contents[0]
 
 ### (4) Plot different curves (only positive non-zero values)
 for i in range(1, ncols):
-  plt.plot(t[contents[i]>0.], contents[i][contents[i]>0.],  label=unicode(colnames[i]), color=colour_coding.get(colnames[i]), zorder=2)
+  plt.plot(t[contents[i]>0.], contents[i][contents[i]>0.],  label=str(colnames[i]), color=colour_coding.get(colnames[i]), zorder=2)
 
 ### (4a) Plot experimental data
 if args.exp_data != '':
@@ -80,7 +80,7 @@ if args.comp_prev_version:
     cpv.plot_previous_results('angular_distributions', setup, '/t.dat', color_list = colour_coding, process_list = processes)
 
 ### (5) set up axes, labels, etc
-plt.title(particle1.decode('utf8') + "+" + particle2.decode('utf8') + " @ $\sqrt{s}=" + str(round(np.sqrt(s),2)) + "$ GeV")
+plt.title(particle1 + "+" + particle2 + " @ $\sqrt{s}=" + str(round(np.sqrt(s),2)) + "$ GeV")
 plt.xlabel("-t [$GeV^2$]")
 plt.ylabel("$d\sigma/dt$ [$mb/GeV^2$]")
 plt.yscale('log')
