@@ -11,7 +11,7 @@ function(find_python_module module)
         # A module's location is usually a directory, but for binary modules
         # it's a .so file.
         execute_process(COMMAND "${PYTHON_EXECUTABLE}" "-c"
-            "import re, ${module}; print re.compile('/__init__.py.*').sub('',${module}.__file__)"
+            "import re, ${module}; print(re.compile('/__init__.py.*').sub('',${module}.__file__))"
             RESULT_VARIABLE status
             OUTPUT_VARIABLE location
             ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
@@ -19,7 +19,7 @@ function(find_python_module module)
             set(PY_${module_upper}_FOUND ${location} CACHE STRING
                 "Location of Python module ${module}")
             execute_process(COMMAND "${PYTHON_EXECUTABLE}" "-c"
-                "import re, ${module}; print re.compile('/__init__.py.*').sub('',${module}.__version__)"
+                "import re, ${module}; print(re.compile('/__init__.py.*').sub('',${module}.__version__))"
                 OUTPUT_VARIABLE version
                 ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
             set(PY_${module_upper}_VERSION ${version} CACHE STRING
