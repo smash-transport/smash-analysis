@@ -120,8 +120,9 @@ def plot(name, bin_factor, ch_list, style_dict, datafile="", cut_legend=""):
     plt.plot(bin_centers_new, sum(hist_new),
              label="all", color='k', linewidth=3)
     for i in range(len(ch_list)):
-        plt.plot(bin_centers_new,
-                 hist_new[i], style_dict["l_style"][i], label=ch_list[i], linewidth=2)
+        if (sum(hist_new[i]) > pow(10,-8)):  # any contributions to channel?
+            plt.plot(bin_centers_new,
+                     hist_new[i], style_dict["l_style"][i], label=ch_list[i], linewidth=2)
 
     # plot data
     if datafile != "":
