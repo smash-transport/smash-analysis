@@ -67,7 +67,7 @@ def get_abs_theta_phi(p):
 def HADES_filter(p):
     if not HADES_filter.enable:
         return 1.
-    import HAFT  # Fortran-based HAFT code via f2py
+    import HAFT  # Fortran-based HAFT code via f2py3
     if not HADES_filter.init:
         HAFT.haft_single.setfilename(args.acc_file)
         HADES_filter.init = True
