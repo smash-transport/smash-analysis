@@ -113,7 +113,7 @@ function(dilepton_test
 
     # compile HAFT code with f2py
     add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/HAFT.so"
-        COMMAND "f2py" "-m" "HAFT" "-c" "${EXP_DATA}/HADES_dilepton_filtering/readHAFT2.f90"
+        COMMAND "f2py3" "-m" "HAFT" "-c" "${EXP_DATA}/HADES_dilepton_filtering/readHAFT2.f90"
                 "skip:" "momspread" "readhaftmatrix" "getmatrixval" "gettableval"
                 "param" "smearhades4momentum" "readhaftpairmatrix"
         DEPENDS "${EXP_DATA}/HADES_dilepton_filtering/readHAFT2.f90"
