@@ -19,7 +19,7 @@ function(afterburner_test
     set(all_data_files ${all_data_files};${final_particle_lists} PARENT_SCOPE)
 
     execute_process (
-    COMMAND bash -c "cd ${CMAKE_CURRENT_SOURCE_DIR}/${test_name} && unzip sampling0.zip"
+    COMMAND bash -c "cd ${CMAKE_CURRENT_SOURCE_DIR}/${test_name} && unzip -o sampling0.zip"
     OUTPUT_VARIABLE outVar
     )
 
