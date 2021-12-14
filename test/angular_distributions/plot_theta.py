@@ -60,7 +60,7 @@ with codecs.open(input_file, 'r', encoding='utf-8') as f:
 ncols = len(colnames)
 
 ### (3) read data and divide by sin(theta)
-contents = np.loadtxt(input_file, skiprows = 2, unpack=True)
+contents = np.loadtxt(input_file, skiprows = 1, unpack=True)
 theta = contents[0]
 
 for i in range(0,len(theta)):
