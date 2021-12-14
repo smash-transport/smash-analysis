@@ -78,3 +78,6 @@ add_subdirectory(test/densities)
 add_subdirectory(test/FOPI_pions)
 add_subdirectory(test/dileptons)
 add_subdirectory(test/energy_scan)
+
+# 4) afterburner test
+add_subdirectory(test/afterburner)
