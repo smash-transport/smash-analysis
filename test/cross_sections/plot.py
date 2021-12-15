@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 import sys
 import os
 import argparse
@@ -17,15 +18,9 @@ sys.path.append(
     '/../../python_scripts')
 from common_plotting import smash_style, errorcontour, get_default_colors
 from txt_io import load_table
-#from ordered_default_dict import OrderedDefaultDict
-#from collections import OrderedDict
 from pdgs_from_config import strip_charge
 import smash_basic_scripts as sb
 
-#reload(sys)
-#sys.setdefaultencoding('utf-8')
-
-#THIN_SPACE = '\u2009'.encode('utf-8')
 THIN_SPACE = '\u2009'
 
 def parse_arguments():
@@ -146,10 +141,7 @@ if __name__ == '__main__':
     nlabels = 1
     if len(columns) > 0:
         # Add up cross sections for cases where several final states are considered
-        #sigma_table = OrderedDefaultDict(lambda: np.zeros(len(sqrts)))
         sigma_table = defaultdict(lambda: np.zeros(len(sqrts)))
-        print("Called sigma_table in plot.py")
-        print(str(sigma_table))
         plotted_data = defaultdict(bool)
 
         # Ignore the first column, which is sqrts
@@ -210,6 +202,8 @@ if __name__ == '__main__':
                 sigma_table[colnames[i]] = columns[i]  # cross section
                 sigma_table[colnames[i + 1]] = columns[i + 1]  # error
         total_sigma = sigma_table['total'].sum()
+        tmp_variable=sigma_table['total_err'].view()
+        del tmp_variable
         if not total_sigma > 0.:
             # This only happens for plots of partial cross sections.
             # In such cases, we just assume the first cross section is the total.
@@ -219,12 +213,6 @@ if __name__ == '__main__':
         # Calculate contribution to total cross section
         sorted_sigma_table = {}
         for name, sigma in sigma_table.items():
-            print(name)
-            print(str(sigma))
-        print("\n\nNow the processing")
-        for name, sigma in sigma_table.items():
-            print(name)
-            print(str(sigma))
             if name.endswith('_err'):
                 # We skip errors
                 continue

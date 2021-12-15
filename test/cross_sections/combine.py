@@ -77,7 +77,6 @@ if __name__ == '__main__':
                         for i in range(1, len(values)):
                             colname = current_colnames[i]
                             if (energy, colname) in cross_sections:
-                                print("In cycle: "+energy+"  "+colname+"  "+str(cross_sections[(energy, colname)]))
                                 print('WARN: duplicate (energy, colname) = ({}, {}) when combining data\nold: {}, new: {}'.format(energy, colname, cross_sections[(energy, colname)], values[i]))
                                 value = max(cross_sections[(energy, colname)], values[i])
                             else:
