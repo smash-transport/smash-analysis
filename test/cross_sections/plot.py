@@ -202,8 +202,12 @@ if __name__ == '__main__':
                 sigma_table[colnames[i]] = columns[i]  # cross section
                 sigma_table[colnames[i + 1]] = columns[i + 1]  # error
         total_sigma = sigma_table['total'].sum()
+        # temporary fix, otherwise it seems that in some cases this entry
+        # is created only during a following iteration, raising a fatal error
+        # probably in the future these two lines of code can be removed
         tmp_variable=sigma_table['total_err'].view()
         del tmp_variable
+        # end of the temporary fix
         if not total_sigma > 0.:
             # This only happens for plots of partial cross sections.
             # In such cases, we just assume the first cross section is the total.
