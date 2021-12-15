@@ -61,7 +61,7 @@ with codecs.open(input_file, 'r', encoding='utf-8') as f:
 ncols = len(colnames)
 
 ### (3) read data
-contents = np.loadtxt(input_file, skiprows = 2, unpack=True)
+contents = np.loadtxt(input_file, skiprows = 1, unpack=True)
 t = contents[0]
 
 ### (4) Plot different curves (only positive non-zero values)
