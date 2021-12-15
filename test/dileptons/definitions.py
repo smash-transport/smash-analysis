@@ -45,13 +45,13 @@ hist_arr_dim = {"channel": 0,
 
 ### CHANNEL NUMBERING ###
 
-n_channels = 11  # 10 known + 1 for potential unknown sources (should be zero)
+n_channels = 12  # 11 known + 1 for potential unknown sources (should be zero)
 
 direct_channels = {
     113:  0,  # rho
     223:  1,  # omega
     333:  2,  # phi
-    "other": 10,  # unknown
+    "other": 11,  # unknown
 }
 
 dalitz_channels = {
@@ -62,7 +62,8 @@ dalitz_channels = {
     333:  7,  # phi dalitz
     2114:  8,  # delta 0
     2214:  9,  # delta p
-    "other": 10,  # unknown
+    1214: 10,  2124: 10,  # N(1520)
+    "other": 11,  # unknown
 }
 
 rho_channels = {
@@ -113,7 +114,9 @@ ch_list_main = [r'$\rho \rightarrow e^+e^-$',
                 r'$\omega \rightarrow \pi^0 e^+e^-$',
                 r'$\phi \rightarrow \pi^0 e^+e^-$',
                 r'$\Delta^0\rightarrow n e^+e^-$',
-                r'$\Delta^+ \rightarrow p e^+e^-$']
+                r'$\Delta^+ \rightarrow p e^+e^-$',
+                r'$N^*(1520)\rightarrow N e^+e^-$',
+                r'other']
 
 ch_list_rho = [r'$\omega\rightarrow\rho\pi^0\rightarrow e^+e^-\pi^0$',
                r'$\pi^+\pi^-\rightarrow\rho\rightarrow e^+e^-$',
@@ -152,7 +155,7 @@ ch_list_omega = [r'$N^*(1700)\rightarrow\omega N\rightarrow e^+e^-N$',
 ### LINESTYLES ###
 
 line_style_main = ['b-', 'g-', 'r-', 'k--',
-                   'c-', 'c--', 'g--', 'r--', 'y-', 'm--', 'k:']
+                   'c-', 'c--', 'g--', 'r--', 'y-', 'm--', 'b--' ,'k:']
 
 # create (random) linestyle for origin plot
 colors_o = ['b', 'g', 'r', 'c', 'm', 'y']
@@ -161,7 +164,7 @@ nc = len(colors_o)
 line_style_origin = []
 for i in range(23):  # should be sufficent
     c = i % nc
-    s = int(i / nc)
+    s = i / nc
     line_style_origin.append(colors_o[c] + linestyles_o[s])
 
 
