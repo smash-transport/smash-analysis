@@ -164,7 +164,7 @@ nc = len(colors_o)
 line_style_origin = []
 for i in range(23):  # should be sufficent
     c = i % nc
-    s = i / nc
+    s = int(i / nc)
     line_style_origin.append(colors_o[c] + linestyles_o[s])
 
 
