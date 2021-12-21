@@ -18,8 +18,7 @@ function(one_balance_test_general
     # run several instances of SMASH in parallel (with the same input)
     set(particles_files "")
     set(reactions_files "")
-    #foreach(i RANGE 1 20)
-    foreach(i RANGE 1 2)
+    foreach(i RANGE 1 20)
         set(data_folder "${test_folder}/data/${i}")
         set(collisions_file "${data_folder}/collisions_binary.bin")
         set(particles_file "${data_folder}/particles_binary.bin")
@@ -184,7 +183,7 @@ one_balance_test_angular("angular_NN_NDelta"
 one_balance_test("thermal_box"
     "π⁺,K⁺,N⁺,Λ,Σ⁻,Ξ⁻,ω,ρ⁺,Δ⁺,σ"
     "n_most_violating"
-    "20.0"
+    "1800.0"
 )
 
 ########## strangeness exchange ########
@@ -192,20 +191,20 @@ one_balance_test("thermal_box"
 one_balance_test("Strangeness"
     "π⁺,π⁻,K⁺,K̅⁻,K⁰,K̅⁰,N⁺,N⁰,Δ⁺⁺,Δ⁺,Δ⁰,Δ⁻,Λ,Ξ⁻,Ω⁻"
     "n_most_violating"
-    "20.0"
+    "2000.0"
 )
 
 one_balance_test("KN_KDelta"
     "K⁺,K̅⁻,K⁰,K̅⁰,N⁺,N⁰,Δ⁺⁺,Δ⁺,Δ⁰,Δ⁻"
     "3xK⁺,N⁺:K⁺,Δ⁺|K⁺,N⁺:K⁰,Δ⁺⁺|3xK⁺,N⁰:K⁺,Δ⁰|3xK⁺,N⁰:K⁰,Δ⁺|3xK⁰,N⁺:K⁰,Δ⁺|3xK⁰,N⁺:K⁺,Δ⁰|3xK⁰,N⁰:K⁰,Δ⁰|K⁰,N⁰:K⁺,Δ⁻|3xK̅⁻,N⁰:K̅⁻,Δ⁰|K̅⁻,N⁰:K̅⁰,Δ⁻|3xK̅⁻,N⁺:K̅⁰,Δ⁰|3xK̅⁻,N⁺:K̅⁻,Δ⁺"
-    "10.0"
+    "40.0"
 )
 
 
 one_balance_test("N_pi_deutron"
     "π⁺,π⁻,π⁰,N⁺,N⁰,d,d',N̅⁰,N̅⁻,d̅,d̅'"
     "N⁺,N⁰:d'|N⁺,d:N⁺,d'|N⁰,d:N⁰,d'|π⁺,d:N⁺,N⁺|π⁰,d:N⁺,N⁰|π⁻,d:N⁰,N⁰|π⁺,d:π⁺,d'|π⁰,d:π⁰,d'|π⁻,d:π⁻,d'|N̅⁻,N̅⁰:d̅'|N̅⁻,d:N̅⁻,d'|N̅⁰,d:N̅⁰,d'|π⁺,d̅:N̅⁰,N̅⁰|π⁰,d̅:N̅⁻,N̅⁰|d̅,N⁰:d̅',N⁰|d̅,N̅⁰:d̅',N̅⁰"
-    "10.0"
+    "500.0"
 )
 
 ########## mesonic boxes ##########
@@ -213,31 +212,31 @@ one_balance_test("N_pi_deutron"
 one_balance_test("pi_rho"
     "π⁰,π⁺,π⁻,ρ⁰,ρ⁺,ρ⁻"
     "π⁰,π⁺:ρ⁺|π⁻,π⁰:ρ⁻|π⁻,π⁺:ρ⁰"
-    "10.0"
+    "20.0"
 )
 
 one_balance_test("pi_rho_omega"
     "π⁰,π⁺,π⁻,ρ⁰,ρ⁺,ρ⁻,ω"
     "π⁰,ρ⁰:ω|π⁺,ρ⁻:ω|π⁻,ρ⁺:ω"
-    "10.0"
+    "150.0"
 )
 
 one_balance_test("pi_sigma"
     "π⁰,π⁺,π⁻,σ"
     "2xπ⁰,π⁰:σ|π⁻,π⁺:σ"
-    "10.0"
+    "20.0"
 )
 
 one_balance_test("pi_rho_sigma"
     "π⁰,π⁺,π⁻,ρ⁰,ρ⁺,ρ⁻,σ"
     "π⁰,π⁺:ρ⁺|π⁻,π⁰:ρ⁻|π⁻,π⁺:ρ⁰|2xπ⁰,π⁰:σ|π⁻,π⁺:σ"
-    "10.0"
+    "20.0"
 )
 
 one_balance_test("pi_rho_f2"
     "π⁰,π⁺,π⁻,ρ⁰,ρ⁺,ρ⁻,f₂"
     "π⁰,π⁺:ρ⁺|π⁻,π⁰:ρ⁻|π⁻,π⁺:ρ⁰|π⁺,π⁻:f₂|2xπ⁰,π⁰:f₂|ρ⁺,ρ⁻:f₂|2xρ⁰,ρ⁰:f₂"
-    "10.0"
+    "300.0"
 )
 
 ########## multi-particle reactions ########
@@ -245,25 +244,25 @@ one_balance_test("pi_rho_f2"
 one_balance_test("multi_pi3_omega"
     "π⁰,π⁺,π⁻,ω"
     "π⁰,π⁺,π⁻:ω"
-    "10.0"
+    "150.0"
 )
 
 one_balance_test("multi_pi3_phi"
     "π⁰,π⁺,π⁻,φ"
     "π⁰,π⁺,π⁻:φ"
-    "10.0"
+    "150.0"
  )
 
 one_balance_test("multi_pi2_eta_etaprime"
     "π⁰,π⁺,π⁻,η,η'"
     "π⁺,π⁻,η:η'|π⁰,π⁰,η:η'"
-    "10.0"
+    "2500.0"
  )
 
  one_balance_test("multi_N_pi_deutron"
     "π⁺,π⁻,π⁰,N⁺,N⁰,d,N̅⁰,N̅⁻,d̅"
     "π⁺,d:N⁺,N⁺|π⁰,d:N⁺,N⁰|π⁻,d:N⁰,N⁰|π⁺,d̅:N̅⁰,N̅⁰|π⁻,d̅:N̅⁻,N̅⁻|π⁰,d̅:N̅⁻,N̅⁰|π⁺,d:π⁺,N⁺,N⁰|π⁰,d:π⁰,N⁺,N⁰|π⁻,d:π⁻,N⁺,N⁰|N⁺,d:N⁺,N⁺,N⁰|N⁰,d:N⁰,N⁺,N⁰|N⁰,d̅:N⁰,N̅⁻,N̅⁰|N⁺,d̅:N⁺,N̅⁻,N̅⁰|N̅⁻,d:N̅⁻,N⁺,N⁰|N̅⁰,d:N̅⁰,N⁺,N⁰|π⁰,d̅:π⁰,N̅⁻,N̅⁰|π⁺,d̅:π⁺,N̅⁻,N̅⁰|π⁻,d̅:π⁻,N̅⁻,N̅⁰|N̅⁰,d̅:N̅⁰,N̅⁻,N̅⁰|N̅⁻,d̅:N̅⁻,N̅⁻,N̅⁰"
-    "10.0"
+    "50.0"
  )
 
 ########## baryonic boxes ##########
@@ -279,21 +278,21 @@ one_balance_test("N_pi_Delta_12"
 one_balance_test("N_pi_Delta_22"
     "π⁰,π⁺,π⁻,N⁺,N⁰,Δ⁺⁺,Δ⁺,Δ⁰,Δ⁻"
     "N⁺,N⁺:N⁰,Δ⁺⁺|3xN⁺,N⁺:N⁺,Δ⁺|3/2xN⁺,N⁰:N⁰,Δ⁺|3/2xN⁺,N⁰:N⁺,Δ⁰|3xN⁰,N⁰:N⁰,Δ⁰|N⁰,N⁰:N⁺,Δ⁻|N⁺,N⁺:Δ⁰,Δ⁺⁺|3/2xN⁺,N⁺:Δ⁺,Δ⁺|18/67xN⁺,N⁰:Δ⁻,Δ⁺⁺|18/43xN⁺,N⁰:Δ⁺,Δ⁰|3/2xN⁰,N⁰:Δ⁰,Δ⁰|N⁰,N⁰:Δ⁺,Δ⁻"
-    "10.0"
+    "50.0"
 )
 
 # N-pi-Delta, all reactions (1<-->2 and 2<-->2)
 one_balance_test("N_pi_Delta_all"
     "π⁰,π⁺,π⁻,N⁺,N⁰,Δ⁺⁺,Δ⁺,Δ⁰,Δ⁻"
     "N⁺,π⁺:Δ⁺⁺|3/2xN⁺,π⁰:Δ⁺|3xN⁰,π⁺:Δ⁺|3xN⁺,π⁻:Δ⁰|3/2xN⁰,π⁰:Δ⁰|N⁰,π⁻:Δ⁻|N⁺,N⁺:N⁰,Δ⁺⁺|3xN⁺,N⁺:N⁺,Δ⁺|3/2xN⁺,N⁰:N⁰,Δ⁺|3/2xN⁺,N⁰:N⁺,Δ⁰|3xN⁰,N⁰:N⁰,Δ⁰|N⁰,N⁰:N⁺,Δ⁻|N⁺,N⁺:Δ⁰,Δ⁺⁺|3/2xN⁺,N⁺:Δ⁺,Δ⁺|18/67xN⁺,N⁰:Δ⁻,Δ⁺⁺|18/43xN⁺,N⁰:Δ⁺,Δ⁰|3/2xN⁰,N⁰:Δ⁰,Δ⁰|N⁰,N⁰:Δ⁺,Δ⁻"
-    "10.0"
+    "50.0"
 )
 
 # N(1440)
 one_balance_test("N_1440"
     "π⁰,π⁺,π⁻,σ,N⁺,N⁰,Δ⁺⁺,Δ⁺,Δ⁰,Δ⁻,N(1440)⁺,N(1440)⁰"
     "2xN(1440)⁺:N⁺,π⁰|N(1440)⁺:N⁰,π⁺|2xN(1440)⁰:N⁰,π⁰|N(1440)⁰:N⁺,π⁻|N(1440)⁺:N⁺,σ|N(1440)⁰:N⁰,σ|N(1440)⁺,N⁺:N⁺,N⁺|N(1440)⁺,N⁰:N⁺,N⁰|N(1440)⁰,N⁺:N⁰,N⁺|N(1440)⁰,N⁰:N⁰,N⁰"
-    "10.0"
+    "400.0"
 )
 
 #one_balance_test("N_K_Lambda"
