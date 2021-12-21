@@ -162,7 +162,7 @@ for i in range(react_num):
 
 plt.minorticks_on()
 smash_code_version, analysis_version = smash_version.split()
-plt.figtext(0.8, 0.33, " %d events\n SMASH code:      %s\n SMASH analysis: %s\n"
+plt.figtext(0.75, 0.31, " %d events\n SMASH code:      %s\n SMASH analysis: %s\n"
             " time %.0f < t < %.0f fm/c" % \
             (total_events, smash_code_version, analysis_version, tstart, tend), \
             color = "gray", fontsize = 10)
@@ -177,7 +177,7 @@ else:
     print("Unexpected bins description ", bins_descr)
 
 
-plt.subplot(gs[13:24, :3])
+plt.subplot(gs[15:25, :3])
 if (bins_descr == "M_inv"):
     plt.xlabel("$M_{inv}$, GeV", fontsize = 32)
     plt.ylabel("$\\frac{\\frac{dN_{react}^{\\qquad \\blacktriangleright}}{dM_{inv} dt} - \\frac{dN_{react}^{\\qquad \\blacktriangleleft}}{dM_{inv} dt}}{\\frac{dN_{react}^{\\qquad \\blacktriangleright}}{dM_{inv} dt}}$", fontsize = 32)
@@ -203,7 +203,7 @@ plt.minorticks_on()
 plt.xticks(fontsize = 35)
 plt.yticks(fontsize = 35)
 
-plt.subplot(gs[27:35, :])
+plt.subplot(gs[30:40, :])
 
 def divide_ignore_zeros(a, b):
     """ Return c = a/b, but if some element b[i] = 0, then c[i] is assigned 0. """
