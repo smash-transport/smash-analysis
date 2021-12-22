@@ -71,7 +71,7 @@ def get_channel(dct, val):
     if val in dct:
         return dct[val]
     else:
-        return len(dct.values())
+        return len(list(dct.values()))
 
 
 # binning mass
@@ -104,7 +104,7 @@ with open(args.data_file) as f:
 
                 # check if iterator works corecctly
                 if iterr != 0:
-                    print "ERROR: Iterator fault"
+                    print("ERROR: Iterator fault")
 
                 # grab weight, n_out and set iterator
                 n_out = int(line[5])

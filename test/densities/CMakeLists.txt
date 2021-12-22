@@ -45,7 +45,7 @@ function(run_box_test
     list(APPEND output_files ${output_file_density})
     add_custom_command(
         OUTPUT "${test_folder}/density_grid.dat"
-        COMMAND "python2"
+        COMMAND "python3"
                   "${CMAKE_CURRENT_SOURCE_DIR}/CalcDensityEvolution.py"
                   "${test_folder}/data/"
                   "${CMAKE_CURRENT_SOURCE_DIR}/box_setup/config.yaml"
@@ -64,7 +64,7 @@ function(run_box_test
     set(dens_plots "${dens_plots};${output_plot}" PARENT_SCOPE)
     add_custom_command(
         OUTPUT "${test_folder}/2d_density_${test_name}.pdf"
-        COMMAND "python2"
+        COMMAND "python3"
                   "${CMAKE_CURRENT_SOURCE_DIR}/plot_2d_density.py"
                   "${test_folder}/density_grid.dat"
                   "${test_folder}/2d_density_${test_name}.pdf"
@@ -133,7 +133,7 @@ function(run_collider_test
     list(APPEND output_files ${output_file_density})
     add_custom_command(
         OUTPUT "${test_folder}/density_central_cell.dat"
-        COMMAND "python2"
+        COMMAND "python3"
                   "${CMAKE_CURRENT_SOURCE_DIR}/WriteOutDensityCentralCell.py"
                   "${test_folder}/data"
                   "${CMAKE_CURRENT_SOURCE_DIR}/collider_setup/config.yaml"
@@ -152,7 +152,7 @@ function(run_collider_test
     set(dens_plots "${dens_plots};${output_plot}" PARENT_SCOPE)
     add_custom_command(
         OUTPUT "${test_folder}/density_central_cell.pdf"
-        COMMAND "python2"
+        COMMAND "python3"
                   "${CMAKE_CURRENT_SOURCE_DIR}/plot_density_central_cell.py"
                   "${test_folder}/density_central_cell.dat"
                   "${test_folder}/density_central_cell.pdf"

@@ -105,7 +105,7 @@ function(run_one_test
     set(output_file_geometric "${test_folder}/scatrate-geometric.txt")
     list(APPEND output_files ${output_file_geometric})
     add_custom_command(OUTPUT "${test_folder}/scatrate-geometric.txt"
-        COMMAND "python2"
+        COMMAND "python3"
                   "${CMAKE_CURRENT_SOURCE_DIR}/elastic_scatrate.py"
                   "data-geometric" "scatrate-geometric.txt"
         WORKING_DIRECTORY "${test_folder}"
@@ -119,7 +119,7 @@ function(run_one_test
     set(output_file_stochastic "${test_folder}/scatrate-stochastic.txt")
     list(APPEND output_files ${output_file_stochastic})
     add_custom_command(OUTPUT "${test_folder}/scatrate-stochastic.txt"
-        COMMAND "python2"
+        COMMAND "python3"
                   "${CMAKE_CURRENT_SOURCE_DIR}/elastic_scatrate.py"
                   "data-stochastic" "scatrate-stochastic.txt"
         WORKING_DIRECTORY "${test_folder}"
@@ -133,7 +133,7 @@ function(run_one_test
     set(output_file_covariant "${test_folder}/scatrate-covariant.txt")
     list(APPEND output_files ${output_file_covariant})
     add_custom_command(OUTPUT "${test_folder}/scatrate-covariant.txt"
-        COMMAND "python2"
+        COMMAND "python3"
                   "${CMAKE_CURRENT_SOURCE_DIR}/elastic_scatrate.py"
                   "data-covariant" "scatrate-covariant.txt"
         WORKING_DIRECTORY "${test_folder}"
@@ -151,7 +151,7 @@ function(run_one_test
     add_custom_command(
         OUTPUT "${test_folder}/scatrate.pdf"
                "${test_folder}/${test_name}.txt"
-        COMMAND "python2"
+        COMMAND "python3"
                   "${CMAKE_CURRENT_SOURCE_DIR}/plotting/Ncoll_plotting.py"
                   "--SMASH_data" "'${test_folder}/scatrate-*.txt'"
                   "--output" "${test_folder}/scatrate.pdf"

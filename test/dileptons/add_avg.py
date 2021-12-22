@@ -1,3 +1,4 @@
+import functools
 import os
 import numpy as np
 import subprocess
@@ -16,7 +17,7 @@ def add_avg(particle):
 
     n_folders = 0
 
-    for i in sorted([f for f in os.listdir("data/") if not (f.startswith('.') or f == 'tabulations')], cmp=numeric_compare):
+    for i in sorted([f for f in os.listdir("data/") if not (f.startswith('.') or f == 'tabulations')], key=functools.cmp_to_key(numeric_compare)):
         # loop over folders, ignore hidden files
         if os.path.isdir("data/" + i):
             # print "Processing folder %s ... " % i

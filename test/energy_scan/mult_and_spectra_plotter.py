@@ -12,7 +12,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__))+'../../python_scripts
 from txt_io import load_table
 from glob import glob
 import smash_basic_scripts as sb
-execfile(os.path.dirname(os.path.abspath(__file__))+'/../../python_scripts/common_plotting.py')
+exec(compile(open(os.path.dirname(os.path.abspath(__file__))+'/../../python_scripts/common_plotting.py', "rb").read(), os.path.dirname(os.path.abspath(__file__))+'/../../python_scripts/common_plotting.py', 'exec'))
 import comp_to_prev_version as cpv
 
 colours = ["darkred","deepskyblue","deeppink","limegreen","orange","red", "magenta", "chartreuse", "cyan", "darkmagenta", "yellow"]# , "lavender", "navajowhite", "midnightblue", "yellow", "blue", "gold", "darkgreen"]
@@ -58,7 +58,7 @@ def store_results(results_file, results_list, version, quantity):
             title_line = 'pt' + "\t"
             title_line += '\t'.join(str(e) for e in results_list[0])
         else:
-            print "No scheme for formatting " + str(quantity) + " found."
+            print("No scheme for formatting " + str(quantity) + " found.")
 
         store_file.write(title_line + '\n')
         for i in range(0,len(results_list[1][0])):
@@ -78,7 +78,7 @@ def determine_collider(energy):
     elif (19.6 <= energy):
         collider = 'RHIC_LHC'
     else:
-        print energy
+        print(energy)
         raise SystemExit('Collider could not be determined.')
 
 
@@ -132,28 +132,28 @@ class DataTree:
             if ('spectra' in quantity): continue
             for colliding_system in self.colliding_systems:
                 if (not self.is_in_dict([quantity, colliding_system])): continue
-                print quantity, colliding_system
-                print '-' * (10*len(self.pdglist) + 18)
-                print '# sqrts ',
+                print(quantity, colliding_system)
+                print('-' * (10*len(self.pdglist) + 18))
+                print('# sqrts ', end=' ')
                 for pdg in pdglist_sorted:
-                    print '%10s' % pdg,
-                print
+                    print('%10s' % pdg, end=' ')
+                print()
                 for energy in energies_sorted:
                     any_pdg_for_this_energy = False
                     for pdg in self.pdglist:
                         if (self.is_in_dict([quantity, colliding_system, pdg, energy])):
                             any_pdg_for_this_energy = True
                     if (not any_pdg_for_this_energy): continue
-                    print '%9.4f ' % energy,
+                    print('%9.4f ' % energy, end=' ')
                     for pdg in pdglist_sorted:
                         if (not self.is_in_dict([quantity, colliding_system, pdg, energy])):
-                            print ' '*10,
+                            print(' '*10, end=' ')
                             continue
                         x = self.the_dict[quantity][colliding_system][pdg][energy]
                         if isinstance(x, tuple): x = x[0]
-                        print '%9.4f ' % x,
-                    print
-                print '-' * (10*len(self.pdglist) + 18)
+                        print('%9.4f ' % x, end=' ')
+                    print()
+                print('-' * (10*len(self.pdglist) + 18))
 
     def read_theory(self, input_files, PbPb_as_AuAu = True):
         " Consume all the results of theoretical calculations from given directories "
@@ -167,13 +167,13 @@ class DataTree:
             energy = float(dir_split[-2])
             # trunc for easier matching with experimental energies
             energy = np.trunc(energy * 1.e2) / 1.e2
-            files = tuple([directory + os.path.sep + quantities_list[i] + '.txt' for i in xrange(len(quantities_list))])
+            files = tuple([directory + os.path.sep + quantities_list[i] + '.txt' for i in range(len(quantities_list))])
             data = BulkObservables.read(files)
             pdglist = data.pdglist
             Npdg = len(data.pdglist)
             midrapidity_cut = data.midrapidity_cut
             for q in quantities_list:
-                for i in xrange(Npdg):
+                for i in range(Npdg):
                     # Lambdas and antilambdas need Sigma^0 to be added, because in AA collisions
                     # Lambda and Sigma^0 are indistinguishable
                     if (colliding_system != 'pp' and abs(pdglist[i]) == 3122):
@@ -202,7 +202,7 @@ class DataTree:
                             to_dict = (data.ptbins,\
                                        data.v2[i].astype(float) / data.pthist_midrapidity[i].astype(float))
                         else: continue
-                    else: print 'error: unexpected quantity ', q
+                    else: print('error: unexpected quantity ', q)
                     self.add([q, colliding_system, pdglist[i], energy, to_dict])
         return data.smash_version
 
@@ -275,7 +275,7 @@ class DataTree:
                         energy, exp_meas, err1, err2 = [float(x) for x in l]
                         exp_meas_err = np.sqrt(err1*err1 + err2*err2)
                     else:
-                        print "Unexpected line: ", line
+                        print("Unexpected line: ", line)
                     self.add([quantity, colliding_system, pdg, energy, (exp_meas, exp_meas_err)])
 
     def read_experiment_spectra(self, input_files):
@@ -308,9 +308,8 @@ class DataTree:
                 'omega' : 3334,
                 'antiomega' : -3334,
             }
-            for part_name in name_to_pdg.keys():
-                if (part_name == exp_file.split('/')[-1].split('_cent')[0].split('_')[-1] or
-                    part_name == exp_file.split('/')[-1].split('.')[0].split('_')[-1]):
+            for part_name in list(name_to_pdg.keys()):
+                if part_name == exp_file.split('/')[-1].split('.')[0].split('_')[-1]:
                     break
 
             pdg = name_to_pdg[part_name]
@@ -376,7 +375,7 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                         plot_color = 'darkred'
                     if data1.is_in_dict([quantity, colliding_system, pdg]):
                         theory_vs_energy = data1.the_dict[quantity][colliding_system][pdg]
-                        x, y  = zip(*sorted(theory_vs_energy.iteritems()))
+                        x, y  = list(zip(*sorted(theory_vs_energy.items())))
                         plt.plot(x, y, plot_format, label = plot_label, color = plot_color, lw = linewidth)
 
                         # store results in list to later save it for future comparison
@@ -398,8 +397,8 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
 
                     if data2.is_in_dict([quantity, colliding_system, pdg]):
                         exp_vs_energy = data2.the_dict[quantity][colliding_system][pdg]
-                        x_exp, y_exp = zip(*sorted(exp_vs_energy.iteritems()))
-                        y_exp_values, y_exp_errors = zip(*y_exp)
+                        x_exp, y_exp = list(zip(*sorted(exp_vs_energy.items())))
+                        y_exp_values, y_exp_errors = list(zip(*y_exp))
                         plt.errorbar(x_exp, y_exp_values, yerr = y_exp_errors, fmt = exp_fmt,\
                                      color = plot_color, elinewidth = 2, markeredgewidth = 0)
 
@@ -413,12 +412,12 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
 
             if (quantity in ['total_multiplicity', 'midrapidity_yield']):
                 if np.all(y == 0):
-                    print 'No positive values encountered in ' + str(quantity) + ' for ' + str(pdg) +\
-                          '. Cannot log-scale the y axis, scale will be linear.'
+                    print('No positive values encountered in ' + str(quantity) + ' for ' + str(pdg) +\
+                          '. Cannot log-scale the y axis, scale will be linear.')
                 else:
                      plt.yscale('log', nonposy='clip')
-            hadron_name = sb.pdg_to_name(pdg_abs, config_file).decode("utf-8")
-            antihadron_name = sb.pdg_to_name(-pdg_abs, config_file).decode("utf-8")
+            hadron_name = sb.pdg_to_name(pdg_abs, config_file)
+            antihadron_name = sb.pdg_to_name(-pdg_abs, config_file)
             plot_title = hadron_name
             if not pdg_abs in [111, 333]:  # antiparticle of itself
                 plot_title += ' (' + antihadron_name + ' dashed, squares)'
@@ -467,8 +466,8 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                     in_experiment = data2.is_in_dict([quantity, colliding_system, pdg, energy])
                     #if (not in_experiment): continue
                     if (in_experiment and not in_theory):
-                        print energy, colliding_system, pdg, in_theory, in_experiment, \
-                              ': there is experimental data, but no SMASH calculation!'
+                        print(energy, colliding_system, pdg, in_theory, in_experiment, \
+                              ': there is experimental data, but no SMASH calculation!')
                     if (in_theory):
                         plot_color = next(col)
                         bin_edges, y = data1.the_dict[quantity][colliding_system][pdg][energy]
@@ -548,7 +547,7 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                         'v2spectra' : '$v_2$',
                     }
 
-                    plot_title = sb.pdg_to_name(pdg, config_file).decode("utf-8")
+                    plot_title = sb.pdg_to_name(pdg, config_file)
                     plot_title += ' in ' + colliding_system + ' collisions'
                     plt.title(plot_title)
                     plt.figtext(0.15, 0.94, " SMASH code:      %s\n SMASH analysis: %s" % \
@@ -556,8 +555,8 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                         color = "gray", fontsize = 10)
                     if (quantity == 'mtspectra' or quantity == 'ptspectra'):
                         if np.all(y == 0):
-                            print 'No positive values encountered in ' + str(quantity) + ' for ' + str(pdg) +\
-                                  '. Cannot log-scale the y axis, scale will be linear.'
+                            print('No positive values encountered in ' + str(quantity) + ' for ' + str(pdg) +\
+                                  '. Cannot log-scale the y axis, scale will be linear.')
                         else:
                              plt.yscale('log', nonposy='clip')
                         if (quantity == 'mtspectra'):

@@ -46,7 +46,7 @@ function(angular_test
     set(output_t "${test_folder}/t.dat")
     set(ang_dists_analysis "${ang_dists_analysis};${output_t};${output_theta}" PARENT_SCOPE)
     add_custom_command(OUTPUT "${test_folder}/theta.dat" "${test_folder}/t.dat"
-        COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/angular.py"
+        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/angular.py"
             "${pdg1}" "${pdg2}" "${config_file}" ${data_files}
         DEPENDS
             "${CMAKE_CURRENT_SOURCE_DIR}/angular.py"
@@ -57,7 +57,7 @@ function(angular_test
     # plot theta
     set(output_plot_theta "${test_folder}/theta.pdf")
     add_custom_command(OUTPUT ${test_folder}/theta.pdf
-        COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/plot_theta.py"
+        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/plot_theta.py"
                 "--SMASH_data" "theta.dat"
                 "--pdg1" "${pdg1}"
                 "--pdg2" "${pdg2}"
@@ -74,7 +74,7 @@ function(angular_test
     set(output_plot_t "${test_folder}/t.pdf")
     if (NOT WITH_EXP_DATA) # plot without experimental data
       add_custom_command(OUTPUT ${test_folder}/t.pdf
-          COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/plot_t.py"
+          COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/plot_t.py"
                   "--SMASH_data" "t.dat"
                   "--pdg1" "${pdg1}"
                   "--pdg2" "${pdg2}"
@@ -88,7 +88,7 @@ function(angular_test
       )
     else() # plot with experimental data
       add_custom_command(OUTPUT ${test_folder}/t.pdf
-          COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/plot_t.py"
+          COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/plot_t.py"
                   "--SMASH_data" "t.dat"
                   "--pdg1" "${pdg1}"
                   "--pdg2" "${pdg2}"

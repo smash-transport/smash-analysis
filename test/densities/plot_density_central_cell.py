@@ -14,7 +14,7 @@ import glob
 import yaml
 
 # Preambula configuration for plotting
-execfile(os.path.dirname(os.path.abspath(__file__))+'/../../python_scripts/common_plotting.py')
+exec(compile(open(os.path.dirname(os.path.abspath(__file__))+'/../../python_scripts/common_plotting.py', "rb").read(), os.path.dirname(os.path.abspath(__file__))+'/../../python_scripts/common_plotting.py', 'exec'))
 
 DataOutfile = sys.argv[1]
 PlotName = sys.argv[2]

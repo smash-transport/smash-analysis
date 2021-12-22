@@ -45,7 +45,7 @@ function(run_one_energy
       endforeach(j)
       list(APPEND analysis_outputs ${analysis_outputs_i})
       add_custom_command(OUTPUT ${analysis_outputs_i}
-          COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/mult_and_spectra.py"
+          COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/mult_and_spectra.py"
                   "--output_files" ${analysis_outputs_i}
                   "--input_files" "${data_file}"
           WORKING_DIRECTORY "${test_folder}"
@@ -58,7 +58,7 @@ function(run_one_energy
       list(APPEND analysis_merged_outputs "${test_folder}/${j}")
   endforeach(j)
   add_custom_command(OUTPUT ${analysis_merged_outputs}
-      COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/mult_and_spectra.py"
+      COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/mult_and_spectra.py"
               "--merge"
               "--input_files" ${analysis_outputs}
               "--output_files" ${analysis_merged_outputs}
@@ -127,16 +127,16 @@ add_custom_target(energy_scan_plots DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/mockup.
 
 if (NOT WITH_EXP_DATA) # plot without experimental data
   add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/mockup.pdf"
-      COMMAND "python" "${CMAKE_CURRENT_SOURCE_DIR}/mult_and_spectra_plotter.py"
+      COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/mult_and_spectra_plotter.py"
               "--theory" ${all_analysis_outputs}
               "--config" "${CMAKE_CURRENT_BINARY_DIR}/2.695/pp/data/1/config.yaml"
               "--comp_prev_version"
       DEPENDS ${all_analysis_outputs}
-      COMMENT "Plotting results for energy_scan."
+      COMMENT "Plotting results for energy_scan without expdata. ${all_analysis_outputs}"
   )
 else() # plot with experimental data
   add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/mockup.pdf"
-      COMMAND "python" "${CMAKE_CURRENT_SOURCE_DIR}/mult_and_spectra_plotter.py"
+      COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/mult_and_spectra_plotter.py"
               "--theory" ${all_analysis_outputs}
               "--experiment" "${EXP_DATA}/multiplicity/*/*.exp"
                              "${EXP_DATA}/midy_yield/*/*.exp"
@@ -147,7 +147,7 @@ else() # plot with experimental data
               "--config" "${CMAKE_CURRENT_BINARY_DIR}/2.695/pp/data/1/config.yaml"
               "--comp_prev_version"
       DEPENDS ${all_analysis_outputs}
-      COMMENT "Plotting results for energy_scan."
+      COMMENT "Plotting results for energy_scan with experimental data. ${EXP_DATA}"
   )
 endif(NOT WITH_EXP_DATA)
 

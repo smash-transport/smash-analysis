@@ -38,7 +38,7 @@ def plot_spectra_ratio(input1, input2, output_file):
     plt.ylabel("$\\frac{dN_{Pauli}/dE}{dN_{no Pauli}/dE}$", fontsize = '20')
     plt.title("Pauli blocking: spectra ratio, %d events" % r1['nevents'], fontsize = '20')
 
-    for i in xrange(len(r1['pdg_list'])):
+    for i in range(len(r1['pdg_list'])):
         plt.errorbar(r1['spectra'][2*i], r1['spectra'][2*i+1]/r2['spectra'][2*i+1],
                      yerr = np.sqrt(2.0/r1['spectra'][2*i+1]),
                      label=sb.pdg_to_name(int(r1['pdg_list'][i]))+", m = 0.1 GeV, T = 1 GeV")

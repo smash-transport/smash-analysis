@@ -27,7 +27,7 @@ class Hist:
         if (i >= 0 and i < self.nbins):
             self.hist[i] += 1
         else:
-            print x, " is out of histogram range..."
+            print(x, " is out of histogram range...")
 
 def reaction_from_string(s, config_file):
     """
@@ -41,6 +41,8 @@ def reaction_from_string(s, config_file):
     in_str, out_str = s.split(':')
     if 'x' in in_str:
         in_str = in_str.split('x')[1]
+    for x in  in_str.split(','):
+        sb.name_to_pdg(x, config_file)
     reac_in  = [int(sb.name_to_pdg(x, config_file)) for x in  in_str.split(',')]
     reac_out = [int(sb.name_to_pdg(x, config_file)) for x in out_str.split(',')]
     reac_in.sort()
@@ -122,12 +124,12 @@ def find_n_most_detbal_violating(reactions, n = 6):
             n_reverse = 0
         if ((r not in deviations) and (inverse_r not in deviations)):
             deviations[r] = np.abs(np.sqrt(n_forward) - np.sqrt(n_reverse))
-    reactions_by_deviation = deviations.keys()
-    reactions_by_deviation.sort(key = lambda(x): deviations[x])
+    reactions_by_deviation = list(deviations.keys())
+    reactions_by_deviation.sort(key = lambda x: deviations[x])
     n = min(n, len(reactions_by_deviation))
     most_deviating_reactions = reactions_by_deviation[-n:]
     for r in most_deviating_reactions:
-        print r, sum(reactions[r].hist), sum(reactions[(r[1], r[0])].hist), deviations[r]
+        print(r, sum(reactions[r].hist), sum(reactions[(r[1], r[0])].hist), deviations[r])
     return most_deviating_reactions
 
 def count_reactions_and_printout(binvar = 'Q2'):
@@ -141,12 +143,12 @@ def count_reactions_and_printout(binvar = 'Q2'):
     parser.add_argument("files_to_analyze", nargs='+',
                         help="binary file(s) containing collision history")
     args = parser.parse_args()
-    with open(args.config_file, 'r') as f: d = yaml.load(f)
+    with open(args.config_file, 'r') as f: d = yaml.load(f,Loader=yaml.FullLoader)
 
     if (args.reactions_string == "n_most_violating"):
         reactions, event_num, smash_version = count_reactions(args.files_to_analyze, args.tstart, binning_in = binvar)
         most_deviating_reactions = find_n_most_detbal_violating(reactions)
-        print most_deviating_reactions
+        print(most_deviating_reactions)
         reaction_names = [tuple_to_name(x, args.config_file) for x in most_deviating_reactions]
     else:
         reaction_names = args.reactions_string.split('|')
