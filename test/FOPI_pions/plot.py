@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 #
 # Plots the pion multiplicity and ratio from SMASH versus the FOPI data.
 

@@ -1,5 +1,5 @@
-#!/usr/bin/python2
-# -*- encoding: utf-8 -*-
+#!/usr/bin/python3
+
 import os
 from glob import glob
 from txt_io import save_table, load_table
@@ -53,7 +53,7 @@ def plot_previous_results(observable, setup, filename, color_list = [], pdg = 0,
     # (1) find reference data from previous version:
     labeled_reference_data = find_previous_version(observable, setup, filename)
     if labeled_reference_data == []:
-        print 'Warning: No reference data from previous version found for ' + str(observable) + ', ' + str(filename) + '. Comparison cannot be plotted.'
+        print('Warning: No reference data from previous version found for ' + str(observable) + ', ' + str(filename) + '. Comparison cannot be plotted.')
         return
     else:
         label = labeled_reference_data[-1][0]
@@ -72,7 +72,7 @@ def plot_previous_results(observable, setup, filename, color_list = [], pdg = 0,
                     if i in data:
                         plt.plot(data['theta']*180/np.pi, data[i],
                                 linestyle = '-', linewidth = 10, alpha = 0.15,
-                                color = color_list.get(i.decode('utf8')),
+                                color = color_list.get(i),
                                 zorder = 1)
 
             else:   # as function of t
@@ -80,7 +80,7 @@ def plot_previous_results(observable, setup, filename, color_list = [], pdg = 0,
                     if i in data:
                         plt.plot(data['t'], data[i],
                                 linestyle = '-', linewidth = 10, alpha = 0.15,
-                                color = color_list.get(i.decode('utf8')),zorder = 1)
+                                color = color_list.get(i),zorder = 1)
 
             #dummy for legend entry
             plt.plot(1,3,linestyle = '-', linewidth = 10,
@@ -157,4 +157,4 @@ def plot_previous_results(observable, setup, filename, color_list = [], pdg = 0,
 
 
         else:
-            print 'Error: Could not plot comparison to previous data. Unknown observable'
+            print('Error: Could not plot comparison to previous data. Unknown observable')

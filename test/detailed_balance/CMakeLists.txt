@@ -51,7 +51,7 @@ function(one_balance_test_general
         set(reactions_file "${data_folder}/reaction_num_${i}.txt")
         list(APPEND reactions_files ${reactions_file})
         add_custom_command(OUTPUT ${reactions_file}
-            COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/${reaction_counting_code}"
+            COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/${reaction_counting_code}"
                 "${reactions_file}" "\"${reactions_to_analyze}\""
                 "${tstart_reactions_analysis}" "${config_file}" "${data_folder}/collisions_binary.bin"
             DEPENDS
@@ -66,7 +66,7 @@ function(one_balance_test_general
     # analyse multiplicities versus time
     set(multiplicity_file "${test_folder}/mult.txt")
     add_custom_command(OUTPUT "${test_folder}/mult.txt"
-        COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/multiplicity_vs_time.py"
+        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/multiplicity_vs_time.py"
             "${test_folder}/mult.txt" "\"${pdg_list}\"" "${config_file}" ${particles_files}
         DEPENDS
             "${CMAKE_CURRENT_SOURCE_DIR}/multiplicity_vs_time.py"
@@ -78,7 +78,7 @@ function(one_balance_test_general
     # merge output with reactions numbers to one file
     set(reaction_num_file "${test_folder}/reaction_num.txt")
     add_custom_command(OUTPUT "${test_folder}/reaction_num.txt"
-        COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/plotting/merge_reactionnum_output.py"
+        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/plotting/merge_reactionnum_output.py"
             "${test_folder}/reaction_num.txt" ${reactions_files}
         DEPENDS
             "${CMAKE_CURRENT_SOURCE_DIR}/plotting/merge_reactionnum_output.py"
@@ -92,7 +92,7 @@ function(one_balance_test_general
     # plot
     set(output_plot_mult "${test_folder}/mult.pdf")
     add_custom_command(OUTPUT "${test_folder}/mult.pdf"
-        COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/plotting/plot_multiplicities_vs_time.py"
+        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/plotting/plot_multiplicities_vs_time.py"
             "${test_folder}/mult.txt" "${test_folder}/mult.pdf" "${tstart_reactions_analysis}" "${config_file}"
         DEPENDS
             "${CMAKE_CURRENT_SOURCE_DIR}/plotting/plot_multiplicities_vs_time.py"
@@ -102,7 +102,7 @@ function(one_balance_test_general
     )
     set(output_plot_reacnum "${test_folder}/reaction_num.pdf")
     add_custom_command(OUTPUT "${test_folder}/reaction_num.pdf"
-        COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/plotting/plot_reactions_number.py"
+        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/plotting/plot_reactions_number.py"
             "--SMASH_data" "${test_folder}/reaction_num.txt"
             "--output" "${test_folder}/reaction_num.pdf"
             "--config" "${config_file}"
@@ -175,7 +175,7 @@ endfunction()
 one_balance_test_angular("angular_NN_NDelta"
     "N⁺,N⁰,Δ⁺⁺,Δ⁺,Δ⁰,Δ⁻"
     "N⁺,N⁺:N⁰,Δ⁺⁺|3xN⁺,N⁺:N⁺,Δ⁺|3/2xN⁺,N⁰:N⁰,Δ⁺|3/2xN⁺,N⁰:N⁺,Δ⁰|3xN⁰,N⁰:N⁰,Δ⁰|N⁰,N⁰:N⁺,Δ⁻|N⁺,N⁺:Δ⁰,Δ⁺⁺|3/2xN⁺,N⁺:Δ⁺,Δ⁺|18/67xN⁺,N⁰:Δ⁻,Δ⁺⁺|18/43xN⁺,N⁰:Δ⁺,Δ⁰|3/2xN⁰,N⁰:Δ⁰,Δ⁰|N⁰,N⁰:Δ⁺,Δ⁻"
-    "100.0"
+    "100"
 )
 
 ########## thermal box, all possible reactions on, show reaction violating detailed balance most #####

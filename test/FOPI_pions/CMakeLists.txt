@@ -48,7 +48,7 @@ endforeach()
 
 # analysis
 add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/pion_yields.txt"
-    COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/yields.py" ">pion_yields.txt"
+    COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/yields.py" ">pion_yields.txt"
     DEPENDS
         "${CMAKE_CURRENT_SOURCE_DIR}/yields.py"
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
@@ -58,7 +58,7 @@ add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/pion_yields.txt"
 # plot
 if (NOT WITH_EXP_DATA) # plot without experimental data
   add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/FOPI_pions.pdf"
-      COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
+      COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
               "--comp_prev_version"
       DEPENDS
           "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
@@ -68,7 +68,7 @@ if (NOT WITH_EXP_DATA) # plot without experimental data
   )
 else() # plot with experimental data
   add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/FOPI_pions.pdf"
-      COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
+      COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
       "--FOPI_multiplicity" "${EXP_DATA}/multiplicity/AuAu/FOPI_pions.exp"
       "--FOPI_ratio" "${EXP_DATA}/piplus_piminus_ratio/AuAu/FOPI.exp"
       "--comp_prev_version"

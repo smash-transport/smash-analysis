@@ -1,5 +1,4 @@
-#!/usr/bin/python2
-# -*- encoding: utf-8 -*-
+#!/usr/bin/python3
 
 """
 reconstruct_interaction_graph.py
@@ -11,9 +10,6 @@ states of the resonance.
 """
 
 from collections import defaultdict, Counter
-
-
-
 
 
 class Particle:
@@ -33,7 +29,7 @@ class Particle:
 def indegrees(nodecay_list, graph):
     """Calculate the number of mothers for each particle."""
     c = Counter()
-    for k in graph.keys():
+    for k in list(graph.keys()):
         if set(graph[k].daughters) - set(graph[k].mothers) == set([]): # list the particles that do not decay
            nodecay_list.append(k)
         for d in graph[k].daughters:

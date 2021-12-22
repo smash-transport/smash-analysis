@@ -32,4 +32,4 @@ def test_lorentz_boost():
 
 if __name__ == '__main__':
     test_lorentz_boost()
-    print 'All tests finished successfully.'
+    print('All tests finished successfully.')

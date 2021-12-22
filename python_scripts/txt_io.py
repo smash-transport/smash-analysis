@@ -15,8 +15,8 @@ def save_table(data, f, comments=None):
         got_path = True
     else:
         got_path = False
-    header = ' '.join(data.keys())
-    array = vstack(data.values()).T
+    header = ' '.join(list(data.keys()))
+    array = vstack(list(data.values())).T
     f.write(header)
     f.write('\n')
     savetxt(f, array)
@@ -49,13 +49,13 @@ def load_table(f):
         array = genfromtxt(f, missing_values='-')
     if got_path:
         f.close()
-    return OrderedDict(zip(header.split(), array.T))
+    return OrderedDict(list(zip(header.split(), array.T)))
 
 def test_save_table():
-    from StringIO import StringIO
+    from io import StringIO
 
     # save
-    d = OrderedDict([('col1', range(5)), ('col2', range(5, 10))])
+    d = OrderedDict([('col1', list(range(5))), ('col2', list(range(5, 10)))])
     f = StringIO()
     save_table(d, f)
     s = f.getvalue()
@@ -63,7 +63,7 @@ def test_save_table():
 
     # read
     f = StringIO(s)
-    for i1, i2 in zip(load_table(f).items(), d.items()):
+    for i1, i2 in zip(list(load_table(f).items()), list(d.items())):
         assert i1[0] == i2[0]
         assert (i1[1] == i1[1]).all()
 
