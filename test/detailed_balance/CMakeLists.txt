@@ -175,7 +175,7 @@ endfunction()
 one_balance_test_angular("angular_NN_NDelta"
     "N⁺,N⁰,Δ⁺⁺,Δ⁺,Δ⁰,Δ⁻"
     "N⁺,N⁺:N⁰,Δ⁺⁺|3xN⁺,N⁺:N⁺,Δ⁺|3/2xN⁺,N⁰:N⁰,Δ⁺|3/2xN⁺,N⁰:N⁺,Δ⁰|3xN⁰,N⁰:N⁰,Δ⁰|N⁰,N⁰:N⁺,Δ⁻|N⁺,N⁺:Δ⁰,Δ⁺⁺|3/2xN⁺,N⁺:Δ⁺,Δ⁺|18/67xN⁺,N⁰:Δ⁻,Δ⁺⁺|18/43xN⁺,N⁰:Δ⁺,Δ⁰|3/2xN⁰,N⁰:Δ⁰,Δ⁰|N⁰,N⁰:Δ⁺,Δ⁻"
-    "5.0"
+    "100"
 )
 
 ########## thermal box, all possible reactions on, show reaction violating detailed balance most #####
@@ -204,7 +204,7 @@ one_balance_test("KN_KDelta"
 one_balance_test("N_pi_deutron"
     "π⁺,π⁻,π⁰,N⁺,N⁰,d,d',N̅⁰,N̅⁻,d̅,d̅'"
     "N⁺,N⁰:d'|N⁺,d:N⁺,d'|N⁰,d:N⁰,d'|π⁺,d:N⁺,N⁺|π⁰,d:N⁺,N⁰|π⁻,d:N⁰,N⁰|π⁺,d:π⁺,d'|π⁰,d:π⁰,d'|π⁻,d:π⁻,d'|N̅⁻,N̅⁰:d̅'|N̅⁻,d:N̅⁻,d'|N̅⁰,d:N̅⁰,d'|π⁺,d̅:N̅⁰,N̅⁰|π⁰,d̅:N̅⁻,N̅⁰|d̅,N⁰:d̅',N⁰|d̅,N̅⁰:d̅',N̅⁰"
-    "500.0"
+    "4000.0"
 )
 
 ########## mesonic boxes ##########
