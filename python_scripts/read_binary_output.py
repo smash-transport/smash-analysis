@@ -460,7 +460,10 @@ class BinaryReader:
 
     def read_block(self):
         "Read one output block from SMASH file."
-        return self.__read_block(self.__file)
+        try:
+            return self.__read_block(self.__file)
+        except:
+            return None
 
 
 def count_pdg_in_block(block, pdgid):
