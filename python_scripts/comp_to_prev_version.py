@@ -120,11 +120,11 @@ def plot_previous_results(observable, setup, filename, color_list = [], pdg = 0,
                 plt.errorbar(data['x'], data['y'], yerr=data['y_error'],
                              fmt='s', ecolor = 'midnightblue', markeredgecolor= 'midnightblue', markersize = 15, capsize=10, label=label,
                              markerfacecolor= 'white', zorder = 1)
-            elif 'covariant' in filename:
+            elif 'stochastic' in filename:
                 plt.errorbar(data['x'], data['y'], yerr=data['y_error'],
                              fmt='s', ecolor = 'maroon', markeredgecolor= 'maroon', markersize = 15, capsize=10, label=label,
                              markerfacecolor= 'white', zorder = 1)
-            elif 'stochastic' in filename:
+            elif 'covariant' in filename:
                 plt.errorbar(data['x'], data['y'], yerr=data['y_error'],
                              fmt='s', ecolor = 'forestgreen', markeredgecolor= 'forestgreen', markersize = 15, capsize=10, label=label,
                              markerfacecolor= 'white', zorder = 1)
