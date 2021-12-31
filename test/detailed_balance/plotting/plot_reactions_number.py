@@ -218,17 +218,18 @@ plt.errorbar(np.arange(react_num) + 0.05, contents[2::3].sum(axis=1)*react_norm,
              capsize=20, elinewidth=4)
 
 #print to file to store old_results
-with open(results_file,"w") as f:
-    f.write('channel' + '\t' + 'forward' + '\t' + 'backward' + '\n')
-    for i in range(0,len(descr_both)):
-        f.write(str(descr_both[i]) + '\t' + str((contents[1::3].sum(axis=1)*react_norm)[i]) + '\t' +
-         str((contents[2::3].sum(axis=1)*react_norm)[i]) + '\n')
-    f.write('# ' + smash_code_version)
+if (args.comp_prev_version):
+    with open(results_file,"w") as f:
+        f.write('channel' + '\t' + 'forward' + '\t' + 'backward' + '\n')
+        for i in range(0,len(descr_both)):
+            f.write(str(descr_both[i]) + '\t' + str((contents[1::3].sum(axis=1)*react_norm)[i]) + '\t' +
+             str((contents[2::3].sum(axis=1)*react_norm)[i]) + '\n')
+        f.write('# ' + smash_code_version)
 
 ymax = max(max(contents[1::3].sum(axis=1)*react_norm),max(contents[2::3].sum(axis=1)*react_norm))
 
 # plot reference data from previous SMASH version
-if args.comp_prev_version:
+if (args.comp_prev_version):
     import comp_to_prev_version as cpv
     cpv.plot_previous_results('detailed_balance', setup, '/Nreact_by_Nisopingroup.txt', process_list = descr_both, ymax = ymax)
 
