@@ -77,7 +77,7 @@ for i in range(1, ncols):
 ### (4a) plot data from previous SMASH version
 if args.comp_prev_version:
     import comp_to_prev_version as cpv
-    processes = ['total','N+N','N+N*','N+\xce\x94','N*+\xce\x94','N+\xce\x94*','\xce\x94+\xce\x94','\xce\x94+\xce\x94*']
+    processes = ['total','N+N','N+N*','N*+Δ','N+Δ','N+Δ*','Δ+Δ','Δ+Δ*']
     cpv.plot_previous_results('angular_distributions', setup, '/theta.dat', color_list = colour_coding, process_list = processes)
 
 
