@@ -33,6 +33,7 @@ class BulkObservables:
         self.total_multiplicity = np.zeros(self.npdg)
         self.midrapidity_yield = np.zeros(self.npdg)
         self.meanpt_midrapidity = np.zeros(self.npdg)
+        self.meanpt_midrapidity_charha = np.zeros(1)
         self.meanmt0_midrapidity = np.zeros(self.npdg)
         self.mthist = np.zeros((self.npdg, mtbins.size - 1))
         self.yhist = np.zeros((self.npdg, ybins.size - 1))
@@ -104,6 +105,7 @@ class BulkObservables:
             self.pthist_midrapidity[i,:] += np.histogram(pT[pdg_and_y_cut], bins = self.ptbins)[0]
             a = float(added_midrap_yield) / self.midrapidity_yield[i]
             self.meanpt_midrapidity[i] = self.updated_mean(self.meanpt_midrapidity[i], pT[pdg_and_y_cut].mean(), a)
+            self.meanpt_midrapidity_charha=self.updated_mean(self.meanpt_midrapidity_charha,pT[pdg_and_y_cut].mean(),a)
             self.meanmt0_midrapidity[i] = self.updated_mean(self.meanmt0_midrapidity[i], mT0[pdg_and_y_cut].mean(), a)
 
             cos2phi_hist = np.histogram(pT[pdg_and_y_cut], bins = self.ptbins, weights = cos2phi[pdg_and_y_cut])[0]
@@ -126,6 +128,7 @@ class BulkObservables:
         self.pthist_midrapidity += other.pthist_midrapidity
         self.v2 += other.v2
 
+        self.meanpt_midrapidity_charha = self.updated_mean(self.meanpt_midrapidity_charha, other.meanpt_midrapidity_charha, a)
         for i in xrange(self.npdg):
             if (other.midrapidity_yield[i] == 0): continue
             a = float(other.midrapidity_yield[i]) / self.midrapidity_yield[i]
@@ -171,7 +174,7 @@ class BulkObservables:
     def save(self, files_to_write):
         """ Saves bulk observables to text files. """
         yspectra_file, mtspectra_file, ptspectra_file, v2_file, meanmt0_midrapidity_file,\
-        meanpt_midrapidity_file, midrapidity_yield_file, total_multiplicity_file = files_to_write
+        meanpt_midrapidity_file,meanpt_midrapidity_charha_file, midrapidity_yield_file, total_multiplicity_file = files_to_write
         ybin_centers = BulkObservables.bin_centers(self.ybins)
         with open(yspectra_file, 'w') as f:
             self.write_header(f)
@@ -215,13 +218,15 @@ class BulkObservables:
                      f.write(' %15.10f' % v2)
                  f.write('\n')
 
-        for i in [meanmt0_midrapidity_file, meanpt_midrapidity_file,
+        for i in [meanmt0_midrapidity_file, meanpt_midrapidity_file, meanpt_midrapidity_charha_file,
                   midrapidity_yield_file, total_multiplicity_file]:
             with open(i, 'w') as f: self.write_header(f)
         with open(meanmt0_midrapidity_file, 'a') as f:
             np.savetxt(f, self.meanmt0_midrapidity, fmt = '%8.5f', newline = ' ')
         with open(meanpt_midrapidity_file, 'a') as f:
             np.savetxt(f, self.meanpt_midrapidity, fmt = '%8.5f', newline = ' ')
+        with open(meanpt_midrapidity_charha_file, 'a') as f:
+            np.savetxt(f, self.meanpt_midrapidity_charha, fmt = '%8.5f', newline = ' ')
         with open(midrapidity_yield_file, 'a') as f:
             np.savetxt(f, self.midrapidity_yield, fmt = '%8i', newline = ' ')
         with open(total_multiplicity_file, 'a') as f:
@@ -231,7 +236,7 @@ class BulkObservables:
     def read(files_to_read):
         """ Reads bulk observables, that were saved totext files by the save method. """
         yspectra_file, mtspectra_file, ptspectra_file, v2_file, meanmt0_midrapidity_file,\
-        meanpt_midrapidity_file, midrapidity_yield_file, total_multiplicity_file = files_to_read
+        meanpt_midrapidity_file,meanpt_midrapidity_charha_file, midrapidity_yield_file, total_multiplicity_file = files_to_read
         spectra = BulkObservables()
         with open(yspectra_file, 'r') as f:
             smash_version, analysis_version = f.readline().split(':')[1].split()
@@ -260,6 +265,7 @@ class BulkObservables:
 
         spectra.meanmt0_midrapidity = np.loadtxt(meanmt0_midrapidity_file)
         spectra.meanpt_midrapidity = np.loadtxt(meanpt_midrapidity_file)
+        spectra.meanpt_midrapidity_charha = np.loadtxt(meanpt_midrapidity_charha_file)
         spectra.midrapidity_yield = np.loadtxt(midrapidity_yield_file)
         spectra.total_multiplicity = np.loadtxt(total_multiplicity_file)
         return spectra
@@ -283,10 +289,10 @@ if __name__ == '__main__':
                """)
     parser.add_argument("--output_files", nargs='+', required=True,
         help = """
-               Exactly 8 file names in a fixed order:
+               Exactly 9 file names in a fixed order:
                output_files = (yspectra_file, mtspectra_file, ptspectra_file, v2_file,
                meanmt0_midrapidity_file,
-               meanpt_midrapidity_file, midrapidity_yield_file, total_multiplicity_file)
+               meanpt_midrapidity_file,meanpt_midrapidity_charha_file, midrapidity_yield_file, total_multiplicity_file)
                """)
     parser.add_argument("--input_files", nargs='+', required=True,
         help = """
