@@ -265,6 +265,13 @@ one_balance_test("multi_pi2_eta_etaprime"
     "50.0"
  )
 
+ one_balance_test("multi_A3_nuclei"
+    "π⁺,π⁻,π⁰,N⁺,N⁰,d,d̅,N̅⁰,N̅⁻,t,t̅,H3L,he3,Λ"
+    "π⁺,t:π⁺,N⁺,N⁰,N⁰|π⁰,t:π⁰,N⁺,N⁰,N⁰|π⁻,t:π⁻,N⁺,N⁰,N⁰|N⁺,t:N⁺,N⁺,N⁰,N⁰|N⁰,t:N⁰,N⁺,N⁰,N⁰|π⁰,t̅:π⁰,N̅⁻,N̅⁰,N̅⁰|π⁺,t̅:π⁺,N̅⁻,N̅⁰,N̅⁰|π⁻,t̅:π⁻,N̅⁻,N̅⁰,N̅⁰|π⁺,he3:π⁺,N⁺,N⁺,N⁰|π⁰,he3:π⁰,N⁺,N⁺,N⁰|π⁻,he3:π⁻,N⁺,N⁺,N⁰|π⁺,H3L:π⁺,N⁺,N⁰,Λ|π⁰,H3L:π⁰,N⁺,N⁰,Λ|π⁻,H3L:π⁻,N⁺,N⁰,Λ"
+    "10.0"
+ )
+
+
 ########## baryonic boxes ##########
 
 # N-pi-Delta, 1 <--> 2 reactions only (Delta <--> pi + N)
