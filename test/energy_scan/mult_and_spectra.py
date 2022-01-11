@@ -22,6 +22,7 @@ class BulkObservables:
                        ptbins = np.array([0.0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.4, 2.8, 3.2, 3.6, 4.0, 4.4, 4.8]),
                        midrapidity_cut = 0.5):
         self.pdglist = pdg_list
+        self.pdglist_charha=[211,-211,321,-321,2212,-2212,3122,-3122,1000010020,-1000010020,3312,-3312,3334,-3334,3212,-3212]
         self.npdg = len(pdg_list)
         self.mtbins = mtbins
         self.ybins = ybins
@@ -32,6 +33,7 @@ class BulkObservables:
 
         self.total_multiplicity = np.zeros(self.npdg)
         self.midrapidity_yield = np.zeros(self.npdg)
+        self.midrapidity_yield_charha = np.zeros(1)
         self.meanpt_midrapidity = np.zeros(self.npdg)
         self.meanpt_midrapidity_charha = np.zeros(1)
         self.meanmt0_midrapidity = np.zeros(self.npdg)
@@ -88,24 +90,29 @@ class BulkObservables:
 
         for i in xrange(self.npdg):
             pdgcut = (pdg == self.pdglist[i])
+            pdgcut_charha = (pdg == self.pdglist_charha[i])
             added_total_mult = pdgcut.sum()
 
             if (added_total_mult == 0): continue
             self.yhist[i,:] += np.histogram(y[pdgcut], bins = self.ybins)[0]
 
             pdg_and_y_cut = np.logical_and(ycut, pdgcut)
+            pdg_and_y_cut_charha = np.logical_and(ycut, pdgcut_charha)
             added_midrap_yield = pdg_and_y_cut.sum()
+            added_midrap_yield_charha = pdg_and_y_cut_charha.sum()
 
             self.total_multiplicity[i] += added_total_mult
             self.midrapidity_yield[i] += added_midrap_yield
+            self.midrapidity_yield_charha += added_midrap_yield_charha
 
             if (added_midrap_yield == 0): continue
             pt_hist_with_cuts = np.histogram(pT[pdg_and_y_cut], bins = self.ptbins)[0]
             self.mthist[i,:] += np.histogram(mT0[pdg_and_y_cut], bins = self.mtbins)[0]
             self.pthist_midrapidity[i,:] += np.histogram(pT[pdg_and_y_cut], bins = self.ptbins)[0]
             a = float(added_midrap_yield) / self.midrapidity_yield[i]
+            b = float(added_midrap_yield_charha) / self.midrapidity_yield_charha
             self.meanpt_midrapidity[i] = self.updated_mean(self.meanpt_midrapidity[i], pT[pdg_and_y_cut].mean(), a)
-            self.meanpt_midrapidity_charha=self.updated_mean(self.meanpt_midrapidity_charha,pT[pdg_and_y_cut].mean(),a)
+            self.meanpt_midrapidity_charha=self.updated_mean(self.meanpt_midrapidity_charha,pT[pdg_and_y_cut_charha].mean(),b)
             self.meanmt0_midrapidity[i] = self.updated_mean(self.meanmt0_midrapidity[i], mT0[pdg_and_y_cut].mean(), a)
 
             cos2phi_hist = np.histogram(pT[pdg_and_y_cut], bins = self.ptbins, weights = cos2phi[pdg_and_y_cut])[0]
