@@ -3,7 +3,7 @@ import sys
 import os
 import argparse
 import codecs
-from collections import defaultdict, Counter
+from collections import defaultdict, Counter, OrderedDict
 from itertools import cycle
 
 import numpy as np
@@ -18,15 +18,10 @@ sys.path.append(
     '/../../python_scripts')
 from common_plotting import smash_style, errorcontour, get_default_colors
 from txt_io import load_table
-from ordered_default_dict import OrderedDefaultDict
-from collections import OrderedDict
 from pdgs_from_config import strip_charge
 import smash_basic_scripts as sb
 
-reload(sys)
-sys.setdefaultencoding('utf-8')
-
-THIN_SPACE = u'\u2009'.encode('utf-8')
+THIN_SPACE = '\u2009'
 
 def parse_arguments():
     """Parse and return the command line arguments."""
@@ -35,7 +30,7 @@ def parse_arguments():
     parser.add_argument("output_file", help="Output for plotting")
     parser.add_argument("--total_xs", help="Total cross sections from PDG", action="store")
     parser.add_argument("--elastic_xs", help="Elastic cross sections from PDG", action="store")
-    parser.add_argument("--final_state", help="Only plot reactions with given ','-separated final states", type=unicode)
+    parser.add_argument("--final_state", help="Only plot reactions with given ','-separated final states", type=str)
     parser.add_argument("--final_state_data", help="Plot given ','-separated experimental data files corresponding to the values given in `--final_state`.", type=str)
     parser.add_argument("system", help="Test setup for which plots are generated.", type = str)
     parser.add_argument("--comp_prev_version", required = False, action='store_true', help = "Plot comparison to previous SMASH version.")
@@ -56,12 +51,12 @@ def equal_state(left, right):
         return True
     if right['X'] > 0:
         return all(left[p] >= right[p]
-                   for p in right.keys() if p != 'X')
+                   for p in list(right.keys()) if p != 'X')
     if left['X'] > 0:
         return all(right[p] >= left[p]
-                   for p in left.keys() if p != 'X')
+                   for p in list(left.keys()) if p != 'X')
     return (len(left) == len(right) and
-            all(left[p] == right[p] for p in right.keys()))
+            all(left[p] == right[p] for p in list(right.keys())))
 
 def test_equal_state():
     left = parse_state('A+A+B+C')
@@ -84,7 +79,7 @@ def test_equal_state():
 def dict_to_str(d):
     """Convert a dict to a human-readable string. Essential for debugging."""
     return '{' \
-        + ', '.join('{}: {}'.format(k, v) for k, v in d.iteritems()) \
+        + ', '.join('{}: {}'.format(k, v) for k, v in d.items()) \
         + '}'
 
 def list_to_str(l):
@@ -146,7 +141,7 @@ if __name__ == '__main__':
     nlabels = 1
     if len(columns) > 0:
         # Add up cross sections for cases where several final states are considered
-        sigma_table = OrderedDefaultDict(lambda: np.zeros(len(sqrts)))
+        sigma_table = defaultdict(lambda: np.zeros(len(sqrts)))
         plotted_data = defaultdict(bool)
 
         # Ignore the first column, which is sqrts
@@ -206,16 +201,22 @@ if __name__ == '__main__':
                 # the plot would get too crowded otherwise.
                 sigma_table[colnames[i]] = columns[i]  # cross section
                 sigma_table[colnames[i + 1]] = columns[i + 1]  # error
-        total_sigma = sigma_table[u'total'].sum()
+        total_sigma = sigma_table['total'].sum()
+        # temporary fix, otherwise it seems that in some cases this entry
+        # is created only during a following iteration, raising a fatal error
+        # probably in the future these two lines of code can be removed
+        tmp_variable=sigma_table['total_err'].view()
+        del tmp_variable
+        # end of the temporary fix
         if not total_sigma > 0.:
             # This only happens for plots of partial cross sections.
             # In such cases, we just assume the first cross section is the total.
-            first = next(sigma_table.iterkeys())
+            first = next(iter(sigma_table.keys()))
             total_sigma = sigma_table[first].sum()
         assert total_sigma > 0.
         # Calculate contribution to total cross section
         sorted_sigma_table = {}
-        for name, sigma in sigma_table.iteritems():
+        for name, sigma in sigma_table.items():
             if name.endswith('_err'):
                 # We skip errors
                 continue
@@ -224,12 +225,12 @@ if __name__ == '__main__':
         # Sort by contribution to total cross section
         sorted_sigma_table = OrderedDict(sorted(
              [(name, item)
-              for name, item in sorted_sigma_table.iteritems()],
+              for name, item in sorted_sigma_table.items()],
              key=lambda t: -t[1][2])
         )
         default_color = cycle(get_default_colors(plt.rcParams))
         plotted_lines = 0
-        for name, t in sorted_sigma_table.iteritems():
+        for name, t in sorted_sigma_table.items():
             # Limit the number of plotted lines
             if plotted_lines > 100:
                 break

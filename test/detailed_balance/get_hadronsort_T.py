@@ -8,7 +8,7 @@ output_file = arg[2]
 pdg_string = arg[3]
 tstart = float(arg[4])
 
-pdg_list = map(int, pdg_string.split(','))
+pdg_list = list(map(int, pdg_string.split(',')))
 N_pdgs = len(pdg_list)
 
 with sb.BinaryReader(file_to_analyze) as reader:
@@ -20,7 +20,7 @@ with sb.BinaryReader(file_to_analyze) as reader:
 
     # Prepare empty lists of histograms
     Ehist = []
-    for i in xrange(N_pdgs):
+    for i in range(N_pdgs):
         h, bins = np.histogram([], bins = Ebins)
         Ehist.append(h)
 
@@ -31,7 +31,7 @@ with sb.BinaryReader(file_to_analyze) as reader:
             if (time > tstart):
                 E   = block['part']['p'][:,0]
                 pdg = block['part']['pdgid']
-                for i in xrange(N_pdgs):
+                for i in range(N_pdgs):
                     Ehist_ev, bins =  np.histogram(E, bins = Ebins,
                                         weights = (pdg == pdg_list[i]).astype(int))
                     Ehist[i] += Ehist_ev
@@ -40,7 +40,7 @@ with sb.BinaryReader(file_to_analyze) as reader:
             if (event_num == 750): break
             # print "finished analyzing event ", event_num
         if (block['type'] == 'i'):
-            print "Error: interaction block in particles file."
+            print("Error: interaction block in particles file.")
             sys.exit(1)
 
 # Get bin centers instead of edges
@@ -56,7 +56,7 @@ with open(output_file,'w') as f:
     f.write("%s\n" % pdg_string)
 
 with open(output_file, 'a') as f:
-    for i in xrange(N_pdgs):
+    for i in range(N_pdgs):
         f.write("# Pdg %d: (E N(E))\n" % pdg_list[i])
         np.savetxt(f, Ebins, newline = ' ', fmt = '%.3f')
         f.write("\n")

@@ -1,34 +1,25 @@
 import matplotlib
-from distutils.version import LooseVersion
-modern_matplotlib = (LooseVersion(matplotlib.__version__) >= LooseVersion("2.0.0"))
 import matplotlib.pyplot as plt
 
-import ConfigParser
+import configparser
 
 import argparse
 
-if modern_matplotlib:
-    from cycler import cycler
+from cycler import cycler
 from itertools import cycle
 
 def get_default_colors(config):
     """Get the matplotlib default colors from given config."""
-    if modern_matplotlib:
-        return config['axes.prop_cycle'].by_key()['color']
-    else:
-        return config['axes.color_cycle']
+    return config['axes.prop_cycle'].by_key()['color']
 
 
 def set_default_colors(config, default_colors):
     """Set the default colors of the given matplotlib config."""
-    if modern_matplotlib:
-        config['axes.prop_cycle'] = cycler('color', default_colors)
-    else:
-        config['axes.color_cycle'] = default_colors
+    config['axes.prop_cycle'] = cycler('color', default_colors)
 
 
 def errorcontour(x, y, yerr, **kwargs):
-    """Plot a line with a filled are around it, representin the error.
+    """Plot a line with a filled are around it, representing the error.
 
     Will use a given `axis` if provided as a keyword arguement.
     """

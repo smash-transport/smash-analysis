@@ -37,20 +37,20 @@ function(cross_section_test
         set(config_file "${data_folder}/config.yaml")
 
         # run SMASH
-        add_custom_command(OUTPUT "${data_file}" "${config_file}"
-            COMMAND "${CMAKE_BINARY_DIR}/smash"
-                "-c" "Modi: {Collider: {Sqrtsnn: ${energy}, Projectile: {Particles: {${pdg1}: 1}}, Target: {Particles: {${pdg2}: 1}} } }"
-                "-o" "${data_folder}"
-                "-i" "${CMAKE_CURRENT_SOURCE_DIR}/config.yaml"
-                "-f"
-                "-q"
-            DEPENDS
-                "${CMAKE_CURRENT_SOURCE_DIR}/config.yaml"
-                "${CMAKE_BINARY_DIR}/smash"
-            WORKING_DIRECTORY ${test_folder}
-            COMMENT "Running SMASH for cross_sections/${test_name} at ${energy} GeV (${i}/${num_bins})."
-            VERBATIM
-        )
+	add_custom_command(OUTPUT "${data_file}" "${config_file}"
+	    COMMAND "${CMAKE_BINARY_DIR}/smash"
+	        "-c" "Modi: {Collider: {Sqrtsnn: ${energy}, Projectile: {Particles: {${pdg1}: 1}}, Target: {Particles: {${pdg2}: 1}} } }"
+	        "-o" "${data_folder}"
+	        "-i" "${CMAKE_CURRENT_SOURCE_DIR}/config.yaml"
+	        "-f"
+	        "-q"
+	    DEPENDS
+	        "${CMAKE_CURRENT_SOURCE_DIR}/config.yaml"
+	        "${CMAKE_BINARY_DIR}/smash"
+	    WORKING_DIRECTORY ${test_folder}
+	    COMMENT "Running SMASH for cross_sections/${test_name} at ${energy} GeV (${i}/${num_bins})."
+	    VERBATIM
+	)
 
         set(all_data_files ${all_data_files};${data_files} PARENT_SCOPE)
 
@@ -74,7 +74,7 @@ function(cross_section_test
         set(all_analysis_files "${all_analysis_files};${analysis_files_1};${analysis_files_2};${analysis_files_3};${analysis_files_4};${analysis_files_5};${analysis_files_6};${analysis_files_7}" PARENT_SCOPE)
         add_custom_command(OUTPUT "${analysis_file_1}" "${analysis_file_2}" "${analysis_file_3}" "${analysis_file_4}" "${analysis_file_5}" "${analysis_file_6}" "${analysis_file_7}"
             VERBATIM
-            COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/geometrical_cross_section.py"
+            COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/geometrical_cross_section.py"
                 "--verbose"
                 "${pdg1}" "${pdg2}" "${config_file}"
                 "-o1" "${analysis_file_1}"
@@ -96,7 +96,7 @@ function(cross_section_test
 
     add_custom_command(OUTPUT "${test_folder}/xs_individual.dat"
         VERBATIM
-        COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/combine.py"
+        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/combine.py"
             "${test_folder}/xs_individual.dat"
             "--data" ${analysis_files_1}
         DEPENDS
@@ -106,7 +106,7 @@ function(cross_section_test
     )
     add_custom_command(OUTPUT "${test_folder}/xs_grouped.dat"
         VERBATIM
-        COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/combine.py"
+        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/combine.py"
             "${test_folder}/xs_grouped.dat"
             "--data" ${analysis_files_2}
         DEPENDS
@@ -116,7 +116,7 @@ function(cross_section_test
     )
     add_custom_command(OUTPUT "${test_folder}/xs_final_individual.dat"
         VERBATIM
-        COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/combine.py"
+        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/combine.py"
             "${test_folder}/xs_final_individual.dat"
             "--data" ${analysis_files_3}
         DEPENDS
@@ -126,7 +126,7 @@ function(cross_section_test
     )
     add_custom_command(OUTPUT "${test_folder}/xs_final_grouped.dat"
         VERBATIM
-        COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/combine.py"
+        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/combine.py"
             "${test_folder}/xs_final_grouped.dat"
             "--data" ${analysis_files_4}
         DEPENDS
@@ -136,7 +136,7 @@ function(cross_section_test
     )
     add_custom_command(OUTPUT "${test_folder}/xs_final_individual_res.dat"
         VERBATIM
-        COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/combine.py"
+        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/combine.py"
             "${test_folder}/xs_final_individual_res.dat"
             "--data" ${analysis_files_5}
         DEPENDS
@@ -146,7 +146,7 @@ function(cross_section_test
     )
     add_custom_command(OUTPUT "${test_folder}/xs_final_grouped_res.dat"
         VERBATIM
-        COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/combine.py"
+        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/combine.py"
             "${test_folder}/xs_final_grouped_res.dat"
             "--data" ${analysis_files_6}
         DEPENDS
@@ -156,7 +156,7 @@ function(cross_section_test
     )
     add_custom_command(OUTPUT "${test_folder}/xs_process_type.dat"
         VERBATIM
-        COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/combine.py"
+        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/combine.py"
             "${test_folder}/xs_process_type.dat"
             "--data" ${analysis_files_7}
         DEPENDS
@@ -178,7 +178,7 @@ function(cross_section_test
     if (NOT WITH_EXP_DATA) # plot without experimental data
       set(output_plot_1 "${test_folder}/xs_individual.pdf")
       add_custom_command(OUTPUT ${test_folder}/xs_individual.pdf
-          COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
+          COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
               "xs_individual.dat" "${test_folder}/xs_individual.pdf"
               "${data_elastic_arg}" "${data_elastic}" "${test_name}"
               "--comp_prev_version"
@@ -191,7 +191,7 @@ function(cross_section_test
       )
       set(output_plot_2 "${test_folder}/xs_grouped.pdf")
       add_custom_command(OUTPUT ${test_folder}/xs_grouped.pdf
-          COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
+          COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
               "xs_grouped.dat" "${test_folder}/xs_grouped.pdf"
               "${data_elastic_arg}" "${data_elastic}" "${test_name}"
               "--comp_prev_version"
@@ -204,7 +204,7 @@ function(cross_section_test
       )
       set(output_plot_3 "${test_folder}/xs_final_grouped.pdf")
       add_custom_command(OUTPUT ${test_folder}/xs_final_grouped.pdf
-          COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
+          COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
               "xs_final_grouped.dat" "${test_folder}/xs_final_grouped.pdf"
               "${data_elastic_arg}" "${data_elastic}" "${test_name}"
               "--comp_prev_version"
@@ -217,7 +217,7 @@ function(cross_section_test
       )
       set(output_plot_4 "${test_folder}/xs_process_type.pdf")
       add_custom_command(OUTPUT ${test_folder}/xs_process_type.pdf
-          COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
+          COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
               "xs_process_type.dat" "${test_folder}/xs_process_type.pdf"
               "${data_elastic_arg}" "${data_elastic}" "${test_name}"
               "--comp_prev_version"
@@ -231,7 +231,7 @@ function(cross_section_test
     else() # plot with experimental data
       set(output_plot_1 "${test_folder}/xs_individual.pdf")
       add_custom_command(OUTPUT ${test_folder}/xs_individual.pdf
-          COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
+          COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
               "xs_individual.dat" "${test_folder}/xs_individual.pdf"
               "--total_xs" "${EXP_DATA}/cross_sections/${test_name}/data_total.exp"
               "${data_elastic_arg}" "${data_elastic}" "${test_name}"
@@ -246,7 +246,7 @@ function(cross_section_test
       )
       set(output_plot_2 "${test_folder}/xs_grouped.pdf")
       add_custom_command(OUTPUT ${test_folder}/xs_grouped.pdf
-          COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
+          COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
               "xs_grouped.dat" "${test_folder}/xs_grouped.pdf"
               "--total_xs" "${EXP_DATA}/cross_sections/${test_name}/data_total.exp"
               "${data_elastic_arg}" "${data_elastic}" "${test_name}"
@@ -261,7 +261,7 @@ function(cross_section_test
       )
       set(output_plot_3 "${test_folder}/xs_final_grouped.pdf")
       add_custom_command(OUTPUT ${test_folder}/xs_final_grouped.pdf
-          COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
+          COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
               "xs_final_grouped.dat" "${test_folder}/xs_final_grouped.pdf"
               "--total_xs" "${EXP_DATA}/cross_sections/${test_name}/data_total.exp"
               "${data_elastic_arg}" "${data_elastic}" "${test_name}"
@@ -276,7 +276,7 @@ function(cross_section_test
       )
       set(output_plot_4 "${test_folder}/xs_process_type.pdf")
       add_custom_command(OUTPUT ${test_folder}/xs_process_type.pdf
-          COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
+          COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
               "xs_process_type.dat" "${test_folder}/xs_process_type.pdf"
               "--total_xs" "${EXP_DATA}/cross_sections/${test_name}/data_total.exp"
               "${data_elastic_arg}" "${data_elastic}" "${test_name}"
@@ -345,7 +345,7 @@ function(partial_cross_section
     if (NOT WITH_EXP_DATA) # plot without experimental data
       add_custom_command(OUTPUT ${output}
           VERBATIM
-          COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
+          COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
               "--final_state" "${final_state}"
               "${analyzed_result}" "${output}" "${test_name}"
           DEPENDS
@@ -359,7 +359,7 @@ function(partial_cross_section
     else() # plot with experimental data
       add_custom_command(OUTPUT ${output}
           VERBATIM
-          COMMAND "python2" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
+          COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/plot.py"
               "--final_state" "${final_state}"
               "--final_state_data" "${EXP_DATA}/cross_sections/${test_name}/${data_name}.exp"
               "${analyzed_result}" "${output}" "${test_name}"

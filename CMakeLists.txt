@@ -7,26 +7,27 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
 endif()
 
 # Minimum cmake version this is tested on
-cmake_minimum_required(VERSION 3.5.1)
+cmake_minimum_required(VERSION 3.16.3)
 
 ## Tell cmake where to find our modules
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+
 include(FindPythonModules)
 
-find_package(PythonInterp 2.7 REQUIRED)
+find_package(PythonInterp 3.8 REQUIRED)
 
-find_package(PythonLibs 2.7)
+find_package(PythonLibs 3.8)
 find_package(Cython)
 if (PYTHONLIBS_FOUND AND CYTHON_FOUND)
     message(STATUS "Found PythonLibs and Cython, therefore can boost some code with cython.")
 endif()
 
-find_python_module(numpy VERSION 1.14.0 REQUIRED)
-find_python_module(scipy VERSION 0.10.1 REQUIRED)
-find_python_module(matplotlib VERSION 1.3.1 REQUIRED)
+find_python_module(numpy VERSION 1.17.4 REQUIRED)
+find_python_module(scipy VERSION 1.3.3 REQUIRED)
+find_python_module(matplotlib VERSION 3.1.2 REQUIRED)
 find_python_module(argparse VERSION 1.1 REQUIRED)
-find_python_module(yaml VERSION 3.11 REQUIRED)
-find_python_module(pandas VERSION 0.14.1 REQUIRED)
+find_python_module(yaml VERSION 5.3.1 REQUIRED)
+find_python_module(pandas VERSION 0.25.3 REQUIRED)
 
 find_program(SMASH smash PATHS ${SMASH_PATH} NO_DEFAULT_PATH)
 if(NOT SMASH)

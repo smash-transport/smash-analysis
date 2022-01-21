@@ -1,0 +1,4 @@
+channel	forward	backward
+2$\times$(π⁰π⁰$\leftrightarrow$σ)	1.0037149611617697	1.0074781685723935
+π⁻π⁺$\leftrightarrow$σ	0.9949823901191683	0.9938244801466687
+# SMASH-2.1

@@ -1,5 +1,4 @@
-#!/usr/bin/python2
-# -*- encoding: utf-8 -*-
+#!/usr/bin/python3
 
 """
 geometrical_cross_section.py
@@ -53,9 +52,6 @@ import reconstruct_interaction_graph as ig
 from lorentz import lorentz_boost
 from pdgs_from_config import charge_str_neg, charge_str_zero, charge_str_pos
 
-reload(sys)
-sys.setdefaultencoding('utf-8')
-
 numpy.seterr(all='raise')
 
 bmax = 2.5
@@ -100,8 +96,8 @@ def transverse_distance(momentum_a, momentum_b, position_a, position_b):
                   (numpy.inner(x_a - x_b, p_a - p_b))**2 /
                   numpy.inner(p_a - p_b, p_a - p_b))
     except FloatingPointError:
-        print >> out, "FloatingPointError! p_a:", p_a, "p_b:", p_b
-        print >> out, "velocity:", velocity_cm
+        print("FloatingPointError! p_a:", p_a, "p_b:", p_b, file=out)
+        print("velocity:", velocity_cm, file=out)
         result = 0
     result = max(0, result)
 
@@ -238,7 +234,7 @@ def is_fail(type_id):
         
 def dict_to_str(d):
     """Convert a dict to a human-readable string."""
-    return '{' + ',\n'.join('{}: {}'.format(k, v) for k, v in sorted(d.iteritems())) + '}'
+    return '{' + ',\n'.join('{}: {}'.format(k, v) for k, v in sorted(d.items())) + '}'
 
 def list_to_str(l):
     """Convert a list to a human-readable string."""
@@ -246,7 +242,7 @@ def list_to_str(l):
 
 def counter_to_str(c):
     """Convert a counter to a string by repeating."""
-    return '+'.join('+'.join([key] * count) for key, count in sorted(c.iteritems()))
+    return '+'.join('+'.join([key] * count) for key, count in sorted(c.items()))
 
 def calc_tot_xs():
     """
@@ -309,12 +305,12 @@ class Processor:
         # graph representing all particles and their interactions
         # (filled in `count_interaction`)
         self.interaction_graph = defaultdict(ig.Particle)
-        resonances = self.args.resonances.split(',')
+        self.resonances = self.args.resonances.split(',')
 
-        def str_to_unicode(s):
-            return unicode(s, 'utf-8')
+        #def str_to_unicode(s):
+        #    return str(s, 'utf-8')
 
-        self.r_unicodes = [str_to_unicode(r) for r in resonances]
+        #self.r_unicodes = [str_to_unicode(r) for r in resonances]
 
         self.observable_resonances = 0
         self.unobservable_resonances = 0
@@ -402,12 +398,10 @@ class Processor:
               self.type_count[p_type] += 1
 
            # determine masses of initial particles
-           self.initial_masses = map(lambda x: x[1],
-                                     sorted((p['id'], p['mass']) for p in datablock['incoming']))
+           self.initial_masses = [x[1] for x in sorted((p['id'], p['mass']) for p in datablock['incoming'])]
         elif datablock['type'] == 'p':
            b_bins_tot[id_T] += 1
-           self.initial_masses = map(lambda x: x[1],
-                                     sorted((p['id'], p['mass']) for p in datablock['part']))
+           self.initial_masses = [x[1] for x in sorted((p['id'], p['mass']) for p in datablock['part'])]
 
     def count_final_state(self, datablock):
         """Count how often this final state occurs.
@@ -463,17 +457,18 @@ class Processor:
 
         # unstable final states
 
-        final_individual = Counter(map(self.get_name, final_pdgs))
-        final_generic = Counter(map(self.unify_name, final_pdgs))
+        final_individual = Counter(list(map(self.get_name, final_pdgs)))
+        final_generic = Counter(list(map(self.unify_name, final_pdgs)))
 
         # Calculate the maximal number of mothers in the reaction chain from
         # final to initial state.
         max_indeg = ig.max_indegrees_bottom_up(
             datablock['part']['id'], self.interaction_graph)
 
-        for pid, particle in self.interaction_graph.iteritems():
+        for pid, particle in self.interaction_graph.items():
             go_on = True
-            for r in self.r_unicodes:
+            #for r in self.r_unicodes:
+            for r in self.resonances:
                 if go_on and smash.strip_charge(self.get_name_generic(particle.pdgid)) == r:
                     go_on = False
                     is_observable = all(max_indeg[d] <= 1 for d in set(particle.daughters) - set(particle.mothers))
@@ -525,10 +520,10 @@ class Processor:
                     # reconstructed and we are interested in the final state.
                     # This is important for comparison to experiment, because
                     # phis are usually only reconstructed from K+ K- only.
-                    if process_res_individual == u'N⁺+N⁺+φ':
-                        process_phi_individual = u'{}→φ+N⁺+N⁺→{}'.format(
+                    if process_res_individual == 'N⁺+N⁺+φ':
+                        process_phi_individual = '{}→φ+N⁺+N⁺→{}'.format(
                                 self.process_name, process_individual)
-                        process_phi_grouped = u'{}→φ+N⁺+N⁺→{}'.format(
+                        process_phi_grouped = '{}→φ+N⁺+N⁺→{}'.format(
                                 smash.strip_charge(self.process_name_generic),
                                 process_generic)
                         self.process_list['final_individual_res'].add(process_phi_individual)
@@ -573,8 +568,8 @@ class Processor:
                     empty_events += 1
                 seen_interaction = False
                 self.interaction_graph = defaultdict(ig.Particle)
-        print '{:.1f}% = {} / {} of the events were empty.'.format(
-                float(empty_events) / event * 100, empty_events, event)
+        print('{:.1f}% = {} / {} of the events were empty.'.format(
+                float(empty_events) / event * 100, empty_events, event))
 
     def print_to_file(self, out, tag, process_el=""):
         """Print data (process_list, process_count) to output file 'out'."""
@@ -588,37 +583,37 @@ class Processor:
                 process_list.insert(0, process_el)
             except IndexError:
                 if self.args.verbose:
-                    print >> sout, "# Note: No elastic process found."
+                    print("# Note: No elastic process found.", file=sout)
             except ValueError:
                 if self.args.verbose:
-                    print >> sout, "# Note:", process_el, "(elastic process) is not in process list."
-                    print >> sout, "# Following processes were found:",
+                    print("# Note:", process_el, "(elastic process) is not in process list.", file=sout)
+                    print("# Following processes were found:", end=' ', file=sout)
                     for item in process_list:
-                        print >> sout, item,
-                    print >> sout
+                        print(item, end=' ', file=sout)
+                    print(file=sout)
         # write initial state
-        print >> out, "#initial",
+        print("#initial", end=' ', file=out)
         for pdg in self.initial_parts:
-            print >> out, pdg,
-        print >> out
+            print(pdg, end=' ', file=out)
+        print(file=out)
         # write initial masses
-        print >> out, "#masses",
+        print("#masses", end=' ', file=out)
         assert len(self.initial_masses) == 2
-        print >> out, ' '.join(str(mass) for mass in self.initial_masses)
+        print(' '.join(str(mass) for mass in self.initial_masses), file=out)
         # write version
-        print >> out, "#version", self.smashversion, "format", self.formatversion, \
-            "analysis", smash.analysis_version_string()
+        print("#version", self.smashversion, "format", self.formatversion, \
+            "analysis", smash.analysis_version_string(), file=out)
         # write labels
-        print >> out, "#columns $\\sqrt{s}$[GeV] total total_err",
+        print("#columns $\\sqrt{s}$[GeV] total total_err", end=' ', file=out)
         if tag == 'process_type':
-           for p_type in sorted(self.type_count.iterkeys()):
-               print >> out, p_type, p_type + '_err',
+           for p_type in sorted(self.type_count.keys()):
+               print(p_type, p_type + '_err', end=' ', file=out)
         else:
            if process_el and (process_el not in process_list):
-               print >> out, process_el, process_el + '_err',   # elastic
+               print(process_el, process_el + '_err', end=' ', file=out)   # elastic
            for proc in process_list:
-               print >> out, proc, proc + '_err',
-        print >> out
+               print(proc, proc + '_err', end=' ', file=out)
+        print(file=out)
         # write cross sections and errors
         total_count = self.process_count['total']
         if total_count > 0:
@@ -626,41 +621,41 @@ class Processor:
           #assert total_xsection_err_sq >= 0.
           total_xsection_rel_err_sq = total_xsection_err_sq / (total_count ** 2)
           total_xsection_err = math.sqrt(total_xsection_err_sq)
-          print >> out, self.energyindex, total_xsection, total_xsection_err,
+          print(self.energyindex, total_xsection, total_xsection_err, end=' ', file=out)
           if tag == 'process_type':
-             for p_type in sorted(self.type_count.iterkeys()):
+             for p_type in sorted(self.type_count.keys()):
                 count = float(self.type_count[p_type])
                 xs = total_xsection * count / total_count
                 excl_xsection_rel_err_sq = 1./count if count else 0.
                 error = xs * numpy.sqrt( total_xsection_rel_err_sq + excl_xsection_rel_err_sq )
-                print >> out, xs, error,
+                print(xs, error, end=' ', file=out)
           else:
              if process_el and (process_el not in process_list):
                 count = float(self.process_count['elastic'])
                 xs = total_xsection * count / total_count
                 excl_xsection_rel_err_sq = 1./count if count else 0.
                 error = xs * numpy.sqrt( total_xsection_rel_err_sq + excl_xsection_rel_err_sq )
-                print >> out, xs, error,
+                print(xs, error, end=' ', file=out)
              for proc in process_list:
                 count = float(self.process_count[(tag, proc)])
                 xs = total_xsection * count / total_count
                 excl_xsection_rel_err_sq = 1./count if count else 0.
                 error = xs * numpy.sqrt( total_xsection_rel_err_sq + excl_xsection_rel_err_sq )
-                print >> out, xs, error,
+                print(xs, error, end=' ', file=out)
 
           if self.args.verbose:
               if total_xsection < 0.1:
-                  print >> sys.stderr, "Warning: low cross section encountered: energy: {}, cross section: {}".format(
-                      self.energyindex, total_xsection)
-          print >> out
+                  print("Warning: low cross section encountered: energy: {}, cross section: {}".format(
+                      self.energyindex, total_xsection), file=sys.stderr)
+          print(file=out)
 
     def print_unobservable_resonances(self):
         """Print how many resonances were not observable."""
         total_resonances = self.observable_resonances + self.unobservable_resonances
         if total_resonances:
-            print 'unobservable resonances: {}/{} = {:.1f}%'.format(
+            print('unobservable resonances: {}/{} = {:.1f}%'.format(
                 self.unobservable_resonances, self.observable_resonances,
-                float(self.unobservable_resonances) / total_resonances * 100)
+                float(self.unobservable_resonances) / total_resonances * 100))
 
     def process_all(self):
         """Process all input files and output counts."""
@@ -684,8 +679,8 @@ class Processor:
                     elif (self.smashversion != smash_previous or
                           self.formatversion != format_previous):
                         if self.args.verbose:
-                            print >> sout, "# Data from different versions detected!"
-                            print >> sout, "# Above version from file", name
+                            print("# Data from different versions detected!", file=sout)
+                            print("# Above version from file", name, file=sout)
                     # loop over all data blocks in the file
                     self.process_datablocks(reader)
                 self.print_unobservable_resonances()

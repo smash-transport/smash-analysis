@@ -25,10 +25,10 @@ for d in */ ; do
   test_name=`basename "$d"`
   cd ${current_dir}
   echo "Generating html file for: ${test_name}"
-  python2 ./generate_html.py ${collection_dir}/$d --version $smash_version -o ${report_dir}/${test_name}
+  python3 ./generate_html.py ${collection_dir}/$d --version $smash_version -o ${report_dir}/${test_name}
   cd ${collection_dir}
 done
 
 cd ${current_dir}
 echo "Generating html file for: frontpage"
-python2 generate_html.py ${collection_dir} --version $smash_version -o ${report_dir} --frontpage
+python3 generate_html.py ${collection_dir} --version $smash_version -o ${report_dir} --frontpage

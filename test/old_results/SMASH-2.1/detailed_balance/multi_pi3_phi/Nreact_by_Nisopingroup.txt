@@ -1,0 +1,3 @@
+channel	forward	backward
+π⁻π⁰π⁺$\leftrightarrow$φ	1.0021551724137931	0.9978448275862069
+# SMASH-2.1

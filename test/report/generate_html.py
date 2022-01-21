@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 import os
 from os.path import sep
@@ -9,7 +9,7 @@ from pprint import pprint
 import json
 import subprocess
 from shutil import copyfile
-from itertools import izip
+
 import time
 import re
 from multiprocessing import Pool
@@ -47,7 +47,7 @@ class OrderedDefaultDict(collections.OrderedDict):
 
     def __reduce__(self):  # optional, for pickle support
         args = (self.default_factory,) if self.default_factory else ()
-        return self.__class__, args, None, None, self.iteritems()
+        return self.__class__, args, None, None, iter(self.items())
 
 def gen_heading(title, depth, id=''):
     """Generate HTML for a heading."""
@@ -167,7 +167,7 @@ def concatenate(sources):
 def print_all(iterator):
     """Print all elements in an iterator."""
     for i in iterator:
-        print i
+        print(i)
 
 def Tree():
     """Create a tree from nested dictionaries."""
@@ -185,7 +185,7 @@ def make_id(heading, counter):
 
 def make_html(lines, tree, counter, heading_depth=1, target = 'none'):
     """Recursively generate HTML from tree of plots."""
-    for k, v in tree.iteritems():
+    for k, v in tree.items():
         if heading_depth == 2:
             lines.append('<font color="maroon">')
             lines.append(gen_heading(target_dict[k], heading_depth, make_id(k, counter)))
@@ -229,7 +229,7 @@ def make_toc(lines, tree, counter, target):
     else:
         classstring = ''
     lines.append('<ul{}>'.format(classstring))
-    for k, v in tree.iteritems():
+    for k, v in tree.items():
         #lines.append('<li><a href="#{}">{}</a></li>'.format(make_id(k, counter), k))
         if target == 'FOPI_pions':
             lines.append('<li><a href="#' + k + '-1">' + target_dict[k] +
@@ -406,7 +406,7 @@ def make_target_page(tree, target):
     lines.append('<hr/ >')
     counter = collections.Counter()
     # skip first heading
-    subtree = tree.itervalues().next()
+    subtree = next(iter(tree.values()))
     make_toc(lines, subtree, counter, target)
     lines.append('')
 
@@ -420,22 +420,22 @@ def make_target_page(tree, target):
 def walk_tree(tree, source_directory, with_configs, with_plots):
     """ Walk tree of directories to find plots and configs. """
     if with_plots:
-        print '-> Looking for plots ...',
+        print('-> Looking for plots ...', end=' ')
         sys.stdout.flush()
         plots = list(find_files('*.pdf', source_directory))
         plots.sort()
-        print 'done.'
+        print('done.')
 
     if with_configs:
-        print '-> Looking for configs...',
+        print('-> Looking for configs...', end=' ')
         configs = list(find_files('config.yaml', source_directory))
         configs.sort()
         configs = remove_redundant_configs(configs)
-        print 'done.'
+        print('done.')
 
     if with_plots:
         # convert plots to png
-        print '-> Converting pdf to png...',
+        print('-> Converting pdf to png...', end=' ')
         sys.stdout.flush()
         pool = Pool()
         results = []
@@ -459,11 +459,11 @@ def walk_tree(tree, source_directory, with_configs, with_plots):
         # join the processes and raise exceptions
         for result in results:
             result.get()
-        print 'done.'
+        print('done.')
 
     new_configs = []
     if with_configs:
-        print '-> Copying configs ... ',
+        print('-> Copying configs ... ', end=' ')
         # copy configs
         for c in configs:
             if 'elastic_box' in c:
@@ -489,10 +489,10 @@ def walk_tree(tree, source_directory, with_configs, with_plots):
                     tree[d] = {
                         'plots': [], 'configs': new_configs,
                     }
-        print 'done.'
+        print('done.')
 
     if with_plots:
-        print '-> Build tree of plots ... ',
+        print('-> Build tree of plots ... ', end=' ')
         for plot in plots:
             basedir, plotname = get_basedir_filename(plot, source_directory, '.pdf')
             # only use last directory of source for heading
@@ -518,13 +518,13 @@ def walk_tree(tree, source_directory, with_configs, with_plots):
                     'plots': [], 'configs': relevant_configs,
                 }
             prevtree[lastdir]['plots'].append((plotname + '.png', plotname + '.pdf'))
-        print 'done.'
+        print('done.')
 
-    print
+    print()
     if not tree:
         raise ValueError('-> No pdfs or configs found!')
 
-    print '-> Generating HTML...',
+    print('-> Generating HTML...', end=' ')
     sys.stdout.flush()
 
     return tree
@@ -636,8 +636,8 @@ if __name__ == '__main__':
 
     if not args.frontpage:
         if (not args.overwrite) and os.path.exists(output_dir) and os.listdir(output_dir):
-            print '-> "{}" is not empty, please clean it up or choose a different' \
-                  '-> output directory!'.format(output_dir)
+            print('-> "{}" is not empty, please clean it up or choose a different' \
+                  '-> output directory!'.format(output_dir))
             sys.exit(1)
 
         # walk given directories and build tree of plots
@@ -669,5 +669,5 @@ if __name__ == '__main__':
         lines = make_frontpage()
         write_html(output_dir, lines)
 
-    print 'done.'
-    print
+    print('done.')
+    print()

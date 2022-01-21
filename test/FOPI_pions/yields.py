@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 #
 # This script determines pion yields from the binary particle output of SMASH.
 #
@@ -54,7 +54,7 @@ assert(a.var() == 2.5)
 configpath = os.path.join(
     os.path.dirname('.'), '0.4', 'data', '1', 'config.yaml')
 with open(configpath, 'r') as f:
-    d = yaml.load(f)
+    d = yaml.load(f, Loader=yaml.FullLoader) #we assume that we can trust the yaml input
 ntestparticles = d['General']['Testparticles']
 
 for edir in sorted(os.listdir(".")):    # loop over energies
@@ -75,7 +75,7 @@ for edir in sorted(os.listdir(".")):    # loop over energies
                         smashversion = reader.smash_version
                         formatversion = reader.format_version
                         if firstfile:
-                            print "#version", smashversion, "format", formatversion, "analysis", smash.analysis_version_string()
+                            print("#version", smashversion, "format", formatversion, "analysis", smash.analysis_version_string())
                             firstfile = False
                         # loop over all data blocks in the file
                         for datablock in reader:
@@ -104,10 +104,10 @@ for edir in sorted(os.listdir(".")):    # loop over energies
         #print >> sys.stderr, edir, nevent       # debug output
         if nevent > 0:
             # print out energy, Npi+, Npi0, Npi-, Nevent, Ntestparticles, ptpi+, ptpi0, ptpi-, erorrs
-            print edir,
+            print(edir, end=' ')
             for i in pdglist_print:
-                print count_with_error[i].avg, count_with_error[i].err(),
-            print nevent, ntestparticles,
+                print(count_with_error[i].avg, count_with_error[i].err(), end=' ')
+            print(nevent, ntestparticles, end=' ')
             for i in pdglist_print:
-                print pt_total[i].avg, pt_total[i].err(),
-            print
+                print(pt_total[i].avg, pt_total[i].err(), end=' ')
+            print()

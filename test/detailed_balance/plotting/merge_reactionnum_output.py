@@ -1,5 +1,4 @@
 #/usr/bin/python
-# coding=UTF-8
 
 import sys
 import numpy as np
@@ -35,18 +34,20 @@ def append_from_file(input_file, configuration, d):
     if (configuration == None):
         configuration = to_test
     elif (configuration != to_test):
-        print "(Version, events, tend, tstart) are different in input files", \
-              configuration, to_test
+        print("(Version, events, tend, tstart) are different in input files", \
+              configuration, to_test)
     reactions = reactions_str.split('|')
-    for i in xrange(len(reactions)):
+    for i in range(len(reactions)):
         r = reactions[i]
         # Get inverse reaction string
+        print('r= '+r)
         if ('x' in r):
             m, a = r.split('x')
             m += 'x'
         else:
             m = ''
             a = r
+        print('a= '+a)
         b, c = a.split(':')
         inverse_r = m + c + ':' + b
         # print r, inverse_r
@@ -72,7 +73,8 @@ for input_file in args.input_files:
 # print conf, d
 
 def reaction_order(s):
-    isospinless = s.translate(None, '0+-⁺⁰⁻\^{}$')
+    #isospinless = s.translate(None, '0+-⁺⁰⁻\^{}$')
+    isospinless = s.strip('0+-⁺⁰⁻\^{}$')
     if 'x' in isospinless:
         isospinless = isospinless.split('x')[1]
     plus_count = s.count('⁺') + s.count('+')
@@ -82,7 +84,7 @@ def reaction_order(s):
     val += plus_count*3 + zero_count - minus_count
     return val
 
-reactions_str = d.keys()
+reactions_str = list(d.keys())
 reactions_str.sort(key = lambda s: reaction_order(s))
 
 reactions_string = '|'.join(reactions_str)

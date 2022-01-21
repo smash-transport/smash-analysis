@@ -1,5 +1,5 @@
-#/usr/bin/python
-# coding=UTF-8
+#/usr/bin/python3
+
 """
 This is a collection of simple functions for analysis
 of smash binary output. It is meant to be used by more task-oriented
@@ -14,23 +14,25 @@ import sys
 import numpy as np
 from collections import defaultdict
 
+encoding='utf-8'
 
 def _read_binary_header(bfile):
     """Read file header from SMASH binary file."""
     magic, format_version, format_extended, length = struct.unpack('=4sHHi', bfile.read(12))
+    magic = magic.decode(encoding)
     if magic != "SMSH":
-        print "Fatal error: failed to reproduce magic number."
+        print("Fatal error: failed to reproduce magic number.")
         sys.exit(1)
     smash_version = struct.unpack('%ds' % length, bfile.read(length))
     assert len(smash_version) == 1
-    return smash_version[0], format_extended, format_version
+    return smash_version[0].decode(encoding), format_extended, format_version
 
 
 def _read_binary_block_v2(bfile):
     """Read one output block from SMASH binary file."""
     particle_data_type = np.dtype([('p','d',4),('r','d',4),('pdgid','i4'),('id','i4')])
 
-    block_type = bfile.read(1)
+    block_type = bfile.read(1).decode(encoding)
     if (block_type == 'p'):
         # got particles block
         npart = np.fromfile(bfile, dtype='i4', count=1)
@@ -68,7 +70,7 @@ def _read_binary_block_v3(bfile):
     """Read one output block from SMASH binary file."""
     particle_data_type = np.dtype([('p','d',4),('r','d',4),('pdgid','i4'),('id','i4')])
 
-    block_type = bfile.read(1)
+    block_type = bfile.read(1).decode(encoding)
     if (block_type == 'p'):
         # got particles block
         npart = np.fromfile(bfile, dtype='i4', count=1)[0]
@@ -107,7 +109,7 @@ def _read_binary_block_v4(bfile):
     """Read one output block from SMASH binary file."""
     particle_data_type = np.dtype([('r','d',4),('mass','d'),('p','d',4),('pdgid','i4'),('id','i4')])
 
-    block_type = bfile.read(1)
+    block_type = bfile.read(1).decode(encoding)
     if (block_type == 'p'):
         # got particles block
         npart = np.fromfile(bfile, dtype='i4', count=1)[0]
@@ -146,7 +148,7 @@ def _read_binary_block_v6(bfile):
     """Read one output block from SMASH binary file."""
     particle_data_type = np.dtype([('r','d',4),('mass','d'),('p','d',4),('pdgid','i4'),('id','i4'),('charge','i4')])
 
-    block_type = bfile.read(1)
+    block_type = bfile.read(1).decode(encoding)
     if (block_type == 'p'):
         # got particles block
         npart = np.fromfile(bfile, dtype='i4', count=1)[0]
@@ -189,7 +191,7 @@ def _read_binary_block_v7(bfile):
     """Read one output block from SMASH binary file."""
     particle_data_type = np.dtype([('r','d',4),('mass','d'),('p','d',4),('pdgid','i4'),('id','i4'),('charge','i4')])
 
-    block_type = bfile.read(1)
+    block_type = bfile.read(1).decode(encoding)
     if (block_type == 'p'):
         # got particles block
         npart = np.fromfile(bfile, dtype='i4', count=1)[0]
@@ -218,7 +220,7 @@ def _read_binary_block_v7(bfile):
     elif (block_type == 'f'):
         n_event = np.fromfile(bfile, dtype='i4', count=1)[0]
         impact_parameter = np.fromfile(bfile, dtype='d',  count=1)[0]
-        empty_event = ord(bfile.read(1))
+        empty_event = ord(bfile.read(1).decode(encoding))
         return {'type': block_type,
               'nevent': n_event,
               'b' : impact_parameter,
@@ -234,7 +236,7 @@ def _read_binary_block_v4_extended(bfile):
     """Read one output block from SMASH binary file."""
     particle_data_type = np.dtype([('r','d',4),('mass','d'),('p','d',4),('pdgid','i4'),('id','i4'),('Ncoll','i4'),('formation_time','d'),('cross_section_scaling_factor','f'),('process_ID_origin','i4'),('process_type_origin', 'i4'),('time_of_origin','f'),('PDG_mother1','i4'),('PDG_mother2','i4')])
 
-    block_type = bfile.read(1)
+    block_type = bfile.read(1).decode(encoding)
     if (block_type == 'p'):
         # got particles block
         npart = np.fromfile(bfile, dtype='i4', count=1)[0]
@@ -273,7 +275,7 @@ def _read_binary_block_v5_extended(bfile):
     """Read one output block from SMASH binary file."""
     particle_data_type = np.dtype([('r','d',4),('mass','d'),('p','d',4),('pdgid','i4'),('id','i4'),('Ncoll','i4'),('formation_time','d'),('cross_section_scaling_factor','d'),('process_ID_origin','i4'),('process_type_origin', 'i4'),('time_of_origin','d'),('PDG_mother1','i4'),('PDG_mother2','i4')])
 
-    block_type = bfile.read(1)
+    block_type = bfile.read(1).decode(encoding)
     if (block_type == 'p'):
         # got particles block
         npart = np.fromfile(bfile, dtype='i4', count=1)[0]
@@ -312,7 +314,7 @@ def _read_binary_block_v6_extended(bfile):
     """Read one output block from SMASH binary file."""
     particle_data_type = np.dtype([('r','d',4),('mass','d'),('p','d',4),('pdgid','i4'),('id','i4'),('charge','i4'),('Ncoll','i4'),('formation_time','d'),('cross_section_scaling_factor','d'),('process_ID_origin','i4'),('process_type_origin', 'i4'),('time_of_origin','d'),('PDG_mother1','i4'),('PDG_mother2','i4')])
 
-    block_type = bfile.read(1)
+    block_type = bfile.read(1).decode(encoding)
     if (block_type == 'p'):
         # got particles block
         npart = np.fromfile(bfile, dtype='i4', count=1)[0]
@@ -354,7 +356,7 @@ def _read_binary_block_v7_extended(bfile):
     """Read one output block from SMASH binary file."""
     particle_data_type = np.dtype([('r','d',4),('mass','d'),('p','d',4),('pdgid','i4'),('id','i4'),('charge','i4'),('Ncoll','i4'),('formation_time','d'),('cross_section_scaling_factor','d'),('process_ID_origin','i4'),('process_type_origin', 'i4'),('time_of_origin','d'),('PDG_mother1','i4'),('PDG_mother2','i4')])
 
-    block_type = bfile.read(1)
+    block_type = bfile.read(1).decode(encoding)
     if (block_type == 'p'):
         # got particles block
         npart = np.fromfile(bfile, dtype='i4', count=1)[0]
@@ -429,14 +431,14 @@ class BinaryReader:
             elif self.format_extended == 0:
                 self.__read_block = _read_binary_block_v4
             else:
-                print "Fatal error: unknown format variant = ", self.format_extended
+                print("Fatal error: unknown format variant = ", self.format_extended)
                 sys.exit(1)
         elif self.format_version == 3:
             self.__read_block = _read_binary_block_v3
         elif self.format_version == 2:
             self.__read_block = _read_binary_block_v2
         else:
-            print "Fatal error: unknown format version = ", self.format_version
+            print("Fatal error: unknown format version = ", self.format_version)
             sys.exit(1)
 
     def __enter__(self):
@@ -449,7 +451,7 @@ class BinaryReader:
         return self
 
     # this is needed for the iterator
-    def next(self):
+    def __next__(self):
       block = self.read_block()
       if block:
         return block
@@ -458,7 +460,10 @@ class BinaryReader:
 
     def read_block(self):
         "Read one output block from SMASH file."
-        return self.__read_block(self.__file)
+        try:
+            return self.__read_block(self.__file)
+        except:
+            return None
 
 
 def count_pdg_in_block(block, pdgid):
@@ -488,7 +493,7 @@ def get_block_time(block):
     elif (block['type'] == 'i'):
         return block['incoming']['r'][0][0]
     else:
-        print "Error: invalid usage of get_block_time."
+        print("Error: invalid usage of get_block_time.")
         sys.exit(1)
 
 def get_block_E(block):

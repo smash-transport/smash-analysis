@@ -39,10 +39,10 @@ base = os.path.splitext(input_file)[0]
 output_file = base + ".pdf"
 
 # Preambula configuration for plotting
-execfile(os.path.dirname(os.path.abspath(__file__))+'/../../python_scripts/common_plotting.py')
+exec(compile(open(os.path.dirname(os.path.abspath(__file__))+'/../../python_scripts/common_plotting.py', "rb").read(), os.path.dirname(os.path.abspath(__file__))+'/../../python_scripts/common_plotting.py', 'exec'))
 colours = ["blue","red","green","darkmagenta","orange","deepskyblue", "magenta", "chartreuse", "cyan","limegreen"]
-channels = [u'total',u'N+N',u'N+N*',u'N*+Δ',u'N+Δ',u'N+Δ*',u'Δ+Δ',u'Δ+Δ*']
-colour_coding = OrderedDict(zip(channels,colours))
+channels = ['total','N+N','N+N*','N*+Δ','N+Δ','N+Δ*','Δ+Δ','Δ+Δ*']
+colour_coding = OrderedDict(list(zip(channels,colours)))
 
 fig = plt.figure()
 ax = fig.add_subplot(1,1,1)
@@ -71,20 +71,20 @@ for i in range(0,len(theta)):
 
 ### (4) Plot different curves
 for i in range(1, ncols):
-  plt.plot(theta*180/np.pi, contents[i], label=unicode(colnames[i]), color=colour_coding.get(colnames[i]), zorder=2)
+  plt.plot(theta*180/np.pi, contents[i], label=str(colnames[i]), color=colour_coding.get(colnames[i]), zorder=2)
 
 
 ### (4a) plot data from previous SMASH version
 if args.comp_prev_version:
     import comp_to_prev_version as cpv
-    processes = ['total','N+N','N+N*','N+\xce\x94','N*+\xce\x94','N+\xce\x94*','\xce\x94+\xce\x94','\xce\x94+\xce\x94*']
+    processes = ['total','N+N','N+N*','N*+Δ','N+Δ','N+Δ*','Δ+Δ','Δ+Δ*']
     cpv.plot_previous_results('angular_distributions', setup, '/theta.dat', color_list = colour_coding, process_list = processes)
 
 
 ### (5) set up axes, labels, etc
 ax.set_xlim([0,180])
-ax.set_xticks(range(0, 180, 10), minor=True)
-plt.title(particle1.decode('utf8') + "+" + particle2.decode('utf8') + " @ $\sqrt{s}=" + str(round(sqrts,2)) + "$ GeV")
+ax.set_xticks(list(range(0, 180, 10)), minor=True)
+plt.title(particle1 + "+" + particle2 + " @ $\sqrt{s}=" + str(round(sqrts,2)) + "$ GeV")
 plt.xlabel("$\\theta_{cm}$")
 plt.ylabel("$d\sigma/dcos(\\theta_{cm})$ [mb]")
 plt.yscale('log')

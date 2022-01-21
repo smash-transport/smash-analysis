@@ -1,5 +1,5 @@
-#/usr/bin/python
-# coding=UTF-8
+#/usr/bin/python3
+
 """
 This is a collection of functions to extract the pdg names and numbers
 from the config.yaml file that is outputed with every SMASH run. It is meant
@@ -12,11 +12,11 @@ import pdgs_from_config
 from collections import defaultdict
 from pdgcode import PDG_code
 
-charge_str_neg = u"⁻"
-charge_str_zero = u"⁰"
-charge_str_pos = u"⁺"
+charge_str_neg = "⁻"
+charge_str_zero = "⁰"
+charge_str_pos = "⁺"
 charge_strs = charge_str_neg + charge_str_zero + charge_str_pos
-bar = u"\u0305"
+bar = "\u0305"
 
 
 def strip_charge(s):
@@ -31,11 +31,11 @@ def strip_charge(s):
 
 def chargestr(charge):
     switcher = {
-        2: u"⁺⁺",
-        1: u"⁺",
-        0: u"⁰",
-        -1: u"⁻",
-        -2: u"⁻⁻",
+        2: "⁺⁺",
+        1: "⁺",
+        0: "⁰",
+        -1: "⁻",
+        -2: "⁻⁻",
     }
     return switcher.get(charge)
 
@@ -109,7 +109,7 @@ def generic_name(name):
 
 def invert_dict(d):
     inverted_d = {}
-    for k, v in d.iteritems():
+    for k, v in d.items():
         inverted_d[v] = k
     return inverted_d
 
@@ -136,7 +136,7 @@ def pdg_to_name_init(configfile):
                         pline = pline[:pline.find('#')]
                     array = pline.split()
                     # get name string
-                    name = unicode(array[0], encoding="UTF-8")
+                    name = str(array[0])
                     # For SMASH < 1.4, the third column is the first PDG code.
                     # For SMASH >= 1.4, it is the parity, and the codes start
                     # at the fourth column.
@@ -161,34 +161,39 @@ def pdg_to_name_init(configfile):
                         if len(array) > 5:  # more than one pdgcode given?
                             # add charge string
                             full_name += chargestr(p.charge())
-                        pdg_dict[int(i)] = full_name.encode('UTF-8')
-                        pdg_dict_gen[int(i)] = gname.encode('UTF-8')
+                        #AAAA
+                        #pdg_dict[int(i)] = full_name.encode('UTF-8')
+                        #pdg_dict_gen[int(i)] = gname.encode('UTF-8')
+                        pdg_dict[int(i)] = full_name
+                        pdg_dict_gen[int(i)] = gname
                         if p.has_antiparticle():
-                            pdg_dict[-int(i)] = antiname(full_name,
-                                                         p).encode('UTF-8')
-                            pdg_dict_gen[-int(i)] = antiname(gname,
-                                                             p).encode('UTF-8')
+                            #pdg_dict[-int(i)] = antiname(full_name,p).encode('UTF-8')
+                            #pdg_dict_gen[-int(i)] = antiname(gname,p).encode('UTF-8')
+                            pdg_dict[-int(i)] = antiname(full_name,p)
+                            pdg_dict_gen[-int(i)] = antiname(gname,p)
     if len(pdg_dict) == 0 or len(pdg_dict_gen) == 0:
         raise ValueError('Could not read particles from "{}"'.format(configfile))
 
     # For nucleons, we use the historic symbols.
     pdg_dict[2212] = 'p'
-    pdg_dict[-2212] = ('p' + bar).encode('UTF-8')
+    #pdg_dict[-2212] = ('p' + bar).encode('UTF-8')
+    pdg_dict[-2212] = ('p' + bar)
     pdg_dict[2112] = 'n'
-    pdg_dict[-2112] = ('n' + bar).encode('UTF-8')
+    #pdg_dict[-2112] = ('n' + bar).encode('UTF-8')
+    pdg_dict[-2112] = ('n' + bar)
 
 
 def pdg_to_name(pdg, configfile=""):
     """Return name of particle given its PDG code."""
     if len(pdg_dict) == 0:  # initialize dictionary if necessary
         pdg_to_name_init(configfile)
-    return pdg_dict.get(pdg, unicode(pdg))
+    return pdg_dict.get(pdg, str(pdg))
 
 def pdg_to_name_generic(pdg, configfile=""):
     """Return generic name of particle given its PDG code."""
     if len(pdg_dict_gen) == 0:  # initialize dictionary if necessary
         pdg_to_name_init(configfile)
-    return pdg_dict_gen.get(pdg, unicode(pdg))
+    return pdg_dict_gen.get(pdg, str(pdg))
 
 
 def name_to_pdg(name, configfile=""):
@@ -200,10 +205,14 @@ def name_to_pdg(name, configfile=""):
         inv_dict = invert_dict(pdg_dict)
 
         # support historic symbols for nucleons
-        inv_dict['N\xe2\x81\xba'] = 2212
-        inv_dict['N\xe2\x81\xb0'] = 2112
-        inv_dict['N\xcc\x85\xe2\x81\xbb'] = -2212
-        inv_dict['N\xcc\x85\xe2\x81\xb0'] = -2112
+        #old-code inv_dict['N\xe2\x81\xba'] = 2212
+        #old-code inv_dict['N\xe2\x81\xb0'] = 2112
+        #old-code inv_dict['N\xcc\x85\xe2\x81\xbb'] = -2212
+        #old-code inv_dict['N\xcc\x85\xe2\x81\xb0'] = -2112
+        inv_dict['N⁺'] = 2212
+        inv_dict['N⁰'] = 2112
+        inv_dict['N̅⁻'] = -2212
+        inv_dict['N̅⁰'] = -2112
 
     return inv_dict.get(name, "unknown name: " + name)
 
@@ -213,4 +222,4 @@ if __name__ == '__main__':
     pdg_to_name_init(config_file)
     pdgs = sorted(pdg_dict.keys(), key = lambda x: abs(x))
     for pdg in pdgs:
-        print '%12i %s' % (pdg, pdg_dict.get(pdg, unicode(pdg)))
+        print('%12i %s' % (pdg, pdg_dict.get(pdg, str(pdg))))

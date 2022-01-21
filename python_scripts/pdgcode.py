@@ -1,5 +1,4 @@
-#/usr/bin/python
-# coding=UTF-8
+#/usr/bin/python3
 
 from ctypes import *
 
@@ -156,12 +155,12 @@ class PDG_code(Union):
 
 if __name__ == '__main__':
     for p in [PDG_code(0x19922119), PDG_code(-0x19922119)]:
-        print "n_J1={} n_q3={} n_q2={} n_q1={} n_L={} n_R={} n={} n_J2={} anti={} nucleus={}".format(
+        print("n_J1={} n_q3={} n_q2={} n_q1={} n_L={} n_R={} n={} n_J2={} anti={} nucleus={}".format(
             p.b.n_J1, p.b.n_q3, p.b.n_q2, p.b.n_q1, p.b.n_L, p.b.n_R, p.b.n, p.b.n_J2, p.anti,
-            p.is_nucleus())
+            p.is_nucleus()))
     for p in [PDG_code(0x00000000)]:
         p.make_nucleus()
-        print "Nucleus", p.is_nucleus(), "charge", p.charge(), \
+        print("Nucleus", p.is_nucleus(), "charge", p.charge(), \
               "Is baryon", p.is_baryon(), "baryon_number", p.baryon_number(), \
               "antiparticle sign", p.antiparticle_sign(), \
-              "has antiparticle", p.has_antiparticle()
+              "has antiparticle", p.has_antiparticle())
