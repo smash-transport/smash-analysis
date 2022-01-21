@@ -171,7 +171,7 @@ class DataTree:
                     energy=200
                     colliding_system = 'afterburner'
                 elif(dir_split[-2]=="LHC"):
-                    energy=7000
+                    energy=5000
                     colliding_system = 'afterburner'
                 else:
                     raise SystemExit('Path could not be parsed.')
