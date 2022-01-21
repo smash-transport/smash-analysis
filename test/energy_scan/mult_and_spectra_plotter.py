@@ -164,7 +164,17 @@ class DataTree:
             colliding_system = dir_split[-1]
             if (PbPb_as_AuAu and (colliding_system == 'AuAu' or colliding_system == 'PbPb')):
                 colliding_system = 'AuAu/PbPb'
-            energy = float(dir_split[-2])
+            try:
+                energy = float(dir_split[-2])
+            except Exception:
+                if(dir_split[-2]=="RHIC"):
+                    energy=200
+                    colliding_system = 'afterburner'
+                elif(dir_split[-2]=="LHC"):
+                    energy=7000
+                    colliding_system = 'afterburner'
+                else:
+                    raise SystemExit('Path could not be parsed.')
             # trunc for easier matching with experimental energies
             energy = np.trunc(energy * 1.e2) / 1.e2
             files = tuple([directory + os.path.sep + quantities_list[i] + '.txt' for i in range(len(quantities_list))])
@@ -345,8 +355,10 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
 
     for quantity in quantities:
         if ('spectra' in quantity): continue
+        if ('afterburner' in colliding_systems): continue
         collected_results_pp = [[],[],[]]
         collected_results_AuAuPbPb = [[],[],[]]
+        collected_results_afterburner = [[],[],[]]
         for pdg_abs in pdglist_abs:
             # Sigma0 is added to Lambda plots
             if (pdg_abs == 3212): continue
@@ -387,6 +399,10 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                             collected_results_AuAuPbPb[0].append(pdg)
                             if (collected_results_AuAuPbPb[1] == []): collected_results_AuAuPbPb[1].append(x)
                             collected_results_AuAuPbPb[2].append(y)
+                        if (colliding_system == 'afterburner'):
+                            collected_results_afterburner[0].append(pdg)
+                            if (collected_results_afterburner[1] == []): collected_results_afterburner[1].append(x)
+                            collected_results_afterburner[2].append(y)
 
                         if args.comp_prev_version:
                             import comp_to_prev_version as cpv
@@ -437,11 +453,14 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
             plt.clf()
 
         # Save results plotted above for future comparison
-        filename_AuAuPbPb = quantity + '_' + 'AuAuPbPb' + '.txt'
-        filename_pp = quantity + '_' + 'pp' + '.txt'
-
-        store_results(output_folder + '/' + filename_AuAuPbPb, collected_results_AuAuPbPb, smash_code_version, quantity)
-        store_results(output_folder + '/' + filename_pp, collected_results_pp, smash_code_version, quantity)
+        if(list(colliding_systems)[0]=='afterburner'):
+            filename_afterburner = quantity + '_' + 'afterburner' + '.txt'
+            store_results(output_folder + '/' + filename_afterburner, collected_results_afterburner, smash_code_version, quantity)
+        else:
+            filename_AuAuPbPb = quantity + '_' + 'AuAuPbPb' + '.txt'
+            filename_pp = quantity + '_' + 'pp' + '.txt'
+            store_results(output_folder + '/' + filename_AuAuPbPb, collected_results_AuAuPbPb, smash_code_version, quantity)
+            store_results(output_folder + '/' + filename_pp, collected_results_pp, smash_code_version, quantity)
 
     # Plotting spectra, only those, where some data is present
     for quantity in quantities:
@@ -452,6 +471,7 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
             if (abs(pdg) == 1000010020): continue
             collected_results_pp = [[],[],[]]
             collected_results_AuAuPbPb = [[],[],[]]
+            collected_results_afterburner=[[],[],[]]
             for colliding_system in colliding_systems:
                 #if not data2.is_in_dict([quantity, colliding_system, pdg]): continue
                 #if not data1.is_in_dict([quantity, colliding_system, pdg]): continue
@@ -521,6 +541,10 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                             collected_results_AuAuPbPb[0].append(energy)
                             if (collected_results_AuAuPbPb[1] == []): collected_results_AuAuPbPb[1].append(x)
                             collected_results_AuAuPbPb[2].append(y)
+                        if (colliding_system == 'afterburner'):
+                            collected_results_afterburner[0].append(energy)
+                            if (collected_results_afterburner[1] == []): collected_results_afterburner[1].append(x)
+                            collected_results_afterburner[2].append(y)
 
                         # read and plot results from previous version
                         if args.comp_prev_version and quantity != 'v2spectra':
@@ -569,7 +593,7 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                         plt.xlabel('$p_{T}$ [GeV]')
 
                     plt.ylabel(title_dict[quantity])
-                    if (determine_collider(energy) != determine_collider(energies[(element + 1) % len(energies)])):
+                    if (determine_collider(energy) != determine_collider(energies[(element + 1) % len(energies)]) or colliding_system == 'afterburner'):
                         if args.comp_prev_version:
                             #dummy for legend entry of combined previous results.
                             plt.plot(1,0.0, linestyle = '-', linewidth = 10, zorder = 1,
@@ -581,12 +605,14 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                         scaling_counter = -1   #re-initialize as generating a new plot
 
             # Save results plotted above for future comparison
-            filename_AuAuPbPb = quantity + '_AuAuPbPb_' + str(pdg) + '.txt'
-            filename_pp = quantity + '_pp_' + str(pdg) + '.txt'
-
-            store_results(output_folder + '/' + filename_AuAuPbPb, collected_results_AuAuPbPb, smash_code_version, quantity)
-            store_results(output_folder + '/' + filename_pp, collected_results_pp, smash_code_version, quantity)
-
+            if(list(colliding_systems)[0]=='afterburner'):
+                filename_afterburner = quantity + '_' + 'afterburner' + str(pdg) + '.txt'
+                store_results(output_folder + '/' + filename_afterburner, collected_results_afterburner, smash_code_version, quantity)
+            else:
+                filename_AuAuPbPb = quantity + '_' + 'AuAuPbPb'  + str(pdg)+ '.txt'
+                filename_pp = quantity + '_' + 'pp' + str(pdg) + '.txt'
+                store_results(output_folder + '/' + filename_AuAuPbPb, collected_results_AuAuPbPb, smash_code_version, quantity)
+                store_results(output_folder + '/' + filename_pp, collected_results_pp, smash_code_version, quantity)
 
 
 if __name__ == '__main__':
