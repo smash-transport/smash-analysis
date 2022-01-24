@@ -39,7 +39,7 @@ def _read_binary_block_v2(bfile):
         particles = np.fromfile(bfile, dtype=particle_data_type, count=npart[0])
         try:
             block_type = bfile.read(1).decode(encoding)
-            if ((block_type == 'p') || (block_type == 'f')):
+            if ((block_type == 'p') or (block_type == 'f')):
                  bfile.seek(-1, 1)
                  return {'type': block_type,
                          'npart': npart[0],
@@ -58,7 +58,7 @@ def _read_binary_block_v2(bfile):
         outgoing = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[1])
         try:
             block_type = bfile.read(1).decode(encoding)
-            if ((block_type == 'i') || (block_type == 'f')):
+            if ((block_type == 'i') or (block_type == 'f')):
                  bfile.seek(-1, 1)
                  return {'type': block_type,
                          'nin': n_inout[0],
@@ -94,7 +94,7 @@ def _read_binary_block_v3(bfile):
         particles = np.fromfile(bfile, dtype=particle_data_type, count=npart)
         try:
             block_type = bfile.read(1).decode(encoding)
-            if ((block_type == 'p') || (block_type == 'f')):
+            if ((block_type == 'p') or (block_type == 'f')):
                  bfile.seek(-1, 1)
                  return {'type': block_type,
                          'npart': npart,
@@ -114,7 +114,7 @@ def _read_binary_block_v3(bfile):
         outgoing = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[1])
         try:
             block_type = bfile.read(1).decode(encoding)
-            if ((block_type == 'i') || (block_type == 'f')):
+            if ((block_type == 'i') or (block_type == 'f')):
                  bfile.seek(-1, 1)
                  return {'type': block_type,
                          'nin': n_inout[0],
@@ -151,7 +151,7 @@ def _read_binary_block_v4(bfile):
         particles = np.fromfile(bfile, dtype=particle_data_type, count=npart)
         try:
             block_type = bfile.read(1).decode(encoding)
-            if ((block_type == 'p') || (block_type == 'f')):
+            if ((block_type == 'p') or (block_type == 'f')):
                  bfile.seek(-1, 1)
                  return {'type': block_type,
                          'npart': npart,
@@ -171,7 +171,7 @@ def _read_binary_block_v4(bfile):
         outgoing = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[1])
         try:
             block_type = bfile.read(1).decode(encoding)
-            if ((block_type == 'i') || (block_type == 'f')):
+            if ((block_type == 'i') or (block_type == 'f')):
                  bfile.seek(-1, 1)
                  return {'type': block_type,
                          'nin': n_inout[0],
@@ -208,7 +208,7 @@ def _read_binary_block_v6(bfile):
         particles = np.fromfile(bfile, dtype=particle_data_type, count=npart)
         try:
             block_type = bfile.read(1).decode(encoding)
-            if ((block_type == 'p') || (block_type == 'f')):
+            if ((block_type == 'p') or (block_type == 'f')):
                  bfile.seek(-1, 1)
                  return {'type': block_type,
                          'npart': npart,
@@ -229,7 +229,7 @@ def _read_binary_block_v6(bfile):
         outgoing = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[1])
         try:
             block_type = bfile.read(1).decode(encoding)
-            if ((block_type == 'i') || (block_type == 'f')):
+            if ((block_type == 'i') or (block_type == 'f')):
                  bfile.seek(-1, 1)
                  return {'type': block_type,
                          'nin': n_inout[0],
@@ -269,7 +269,7 @@ def _read_binary_block_v7(bfile):
         particles = np.fromfile(bfile, dtype=particle_data_type, count=npart)
         try:
             block_type = bfile.read(1).decode(encoding)
-            if ((block_type == 'p') || (block_type == 'f')):
+            if ((block_type == 'p') or (block_type == 'f')):
                  bfile.seek(-1, 1)
                  return {'type': block_type,
                          'npart': npart,
@@ -290,7 +290,7 @@ def _read_binary_block_v7(bfile):
         outgoing = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[1])
         try:
             block_type = bfile.read(1).decode(encoding)
-            if ((block_type == 'i') || (block_type == 'f')):
+            if ((block_type == 'i') or (block_type == 'f')):
                  bfile.seek(-1, 1)
                  return {'type': block_type,
                          'nin': n_inout[0],
@@ -332,7 +332,7 @@ def _read_binary_block_v4_extended(bfile):
         particles = np.fromfile(bfile, dtype=particle_data_type, count=npart)
         try:
             block_type = bfile.read(1).decode(encoding)
-            if ((block_type == 'p') || (block_type == 'f')):
+            if ((block_type == 'p') or (block_type == 'f')):
                  bfile.seek(-1, 1)
                  return {'type': block_type,
                          'npart': npart,
@@ -352,7 +352,7 @@ def _read_binary_block_v4_extended(bfile):
         outgoing = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[1])
         try:
             block_type = bfile.read(1).decode(encoding)
-            if ((block_type == 'i') || (block_type == 'f')):
+            if ((block_type == 'i') or (block_type == 'f')):
                  bfile.seek(-1, 1)
                  return {'type': block_type,
                          'nin': n_inout[0],
@@ -389,7 +389,7 @@ def _read_binary_block_v5_extended(bfile):
         particles = np.fromfile(bfile, dtype=particle_data_type, count=npart)
         try:
             block_type = bfile.read(1).decode(encoding)
-            if ((block_type == 'p') || (block_type == 'f')):
+            if ((block_type == 'p') or (block_type == 'f')):
                  bfile.seek(-1, 1)
                  return {'type': block_type,
                          'npart': npart,
@@ -409,7 +409,7 @@ def _read_binary_block_v5_extended(bfile):
         outgoing = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[1])
         try:
             block_type = bfile.read(1).decode(encoding)
-            if ((block_type == 'i') || (block_type == 'f')):
+            if ((block_type == 'i') or (block_type == 'f')):
                  bfile.seek(-1, 1)
                  return {'type': block_type,
                          'nin': n_inout[0],
@@ -446,7 +446,7 @@ def _read_binary_block_v6_extended(bfile):
         particles = np.fromfile(bfile, dtype=particle_data_type, count=npart)
         try:
             block_type = bfile.read(1).decode(encoding)
-            if ((block_type == 'p') || (block_type == 'f')):
+            if ((block_type == 'p') or (block_type == 'f')):
                  bfile.seek(-1, 1)
                  return {'type': block_type,
                          'npart': npart,
@@ -467,7 +467,7 @@ def _read_binary_block_v6_extended(bfile):
         outgoing = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[1])
         try:
             block_type = bfile.read(1).decode(encoding)
-            if ((block_type == 'i') || (block_type == 'f')):
+            if ((block_type == 'i') or (block_type == 'f')):
                  bfile.seek(-1, 1)
                  return {'type': block_type,
                          'nin': n_inout[0],
@@ -506,7 +506,7 @@ def _read_binary_block_v7_extended(bfile):
         particles = np.fromfile(bfile, dtype=particle_data_type, count=npart)
         try:
             block_type = bfile.read(1).decode(encoding)
-            if ((block_type == 'p') || (block_type == 'f')):
+            if ((block_type == 'p') or (block_type == 'f')):
                  bfile.seek(-1, 1)
                  return {'type': block_type,
                          'npart': npart,
@@ -527,7 +527,7 @@ def _read_binary_block_v7_extended(bfile):
         outgoing = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[1])
         try:
             block_type = bfile.read(1).decode(encoding)
-            if ((block_type == 'i') || (block_type == 'f')):
+            if ((block_type == 'i') or (block_type == 'f')):
                  bfile.seek(-1, 1)
                  return {'type': block_type,
                          'nin': n_inout[0],
