@@ -37,9 +37,18 @@ def _read_binary_block_v2(bfile):
         # got particles block
         npart = np.fromfile(bfile, dtype='i4', count=1)
         particles = np.fromfile(bfile, dtype=particle_data_type, count=npart[0])
-        return {'type': block_type,
-                'npart': npart[0],
-                'part': particles}
+        try:
+            block_type = bfile.read(1).decode(encoding)
+            if ((block_type == 'p') || (block_type == 'f')):
+                 bfile.seek(-1, 1)
+                 return {'type': block_type,
+                         'npart': npart[0],
+                         'part': particles
+                        }
+            else:
+                return None
+        except:
+                return None
     elif (block_type == 'i'):
         # got interaction block
         n_inout = np.fromfile(bfile, dtype='i4', count=2)
@@ -47,14 +56,22 @@ def _read_binary_block_v2(bfile):
         sigma = np.fromfile(bfile, dtype='d', count=1)[0]
         incoming = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[0])
         outgoing = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[1])
-        return {'type': block_type,
-                'nin': n_inout[0],
-                'nout': n_inout[1],
-                'incoming': incoming,
-                'outgoing': outgoing,
-                'density': rho,
-                'total_cross_section': sigma
-               }
+        try:
+            block_type = bfile.read(1).decode(encoding)
+            if ((block_type == 'i') || (block_type == 'f')):
+                 bfile.seek(-1, 1)
+                 return {'type': block_type,
+                         'nin': n_inout[0],
+                         'nout': n_inout[1],
+                         'incoming': incoming,
+                         'outgoing': outgoing,
+                         'density': rho,
+                         'total_cross_section': sigma
+                        }
+            else:
+                return None
+        except:
+                return None
     elif (block_type == 'f'):
         n_event = np.fromfile(bfile, dtype='i4', count=1)
         return {'type': block_type,
@@ -75,9 +92,18 @@ def _read_binary_block_v3(bfile):
         # got particles block
         npart = np.fromfile(bfile, dtype='i4', count=1)[0]
         particles = np.fromfile(bfile, dtype=particle_data_type, count=npart)
-        return {'type': block_type,
-                'npart': npart,
-                'part': particles}
+        try:
+            block_type = bfile.read(1).decode(encoding)
+            if ((block_type == 'p') || (block_type == 'f')):
+                 bfile.seek(-1, 1)
+                 return {'type': block_type,
+                         'npart': npart,
+                         'part': particles
+                        }
+            else:
+                return None
+        except:
+                return None
     elif (block_type == 'i'):
         # got interaction block
         n_inout  = np.fromfile(bfile, dtype='i4', count=2)
@@ -86,14 +112,23 @@ def _read_binary_block_v3(bfile):
         process  = np.fromfile(bfile, dtype='i4', count=1)[0]
         incoming = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[0])
         outgoing = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[1])
-        return {'type': block_type,
-                'nin': n_inout[0],
-                'nout': n_inout[1],
-                'incoming': incoming,
-                'outgoing': outgoing,
-                'density': rho,
-                'total_cross_section': sigma,
-                'process_type': process}
+        try:
+            block_type = bfile.read(1).decode(encoding)
+            if ((block_type == 'i') || (block_type == 'f')):
+                 bfile.seek(-1, 1)
+                 return {'type': block_type,
+                         'nin': n_inout[0],
+                         'nout': n_inout[1],
+                         'incoming': incoming,
+                         'outgoing': outgoing,
+                         'density': rho,
+                         'total_cross_section': sigma,
+                         'process_type': process
+                        }
+            else:
+                return None
+        except:
+                return None
     elif (block_type == 'f'):
         n_event = np.fromfile(bfile, dtype='i4', count=1)[0]
         return {'type': block_type,
@@ -114,9 +149,18 @@ def _read_binary_block_v4(bfile):
         # got particles block
         npart = np.fromfile(bfile, dtype='i4', count=1)[0]
         particles = np.fromfile(bfile, dtype=particle_data_type, count=npart)
-        return {'type': block_type,
-                'npart': npart,
-                'part': particles}
+        try:
+            block_type = bfile.read(1).decode(encoding)
+            if ((block_type == 'p') || (block_type == 'f')):
+                 bfile.seek(-1, 1)
+                 return {'type': block_type,
+                         'npart': npart,
+                         'part': particles
+                        }
+            else:
+                return None
+        except:
+                return None
     elif (block_type == 'i'):
         # got interaction block
         n_inout  = np.fromfile(bfile, dtype='i4', count=2)
@@ -125,14 +169,23 @@ def _read_binary_block_v4(bfile):
         process  = np.fromfile(bfile, dtype='i4', count=1)[0]
         incoming = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[0])
         outgoing = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[1])
-        return {'type': block_type,
-                'nin': n_inout[0],
-                'nout': n_inout[1],
-                'incoming': incoming,
-                'outgoing': outgoing,
-                'density': rho,
-                'total_cross_section': sigma,
-                'process_type': process}
+        try:
+            block_type = bfile.read(1).decode(encoding)
+            if ((block_type == 'i') || (block_type == 'f')):
+                 bfile.seek(-1, 1)
+                 return {'type': block_type,
+                         'nin': n_inout[0],
+                         'nout': n_inout[1],
+                         'incoming': incoming,
+                         'outgoing': outgoing,
+                         'density': rho,
+                         'total_cross_section': sigma,
+                         'process_type': process
+                        }
+            else:
+                return None
+        except:
+                return None
     elif (block_type == 'f'):
         n_event = np.fromfile(bfile, dtype='i4', count=1)[0]
         return {'type': block_type,
@@ -153,9 +206,18 @@ def _read_binary_block_v6(bfile):
         # got particles block
         npart = np.fromfile(bfile, dtype='i4', count=1)[0]
         particles = np.fromfile(bfile, dtype=particle_data_type, count=npart)
-        return {'type': block_type,
-                'npart': npart,
-                'part': particles}
+        try:
+            block_type = bfile.read(1).decode(encoding)
+            if ((block_type == 'p') || (block_type == 'f')):
+                 bfile.seek(-1, 1)
+                 return {'type': block_type,
+                         'npart': npart,
+                         'part': particles
+                        }
+            else:
+                return None
+        except:
+                return None
     elif (block_type == 'i'):
         # got interaction block
         n_inout  = np.fromfile(bfile, dtype='i4', count=2)
@@ -165,15 +227,24 @@ def _read_binary_block_v6(bfile):
         process  = np.fromfile(bfile, dtype='i4', count=1)[0]
         incoming = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[0])
         outgoing = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[1])
-        return {'type': block_type,
-                'nin': n_inout[0],
-                'nout': n_inout[1],
-                'incoming': incoming,
-                'outgoing': outgoing,
-                'density': rho,
-                'total_cross_section': sigma,
-                'partial_cross_section': sigma_p,
-                'process_type': process}
+        try:
+            block_type = bfile.read(1).decode(encoding)
+            if ((block_type == 'i') || (block_type == 'f')):
+                 bfile.seek(-1, 1)
+                 return {'type': block_type,
+                         'nin': n_inout[0],
+                         'nout': n_inout[1],
+                         'incoming': incoming,
+                         'outgoing': outgoing,
+                         'density': rho,
+                         'total_cross_section': sigma,
+                         'partial_cross_section': sigma_p,
+                         'process_type': process
+                        }
+            else:
+                return None
+        except:
+                return None
     elif (block_type == 'f'):
         n_event = np.fromfile(bfile, dtype='i4', count=1)[0]
         impact_parameter = np.fromfile(bfile, dtype='d',  count=1)[0]
@@ -196,9 +267,18 @@ def _read_binary_block_v7(bfile):
         # got particles block
         npart = np.fromfile(bfile, dtype='i4', count=1)[0]
         particles = np.fromfile(bfile, dtype=particle_data_type, count=npart)
-        return {'type': block_type,
-                'npart': npart,
-                'part': particles}
+        try:
+            block_type = bfile.read(1).decode(encoding)
+            if ((block_type == 'p') || (block_type == 'f')):
+                 bfile.seek(-1, 1)
+                 return {'type': block_type,
+                         'npart': npart,
+                         'part': particles
+                        }
+            else:
+                return None
+        except:
+                return None
     elif (block_type == 'i'):
         # got interaction block
         n_inout  = np.fromfile(bfile, dtype='i4', count=2)
@@ -208,15 +288,24 @@ def _read_binary_block_v7(bfile):
         process  = np.fromfile(bfile, dtype='i4', count=1)[0]
         incoming = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[0])
         outgoing = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[1])
-        return {'type': block_type,
-                'nin': n_inout[0],
-                'nout': n_inout[1],
-                'incoming': incoming,
-                'outgoing': outgoing,
-                'density': rho,
-                'total_cross_section': sigma,
-                'partial_cross_section': sigma_p,
-                'process_type': process}
+        try:
+            block_type = bfile.read(1).decode(encoding)
+            if ((block_type == 'i') || (block_type == 'f')):
+                 bfile.seek(-1, 1)
+                 return {'type': block_type,
+                         'nin': n_inout[0],
+                         'nout': n_inout[1],
+                         'incoming': incoming,
+                         'outgoing': outgoing,
+                         'density': rho,
+                         'total_cross_section': sigma,
+                         'partial_cross_section': sigma_p,
+                         'process_type': process
+                        }
+            else:
+                return None
+        except:
+                return None
     elif (block_type == 'f'):
         n_event = np.fromfile(bfile, dtype='i4', count=1)[0]
         impact_parameter = np.fromfile(bfile, dtype='d',  count=1)[0]
@@ -241,9 +330,18 @@ def _read_binary_block_v4_extended(bfile):
         # got particles block
         npart = np.fromfile(bfile, dtype='i4', count=1)[0]
         particles = np.fromfile(bfile, dtype=particle_data_type, count=npart)
-        return {'type': block_type,
-                'npart': npart,
-                'part': particles}
+        try:
+            block_type = bfile.read(1).decode(encoding)
+            if ((block_type == 'p') || (block_type == 'f')):
+                 bfile.seek(-1, 1)
+                 return {'type': block_type,
+                         'npart': npart,
+                         'part': particles
+                        }
+            else:
+                return None
+        except:
+                return None
     elif (block_type == 'i'):
         # got interaction block
         n_inout  = np.fromfile(bfile, dtype='i4', count=2)
@@ -252,14 +350,23 @@ def _read_binary_block_v4_extended(bfile):
         process  = np.fromfile(bfile, dtype='i4', count=1)[0]
         incoming = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[0])
         outgoing = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[1])
-        return {'type': block_type,
-                'nin': n_inout[0],
-                'nout': n_inout[1],
-                'incoming': incoming,
-                'outgoing': outgoing,
-                'density': rho,
-                'total_cross_section': sigma,
-                'process_type': process}
+        try:
+            block_type = bfile.read(1).decode(encoding)
+            if ((block_type == 'i') || (block_type == 'f')):
+                 bfile.seek(-1, 1)
+                 return {'type': block_type,
+                         'nin': n_inout[0],
+                         'nout': n_inout[1],
+                         'incoming': incoming,
+                         'outgoing': outgoing,
+                         'density': rho,
+                         'total_cross_section': sigma,
+                         'process_type': process
+                        }
+            else:
+                return None
+        except:
+                return None
     elif (block_type == 'f'):
         n_event = np.fromfile(bfile, dtype='i4', count=1)[0]
         return {'type': block_type,
@@ -280,9 +387,18 @@ def _read_binary_block_v5_extended(bfile):
         # got particles block
         npart = np.fromfile(bfile, dtype='i4', count=1)[0]
         particles = np.fromfile(bfile, dtype=particle_data_type, count=npart)
-        return {'type': block_type,
-                'npart': npart,
-                'part': particles}
+        try:
+            block_type = bfile.read(1).decode(encoding)
+            if ((block_type == 'p') || (block_type == 'f')):
+                 bfile.seek(-1, 1)
+                 return {'type': block_type,
+                         'npart': npart,
+                         'part': particles
+                        }
+            else:
+                return None
+        except:
+                return None
     elif (block_type == 'i'):
         # got interaction block
         n_inout  = np.fromfile(bfile, dtype='i4', count=2)
@@ -291,14 +407,23 @@ def _read_binary_block_v5_extended(bfile):
         process  = np.fromfile(bfile, dtype='i4', count=1)[0]
         incoming = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[0])
         outgoing = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[1])
-        return {'type': block_type,
-                'nin': n_inout[0],
-                'nout': n_inout[1],
-                'incoming': incoming,
-                'outgoing': outgoing,
-                'density': rho,
-                'total_cross_section': sigma,
-                'process_type': process}
+        try:
+            block_type = bfile.read(1).decode(encoding)
+            if ((block_type == 'i') || (block_type == 'f')):
+                 bfile.seek(-1, 1)
+                 return {'type': block_type,
+                         'nin': n_inout[0],
+                         'nout': n_inout[1],
+                         'incoming': incoming,
+                         'outgoing': outgoing,
+                         'density': rho,
+                         'total_cross_section': sigma,
+                         'process_type': process
+                        }
+            else:
+                return None
+        except:
+                return None
     elif (block_type == 'f'):
         n_event = np.fromfile(bfile, dtype='i4', count=1)[0]
         return {'type': block_type,
@@ -319,9 +444,18 @@ def _read_binary_block_v6_extended(bfile):
         # got particles block
         npart = np.fromfile(bfile, dtype='i4', count=1)[0]
         particles = np.fromfile(bfile, dtype=particle_data_type, count=npart)
-        return {'type': block_type,
-                'npart': npart,
-                'part': particles}
+        try:
+            block_type = bfile.read(1).decode(encoding)
+            if ((block_type == 'p') || (block_type == 'f')):
+                 bfile.seek(-1, 1)
+                 return {'type': block_type,
+                         'npart': npart,
+                         'part': particles
+                        }
+            else:
+                return None
+        except:
+                return None
     elif (block_type == 'i'):
         # got interaction block
         n_inout  = np.fromfile(bfile, dtype='i4', count=2)
@@ -331,15 +465,24 @@ def _read_binary_block_v6_extended(bfile):
         process  = np.fromfile(bfile, dtype='i4', count=1)[0]
         incoming = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[0])
         outgoing = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[1])
-        return {'type': block_type,
-                'nin': n_inout[0],
-                'nout': n_inout[1],
-                'incoming': incoming,
-                'outgoing': outgoing,
-                'density': rho,
-                'total_cross_section': sigma,
-                'partial_cross_section': sigma_p,
-                'process_type': process}
+        try:
+            block_type = bfile.read(1).decode(encoding)
+            if ((block_type == 'i') || (block_type == 'f')):
+                 bfile.seek(-1, 1)
+                 return {'type': block_type,
+                         'nin': n_inout[0],
+                         'nout': n_inout[1],
+                         'incoming': incoming,
+                         'outgoing': outgoing,
+                         'density': rho,
+                         'total_cross_section': sigma,
+                         'partial_cross_section': sigma_p,
+                         'process_type': process
+                        }
+            else:
+                return None
+        except:
+                return None
     elif (block_type == 'f'):
         n_event = np.fromfile(bfile, dtype='i4', count=1)[0]
         impact_parameter = np.fromfile(bfile, dtype='d',  count=1)[0]
@@ -361,9 +504,18 @@ def _read_binary_block_v7_extended(bfile):
         # got particles block
         npart = np.fromfile(bfile, dtype='i4', count=1)[0]
         particles = np.fromfile(bfile, dtype=particle_data_type, count=npart)
-        return {'type': block_type,
-                'npart': npart,
-                'part': particles}
+        try:
+            block_type = bfile.read(1).decode(encoding)
+            if ((block_type == 'p') || (block_type == 'f')):
+                 bfile.seek(-1, 1)
+                 return {'type': block_type,
+                         'npart': npart,
+                         'part': particles
+                        }
+            else:
+                return None
+        except:
+                return None
     elif (block_type == 'i'):
         # got interaction block
         n_inout  = np.fromfile(bfile, dtype='i4', count=2)
@@ -373,15 +525,24 @@ def _read_binary_block_v7_extended(bfile):
         process  = np.fromfile(bfile, dtype='i4', count=1)[0]
         incoming = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[0])
         outgoing = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[1])
-        return {'type': block_type,
-                'nin': n_inout[0],
-                'nout': n_inout[1],
-                'incoming': incoming,
-                'outgoing': outgoing,
-                'density': rho,
-                'total_cross_section': sigma,
-                'partial_cross_section': sigma_p,
-                'process_type': process}
+        try:
+            block_type = bfile.read(1).decode(encoding)
+            if ((block_type == 'i') || (block_type == 'f')):
+                 bfile.seek(-1, 1)
+                 return {'type': block_type,
+                         'nin': n_inout[0],
+                         'nout': n_inout[1],
+                         'incoming': incoming,
+                         'outgoing': outgoing,
+                         'density': rho,
+                         'total_cross_section': sigma,
+                         'partial_cross_section': sigma_p,
+                         'process_type': process
+                        }
+            else:
+                return None
+        except:
+                return None
     elif (block_type == 'f'):
         n_event = np.fromfile(bfile, dtype='i4', count=1)[0]
         impact_parameter = np.fromfile(bfile, dtype='d',  count=1)[0]
