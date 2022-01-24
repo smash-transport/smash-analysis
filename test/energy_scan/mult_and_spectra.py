@@ -22,7 +22,7 @@ class BulkObservables:
                        ptbins = np.array([0.0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.4, 2.8, 3.2, 3.6, 4.0, 4.4, 4.8]),
                        midrapidity_cut = 0.5):
         self.pdglist = pdg_list
-        self.pdglist_charha=[211,-211,321,-321,2212,-2212,3122,-3122,1000010020,-1000010020,3312,-3312,3334,-3334,3212,-3212]
+        self.pdglist_charha=[211,-211,321,-321,2212,-2212,3122,-3122,1000010020,-1000010020,3312,-3312,3334,-3334,3212,-3212,0]
         self.npdg = len(pdg_list)
         self.mtbins = mtbins
         self.ybins = ybins
