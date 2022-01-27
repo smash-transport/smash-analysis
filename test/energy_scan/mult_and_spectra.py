@@ -121,7 +121,7 @@ class BulkObservables:
 
             pdg_and_y_cut_charha = np.logical_and(ycut, pdgcut_charha)
             added_midrap_yield_charha = pdg_and_y_cut_charha.sum()
-            if (added_total_mult_charha == 0): continue
+            if (added_total_mult_charha == 0 || i==self.npdg): continue
             self.midrapidity_yield_charha += added_midrap_yield_charha
             b = float(added_midrap_yield_charha) / self.midrapidity_yield_charha
             self.meanpt_midrapidity_charha=self.updated_mean(self.meanpt_midrapidity_charha,pT[pdg_and_y_cut_charha].mean(),b)
