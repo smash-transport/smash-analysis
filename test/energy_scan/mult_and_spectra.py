@@ -92,31 +92,39 @@ class BulkObservables:
             pdgcut = (pdg == self.pdglist[i])
             pdgcut_charha = (pdg == self.pdglist_charha[i])
             added_total_mult = pdgcut.sum()
+            added_total_mult_charha = pdgcut_charha.sum()
 
             if (added_total_mult == 0): continue
             self.yhist[i,:] += np.histogram(y[pdgcut], bins = self.ybins)[0]
 
             pdg_and_y_cut = np.logical_and(ycut, pdgcut)
-            pdg_and_y_cut_charha = np.logical_and(ycut, pdgcut_charha)
+
             added_midrap_yield = pdg_and_y_cut.sum()
-            added_midrap_yield_charha = pdg_and_y_cut_charha.sum()
+
 
             self.total_multiplicity[i] += added_total_mult
             self.midrapidity_yield[i] += added_midrap_yield
-            self.midrapidity_yield_charha += added_midrap_yield_charha
+
 
             if (added_midrap_yield == 0): continue
             pt_hist_with_cuts = np.histogram(pT[pdg_and_y_cut], bins = self.ptbins)[0]
             self.mthist[i,:] += np.histogram(mT0[pdg_and_y_cut], bins = self.mtbins)[0]
             self.pthist_midrapidity[i,:] += np.histogram(pT[pdg_and_y_cut], bins = self.ptbins)[0]
             a = float(added_midrap_yield) / self.midrapidity_yield[i]
-            b = float(added_midrap_yield_charha) / self.midrapidity_yield_charha
+
             self.meanpt_midrapidity[i] = self.updated_mean(self.meanpt_midrapidity[i], pT[pdg_and_y_cut].mean(), a)
-            self.meanpt_midrapidity_charha=self.updated_mean(self.meanpt_midrapidity_charha,pT[pdg_and_y_cut_charha].mean(),b)
+
             self.meanmt0_midrapidity[i] = self.updated_mean(self.meanmt0_midrapidity[i], mT0[pdg_and_y_cut].mean(), a)
 
             cos2phi_hist = np.histogram(pT[pdg_and_y_cut], bins = self.ptbins, weights = cos2phi[pdg_and_y_cut])[0]
             self.v2[i,:] += np.where(pt_hist_with_cuts > 0.0, cos2phi_hist, 0.0)
+
+            if (added_total_mult_charha == 0): continue
+            pdg_and_y_cut_charha = np.logical_and(ycut, pdgcut_charha)
+            added_midrap_yield_charha = pdg_and_y_cut_charha.sum()
+            self.midrapidity_yield_charha += added_midrap_yield_charha
+            b = float(added_midrap_yield_charha) / self.midrapidity_yield_charha
+            self.meanpt_midrapidity_charha=self.updated_mean(self.meanpt_midrapidity_charha,pT[pdg_and_y_cut_charha].mean(),b)
 
     def __iadd__(self, other):
         """ Adds two sets of bulk observables, if it possible. """
