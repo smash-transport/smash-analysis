@@ -10,11 +10,11 @@ General:
     Delta_Time:    0.01
     End_Time:      20.0
     Randomseed:    -1
-    Nevents:       1
-    Testparticles: 1
+    Nevents:       5
+    Testparticles: 5
 
 Output:
-    Output_Interval:  1.0
+    Output_Interval:  0.1
     Collisions:
         Format: ["Binary"]
         Print_Start_End:    False
@@ -23,18 +23,18 @@ Output:
         Only_Final:         No
 
 Collision_Term:
-    Two_to_One:                False
+    Two_to_One:                True
     Strings:                   False
     Force_Decays_At_End:       False
     Collision_Criterion:       Stochastic
     Multi_Particle_Reactions: ["Deuteron_3to2", "A3_Nuclei_4to2"]
-    Included_2to2:            ["Elastic"]
+    Included_2to2:            []
     # Multi_Particle_Reactions: ["Deuteron_3to2"]
     # All 2-to-2 reactions without d' reactions and PiDeuteron_to_NN
     #Included_2to2: ["Elastic","NN_to_NR", "NN_to_DR", "KN_to_KN", "Strangeness_exchange", "NNbar"]
     # For testing: All 2-to-2 reactions without d' reactions but including PiDeuteron_to_NN (takes much longer to equlibrate)
-    #Included_2to2: ["Elastic","NN_to_NR", "NN_to_DR", "KN_to_KN", "Strangeness_exchange", "NNbar", "PiDeuteron_to_NN"]
     Only_Warn_For_High_Probability: True
+    Fixed_Min_Cell_Length: 1.5
 
 Modi:
     Box:
@@ -43,9 +43,9 @@ Modi:
         Start_Time:    0.0
         Initial_Condition: "thermal momenta"
         Init_Multiplicities:
-            211:    20
-            111:    20
-            -211:   20
-            2212:   80
+            211:    40
+            111:    40
+            -211:   40
+            2212:   50
             2112:   40
-            3122:   100
+            3122:   50
