@@ -2,15 +2,13 @@ Version: 1.8
 
 Logging:
   default: INFO
-  ScatterActionMulti: DEBUG
-  # ScatterAction: DEBUG
 
 General:
     Modus:         Box
     Delta_Time:    0.01
-    End_Time:      20.0
+    End_Time:      30.0
     Randomseed:    -1
-    Nevents:       5
+    Nevents:       20
     Testparticles: 5
 
 Output:
