@@ -123,7 +123,7 @@ def plot(name, bin_factor, ch_list, style_dict, datafile="", cut_legend=""):
         if (sum(hist_new[i]) > pow(10,-8)):  # any contributions to channel?
             plt.plot(bin_centers_new,
                      hist_new[i], style_dict["l_style"][i], label=ch_list[i], linewidth=2)
-            
+
     # plot data
     if datafile != "":
         if 'mass' in name:
@@ -156,8 +156,12 @@ def plot(name, bin_factor, ch_list, style_dict, datafile="", cut_legend=""):
             setup = str(args.system) + "_" + str(args.energy) + "_" + "filtered"
             cpv.plot_previous_results('dileptons', setup, '/dN_dm_tot.txt')
 
+
+    leg_cols = 2
+    if ("rho" in name) or ("omega" in name): leg_cols = 1
+
     # plot style
-    leg = plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3, ncol=2, mode="expand",
+    leg = plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3, ncol=leg_cols, mode="expand",
                      borderaxespad=0, fancybox=True, title=args.system + "@" + args.energy + " GeV " + cut_legend)
     #plt.annotate(version(), xy=(0.02, 0.03), xycoords='axes fraction', bbox=dict(boxstyle="round", fc="w"), fontsize=12)
     plt.annotate('SMASH version: ' + version() + '\n' +
