@@ -241,7 +241,7 @@ num_events = int(num_events) + 1  # FIXME: event counting starts at zero in bina
 def output(hist, bins, name):
     center = (bins[:-1] + bins[1:]) / 2.0
     hist = hist[1:-1,:] / float(num_events) # here the extra bin below bin_min and above bin_max is sliced out, so that the shapes of center and hist match again
-    np.savetxt("hist_" + name +".txt", np.column_stack((center[:,None], hist)))
+    np.savetxt("hist_raw_" + name +".txt", np.column_stack((center[:,None], hist)))
 
 
 output(hist_mass,       bins_m, "mass")
