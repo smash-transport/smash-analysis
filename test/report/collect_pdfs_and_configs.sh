@@ -39,6 +39,15 @@ mkdir ${collection_dir}/energy_scan/meanpt
 mkdir ${collection_dir}/energy_scan/total_multiplicity
 mkdir ${collection_dir}/energy_scan/midrapidity_yield
 
+# create new subdirectories for afterburner run (files are being reordered):
+mkdir ${collection_dir}/afterburner
+mkdir ${collection_dir}/afterburner/mtspectra
+mkdir ${collection_dir}/afterburner/yspectra
+mkdir ${collection_dir}/afterburner/meanmt
+mkdir ${collection_dir}/afterburner/meanpt
+mkdir ${collection_dir}/afterburner/total_multiplicity
+mkdir ${collection_dir}/afterburner/midrapidity_yield
+
 # copy all PDF files necessary to generate the wiki page
 # folder structure is preserved (except for energy scan, where we reorder)
 cd ${results}/angular_distributions/test
@@ -60,6 +69,13 @@ find energy_scan -maxdepth 2 -name "meanmt*.pdf" | xargs cp -t ${collection_dir}
 find energy_scan -maxdepth 2 -name "meanpt*.pdf" | xargs cp -t ${collection_dir}/energy_scan/meanpt/
 find energy_scan -maxdepth 2 -name "midrapidity_yield*.pdf" | xargs cp -t ${collection_dir}/energy_scan/midrapidity_yield/
 find energy_scan -maxdepth 2 -name "total_multiplicity*.pdf" | xargs cp -t ${collection_dir}/energy_scan/total_multiplicity/
+cd ${results}/afterburner/test
+find afterburner -maxdepth 2 -name "yspectra*.pdf" | xargs cp -t ${collection_dir}/afterburner/yspectra/
+find afterburner -maxdepth 2 -name "mtspectra*.pdf" | xargs cp -t ${collection_dir}/afterburner/mtspectra/
+find afterburner -maxdepth 2 -name "meanmt*.pdf" | xargs cp -t ${collection_dir}/afterburner/meanmt/
+find afterburner -maxdepth 2 -name "meanpt*.pdf" | xargs cp -t ${collection_dir}/afterburner/meanpt/
+find afterburner -maxdepth 2 -name "midrapidity_yield*.pdf" | xargs cp -t ${collection_dir}/afterburner/midrapidity_yield/
+find afterburner -maxdepth 2 -name "total_multiplicity*.pdf" | xargs cp -t ${collection_dir}/afterburner/total_multiplicity/
 cd ${results}/densities/test
 find densities -maxdepth 2 -name "*.pdf" | xargs cp --parents -t ${collection_dir}/
 
@@ -83,6 +99,8 @@ cd ${results}/FOPI_pions/test
 find FOPI_pions -maxdepth 4 -name "config.yaml" | xargs cp --parents -t ${collection_dir}/
 cd ${results}/energy_scan/test
 find energy_scan -maxdepth 5 -name "config.yaml" | xargs cp --parents -t ${collection_dir}/
+cd ${results}/afterburner/test
+find afterburner -maxdepth 5 -name "config.yaml" | xargs cp --parents -t ${collection_dir}/
 cd ${results}/densities/test
 find densities -maxdepth 4 -name "config.yaml" | xargs cp --parents -t ${collection_dir}/
 echo "Done copying config files."

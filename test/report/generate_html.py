@@ -399,6 +399,35 @@ def make_energy_scan_page(tree):
 
     return lines
 
+def make_afterburner_page(tree):
+    """Generate the afterburner subpage (similar to the front page)."""
+    title = 'Analysis Suite for ' + smash_version
+    lines = []
+    include_back_button(lines)
+    lines.append('<hr/>')
+    lines.append(gen_heading(title, 1))
+    lines.append('<font color="maroon">')
+    lines.append(gen_heading('Afterburner', 2))
+    lines.append('</font>')
+    lines.append(gen_text(descriptions_targetpage['afterburner'], 4))
+    lines.append('<hr/ style="margin-bottom:0.6cm;">')
+    lines.append('<ul style="margin-top:0.8cm;">')
+
+    for observable in energy_scan_sorted_observables:
+            lines.append('''<b> <li style="padding-bottom:0.4cm;color:#800000">\
+                <a style="text-decoration: none; color:#800000" href="'''
+                         + str(observable) + '/">'
+                         + E_scan_observable_dict[observable] + '</b> </a>')
+    lines.append('</ul>')
+    lines.append('<hr/>')
+    lines.append(gen_config_links((tree['afterburner']['configs'])))
+    lines.append('<hr/>')
+    lines.append('<span style="display:block; height: 0.5cm;"></span>')
+    lines.append('')
+    include_back_button(lines)
+
+    return lines
+
 def make_target_page(tree, target):
     """Generate the subpage of a specific target."""
     lines = []
@@ -659,6 +688,22 @@ if __name__ == '__main__':
                     tree_e_scan = reformat_energy_scan_tree(tree_e_scan, observable)
                     lines = make_target_page(tree_e_scan, observable)
                     write_html(output_dir_e_scan, lines)
+            elif 'afterburner' in args.source_dirs:
+                # generate subpage for energy scan
+                tree = walk_tree(tree, source_dir, with_configs = True, with_plots = False)
+                lines = make_afterburner_page(tree)
+                write_html(output_dir, lines)
+
+                # generate target pages for energy scan observables
+                for observable in energy_scan_sorted_observables:
+                    tree_afterburner = Tree()
+                    source_dir_afterburner = os.path.join(source_dir, observable)
+                    output_dir_afterburner = os.path.join(output_dir, observable)
+                    tree_afterburner = walk_tree(tree_afterburner, source_dir_afterburner, with_configs = False, with_plots = True)
+                    tree_afterburner = reformat_energy_scan_tree(tree_afterburner, observable)
+                    lines = make_target_page(tree_afterburner, observable)
+                    write_html(output_dir_afterburner, lines)
+
             else:
                 tree = walk_tree(tree, source_dir, with_configs = True, with_plots = True)
                 tree = reorder_tree(tree, source_dir.split('/')[-2])
