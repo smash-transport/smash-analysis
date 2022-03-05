@@ -51,7 +51,7 @@ if [ ${target} = "spectra" ] || [ ${target} = "pp_collisions" ] || [ ${target} =
 then
   make ${target}_sims -j$SLURM_CPUS_ON_NODE \
   && make ${target}_plots -j$SLURM_CPUS_ON_NODE
-elif [ ${target} = "elastic_box" ] || [ ${target} = "detailed_balance" ] || [ ${target} = "angular_distributions" ] || [ ${target} = "cross_sections" ] || [ ${target} = "energy_scan" ]
+elif [ ${target} = "elastic_box" ] || [ ${target} = "detailed_balance" ] || [ ${target} = "angular_distributions" ] || [ ${target} = "cross_sections" ] || [ ${target} = "energy_scan" || [ ${target} = "afterburner"]
 then
   make ${target}_sims -j$SLURM_CPUS_ON_NODE \
   && make ${target}_analysis -j$SLURM_CPUS_ON_NODE \
