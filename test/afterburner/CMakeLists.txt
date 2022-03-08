@@ -34,7 +34,7 @@ function(afterburner_test
       COMMAND "${CMAKE_BINARY_DIR}/smash"
           "-i" "${smash_afterburner_config}"
           "-c" "Modi: { List: { File_Directory: ${CMAKE_CURRENT_SOURCE_DIR}/${test_name}} }"
-          "-o" "${test_folder}/data/${i}"
+          "-o" "${test_folder}/${i}/data"
           "-f"
           ">" "/dev/null"
       COMMENT "Running SMASH afterburner for ${test_name} (${i}/${num_runs})."
