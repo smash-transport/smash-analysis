@@ -346,6 +346,7 @@ class DataTree:
             # print data
 
 def plotting(data1, data2, config_file, smash_code_version, output_folder):
+    plot_counter=0
     quantities = data1.quantities.union(data2.quantities)
     pdglist = data1.pdglist.union(data2.pdglist)
     pdglist_abs = np.unique(np.abs(np.array(list(pdglist))))
@@ -630,7 +631,8 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                         plt.xlabel('$p_{T}$ [GeV]')
 
                     plt.ylabel(title_dict[quantity])
-                    if (determine_collider(energy) != determine_collider(energies[(element + 1) % len(energies)]) or colliding_system == 'afterburner'):
+                    plot_counter=plot_counter+1
+                    if (determine_collider(energy) != determine_collider(energies[(element + 1) % len(energies)]) or (colliding_system == 'afterburner' and plot_counter==1)):
                         if args.comp_prev_version:
                             #dummy for legend entry of combined previous results.
                             import comp_to_prev_version as cpv
