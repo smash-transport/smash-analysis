@@ -47,6 +47,8 @@ mkdir ${collection_dir}/afterburner/meanmt
 mkdir ${collection_dir}/afterburner/meanpt
 mkdir ${collection_dir}/afterburner/total_multiplicity
 mkdir ${collection_dir}/afterburner/midrapidity_yield
+mkdir ${collection_dir}/afterburner/LHC
+mkdir ${collection_dir}/afterburner/RHIC
 
 # copy all PDF files necessary to generate the wiki page
 # folder structure is preserved (except for energy scan, where we reorder)
@@ -100,7 +102,8 @@ find FOPI_pions -maxdepth 4 -name "config.yaml" | xargs cp --parents -t ${collec
 cd ${results}/energy_scan/test
 find energy_scan -maxdepth 5 -name "config.yaml" | xargs cp --parents -t ${collection_dir}/
 cd ${results}/afterburner/test
-find afterburner -maxdepth 5 -name "config.yaml" | xargs cp --parents -t ${collection_dir}/
+find afterburner -maxdepth 5 -path "*/LHC/1/data/config.yaml" | xargs cp -t ${collection_dir}/afterburner/LHC
+find afterburner -maxdepth 5 -path "*/RHIC/1/data/config.yaml" | xargs cp -t ${collection_dir}/afterburner/RHIC
 cd ${results}/densities/test
 find densities -maxdepth 4 -name "config.yaml" | xargs cp --parents -t ${collection_dir}/
 echo "Done copying config files."

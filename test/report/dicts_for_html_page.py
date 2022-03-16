@@ -15,6 +15,7 @@ target_dict = {
     'spectra': 'Spectra',
     'densities': 'Densities',
     'energy_scan': 'Energy Scan',
+    'afterburner': 'Afterburner',
     'total_multiplicity': 'Total Multiplicity',
     'midrapidity_yield' : 'Midrapidity Yield',
     'meanmt' : 'Mean m<sub>T</sub>',
@@ -118,6 +119,8 @@ descriptions_targetpage = {
                         reaction number for the considered isospin group. Therefore, the normalized values are expected to lie at 1.0.',
    'energy_scan': 'Multiplicities, midrapidity yields, transverse momentum and rapidity spectra for the most abundant hadron species over a large range of beam energies \
                    from &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> = 2.695 - 7000 GeV.',
+   'afterburner': 'Multiplicities, midrapidity yields, transverse momentum and rapidity spectra for the most abundant hadron species for afterburner runs \
+                   at &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> = 200 and 5000 GeV.',
    'elastic_box': 'Analysis of scattering rates in infinite matter simulations with only elastic collisions. \
                    Sensitivity of scattering rates to variation of different setup parameters is investigated. <br> \
                    The number of collisions in SMASH is, in the following plots, normalized to the theoretically expected number of collisions of a dilute gas: \
@@ -152,7 +155,7 @@ descriptions_frontpage = {
    'detailed_balance': 'Detailed balance tests in an infinite matter simulation (box) with different particle species. The evolution towards chemical equilibrium \
                         and the reaction numbers of forward and backward reactions are displayed.  ',
    'energy_scan': 'Multiplicities, midrapidity yields, transverse momentum and rapidity spectra for the most abundant hadron species over a large range of beam energies from &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> = 2.695 - 7000 GeV.',
-   'afterburner': 'Multiplicities, midrapidity yields, transverse momentum and rapidity spectra for the most abundant hadron species for runs using SMASH as an afterburner for a particle list sampled a hydro simulation at &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> =200 and 5000 GeV.',
+   'afterburner': 'Multiplicities, midrapidity yields, transverse momentum and rapidity spectra for the most abundant hadron species for runs using SMASH as an afterburner for a particle list sampled from a hydro simulation at &radic;<span style="text-decoration: overline">s</span><sub>NN </sub> =200 and 5000 GeV.',
    'elastic_box': 'Analysis of scattering rates in infinite matter simulations with only elastic collisions. \
                    Sensitivity of scattering rates to variation of different setup parameters is investigated.',
    'FOPI_pions': 'Pion production compared to experimental data by the FOPI collaboration.',
