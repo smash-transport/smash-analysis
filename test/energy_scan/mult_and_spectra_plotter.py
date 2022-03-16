@@ -451,6 +451,8 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                           '. Cannot log-scale the y axis, scale will be linear.')
                 else:
                      plt.yscale('log', nonposy='clip')
+            if( quantity in ['total_multiplicity', 'midrapidity_yield', 'meanmt0_midrapidity', 'meanpt_midrapidity']  and 'afterburner' in colliding_systems):
+                plt.xlim([190,5100])
             hadron_name = sb.pdg_to_name(pdg_abs, config_file)
             antihadron_name = sb.pdg_to_name(-pdg_abs, config_file)
             plot_title = hadron_name
@@ -500,11 +502,6 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                 scaling_counter = -1
                 for element, energy in enumerate(energies):
                     collider = determine_collider(energy)
-                    if(colliding_system=='afterburner'):
-                        if(energy==200.0):
-                            collider='RHIC'
-                        else:
-                            collider='LHC'
                     in_theory = data1.is_in_dict([quantity, colliding_system, pdg, energy])
                     if colliding_system=='afterburner':
                         in_experiment = data2.is_in_dict([quantity, 'AuAu/PbPb', pdg, energy])
