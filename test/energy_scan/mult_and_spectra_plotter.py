@@ -396,21 +396,32 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                             collected_results_pp[0].append(pdg)
                             if (collected_results_pp[1] == []): collected_results_pp[1].append(x)
                             collected_results_pp[2].append(y)
+                            if args.comp_prev_version:
+                                import comp_to_prev_version as cpv
+                                # read and plot results from previous version
+                                filename_prev = quantity + '_' + colliding_system.replace('/', '')
+                                prev_SMASH_version = cpv.plot_previous_results('energy_scan', '', filename_prev + '.txt',
+                                                    plot_color = plot_color, pdg = pdg, plot_style = plot_format)
                         if (colliding_system == 'AuAu/PbPb'):
                             collected_results_AuAuPbPb[0].append(pdg)
                             if (collected_results_AuAuPbPb[1] == []): collected_results_AuAuPbPb[1].append(x)
                             collected_results_AuAuPbPb[2].append(y)
+                            if args.comp_prev_version:
+                                import comp_to_prev_version as cpv
+                                # read and plot results from previous version
+                                filename_prev = quantity + '_' + colliding_system.replace('/', '')
+                                prev_SMASH_version = cpv.plot_previous_results('energy_scan', '', filename_prev + '.txt',
+                                                    plot_color = plot_color, pdg = pdg, plot_style = plot_format)
                         if (colliding_system == 'afterburner'):
                             collected_results_afterburner[0].append(pdg)
                             if (collected_results_afterburner[1] == []): collected_results_afterburner[1].append(x)
                             collected_results_afterburner[2].append(y)
-
-                        if args.comp_prev_version:
-                            import comp_to_prev_version as cpv
-                            # read and plot results from previous version
-                            filename_prev = quantity + '_' + colliding_system.replace('/', '')
-                            prev_SMASH_version = cpv.plot_previous_results('energy_scan', '', filename_prev + '.txt',
-                                                plot_color = plot_color, pdg = pdg, plot_style = plot_format)
+                            if args.comp_prev_version:
+                                import comp_to_prev_version as cpv
+                                # read and plot results from previous version
+                                filename_prev = quantity + '_' + colliding_system.replace('/', '')
+                                prev_SMASH_version = cpv.plot_previous_results('afterburner', '', filename_prev + '.txt',
+                                                    plot_color = plot_color, pdg = pdg, plot_style = plot_format)
 
                     if (colliding_system != 'afterburner' and data2.is_in_dict([quantity, colliding_system, pdg])):
                         exp_vs_energy = data2.the_dict[quantity][colliding_system][pdg]
@@ -571,9 +582,12 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                             import comp_to_prev_version as cpv
                             #v2 is not regularly run, old results are neither produced nor stored
                             filename_prev = quantity + '_' + colliding_system.replace('/', '') + '_' + str(pdg)
-                            prev_SMASH_version =  cpv.plot_previous_results('energy_scan', '', filename_prev + '.txt',
+                            if(colliding__system == 'afterburner'):
+                                prev_SMASH_version =  cpv.plot_previous_results('afterburner', '', filename_prev + '.txt',
                                                   energy = energy, plot_color = plot_color, scaling_counter = scaling_counter)
-
+                            else:
+                                prev_SMASH_version =  cpv.plot_previous_results('energy_scan', '', filename_prev + '.txt',
+                                                  energy = energy, plot_color = plot_color, scaling_counter = scaling_counter)
 
                     if (in_experiment):
                         if (colliding_system != 'afterburner'):
@@ -625,7 +639,11 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                             import comp_to_prev_version as cpv
                             #v2 is not regularly run, old results are neither produced nor stored
                             filename_prev = quantity + '_' + colliding_system.replace('/', '') + '_' + str(pdg)
-                            prev_SMASH_version =  cpv.plot_previous_results('energy_scan', '', filename_prev + '.txt',
+                            if (colliding_system != 'afterburner'):
+                                prev_SMASH_version =  cpv.plot_previous_results('energy_scan', '', filename_prev + '.txt',
+                                                  energy = energy, plot_color = 'midnightblue', scaling_counter = scaling_counter)
+                            else:
+                                prev_SMASH_version =  cpv.plot_previous_results('afterburner', '', filename_prev + '.txt',
                                                   energy = energy, plot_color = 'midnightblue', scaling_counter = scaling_counter)
                             plt.plot(1,0.0, linestyle = '-', linewidth = 10, zorder = 1,
                                     color='dimgrey', label=prev_SMASH_version, alpha = 0.2)

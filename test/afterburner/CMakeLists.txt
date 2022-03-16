@@ -174,7 +174,7 @@ else() # plot with experimental data
                              "${EXP_DATA}/mean_mT/*/*.exp"
               "--experiment_spectra" "${EXP_DATA}/mt_spectrum/*/*.exp"
                                      "${EXP_DATA}/y_spectrum/*/*.exp"
-              "--config" "${CMAKE_CURRENT_BINARY_DIR}/RHIC/data/config.yaml"
+              "--config" "${CMAKE_CURRENT_BINARY_DIR}/RHIC/1/data/config.yaml"
               "--comp_prev_version"
               "--output_folder"  "${test_folder}/Plots"
       DEPENDS "${CMAKE_SOURCE_DIR}/test/energy_scan/mult_and_spectra_plotter.py" ${all_analysis_outputs}

@@ -147,6 +147,25 @@ def plot_previous_results(observable, setup, filename, color_list = [], pdg = 0,
                          zorder = 1)
             return label
 
+        elif observable == 'afterburner':
+            if 'mtspectra' in filename:
+                plt.plot(data['mt-m0'], data[str(energy)] * 10**scaling_counter,
+                         color = plot_color, linestyle = '-', linewidth = 10,
+                         zorder = 1, alpha = 0.15)
+            elif 'yspectra' in filename:
+                plt.plot(data['y'], data[str(energy)], color = plot_color,
+                         linestyle = '-', linewidth = 10, zorder = 1, alpha = 0.15)
+            elif 'ptspectra' in filename:
+                plt.plot(data['pt'], data[str(energy)], color = plot_color,
+                         linestyle = '-', linewidth = 10, zorder = 1, alpha = 0.15)
+
+            else:
+                plt.plot(data['sqrt_s'], data[str(pdg)], plot_style,
+                         color = plot_color, alpha = 0.15, linewidth = 10,
+                         zorder = 1)
+            return label
+
+
         elif observable == 'FOPI_pions':
             plt.plot(data['x'], data['y'], label=label, color = 'dimgrey',
                         linestyle = "-", alpha = 0.2, zorder=1, linewidth = 20)
