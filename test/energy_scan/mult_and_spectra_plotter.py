@@ -582,7 +582,7 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                             import comp_to_prev_version as cpv
                             #v2 is not regularly run, old results are neither produced nor stored
                             filename_prev = quantity + '_' + colliding_system.replace('/', '') + '_' + str(pdg)
-                            if(colliding__system == 'afterburner'):
+                            if(colliding_system == 'afterburner'):
                                 prev_SMASH_version =  cpv.plot_previous_results('afterburner', '', filename_prev + '.txt',
                                                   energy = energy, plot_color = plot_color, scaling_counter = scaling_counter)
                             else:
