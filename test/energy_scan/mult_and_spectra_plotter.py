@@ -353,7 +353,6 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
     colliding_systems = data1.colliding_systems.union(data2.colliding_systems)
     if('afterburner' in colliding_systems):
         colliding_systems={'afterburner'}
-    colliding_systems_list = list(colliding_systems)
     energies = sorted(list(data1.energies.union(data2.energies)))
     for quantity in quantities:
         if ('spectra' in quantity): continue
@@ -454,6 +453,7 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                      plt.yscale('log', nonposy='clip')
             if( quantity in ['total_multiplicity', 'midrapidity_yield', 'meanmt0_midrapidity', 'meanpt_midrapidity']  and 'afterburner' in colliding_systems):
                 plt.xlim([190,5100])
+                plt.text(0.5, 0.5, 'SMASH-vHLLE-hybrid', fontsize=40, color='gray', ha='right', va='bottom', alpha=0.5, transform=plt.gca().transAxes)
             hadron_name = sb.pdg_to_name(pdg_abs, config_file)
             antihadron_name = sb.pdg_to_name(-pdg_abs, config_file)
             plot_title = hadron_name
@@ -540,7 +540,10 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                                        3212 : 1.189 }
                         m0 = pole_masses[abs(pdg)]
                         if (quantity == 'mtspectra'):
-                            scaling_counter += 1
+                            if(colliding_system!='afterburner'):
+                                scaling_counter += 1
+                            else:
+                                scaling_counter=0
                             y /= ((x + m0) * bin_width) * (2.0 * data1.midrapidity_cut)  # factor 2 because [-y_cut; y_cut]
                             if np.all(y == 0):          # rescale y-axis to be linear if mtspectra of current energy are 0, but those
                                 plt.yscale('linear')    # of the previous energy were not, so that the scale was already set to log scale.
@@ -548,7 +551,10 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                                     label = str(energy) + r' $\times \ $10$^{\mathsf{' + str(scaling_counter) + r'}}$')
                         # dN/dpT
                         if (quantity == 'ptspectra'):
-                            scaling_counter += 1
+                            if(colliding_system!='afterburner'):
+                                scaling_counter += 1
+                            else:
+                                scaling_counter=0
                             y /= (bin_width * x) * (2.0 * data1.midrapidity_cut)  # factor 2 because [-y_cut; y_cut]
                             if np.all(y == 0):          # rescale y-axis to be linear if ptspectra of current energy are 0, but those
                                 plt.yscale('linear')    # of the previous energy were not, so that the scale was already set to log scale.
@@ -583,7 +589,7 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                             if(colliding_system == 'afterburner'):
                                 filename_prev = quantity + '_' + colliding_system.replace('/', '') + str(pdg)
                                 prev_SMASH_version =  cpv.plot_previous_results('afterburner', '', filename_prev + '.txt',
-                                                  energy = energy, plot_color = plot_color, scaling_counter = scaling_counter)
+                                                  energy = energy, plot_color = plot_color, scaling_counter = 0)
                             else:
                                 filename_prev = quantity + '_' + colliding_system.replace('/', '') + '_' + str(pdg)
                                 prev_SMASH_version =  cpv.plot_previous_results('energy_scan', '', filename_prev + '.txt',
@@ -594,6 +600,7 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                             x, y, y_err = data2.the_dict[quantity][colliding_system][pdg][energy]
                         else:
                             x, y, y_err = data2.the_dict[quantity]['AuAu/PbPb'][pdg][energy]
+                            scaling_counter=0
                         if (quantity == 'mtspectra'):
                             plt.errorbar(x, y * 10**scaling_counter, yerr = y_err, fmt = 'o', color = plot_color)
                         elif (quantity == 'ptspectra'):
@@ -647,7 +654,8 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                             else:
                                 filename_prev = quantity + '_' + colliding_system.replace('/', '') + str(pdg)
                                 prev_SMASH_version =  cpv.plot_previous_results('afterburner', '', filename_prev + '.txt',
-                                                  energy = energy, plot_color = 'midnightblue', scaling_counter = scaling_counter)
+                                                  energy = energy, plot_color = 'midnightblue', scaling_counter = 0)
+                                plt.text(0.5, 0.5, 'SMASH-vHLLE-hybrid', fontsize=40, color='gray', ha='right', va='bottom', alpha=0.5, transform=plt.gca().transAxes)
                             plt.plot(1,0.0, linestyle = '-', linewidth = 10, zorder = 1,
                                     color='dimgrey', label=prev_SMASH_version, alpha = 0.2)
                         plt.legend(loc= 'upper right', title = '$\sqrt{s} \ $ [GeV] =' , ncol = 1, fontsize = 26)
