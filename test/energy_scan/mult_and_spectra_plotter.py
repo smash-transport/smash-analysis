@@ -323,7 +323,6 @@ class DataTree:
                     break
 
             pdg = name_to_pdg[part_name]
-            # print energy, part_name, name_to_pdg[part_name]
             def is_number(s):
                 if (s.strip() == ''): return False
                 try:
@@ -356,7 +355,7 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
     energies = sorted(list(data1.energies.union(data2.energies)))
     for quantity in quantities:
         if ('spectra' in quantity): continue
-        #if ('afterburner' in colliding_systems): continue
+
         collected_results_pp = [[],[],[]]
         collected_results_AuAuPbPb = [[],[],[]]
         collected_results_afterburner = [[],[],[]]

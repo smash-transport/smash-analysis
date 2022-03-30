@@ -12,13 +12,12 @@ function(afterburner_test
     set(test_folder ${CMAKE_CURRENT_BINARY_DIR}/${test_name})
     file(MAKE_DIRECTORY ${test_folder})
     file(MAKE_DIRECTORY ${test_folder}/Merged_spectra)
-    #file(MAKE_DIRECTORY ${test_folder}/Plots)
 
 
     set(smash_afterburner_config "${CMAKE_CURRENT_SOURCE_DIR}/afterburner.yaml")
 
     execute_process (
-    COMMAND bash -c "cd ${CMAKE_CURRENT_SOURCE_DIR}/${test_name} && unzip -o sampling0.zip"
+    COMMAND bash -c "cd ${CMAKE_CURRENT_SOURCE_DIR}/${test_name} && gunzip -o sampling0.gz"
     OUTPUT_VARIABLE outVar
     )
     set(num_runs "20")
@@ -26,7 +25,6 @@ function(afterburner_test
       file(MAKE_DIRECTORY ${test_folder}/${i})
       file(MAKE_DIRECTORY ${test_folder}/${i}/data)
       file(MAKE_DIRECTORY ${test_folder}/${i}/analysis)
-      #file(MAKE_DIRECTORY ${test_folder}/${i}/plots)
       set(final_particle_list "${test_folder}/${i}/data/particles_binary.bin")
       list(APPEND final_particle_lists ${final_particle_list})
     # Run afterburner evolution
@@ -93,35 +91,6 @@ function(afterburner_test
         WORKING_DIRECTORY "${test_folder}"
         COMMENT "Merge spectra for ${test_name}."
     )
-      #----------------------------------------------------------------------------#
-      # Plot spectra
-      #----------------------------------------------------------------------------#
-      # Define plot names
-
-
-
-      #set(all_plots ${all_plots};${plot} )
-
-      #set(mockup "${test_folder}/afterburner_mockup.pdf")
-
-      # Perform plotting
-
-      #[[else() # plot with experimental data
-        add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/afterburner_mockup.pdf"
-            COMMAND "python" "${CMAKE_SOURCE_DIR}/test/energy_scan/mult_and_spectra_plotter.py"
-                    "--theory" ${all_analysis_outputs}
-                    "--experiment" "${EXP_DATA}/multiplicity/*/*.exp"
-                                   "${EXP_DATA}/midy_yield/*/*.exp"
-                                   "${EXP_DATA}/mean_pT/*/*.exp"
-                                   "${EXP_DATA}/mean_mT/*/*.exp"
-                    "--experiment_spectra" "${EXP_DATA}/mt_spectrum/*/*.exp"
-                                           "${EXP_DATA}/y_spectrum/*/*.exp"
-                    "--config" "${CMAKE_CURRENT_BINARY_DIR}/${test_name}/config.yaml"
-                    "--comp_prev_version"
-            DEPENDS ${all_analysis_outputs}
-            COMMENT "Plotting results for ${target_name}."
-        )
-      endif()#]]
 
     set(target afterburner_${test_name})
     add_custom_target(${target} ALL DEPENDS ${final_particle_lists} ${analysis_merged_outputs} ${plot})
@@ -133,13 +102,8 @@ function(afterburner_test
     set(target afterburner_analysis_${test_name})
     add_custom_target(${target} ALL DEPENDS ${analysis_merged_outputs})
 
-    # plot target for both processes
-  #  set(target afterburner_plots_${test_name})
-  #  add_custom_target(${target} ALL DEPENDS ${plot})
-
     set(all_data_files ${all_data_files};${final_particle_lists} PARENT_SCOPE)
     set(all_analysis_outputs ${all_analysis_outputs};${analysis_merged_outputs} PARENT_SCOPE)
-    #set(all_plots_outputs ${all_plots};${plots} PARENT_SCOPE)
 endfunction()
 
 set(test_folder ${CMAKE_CURRENT_BINARY_DIR})
