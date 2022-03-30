@@ -18,7 +18,7 @@ xsectionscript=$(readlink -f ${xsectionscript})
 export PYTHONPATH=$PYTHONPATH:$smashpython
 
 # find the path to python for this system
-pythonpath=$(which python2)
+pythonpath=$(which python3)
 # update the python path in scripts
 # replace only the first occurrence of shebang
 # since we're dealing with paths with '/'s, let's use @ as delimiter for sed
