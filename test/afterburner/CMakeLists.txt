@@ -17,7 +17,7 @@ function(afterburner_test
     set(smash_afterburner_config "${CMAKE_CURRENT_SOURCE_DIR}/afterburner.yaml")
 
     execute_process (
-    COMMAND bash -c "cd ${CMAKE_CURRENT_SOURCE_DIR}/${test_name} && gunzip -o sampling0.gz"
+    COMMAND bash -c "cd ${CMAKE_CURRENT_SOURCE_DIR}/${test_name} && gunzip sampling0.gz"
     OUTPUT_VARIABLE outVar
     )
     set(num_runs "20")
