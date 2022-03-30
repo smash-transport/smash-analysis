@@ -15,9 +15,8 @@ function(afterburner_test
 
 
     set(smash_afterburner_config "${CMAKE_CURRENT_SOURCE_DIR}/afterburner.yaml")
-
     execute_process (
-    COMMAND bash -c "cd ${CMAKE_CURRENT_SOURCE_DIR}/${test_name} && gunzip -kf sampling0.gz"
+    COMMAND bash -c "cd ${test_folder} && curl ${SAMPLED_LISTS}/${test_name}/sampling0.gz --output ./sampling0.gz && gunzip -kf sampling0.gz"
     OUTPUT_VARIABLE outVar
     )
     set(num_runs "20")
@@ -31,7 +30,7 @@ function(afterburner_test
       add_custom_command(OUTPUT "${final_particle_list}"
       COMMAND "${CMAKE_BINARY_DIR}/smash"
           "-i" "${smash_afterburner_config}"
-          "-c" "Modi: { List: { File_Directory: ${CMAKE_CURRENT_SOURCE_DIR}/${test_name}} }"
+          "-c" "Modi: { List: { File_Directory: ${test_folder}} }"
           "-o" "${test_folder}/${i}/data"
           "-f"
           ">" "/dev/null"

@@ -80,5 +80,10 @@ add_subdirectory(test/FOPI_pions)
 add_subdirectory(test/dileptons)
 add_subdirectory(test/energy_scan)
 
-# 4) afterburner test
-add_subdirectory(test/afterburner)
+if(SAMPLED_LISTS)
+  # 4) afterburner test
+  add_subdirectory(test/afterburner)
+else() 
+  message(STATUS "No path for download path for sampled particle lists was given, afterburner target not available. Specify via 
+                    cmake .. -DSAMPLED_LISTS=/link/to/lists")
+endif(SAMPLED_LISTS)
