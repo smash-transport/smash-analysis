@@ -384,6 +384,7 @@ endfunction()
 dilepton_test("pp" "1.25")
 dilepton_test("pp" "2.2")
 dilepton_test("pp" "3.5")
+dilepton_test("pp" "4.5")
 dilepton_test("pNb" "3.5")
 dilepton_test("pi-p" "0.56")
 

@@ -125,8 +125,8 @@ hist_y_omega    = np.zeros((nbins_y  + 2, max(omega_channels.values()) + 1))
 
 ### ACTUAL ANALYSIS ###
 unknown_ch = []
-unknown_rho_ch = []
-unknown_omega_ch = []
+unknown_rho_ch = {}
+unknown_omega_ch = {}
 
 
 with sbs.BinaryReader(args.data_file) as reader:
@@ -214,22 +214,26 @@ with sbs.BinaryReader(args.data_file) as reader:
                     rho_ch = get_channel(rho_channels, origin_pdg)
                     if rho_ch == 0:
                         print("Warning: Potential double counting. Found rho dilepton decay originating from omega.")
-                    elif rho_ch == rho_channels["other"] and origin_pdg not in unknown_rho_ch:
-                        unknown_rho_ch.append(origin_pdg)
+                    elif rho_ch == rho_channels["other"]:
+                        if origin_pdg not in unknown_rho_ch:
+                            unknown_rho_ch[origin_pdg] = 0
+                        unknown_rho_ch[origin_pdg] += 1
                     hist_mass_rho [np.digitize([inv_mass], bins_m),  rho_ch] += shining_weight
                     hist_pt_rho   [np.digitize([pt],       bins_pt), rho_ch] += shining_weight
                     hist_y_rho    [np.digitize([y],        bins_y),  rho_ch] += shining_weight
                 elif decay_channel == 1:  # omega
                     omega_ch = get_channel(omega_channels, origin_pdg)
-                    if omega_ch == omega_channels["other"] and origin_pdg not in unknown_omega_ch:
-                        unknown_omega_ch.append(origin_pdg)
+                    if omega_ch == omega_channels["other"]:
+                        if origin_pdg not in unknown_omega_ch:
+                            unknown_omega_ch[origin_pdg] = 0
+                        unknown_omega_ch[origin_pdg] += 1
                     hist_mass_omega [np.digitize([inv_mass], bins_m),  omega_ch] += shining_weight
                     hist_pt_omega   [np.digitize([pt],       bins_pt), omega_ch] += shining_weight
                     hist_y_omega    [np.digitize([y],        bins_y),  omega_ch] += shining_weight
 
 if unknown_ch != []:       print("Warning: Unknown dilepton decay(s) found! -->", unknown_ch)
-if unknown_rho_ch != []:   print("Warning: Unknown dilepton decay origin(s) for rho! -->", unknown_rho_ch)
-if unknown_omega_ch != []: print("Warning: Unknown dilepton decay origin(s) for omega! -->", unknown_omega_ch)
+if unknown_rho_ch != {}:   print("Warning: Unknown dilepton decay origin(s) for rho! -->", sorted(unknown_rho_ch.items(), key=lambda x:x[1], reverse=True))
+if unknown_omega_ch != {}: print("Warning: Unknown dilepton decay origin(s) for omega! -->", sorted(unknown_omega_ch.items(), key=lambda x:x[1], reverse=True))
 
 num_events = int(num_events) + 1  # FIXME: event counting starts at zero in binary output
 
@@ -237,7 +241,7 @@ num_events = int(num_events) + 1  # FIXME: event counting starts at zero in bina
 def output(hist, bins, name):
     center = (bins[:-1] + bins[1:]) / 2.0
     hist = hist[1:-1,:] / float(num_events) # here the extra bin below bin_min and above bin_max is sliced out, so that the shapes of center and hist match again
-    np.savetxt("hist_" + name +".txt", np.column_stack((center[:,None], hist)))
+    np.savetxt("hist_raw_" + name +".txt", np.column_stack((center[:,None], hist)))
 
 
 output(hist_mass,       bins_m, "mass")

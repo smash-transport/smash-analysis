@@ -93,7 +93,7 @@ def plot(name, bin_factor, ch_list, style_dict, datafile="", cut_legend=""):
     n_ch = len(ch_list)
 
     # import hist_data
-    with open("hist_" + name + ".txt") as df_smash:
+    with open("hist_raw_" + name + ".txt") as df_smash:
         data = np.loadtxt(df_smash, delimiter=' ', unpack=True)
 
     bin_centers = data[0, :]
@@ -116,6 +116,10 @@ def plot(name, bin_factor, ch_list, style_dict, datafile="", cut_legend=""):
     # rebin
     bin_centers_new, hist_new = rebin(bin_centers, hist_dx, n_ch, bin_factor)
 
+    # header for final hist. files
+    head = []
+    head.append(name)
+
     # plotting
     plt.plot(bin_centers_new, sum(hist_new),
              label="all", color='k', linewidth=3)
@@ -123,7 +127,11 @@ def plot(name, bin_factor, ch_list, style_dict, datafile="", cut_legend=""):
         if (sum(hist_new[i]) > pow(10,-8)):  # any contributions to channel?
             plt.plot(bin_centers_new,
                      hist_new[i], style_dict["l_style"][i], label=ch_list[i], linewidth=2)
-            
+        head.append(ch_list[i])
+
+    # save final hist. files
+    np.savetxt("dN_d" + name +".txt", np.transpose(np.concatenate((bin_centers_new[None,:], hist_new))), header='    '.join(head))
+
     # plot data
     if datafile != "":
         if 'mass' in name:
@@ -156,8 +164,12 @@ def plot(name, bin_factor, ch_list, style_dict, datafile="", cut_legend=""):
             setup = str(args.system) + "_" + str(args.energy) + "_" + "filtered"
             cpv.plot_previous_results('dileptons', setup, '/dN_dm_tot.txt')
 
+
+    leg_cols = 2
+    if ("rho" in name) or ("omega" in name): leg_cols = 1
+
     # plot style
-    leg = plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3, ncol=2, mode="expand",
+    leg = plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3, ncol=leg_cols, mode="expand",
                      borderaxespad=0, fancybox=True, title=args.system + "@" + args.energy + " GeV " + cut_legend)
     #plt.annotate(version(), xy=(0.02, 0.03), xycoords='axes fraction', bbox=dict(boxstyle="round", fc="w"), fontsize=12)
     plt.annotate('SMASH version: ' + version() + '\n' +
