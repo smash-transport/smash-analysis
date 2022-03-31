@@ -31,6 +31,8 @@ this repository are:
 - **FOPI Pions**<br/>
   Pion multiplicities and transverse momentum spectra following the FOPI
   experiment.
+- **Afterburner**<br/>
+  Multiplicities, midrapidity yields, transverse momentum and rapidity spectra for the most abundant hadron species for afterburner runs.
 
 
 ## Prerequisites
@@ -149,6 +151,11 @@ And for the dileptons there is only one single target:
 Note, that all dilepton data files generated during the SMASH run are
 immediately removed once they have been analyzed, as they are exceptionally
 large.   
+
+In case of the afterburner target, the SMASH-analysis suite has to be compiled 
+with an additional argument `-DSAMPLED_LISTS`. This has to be an URL from where
+the sampled lists as an input for the afterburner target can be downloaded. 
+Without this argument, the target is not available.
 
 ## Running the SMASH-analysis suite on a SLURM cluster
 

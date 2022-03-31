@@ -106,26 +106,21 @@ function(afterburner_test
 endfunction()
 
 set(test_folder ${CMAKE_CURRENT_BINARY_DIR})
-set(plot_names "${test_folder}/Plots/mtspectra_afterburner_RHIC_111.pdf" ;
-               "${test_folder}/Plots/mtspectra_afterburner_LHC_111.pdf" ;)
+set(plot "${test_folder}/Plots/mtspectra_afterburner_RHIC_LHC_111.pdf" )
 
 
 afterburner_test("RHIC") #200GeV
 afterburner_test("LHC")#5TeV
 
-set(plot "")
-foreach(j ${plot_names})
-   list(APPEND plot "${j}")
-endforeach(j)
 if (NOT WITH_EXP_DATA) # plot without experimental data
   add_custom_command(OUTPUT ${plot}
       COMMAND "python3" "${CMAKE_SOURCE_DIR}/test/energy_scan/mult_and_spectra_plotter.py"
               "--theory" ${all_analysis_outputs}
-              "--config" "${CMAKE_CURRENT_BINARY_DIR}/RHIC/data/config.yaml"
+              "--config" "${CMAKE_CURRENT_BINARY_DIR}/RHIC/1/data/config.yaml"
               "--output_folder"  "${test_folder}/Plots"
               "--comp_prev_version"
       DEPENDS "${CMAKE_SOURCE_DIR}/test/energy_scan/mult_and_spectra_plotter.py" ${all_analysis_outputs}
-      COMMENT "Plotting results for ${test_name}."
+      COMMENT "Plotting results."
   )
 else() # plot with experimental data
   add_custom_command(OUTPUT ${plot}
@@ -141,7 +136,7 @@ else() # plot with experimental data
               "--comp_prev_version"
               "--output_folder"  "${test_folder}/Plots"
       DEPENDS "${CMAKE_SOURCE_DIR}/test/energy_scan/mult_and_spectra_plotter.py" ${all_analysis_outputs}
-      COMMENT "Plotting results for ${test_name} with experimental data."
+      COMMENT "Plotting results with experimental data."
   )
 endif(NOT WITH_EXP_DATA)
 
