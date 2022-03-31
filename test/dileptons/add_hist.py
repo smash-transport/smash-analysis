@@ -22,7 +22,7 @@ def add(spectrum):
         if os.path.isdir("data/" + i):
             n_folders += 1
 
-            filepath = "data/" + i + "/hist_" + spectrum + ".txt"
+            filepath = "data/" + i + "/hist_raw_" + spectrum + ".txt"
             # print "Adding data folder %s ... " % filepath
 
             data = np.loadtxt(filepath)
@@ -36,7 +36,7 @@ def add(spectrum):
 
     hist_tot = hist_tot / n_folders
 
-    np.savetxt("hist_" + spectrum + ".txt", np.column_stack((center[:,None], hist_tot)))
+    np.savetxt("hist_raw_" + spectrum + ".txt", np.column_stack((center[:,None], hist_tot)))
 
 
 def copy_version():

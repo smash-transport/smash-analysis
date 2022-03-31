@@ -87,9 +87,13 @@ rho_channels = {
     333: 17,                    # phi
     9922114: 18, 9922214: 18,  # N(2080)
     1218: 19,    2128: 19,     # N(2190)
-    9922118: 20, 9922218: 20,  # N(2220)
-    9932118: 21, 9932218: 21,  # N(2250)
-    "other": 22,
+    19922119: 20, 19922219: 20,  # N(2220)
+    19932119: 21, 19932219: 21,  # N(2250)
+    9962112: 22, 9962212: 22,  # N(1895)
+    9922116: 23, 9922216: 23,  # N(2060)
+    9972112: 24, 9972212: 24,  # N(2100)
+    11212: 25,   12122:25,     # D(1900)
+    "other": 26,
 }
 
 omega_channels = {
@@ -99,8 +103,13 @@ omega_channels = {
     9902114: 3,  9902214: 3,   # N(1875)
     9912114: 4,  9912214: 4,   # N(1900)
     9922114: 5,  9922214: 5,   # N(2080)
-    1218: 6,     2128: 6,   # N(2190)
-    "other": 7,
+    1218: 6,     2128: 6,      # N(2190)
+    9932114: 7 ,  9932214: 7,  # N(2120)
+    9952112: 8,   9952212: 8,  # N(1880)
+    9962112: 9,   9962212: 9,  # N(1895)
+    9922116: 10,  9922216: 10, # N(2060)
+    9972112: 11,  9972212: 11, # N(2100)
+    "other": 12,
 }
 
 ### CHANNEL LABELS ###
@@ -140,6 +149,10 @@ ch_list_rho = [r'$\omega\rightarrow\rho\pi^0\rightarrow e^+e^-\pi^0$',
                r'$N^*(2190)\rightarrow\rho N\rightarrow e^+e^-N$',
                r'$N^*(2220)\rightarrow\rho N\rightarrow e^+e^-N$',
                r'$N^*(2250)\rightarrow\rho N\rightarrow e^+e^-N$',
+               r'$N^*(1895)\rightarrow\rho N\rightarrow e^+e^-N$',
+               r'$N^*(2060)\rightarrow\rho N\rightarrow e^+e^-N$',
+               r'$N^*(2100)\rightarrow\rho N\rightarrow e^+e^-N$',
+               r'$\Delta^*(1900)\rightarrow\rho N\rightarrow e^+e^-N$',
                r'other']
 
 ch_list_omega = [r'$N^*(1700)\rightarrow\omega N\rightarrow e^+e^-N$',
@@ -149,6 +162,11 @@ ch_list_omega = [r'$N^*(1700)\rightarrow\omega N\rightarrow e^+e^-N$',
                  r'$N^*(1900)\rightarrow\omega N\rightarrow e^+e^-N$',
                  r'$N^*(2080)\rightarrow\omega N\rightarrow e^+e^-N$',
                  r'$N^*(2190)\rightarrow\omega N\rightarrow e^+e^-N$',
+                 r'$N^*(2120)\rightarrow\omega N\rightarrow e^+e^-N$',
+                 r'$N^*(1880)\rightarrow\omega N\rightarrow e^+e^-N$',
+                 r'$N^*(1895)\rightarrow\omega N\rightarrow e^+e^-N$',
+                 r'$N^*(2060)\rightarrow\omega N\rightarrow e^+e^-N$',
+                 r'$N^*(2100)\rightarrow\omega N\rightarrow e^+e^-N$',
                  r'other']
 
 
@@ -158,11 +176,11 @@ line_style_main = ['b-', 'g-', 'r-', 'k--',
                    'c-', 'c--', 'g--', 'r--', 'y-', 'm--', 'b--' ,'k:']
 
 # create (random) linestyle for origin plot
-colors_o = ['b', 'g', 'r', 'c', 'm', 'y']
+colors_o = ['b', 'g', 'r', 'c', 'm', 'y', 'k']
 linestyles_o = ['-', '--', '-.', ':']
 nc = len(colors_o)
 line_style_origin = []
-for i in range(23):  # should be sufficent
+for i in range(27):  # should be sufficent
     c = i % nc
     s = int(i / nc)
     line_style_origin.append(colors_o[c] + linestyles_o[s])
