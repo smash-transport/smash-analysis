@@ -155,7 +155,8 @@ large.
 In case of the afterburner target, the SMASH-analysis suite has to be compiled 
 with an additional argument `-DSAMPLED_LISTS`. This has to be an URL from where
 the sampled lists as an input for the afterburner target can be downloaded. 
-Without this argument, the target is not available.
+Without this argument, the target is not available. The URL for the lists used
+in the latest report is `http://theory.gsi.de/~smash/data/sampled_lists/`.
 
 ## Running the SMASH-analysis suite on a SLURM cluster
 
