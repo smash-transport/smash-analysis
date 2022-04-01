@@ -164,7 +164,17 @@ class DataTree:
             colliding_system = dir_split[-1]
             if (PbPb_as_AuAu and (colliding_system == 'AuAu' or colliding_system == 'PbPb')):
                 colliding_system = 'AuAu/PbPb'
-            energy = float(dir_split[-2])
+            try:
+                energy = float(dir_split[-2])
+            except Exception:
+                if(dir_split[-2]=="RHIC"):
+                    energy=200.0
+                    colliding_system = 'afterburner'
+                elif(dir_split[-2]=="LHC"):
+                    energy=5000.0
+                    colliding_system = 'afterburner'
+                else:
+                    raise SystemExit('Path could not be parsed.')
             # trunc for easier matching with experimental energies
             energy = np.trunc(energy * 1.e2) / 1.e2
             files = tuple([directory + os.path.sep + quantities_list[i] + '.txt' for i in range(len(quantities_list))])
@@ -313,7 +323,6 @@ class DataTree:
                     break
 
             pdg = name_to_pdg[part_name]
-            # print energy, part_name, name_to_pdg[part_name]
             def is_number(s):
                 if (s.strip() == ''): return False
                 try:
@@ -336,17 +345,20 @@ class DataTree:
             # print data
 
 def plotting(data1, data2, config_file, smash_code_version, output_folder):
+    
     quantities = data1.quantities.union(data2.quantities)
     pdglist = data1.pdglist.union(data2.pdglist)
     pdglist_abs = np.unique(np.abs(np.array(list(pdglist))))
     colliding_systems = data1.colliding_systems.union(data2.colliding_systems)
-    colliding_systems_list = list(colliding_systems)
+    if('afterburner' in colliding_systems):
+        colliding_systems={'afterburner'}
     energies = sorted(list(data1.energies.union(data2.energies)))
-
     for quantity in quantities:
         if ('spectra' in quantity): continue
+
         collected_results_pp = [[],[],[]]
         collected_results_AuAuPbPb = [[],[],[]]
+        collected_results_afterburner = [[],[],[]]
         for pdg_abs in pdglist_abs:
             # Sigma0 is added to Lambda plots
             if (pdg_abs == 3212): continue
@@ -383,24 +395,46 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                             collected_results_pp[0].append(pdg)
                             if (collected_results_pp[1] == []): collected_results_pp[1].append(x)
                             collected_results_pp[2].append(y)
+                            if args.comp_prev_version:
+                                import comp_to_prev_version as cpv
+                                # read and plot results from previous version
+                                filename_prev = quantity + '_' + colliding_system.replace('/', '')
+                                prev_SMASH_version = cpv.plot_previous_results('energy_scan', '', filename_prev + '.txt',
+                                                    plot_color = plot_color, pdg = pdg, plot_style = plot_format)
                         if (colliding_system == 'AuAu/PbPb'):
                             collected_results_AuAuPbPb[0].append(pdg)
                             if (collected_results_AuAuPbPb[1] == []): collected_results_AuAuPbPb[1].append(x)
                             collected_results_AuAuPbPb[2].append(y)
+                            if args.comp_prev_version:
+                                import comp_to_prev_version as cpv
+                                # read and plot results from previous version
+                                filename_prev = quantity + '_' + colliding_system.replace('/', '')
+                                prev_SMASH_version = cpv.plot_previous_results('energy_scan', '', filename_prev + '.txt',
+                                                    plot_color = plot_color, pdg = pdg, plot_style = plot_format)
+                        if (colliding_system == 'afterburner'):
+                            collected_results_afterburner[0].append(pdg)
+                            if (collected_results_afterburner[1] == []): collected_results_afterburner[1].append(x)
+                            collected_results_afterburner[2].append(y)
+                            if args.comp_prev_version:
+                                import comp_to_prev_version as cpv
+                                # read and plot results from previous version
+                                filename_prev = quantity  +  '_' + colliding_system.replace('/', '')
+                                prev_SMASH_version = cpv.plot_previous_results('afterburner', '', filename_prev + '.txt',
+                                                    plot_color = plot_color, pdg = pdg, plot_style = plot_format)
 
-                        if args.comp_prev_version:
-                            import comp_to_prev_version as cpv
-                            # read and plot results from previous version
-                            filename_prev = quantity + '_' + colliding_system.replace('/', '')
-                            prev_SMASH_version = cpv.plot_previous_results('energy_scan', '', filename_prev + '.txt',
-                                                plot_color = plot_color, pdg = pdg, plot_style = plot_format)
-
-                    if data2.is_in_dict([quantity, colliding_system, pdg]):
+                    if (colliding_system != 'afterburner' and data2.is_in_dict([quantity, colliding_system, pdg])):
                         exp_vs_energy = data2.the_dict[quantity][colliding_system][pdg]
                         x_exp, y_exp = list(zip(*sorted(exp_vs_energy.items())))
                         y_exp_values, y_exp_errors = list(zip(*y_exp))
                         plt.errorbar(x_exp, y_exp_values, yerr = y_exp_errors, fmt = exp_fmt,\
                                      color = plot_color, elinewidth = 2, markeredgewidth = 0)
+                    elif (colliding_system == 'afterburner' and data2.is_in_dict([quantity, 'AuAu/PbPb', pdg])):
+                        exp_vs_energy = data2.the_dict[quantity]['AuAu/PbPb'][pdg]
+                        x_exp, y_exp = list(zip(*sorted(exp_vs_energy.items())))
+                        y_exp_values, y_exp_errors = list(zip(*y_exp))
+                        plt.errorbar(x_exp, y_exp_values, yerr = y_exp_errors, fmt = exp_fmt,\
+                                     color = plot_color, elinewidth = 2, markeredgewidth = 0)
+
 
             if args.comp_prev_version:
                 #dummy, for combined legend entry of previous results.
@@ -416,6 +450,9 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                           '. Cannot log-scale the y axis, scale will be linear.')
                 else:
                      plt.yscale('log', nonposy='clip')
+            if( quantity in ['total_multiplicity', 'midrapidity_yield', 'meanmt0_midrapidity', 'meanpt_midrapidity']  and 'afterburner' in colliding_systems):
+                plt.xlim([190,5100])
+                plt.text(0.5, 0.5, 'SMASH-vHLLE-hybrid', fontsize=40, color='gray', ha='right', va='bottom', alpha=0.5, transform=plt.gca().transAxes)
             hadron_name = sb.pdg_to_name(pdg_abs, config_file)
             antihadron_name = sb.pdg_to_name(-pdg_abs, config_file)
             plot_title = hadron_name
@@ -437,21 +474,25 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
             plt.clf()
 
         # Save results plotted above for future comparison
-        filename_AuAuPbPb = quantity + '_' + 'AuAuPbPb' + '.txt'
-        filename_pp = quantity + '_' + 'pp' + '.txt'
-
-        store_results(output_folder + '/' + filename_AuAuPbPb, collected_results_AuAuPbPb, smash_code_version, quantity)
-        store_results(output_folder + '/' + filename_pp, collected_results_pp, smash_code_version, quantity)
-
+        if('afterburner' in colliding_systems):
+            filename_afterburner = quantity + '_' + 'afterburner' + '.txt'
+            store_results(output_folder + '/' + filename_afterburner, collected_results_afterburner, smash_code_version, quantity)
+        else:
+            filename_AuAuPbPb = quantity + '_' + 'AuAuPbPb' + '.txt'
+            filename_pp = quantity + '_' + 'pp' + '.txt'
+            store_results(output_folder + '/' + filename_AuAuPbPb, collected_results_AuAuPbPb, smash_code_version, quantity)
+            store_results(output_folder + '/' + filename_pp, collected_results_pp, smash_code_version, quantity)
     # Plotting spectra, only those, where some data is present
     for quantity in quantities:
         if (quantity not in ['yspectra', 'mtspectra', 'ptspectra', 'v2spectra']): continue
         if (quantity == 'v2spectra' and not args.with_v2): continue
         for pdg in pdglist:
+            plot_counter=0
             if (abs(pdg) == 3212): continue
             if (abs(pdg) == 1000010020): continue
             collected_results_pp = [[],[],[]]
             collected_results_AuAuPbPb = [[],[],[]]
+            collected_results_afterburner=[[],[],[]]
             for colliding_system in colliding_systems:
                 #if not data2.is_in_dict([quantity, colliding_system, pdg]): continue
                 #if not data1.is_in_dict([quantity, colliding_system, pdg]): continue
@@ -463,11 +504,19 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                 for element, energy in enumerate(energies):
                     collider = determine_collider(energy)
                     in_theory = data1.is_in_dict([quantity, colliding_system, pdg, energy])
-                    in_experiment = data2.is_in_dict([quantity, colliding_system, pdg, energy])
-                    #if (not in_experiment): continue
+                    if colliding_system=='afterburner':
+                        in_experiment = data2.is_in_dict([quantity, 'AuAu/PbPb', pdg, energy])
+                        if not in_theory:
+                            in_experiment=False
+                            continue
+
+                    else:
+                        in_experiment = data2.is_in_dict([quantity, colliding_system, pdg, energy])
                     if (in_experiment and not in_theory):
                         print(energy, colliding_system, pdg, in_theory, in_experiment, \
                               ': there is experimental data, but no SMASH calculation!')
+                    if( not in_experiment and not in_theory):
+                        continue
                     if (in_theory):
                         plot_color = next(col)
                         bin_edges, y = data1.the_dict[quantity][colliding_system][pdg][energy]
@@ -491,7 +540,10 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                                        3212 : 1.189 }
                         m0 = pole_masses[abs(pdg)]
                         if (quantity == 'mtspectra'):
-                            scaling_counter += 1
+                            if(colliding_system!='afterburner'):
+                                scaling_counter += 1
+                            else:
+                                scaling_counter=0
                             y /= ((x + m0) * bin_width) * (2.0 * data1.midrapidity_cut)  # factor 2 because [-y_cut; y_cut]
                             if np.all(y == 0):          # rescale y-axis to be linear if mtspectra of current energy are 0, but those
                                 plt.yscale('linear')    # of the previous energy were not, so that the scale was already set to log scale.
@@ -499,7 +551,10 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                                     label = str(energy) + r' $\times \ $10$^{\mathsf{' + str(scaling_counter) + r'}}$')
                         # dN/dpT
                         if (quantity == 'ptspectra'):
-                            scaling_counter += 1
+                            if(colliding_system!='afterburner'):
+                                scaling_counter += 1
+                            else:
+                                scaling_counter=0
                             y /= (bin_width * x) * (2.0 * data1.midrapidity_cut)  # factor 2 because [-y_cut; y_cut]
                             if np.all(y == 0):          # rescale y-axis to be linear if ptspectra of current energy are 0, but those
                                 plt.yscale('linear')    # of the previous energy were not, so that the scale was already set to log scale.
@@ -521,17 +576,31 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                             collected_results_AuAuPbPb[0].append(energy)
                             if (collected_results_AuAuPbPb[1] == []): collected_results_AuAuPbPb[1].append(x)
                             collected_results_AuAuPbPb[2].append(y)
+                        if (colliding_system == 'afterburner'):
+                            collected_results_afterburner[0].append(energy)
+                            if (collected_results_afterburner[1] == []): collected_results_afterburner[1].append(x)
+                            collected_results_afterburner[2].append(y)
 
                         # read and plot results from previous version
                         if args.comp_prev_version and quantity != 'v2spectra':
+                            import comp_to_prev_version as cpv
                             #v2 is not regularly run, old results are neither produced nor stored
-                            filename_prev = quantity + '_' + colliding_system.replace('/', '') + '_' + str(pdg)
-                            prev_SMASH_version =  cpv.plot_previous_results('energy_scan', '', filename_prev + '.txt',
+
+                            if(colliding_system == 'afterburner'):
+                                filename_prev = quantity + '_' + colliding_system.replace('/', '') + str(pdg)
+                                prev_SMASH_version =  cpv.plot_previous_results('afterburner', '', filename_prev + '.txt',
+                                                  energy = energy, plot_color = plot_color, scaling_counter = 0)
+                            else:
+                                filename_prev = quantity + '_' + colliding_system.replace('/', '') + '_' + str(pdg)
+                                prev_SMASH_version =  cpv.plot_previous_results('energy_scan', '', filename_prev + '.txt',
                                                   energy = energy, plot_color = plot_color, scaling_counter = scaling_counter)
 
-
                     if (in_experiment):
-                        x, y, y_err = data2.the_dict[quantity][colliding_system][pdg][energy]
+                        if (colliding_system != 'afterburner'):
+                            x, y, y_err = data2.the_dict[quantity][colliding_system][pdg][energy]
+                        else:
+                            x, y, y_err = data2.the_dict[quantity]['AuAu/PbPb'][pdg][energy]
+                            scaling_counter=0
                         if (quantity == 'mtspectra'):
                             plt.errorbar(x, y * 10**scaling_counter, yerr = y_err, fmt = 'o', color = plot_color)
                         elif (quantity == 'ptspectra'):
@@ -549,6 +618,8 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
 
                     plot_title = sb.pdg_to_name(pdg, config_file)
                     plot_title += ' in ' + colliding_system + ' collisions'
+                    if colliding_system=='afterburner' :
+                        plot_title =  sb.pdg_to_name(pdg, config_file)+' in AuAu/PbPb collisions'
                     plt.title(plot_title)
                     plt.figtext(0.15, 0.94, " SMASH code:      %s\n SMASH analysis: %s" % \
                         (smash_code_version, sb.analysis_version_string()), \
@@ -569,24 +640,39 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                         plt.xlabel('$p_{T}$ [GeV]')
 
                     plt.ylabel(title_dict[quantity])
-                    if (determine_collider(energy) != determine_collider(energies[(element + 1) % len(energies)])):
+                    plot_counter=plot_counter+1
+                    if (determine_collider(energy) != determine_collider(energies[(element + 1) % len(energies)]) or (colliding_system == 'afterburner' and plot_counter==2)):
                         if args.comp_prev_version:
                             #dummy for legend entry of combined previous results.
+                            import comp_to_prev_version as cpv
+                            #v2 is not regularly run, old results are neither produced nor stored
+
+                            if (colliding_system != 'afterburner'):
+                                filename_prev = quantity + '_' + colliding_system.replace('/', '') + '_' + str(pdg)
+                                prev_SMASH_version =  cpv.plot_previous_results('energy_scan', '', filename_prev + '.txt',
+                                                  energy = energy, plot_color = 'midnightblue', scaling_counter = scaling_counter)
+                            else:
+                                filename_prev = quantity + '_' + colliding_system.replace('/', '') + str(pdg)
+                                prev_SMASH_version =  cpv.plot_previous_results('afterburner', '', filename_prev + '.txt',
+                                                  energy = energy, plot_color = 'midnightblue', scaling_counter = 0)
+                                plt.text(0.5, 0.5, 'SMASH-vHLLE-hybrid', fontsize=40, color='gray', ha='right', va='bottom', alpha=0.5, transform=plt.gca().transAxes)
                             plt.plot(1,0.0, linestyle = '-', linewidth = 10, zorder = 1,
                                     color='dimgrey', label=prev_SMASH_version, alpha = 0.2)
                         plt.legend(loc= 'upper right', title = '$\sqrt{s} \ $ [GeV] =' , ncol = 1, fontsize = 26)
-                        plt.savefig(output_folder + '/' + quantity + '_' + colliding_system.replace('/', '') + '_' + str(determine_collider(energy)) + '_' + str(pdg) + '.pdf')
+                        plt.savefig(output_folder + '/' + quantity + '_' + colliding_system.replace('/', '') + '_' + collider + '_' + str(pdg) + '.pdf')
                         plt.clf()
                         plt.close()
                         scaling_counter = -1   #re-initialize as generating a new plot
 
             # Save results plotted above for future comparison
-            filename_AuAuPbPb = quantity + '_AuAuPbPb_' + str(pdg) + '.txt'
-            filename_pp = quantity + '_pp_' + str(pdg) + '.txt'
-
-            store_results(output_folder + '/' + filename_AuAuPbPb, collected_results_AuAuPbPb, smash_code_version, quantity)
-            store_results(output_folder + '/' + filename_pp, collected_results_pp, smash_code_version, quantity)
-
+            if('afterburner' in colliding_systems):
+                filename_afterburner = quantity + '_' + 'afterburner' + str(pdg) + '.txt'
+                store_results(output_folder + '/' + filename_afterburner, collected_results_afterburner, smash_code_version, quantity)
+            else:
+                filename_AuAuPbPb = quantity + '_' + 'AuAuPbPb'  + str(pdg)+ '.txt'
+                filename_pp = quantity + '_' + 'pp' + str(pdg) + '.txt'
+                store_results(output_folder + '/' + filename_AuAuPbPb, collected_results_AuAuPbPb, smash_code_version, quantity)
+                store_results(output_folder + '/' + filename_pp, collected_results_pp, smash_code_version, quantity)
 
 
 if __name__ == '__main__':

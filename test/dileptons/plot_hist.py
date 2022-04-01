@@ -128,10 +128,9 @@ def plot(name, bin_factor, ch_list, style_dict, datafile="", cut_legend=""):
             plt.plot(bin_centers_new,
                      hist_new[i], style_dict["l_style"][i], label=ch_list[i], linewidth=2)
         head.append(ch_list[i])
-
     # save final hist. files
     np.savetxt("dN_d" + name +".txt", np.transpose(np.concatenate((bin_centers_new[None,:], hist_new))), header='    '.join(head))
-
+    
     # plot data
     if datafile != "":
         if 'mass' in name:

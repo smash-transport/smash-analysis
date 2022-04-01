@@ -303,7 +303,10 @@ def get_basedir_filename(filename, source_dir, ending):
     """Extract the name of the base directory and generate the file name."""
     basedir, filename = os.path.split(remove_string_right(filename, ending))
     basedir = strip_upper_dirs(basedir, source_dir)
-    filename = basedir.replace(sep, '-') + '-' + filename
+    if(filename==''):
+        filename = basedir.replace(sep, '-')
+    else:
+        filename = basedir.replace(sep, '-') + '-' + filename
     return basedir, filename
 
 def remove_redundant_configs(configs):
@@ -399,6 +402,35 @@ def make_energy_scan_page(tree):
 
     return lines
 
+def make_afterburner_page(tree):
+    """Generate the afterburner subpage (similar to the front page)."""
+    title = 'Analysis Suite for ' + smash_version
+    lines = []
+    include_back_button(lines)
+    lines.append('<hr/>')
+    lines.append(gen_heading(title, 1))
+    lines.append('<font color="maroon">')
+    lines.append(gen_heading('Afterburner', 2))
+    lines.append('</font>')
+    lines.append(gen_text(descriptions_targetpage['afterburner'], 4))
+    lines.append('<hr/ style="margin-bottom:0.6cm;">')
+    lines.append('<ul style="margin-top:0.8cm;">')
+
+    for observable in energy_scan_sorted_observables:
+            lines.append('''<b> <li style="padding-bottom:0.4cm;color:#800000">\
+                <a style="text-decoration: none; color:#800000" href="'''
+                         + str(observable) + '/">'
+                         + E_scan_observable_dict[observable] + '</b> </a>')
+    lines.append('</ul>')
+    lines.append('<hr/>')
+    lines.append(gen_config_links((tree['afterburner']['configs'])))
+    lines.append('<hr/>')
+    lines.append('<span style="display:block; height: 0.5cm;"></span>')
+    lines.append('')
+    include_back_button(lines)
+
+    return lines
+
 def make_target_page(tree, target):
     """Generate the subpage of a specific target."""
     lines = []
@@ -441,7 +473,7 @@ def walk_tree(tree, source_directory, with_configs, with_plots):
         results = []
         for plot in plots:
             basedir, plotname = get_basedir_filename(plot, source_dir, '.pdf')
-            if 'energy_scan' in basedir:
+            if ('energy_scan' in basedir or 'afterburner' in basedir):
                 if len(plotname.split('-')) == 3:
                     plotname = plotname.split('-')[1] + '-' + \
                                plotname.split('-')[2]
@@ -469,6 +501,9 @@ def walk_tree(tree, source_directory, with_configs, with_plots):
             if 'elastic_box' in c:
                 # two data directories: data-geometric and data-stochastic
                 left, right = c.split('/data-')
+            elif 'afterburner' in c:
+                left=c
+                right=''
             else:
                 left, right = c.split('/data/')
             config = os.path.join(left, right)
@@ -505,7 +540,7 @@ def walk_tree(tree, source_directory, with_configs, with_plots):
             # Filter only those configs that belong to the specific subsection.
             # For energy scan and FOPI pions, there is no filtering necessary
             # since multiple SMASH runs contribute to the plotted quantities.
-            if 'energy_scan' in basedir or 'FOPI_pions' in basedir:
+            if 'energy_scan' in basedir or 'FOPI_pions' in basedir or 'afterburner' in basedir:
                 relevant_configs = new_configs
             else:
                 relevant_configs = []
@@ -549,7 +584,7 @@ def reformat_energy_scan_tree(tree, observable):
             for spectra in energy_scan_sorted_spectra:
                 for plot in subtree['plots']:
                     if pdg in plot[1]:
-                        if spectra in plot[1]:
+                        if (spectra in plot[1] or ('RHIC_LHC' in plot[1] and spectra=='pp_AGS')):
                             if len(new_tree[title][observable][pdgs_to_name[pdg]]) == 0:
                                 new_tree[title][observable][pdgs_to_name[pdg]] = {
                                     'plots': [plot], 'configs': [], }
@@ -659,6 +694,22 @@ if __name__ == '__main__':
                     tree_e_scan = reformat_energy_scan_tree(tree_e_scan, observable)
                     lines = make_target_page(tree_e_scan, observable)
                     write_html(output_dir_e_scan, lines)
+            elif 'afterburner' in source_dir:
+                # generate subpage for energy scan
+                tree = walk_tree(tree, source_dir, with_configs = True, with_plots = False)
+                lines = make_afterburner_page(tree)
+                write_html(output_dir, lines)
+
+                # generate target pages for energy scan observables
+                for observable in energy_scan_sorted_observables:
+                    tree_afterburner = Tree()
+                    source_dir_afterburner = os.path.join(source_dir, observable)
+                    output_dir_afterburner = os.path.join(output_dir, observable)
+                    tree_afterburner = walk_tree(tree_afterburner, source_dir_afterburner, with_configs = False, with_plots = True)
+                    tree_afterburner = reformat_energy_scan_tree(tree_afterburner, observable)
+                    lines = make_target_page(tree_afterburner, observable)
+                    write_html(output_dir_afterburner, lines)
+
             else:
                 tree = walk_tree(tree, source_dir, with_configs = True, with_plots = True)
                 tree = reorder_tree(tree, source_dir.split('/')[-2])
