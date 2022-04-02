@@ -41,9 +41,9 @@ function(run_one_energy
   set(FOPI_energies ${FOPI_energies};${target} PARENT_SCOPE)
 endfunction()
 
-foreach(n RANGE 0 11)                  # loop over energy
-	float_math(E "round(0.4 + ${n}*0.1, 1)")  # calc. energy
-  run_one_energy(${E})
+foreach(n RANGE 0 11)                         # loop over energy
+    float_math(E "round(0.4 + ${n}*0.1, 1)")  # calc. energy
+    run_one_energy(${E})
 endforeach()
 
 # analysis
