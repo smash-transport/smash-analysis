@@ -42,7 +42,7 @@ function(run_one_energy
 endfunction()
 
 foreach(n RANGE 0 11)                  # loop over energy
-  float_math(E "0.4 + ${n}*0.1")  # calc. energy
+	float_math(E "round(0.4 + ${n}*0.1, 1)")  # calc. energy
   run_one_energy(${E})
 endforeach()
 
