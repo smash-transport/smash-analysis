@@ -5,5 +5,3 @@
 # <branching ratio> <angular momentum L> <names of decay products>
 # <branching ratio> <angular momentum L> <names of decay products>
 # ...
-d'
-1.      1   N N   # Introduced to describe Nd <-> Nnp reaction via Nd <-> Nd' <->Nnp
