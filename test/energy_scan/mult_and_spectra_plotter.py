@@ -290,6 +290,9 @@ class DataTree:
 
     def read_experiment_spectra(self, input_files):
         " Read rapidity and mt spectra from given files"
+        # s_NN has only two decimals up to 12.39.
+        # Higher energies are only given with one decimal
+        decimal_switching_energy=13
         for exp_file in input_files:
             # print exp_file
             # By default it is assumed that it is rapidity spectrum, unless it has dndmt in its name
@@ -302,7 +305,10 @@ class DataTree:
                     energy_elab = float(exp_file.split(i)[1].split('_')[0])
                     energy = sqrts(energy_elab) if (i != 'ecm') else energy_elab
                     break
-            energy = np.trunc(energy * 1.e2) / 1.e2
+            if(energy<decimal_switching_energy):
+                energy = np.trunc(energy * 1.e2) / 1.e2
+            else:
+                energy = np.trunc(energy * 1.e1) / 1.e1
             name_to_pdg = {
                 'piplus' : 211,
                 'piminus' : -211,
@@ -345,7 +351,7 @@ class DataTree:
             # print data
 
 def plotting(data1, data2, config_file, smash_code_version, output_folder):
-    
+
     quantities = data1.quantities.union(data2.quantities)
     pdglist = data1.pdglist.union(data2.pdglist)
     pdglist_abs = np.unique(np.abs(np.array(list(pdglist))))
@@ -449,7 +455,7 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                     print('No positive values encountered in ' + str(quantity) + ' for ' + str(pdg) +\
                           '. Cannot log-scale the y axis, scale will be linear.')
                 else:
-                     plt.yscale('log', nonposy='clip')
+                     plt.yscale('log', nonpositive='clip')
             if( quantity in ['total_multiplicity', 'midrapidity_yield', 'meanmt0_midrapidity', 'meanpt_midrapidity']  and 'afterburner' in colliding_systems):
                 plt.xlim([190,5100])
                 plt.text(0.5, 0.5, 'SMASH-vHLLE-hybrid', fontsize=40, color='gray', ha='right', va='bottom', alpha=0.5, transform=plt.gca().transAxes)
@@ -494,15 +500,12 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
             collected_results_AuAuPbPb = [[],[],[]]
             collected_results_afterburner=[[],[],[]]
             for colliding_system in colliding_systems:
-                #if not data2.is_in_dict([quantity, colliding_system, pdg]): continue
-                #if not data1.is_in_dict([quantity, colliding_system, pdg]): continue
-
                 # colors list for plotting
                 col = cycle(colours)
                 # to scale curves in mT and pT spectra by powers of 10 -> readability
                 scaling_counter = -1
-                for element, energy in enumerate(energies):
-                    collider = determine_collider(energy)
+                energies_rel=[e for e in energies if (data1.is_in_dict([quantity, colliding_system, pdg, e]))]
+                for element, energy in enumerate(energies_rel):
                     in_theory = data1.is_in_dict([quantity, colliding_system, pdg, energy])
                     if colliding_system=='afterburner':
                         in_experiment = data2.is_in_dict([quantity, 'AuAu/PbPb', pdg, energy])
@@ -629,7 +632,7 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                             print('No positive values encountered in ' + str(quantity) + ' for ' + str(pdg) +\
                                   '. Cannot log-scale the y axis, scale will be linear.')
                         else:
-                             plt.yscale('log', nonposy='clip')
+                             plt.yscale('log', nonpositive='clip')
                         if (quantity == 'mtspectra'):
                             plt.xlabel('$m_{T} - m_{0}$ [GeV]')
                         else:
@@ -641,12 +644,10 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
 
                     plt.ylabel(title_dict[quantity])
                     plot_counter=plot_counter+1
-                    if (determine_collider(energy) != determine_collider(energies[(element + 1) % len(energies)]) or (colliding_system == 'afterburner' and plot_counter==2)):
-                        if args.comp_prev_version:
-                            #dummy for legend entry of combined previous results.
-                            import comp_to_prev_version as cpv
-                            #v2 is not regularly run, old results are neither produced nor stored
 
+                    if (((determine_collider(energy) != determine_collider(energies_rel[(element + 1) % len(energies_rel)])) or (colliding_system == 'afterburner' and plot_counter==2))):
+                        if args.comp_prev_version:
+                            import comp_to_prev_version as cpv
                             if (colliding_system != 'afterburner'):
                                 filename_prev = quantity + '_' + colliding_system.replace('/', '') + '_' + str(pdg)
                                 prev_SMASH_version =  cpv.plot_previous_results('energy_scan', '', filename_prev + '.txt',
@@ -659,7 +660,7 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                             plt.plot(1,0.0, linestyle = '-', linewidth = 10, zorder = 1,
                                     color='dimgrey', label=prev_SMASH_version, alpha = 0.2)
                         plt.legend(loc= 'upper right', title = '$\sqrt{s} \ $ [GeV] =' , ncol = 1, fontsize = 26)
-                        plt.savefig(output_folder + '/' + quantity + '_' + colliding_system.replace('/', '') + '_' + collider + '_' + str(pdg) + '.pdf')
+                        plt.savefig(output_folder + '/' + quantity + '_' + colliding_system.replace('/', '') + '_' + str(determine_collider(energy)) + '_' + str(pdg) + '.pdf')
                         plt.clf()
                         plt.close()
                         scaling_counter = -1   #re-initialize as generating a new plot
