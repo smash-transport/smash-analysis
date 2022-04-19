@@ -452,7 +452,7 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                     print('No positive values encountered in ' + str(quantity) + ' for ' + str(pdg) +\
                           '. Cannot log-scale the y axis, scale will be linear.')
                 else:
-                     plt.yscale('log', nonposy='clip')
+                     plt.yscale('log', nonpositive='clip')
             if( quantity in ['total_multiplicity', 'midrapidity_yield', 'meanmt0_midrapidity', 'meanpt_midrapidity']  and 'afterburner' in colliding_systems):
                 plt.xlim([190,5100])
                 plt.text(0.5, 0.5, 'SMASH-vHLLE-hybrid', fontsize=40, color='gray', ha='right', va='bottom', alpha=0.5, transform=plt.gca().transAxes)
@@ -629,7 +629,7 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                             print('No positive values encountered in ' + str(quantity) + ' for ' + str(pdg) +\
                                   '. Cannot log-scale the y axis, scale will be linear.')
                         else:
-                             plt.yscale('log', nonposy='clip')
+                             plt.yscale('log', nonpositive='clip')
                         if (quantity == 'mtspectra'):
                             plt.xlabel('$m_{T} - m_{0}$ [GeV]')
                         else:
