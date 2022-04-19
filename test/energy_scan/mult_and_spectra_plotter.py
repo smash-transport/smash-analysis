@@ -290,6 +290,9 @@ class DataTree:
 
     def read_experiment_spectra(self, input_files):
         " Read rapidity and mt spectra from given files"
+        # s_NN has only two decimals up to 12.39.
+        # Higher energies are only given with one decimal
+        decimal_switching_energy=13
         for exp_file in input_files:
             # print exp_file
             # By default it is assumed that it is rapidity spectrum, unless it has dndmt in its name
@@ -302,7 +305,7 @@ class DataTree:
                     energy_elab = float(exp_file.split(i)[1].split('_')[0])
                     energy = sqrts(energy_elab) if (i != 'ecm') else energy_elab
                     break
-            if(energy<13):
+            if(energy<decimal_switching_energy):
                 energy = np.trunc(energy * 1.e2) / 1.e2
             else:
                 energy = np.trunc(energy * 1.e1) / 1.e1
