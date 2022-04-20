@@ -138,8 +138,9 @@ def plot_previous_results(observable, setup, filename, color_list = [], pdg = 0,
                 plt.plot(data['y'], data[str(energy)], color = plot_color,
                          linestyle = '-', linewidth = 10, zorder = 1, alpha = 0.15)
             elif 'ptspectra' in filename:
-                plt.plot(data['pt'], data[str(energy)], color = plot_color,
-                         linestyle = '-', linewidth = 10, zorder = 1, alpha = 0.15)
+                plt.plot(data['pt'], data[str(energy)] * 10**scaling_counter,
+                         color = plot_color, linestyle = '-', linewidth = 10,
+                         zorder = 1, alpha = 0.15)
 
             else:
                 plt.plot(data['sqrt_s'], data[str(pdg)], plot_style,
@@ -156,8 +157,9 @@ def plot_previous_results(observable, setup, filename, color_list = [], pdg = 0,
                 plt.plot(data['y'], data[str(energy)], color = plot_color,
                          linestyle = '-', linewidth = 10, zorder = 1, alpha = 0.15)
             elif 'ptspectra' in filename:
-                plt.plot(data['pt'], data[str(energy)], color = plot_color,
-                         linestyle = '-', linewidth = 10, zorder = 1, alpha = 0.15)
+                plt.plot(data['pt'], data[str(energy)] * 10**scaling_counter,
+                         color = plot_color, linestyle = '-', linewidth = 10,
+                         zorder = 1, alpha = 0.15)
 
             else:
                 plt.plot(data['sqrt_s'], data[str(pdg)], plot_style,
