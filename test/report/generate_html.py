@@ -26,6 +26,11 @@ specified.  For each PDF file it will copy the PDF to the output directory,
 generate a PNG file with the same name (different extension, of course), and
 add text to the index.html file in the output directory.  For every directory
 and subdirectory the script will add headings to the HTML file.
+This script is supposed to be used in the context of create_report.sh, as the
+specified directory has to be of the structure of the output of
+collect_pdfs_and_configs.sh : the plots of specific observables have to be saved
+in separate folders named after the observable, and the configs have to be present
+at the same place as the saved data.
 """
 
 class OrderedDefaultDict(collections.OrderedDict):
@@ -656,7 +661,8 @@ if __name__ == '__main__':
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     parser.add_argument('source_dirs', metavar='SOURCE', nargs='+',
-        help='source directories that will be searched for plots')
+        help='source directories that will be searched for plots. This has to be \
+        of the same structure as the output of collect_pdfs_and_configs.sh')
     parser.add_argument('-o', '--output', nargs=1, default=['report_output'],
         help='output directory for report')
     parser.add_argument('--version', default = 'X.xx',
