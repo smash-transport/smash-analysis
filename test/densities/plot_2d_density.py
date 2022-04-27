@@ -47,7 +47,7 @@ for ax in axs.flat:
     tstep = times[i]
     rho_grid = Grid[i].reshape(dim_grid, dim_grid)
     ax.set_title('t = {} fm'.format(tstep), fontsize=15)
-    im = ax.imshow(rho_grid, cmap='GnBu_r', interpolation='nearest', norm=norm, vmin = norm_min, vmax = norm_max)
+    im = ax.imshow(rho_grid, cmap='GnBu_r', interpolation='nearest', norm=norm)
     ax.set_xlabel('x', fontsize=18)
     if i > 0: ax.set_yticklabels([])
     else: ax.set_ylabel('y', fontsize=18)

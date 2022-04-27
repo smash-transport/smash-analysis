@@ -56,7 +56,7 @@ Furthermore, Python 3.8.x is necessary with the following modules:
 
 - [numpy](www.numpy.org) version &ge; 1.17.4
 - [scipy](www.scipy.org) version &ge; 1.3.3
-- [matplotlib](www.matplotlib.org) version &ge; 3.1.2
+- [matplotlib](www.matplotlib.org) version &ge; 3.3.1
 - [argparse](https://docs.python.org/3/library/argparse.html) version &ge; 1.1
 - [pyyaml](www.pyyaml.org) version &ge; 5.3.1
 - [pandas](www.pandas.pydata.org) version &ge; 0.25.3
@@ -152,9 +152,9 @@ Note, that all dilepton data files generated during the SMASH run are
 immediately removed once they have been analyzed, as they are exceptionally
 large.   
 
-In case of the afterburner target, the SMASH-analysis suite has to be compiled 
+In case of the afterburner target, the SMASH-analysis suite has to be compiled
 with an additional argument `-DSAMPLED_LISTS`. This has to be an URL from where
-the sampled lists as an input for the afterburner target can be downloaded. 
+the sampled lists as an input for the afterburner target can be downloaded.
 Without this argument, the target is not available. The URL for the lists used
 in the latest report is `http://theory.gsi.de/~smash/data/sampled_lists/`.
 
