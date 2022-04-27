@@ -24,7 +24,7 @@ endif()
 
 find_python_module(numpy VERSION 1.17.4 REQUIRED)
 find_python_module(scipy VERSION 1.3.3 REQUIRED)
-find_python_module(matplotlib VERSION 3.1.2 REQUIRED)
+find_python_module(matplotlib VERSION 3.3.1 REQUIRED)
 find_python_module(argparse VERSION 1.1 REQUIRED)
 find_python_module(yaml VERSION 5.3.1 REQUIRED)
 find_python_module(pandas VERSION 0.25.3 REQUIRED)
@@ -83,7 +83,7 @@ add_subdirectory(test/energy_scan)
 if(SAMPLED_LISTS)
   # 4) afterburner test
   add_subdirectory(test/afterburner)
-else() 
-  message(STATUS "No path for download path for sampled particle lists was given, afterburner target not available. Specify via 
+else()
+  message(STATUS "No path for download path for sampled particle lists was given, afterburner target not available. Specify via
                     cmake .. -DSAMPLED_LISTS=/link/to/lists")
 endif(SAMPLED_LISTS)
