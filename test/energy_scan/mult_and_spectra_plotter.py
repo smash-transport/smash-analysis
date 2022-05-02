@@ -656,7 +656,7 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                                 filename_prev = quantity + '_' + colliding_system.replace('/', '') + str(pdg)
                                 prev_SMASH_version =  cpv.plot_previous_results('afterburner', '', filename_prev + '.txt',
                                                   energy = energy, plot_color = 'midnightblue', scaling_counter = 0)
-                                plt.text(0.5, 0.5, 'SMASH-vHLLE-hybrid', fontsize=40, color='gray', ha='right', va='bottom', alpha=0.5, transform=plt.gca().transAxes)
+                                plt.text(0.5, 0.5, smash_code_version+'-vHLLE-hybrid', fontsize=40, color='gray', ha='right', va='bottom', alpha=0.5, transform=plt.gca().transAxes)
                             plt.plot(1,0.0, linestyle = '-', linewidth = 10, zorder = 1,
                                     color='dimgrey', label=prev_SMASH_version, alpha = 0.2)
                         plt.legend(loc= 'upper right', title = '$\sqrt{s} \ $ [GeV] =' , ncol = 1, fontsize = 26)
