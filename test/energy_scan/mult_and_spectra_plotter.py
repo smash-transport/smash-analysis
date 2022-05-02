@@ -458,7 +458,7 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                      plt.yscale('log', nonpositive='clip')
             if( quantity in ['total_multiplicity', 'midrapidity_yield', 'meanmt0_midrapidity', 'meanpt_midrapidity']  and 'afterburner' in colliding_systems):
                 plt.xlim([190,5100])
-                plt.text(0.5, 0.5, 'SMASH-vHLLE-hybrid', fontsize=40, color='gray', ha='right', va='bottom', alpha=0.5, transform=plt.gca().transAxes)
+                plt.text(0.5, 0.5, smash_code_version+'-vHLLE-hybrid', fontsize=40, color='gray', ha='right', va='bottom', alpha=0.5, transform=plt.gca().transAxes)
             hadron_name = sb.pdg_to_name(pdg_abs, config_file)
             antihadron_name = sb.pdg_to_name(-pdg_abs, config_file)
             plot_title = hadron_name
