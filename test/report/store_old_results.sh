@@ -37,8 +37,9 @@ cd ${results}/FOPI_pions/test
 find FOPI_pions -maxdepth 2 -name "*.txt" | xargs cp --parents -t ${store_dir}/
 cd ${results}/energy_scan/test
 find energy_scan -maxdepth 2 -name "*.txt" | xargs cp --parents -t ${store_dir}/
+mkdir ${store_dir}/afterburner
 cd ${results}/afterburner/test
-find afterburner -maxdepth 2 -name "*.txt" | xargs cp  -t ${store_dir}/
+find afterburner -maxdepth 2 -name "*.txt" | xargs cp  -t ${store_dir}/afterburner
 cd ${results}/densities/test
 find densities -maxdepth 3 -name "*.dat" | xargs cp --parents -t ${store_dir}/
 
