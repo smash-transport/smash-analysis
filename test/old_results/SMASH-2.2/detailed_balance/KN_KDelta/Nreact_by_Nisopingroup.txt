@@ -1,0 +1,14 @@
+channel	forward	backward
+3$\times$(K⁰n$\leftrightarrow$K⁰Δ⁰)	0.32028150779291914	0.38401912128404736
+K⁰n$\leftrightarrow$K⁺Δ⁻	0.32904542964794925	0.33409132404933023
+3$\times$(K⁺n$\leftrightarrow$K⁰Δ⁺)	1.6460238684083854	1.665145152455724
+3$\times$(K⁰p$\leftrightarrow$K⁰Δ⁺)	1.7177286835859047	1.6085780204823477
+3$\times$(K⁺n$\leftrightarrow$K⁺Δ⁰)	1.7304762062841303	1.6300894650356035
+3$\times$(K⁰p$\leftrightarrow$K⁺Δ⁰)	1.5966272179527612	1.6324796255415208
+K⁺p$\leftrightarrow$K⁰Δ⁺⁺	0.32081265457201186	0.32931100303749566
+3$\times$(K⁺p$\leftrightarrow$K⁺Δ⁺)	0.3354191909970621	0.41987152887280693
+K̅⁻n$\leftrightarrow$K̅⁰Δ⁻	0.0	0.0
+3$\times$(K̅⁻n$\leftrightarrow$K̅⁻Δ⁰)	0.0	0.0
+3$\times$(K̅⁻p$\leftrightarrow$K̅⁰Δ⁰)	0.0	0.0
+3$\times$(K̅⁻p$\leftrightarrow$K̅⁻Δ⁺)	0.0	0.0
+# SMASH-2.2
