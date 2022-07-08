@@ -322,66 +322,7 @@ def _read_binary_block_v7(bfile):
 
 def _read_binary_block_v8(bfile):
     """Read one output block from SMASH binary file."""
-    particle_data_type = np.dtype([('r','d',4),('mass','d'),('p','d',4),('pdgid','i4'),('id','i4'),('charge','i4')])
-    block_type = bfile.read(1).decode(encoding)
-    if (block_type == 'p'):
-        # got particles block
-        npart = np.fromfile(bfile, dtype='i4', count=1)[0]
-        particles = np.fromfile(bfile, dtype=particle_data_type, count=npart)
-        try:
-            tmp_type = bfile.read(1).decode(encoding)
-            if ((tmp_type == 'p') or (tmp_type == 'f') or (tmp_type == 'i')):
-                bfile.seek(-1, 1)
-                return {'type': block_type,
-                        'npart': npart,
-                        'part': particles
-                       }
-            else:
-                return None
-        except:
-                return None
-    elif (block_type == 'i'):
-        # got interaction block
-        n_inout  = np.fromfile(bfile, dtype='i4', count=2)
-        rho      = np.fromfile(bfile, dtype='d',  count=1)[0]
-        sigma    = np.fromfile(bfile, dtype='d',  count=1)[0]
-        sigma_p  = np.fromfile(bfile, dtype='d',  count=1)[0]
-        process  = np.fromfile(bfile, dtype='i4', count=1)[0]
-        incoming = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[0])
-        outgoing = np.fromfile(bfile, dtype=particle_data_type, count=n_inout[1])
-        try:
-            tmp_type = bfile.read(1).decode(encoding)
-            if ((tmp_type == 'p') or (tmp_type == 'f') or (tmp_type == 'i')):
-                bfile.seek(-1, 1)
-                return {'type': block_type,
-                        'nin': n_inout[0],
-                        'nout': n_inout[1],
-                        'incoming': incoming,
-                        'outgoing': outgoing,
-                        'density': rho,
-                        'total_cross_section': sigma,
-                        'partial_cross_section': sigma_p,
-                        'process_type': process
-                       }
-            else:
-                return None
-        except:
-                return None
-    elif (block_type == 'f'):
-        n_event = np.fromfile(bfile, dtype='i4', count=1)[0]
-        impact_parameter = np.fromfile(bfile, dtype='d',  count=1)[0]
-        empty_event = ord(bfile.read(1).decode(encoding))
-        return {'type': block_type,
-                'nevent': n_event,
-                'b' : impact_parameter,
-                'empty_event': bool(empty_event)}
-        # got file end block
-    elif (block_type == ''):
-        # got eof
-        return
-    else:
-        raise ValueError('This is not the start of a block: 0x{:02x}'.format(ord(block_type)))
-
+    return _read_binary_block_v7(bfile) # Nothing has changed for non-extended
 
 def _read_binary_block_v4_extended(bfile):
     """Read one output block from SMASH binary file."""
