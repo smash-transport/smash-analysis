@@ -44,7 +44,7 @@ Modi:
 
         Impact:
             Sample: uniform
-            Max: 2.5
+            Max: 2.5  # If this value is changed, "bmax" in geometrical_cross_section.py must be changed accordingly.
 
         # Collision energy (E_LAB, P_LAB, SQRTSNN).
         #Sqrtsnn: XXX
