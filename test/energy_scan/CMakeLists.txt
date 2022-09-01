@@ -117,6 +117,7 @@ run_one_energy("62.4;AuAu")
 run_one_energy("130;AuAu")
 run_one_energy("200;AuAu")
 run_one_energy("2760;PbPb")
+run_one_energy("5020;PbPb")
 
 
 
@@ -130,7 +131,6 @@ if (NOT WITH_EXP_DATA) # plot without experimental data
       COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/mult_and_spectra_plotter.py"
               "--theory" ${all_analysis_outputs}
               "--config" "${CMAKE_CURRENT_BINARY_DIR}/2.695/pp/data/1/config.yaml"
-              "--comp_prev_version"
       DEPENDS ${all_analysis_outputs}
       COMMENT "Plotting results for energy_scan without expdata. ${all_analysis_outputs}"
   )
@@ -145,7 +145,6 @@ else() # plot with experimental data
               "--experiment_spectra" "${EXP_DATA}/mt_spectrum/*/*.exp"
                                      "${EXP_DATA}/y_spectrum/*/*.exp"
               "--config" "${CMAKE_CURRENT_BINARY_DIR}/2.695/pp/data/1/config.yaml"
-              "--comp_prev_version"
       DEPENDS ${all_analysis_outputs}
       COMMENT "Plotting results for energy_scan with experimental data. ${EXP_DATA}"
   )
