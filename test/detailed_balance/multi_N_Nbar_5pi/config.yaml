@@ -6,31 +6,29 @@ Logging:
 General:
     Modus:         Box
     Delta_Time:    0.1
-    End_Time:      10.0
+    End_Time:      50.0
     Randomseed:    -1
     Nevents:       1
     Testparticles: 1
 
 Output:
-    Output_Interval:  0.1
+    Output_Interval:  1.0
     Collisions:
-        Format: ["Binary","Oscar2013"]
+        Format: ["Binary", "Oscar2013"]
         Print_Start_End:    False
+        Extended: True
     Particles:
         Format: ["Binary"]
         Only_Final:         No
 
 Collision_Term:
-    Two_to_One:                False
     Strings:                   False
     Force_Decays_At_End:       False
-    Maximum_Cross_Section:     400
+    Maximum_Cross_Section:     200
     Collision_Criterion:       Stochastic
-    # Multi_Particle_Reactions: ["Deuteron_3to2"]
-    # All 2-to-2 reactions without d' reactions and PiDeuteron_to_NN
-    Included_2to2: ["Elastic"]
-    # For testing: All 2-to-2 reactions without d' reactions but including PiDeuteron_to_NN (takes much longer to equlibrate)
-    #Included_2to2: ["Elastic","NN_to_NR", "NN_to_DR", "KN_to_KN", "Strangeness_exchange", "NNbar", "PiDeuteron_to_NN"]
+    Multi_Particle_Reactions: ["NNbar_5to2"]
+    NNbar_Treatment: "two to five"
+    Included_2to2: ["KN_to_KN"] # Hack such that no 2to2 reactions happen
     Only_Warn_For_High_Probability: True
 
 Modi:

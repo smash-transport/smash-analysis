@@ -1,0 +1,6 @@
+# NAME MASS[GEV] WIDTH[GEV] PARITY PDG
+π               0.138   7.7e-9    -      111     211
+ρ               0.776   0.149     -      113     213     # mass required by EOS code
+h₁(1170)        1.170   0.360     +      10223
+N               0.938   0         +      2112     2212
+
