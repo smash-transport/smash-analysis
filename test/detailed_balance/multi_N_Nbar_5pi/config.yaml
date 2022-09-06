@@ -5,7 +5,7 @@ Logging:
 
 General:
     Modus:         Box
-    Delta_Time:    0.1
+    Delta_Time:    0.01
     End_Time:      50.0
     Randomseed:    -1
     Nevents:       1
@@ -24,11 +24,10 @@ Output:
 Collision_Term:
     Strings:                   False
     Force_Decays_At_End:       False
-    Maximum_Cross_Section:     200
     Collision_Criterion:       Stochastic
     Multi_Particle_Reactions: ["NNbar_5to2"]
     NNbar_Treatment: "two to five"
-    Included_2to2: ["KN_to_KN"] # Hack such that no 2to2 reactions happen
+    Included_2to2: []
     Only_Warn_For_High_Probability: True
 
 Modi:
