@@ -251,25 +251,31 @@ one_balance_test("multi_pi3_phi"
     "π⁰,π⁺,π⁻,φ"
     "π⁰,π⁺,π⁻:φ"
     "150.0"
- )
+)
 
 one_balance_test("multi_pi2_eta_etaprime"
     "π⁰,π⁺,π⁻,η,η'"
     "π⁺,π⁻,η:η'|π⁰,π⁰,η:η'"
     "2500.0"
- )
+)
 
- one_balance_test("multi_N_pi_deutron"
+one_balance_test("multi_N_pi_deutron"
     "π⁺,π⁻,π⁰,N⁺,N⁰,d,N̅⁰,N̅⁻,d̅"
     "π⁺,d:N⁺,N⁺|π⁰,d:N⁺,N⁰|π⁻,d:N⁰,N⁰|π⁺,d̅:N̅⁰,N̅⁰|π⁻,d̅:N̅⁻,N̅⁻|π⁰,d̅:N̅⁻,N̅⁰|π⁺,d:π⁺,N⁺,N⁰|π⁰,d:π⁰,N⁺,N⁰|π⁻,d:π⁻,N⁺,N⁰|N⁺,d:N⁺,N⁺,N⁰|N⁰,d:N⁰,N⁺,N⁰|N⁰,d̅:N⁰,N̅⁻,N̅⁰|N⁺,d̅:N⁺,N̅⁻,N̅⁰|N̅⁻,d:N̅⁻,N⁺,N⁰|N̅⁰,d:N̅⁰,N⁺,N⁰|π⁰,d̅:π⁰,N̅⁻,N̅⁰|π⁺,d̅:π⁺,N̅⁻,N̅⁰|π⁻,d̅:π⁻,N̅⁻,N̅⁰|N̅⁰,d̅:N̅⁰,N̅⁻,N̅⁰|N̅⁻,d̅:N̅⁻,N̅⁻,N̅⁰"
     "50.0"
- )
+)
 
- one_balance_test("multi_A3_nuclei"
+one_balance_test("multi_A3_nuclei"
     "π⁺,π⁻,π⁰,N⁺,N⁰,d,d̅,N̅⁰,N̅⁻,t,t̅,H3L,He3,Λ"
     "π⁺,t:π⁺,N⁺,N⁰,N⁰|π⁰,t:π⁰,N⁺,N⁰,N⁰|π⁻,t:π⁻,N⁺,N⁰,N⁰|N⁺,t:N⁺,N⁺,N⁰,N⁰|N⁰,t:N⁰,N⁺,N⁰,N⁰|π⁺,He3:π⁺,N⁺,N⁺,N⁰|π⁰,He3:π⁰,N⁺,N⁺,N⁰|π⁻,He3:π⁻,N⁺,N⁺,N⁰|π⁺,H3L:π⁺,N⁺,N⁰,Λ|π⁰,H3L:π⁰,N⁺,N⁰,Λ|π⁻,H3L:π⁻,N⁺,N⁰,Λ|N⁺,H3L:N⁺,N⁺,N⁰,Λ|N⁰,H3L:N⁰,N⁺,N⁰,Λ|N⁺,He3:N⁺,N⁺,N⁺,N⁰|N⁰,He3:N⁰,N⁺,N⁺,N⁰"
     "15.0"
- )
+)
+
+one_balance_test("multi_N_Nbar_5pi"
+    "π⁺,π⁻,π⁰,N⁺,N⁰,N̅⁰,N̅⁻"
+    "π⁺,π⁺,π⁻,π⁻,π⁰:N⁺,N̅⁻|π⁺,π⁺,π⁻,π⁻,π⁰:N⁰,N̅⁰|π⁺,π⁻,π⁰,π⁰,π⁰:N⁺,N̅⁻|π⁺,π⁻,π⁰,π⁰,π⁰:N⁰,N̅⁰|π⁰,π⁰,π⁰,π⁰,π⁰:N⁺,N̅⁻|π⁰,π⁰,π⁰,π⁰,π⁰:N⁰,N̅⁰"
+    "25.0"
+)
 
 
 ########## baryonic boxes ##########
@@ -307,6 +313,12 @@ one_balance_test("N_1440"
 #    "N⁺,K̅⁻:Λ(1520)|N⁺,K̅⁻:Λ(1690)|N⁺,K̅⁻:Λ(1820)|N⁺,K̅⁻:Λ(1830)|N⁺,K̅⁻:Λ(1890)|Λ,K⁺:N(1650)⁺|Λ,K⁺:N(1720)⁺"
 #    "200.0"
 #)
+
+one_balance_test("N_Nbar_resonances"
+   "π⁺,π⁻,π⁰,N⁺,N⁰,N̅⁰,N̅⁻,ρ⁰,ρ⁺,ρ⁻,h₁(1170)"
+   "h₁(1170),ρ⁰:N⁺,N̅⁻|h₁(1170),ρ⁰:N⁰,N̅⁰|π⁰,π⁺:ρ⁺|π⁻,π⁰:ρ⁻|π⁻,π⁺:ρ⁰|π⁺,ρ⁻:h₁(1170)|π⁻,ρ⁺:h₁(1170)|π⁰,ρ⁰:h₁(1170)"
+   "15.0"
+)
 
 # target for all simulations
 add_custom_target(detailed_balance_sims
