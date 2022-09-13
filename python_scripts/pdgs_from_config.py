@@ -213,4 +213,4 @@ if __name__ == '__main__':
     pdg_to_name_init(config_file)
     pdgs = sorted(pdg_dict.keys(), key = lambda x: abs(x))
     for pdg in pdgs:
-        print '%12i %s' % (pdg, pdg_dict.get(pdg, unicode(pdg)))
+        print('%12i %s' % (pdg, pdg_dict.get(pdg, unicode(pdg))))

@@ -88,7 +88,7 @@ class BulkObservables:
         ycut = (np.abs(y) < self.midrapidity_cut)
         self.nevents += 1
 
-        for i in xrange(self.npdg):
+        for i in range(self.npdg):
             pdgcut = (pdg == self.pdglist[i])
             pdgcut_charha = (pdg == self.pdglist_charha[i])
             added_total_mult = pdgcut.sum()
@@ -144,7 +144,7 @@ class BulkObservables:
         self.v2 += other.v2
 
         self.meanpt_midrapidity_charha = self.updated_mean(self.meanpt_midrapidity_charha, other.meanpt_midrapidity_charha, a)
-        for i in xrange(self.npdg):
+        for i in range(self.npdg):
             if (other.midrapidity_yield[i] == 0): continue
             a = float(other.midrapidity_yield[i]) / self.midrapidity_yield[i]
             self.meanpt_midrapidity[i] = self.updated_mean(self.meanpt_midrapidity[i], other.meanpt_midrapidity[i], a)
@@ -154,7 +154,7 @@ class BulkObservables:
 
     def add_from_file(self, one_file):
         """ Computes bulk observables from a single SMASH output file """
-        print one_file
+        print(one_file)
         with sb.BinaryReader(one_file) as reader:
             self.smash_version = reader.smash_version
             block = reader.read_block()
@@ -195,9 +195,9 @@ class BulkObservables:
             self.write_header(f)
             f.write('# y bin edges: %s\n' % np.array_str(self.ybins, max_line_width = 1000000))
             f.write('# y bin center, number of pdg in bin (pdglist)\n')
-            for bin_number in xrange(ybin_centers.size):
+            for bin_number in range(ybin_centers.size):
                 f.write(' %6.3f' % ybin_centers[bin_number])
-                for i in xrange(self.npdg):
+                for i in range(self.npdg):
                      f.write(' %8i' % self.yhist[i, bin_number])
                 f.write('\n')
         mtbin_centers = BulkObservables.bin_centers(self.mtbins)
@@ -205,9 +205,9 @@ class BulkObservables:
             self.write_header(f)
             f.write('# mt bin edges: %s\n' % np.array_str(self.mtbins, max_line_width = 1000000))
             f.write('# mt[GeV] bin center, number of pdg in bin (pdglist)\n')
-            for bin_number in xrange(mtbin_centers.size):
+            for bin_number in range(mtbin_centers.size):
                 f.write(' %6.3f' % mtbin_centers[bin_number])
-                for i in xrange(self.npdg):
+                for i in range(self.npdg):
                     f.write(' %8i' % self.mthist[i, bin_number])
                 f.write('\n')
         ptbin_centers = BulkObservables.bin_centers(self.ptbins)
@@ -215,18 +215,18 @@ class BulkObservables:
             self.write_header(f)
             f.write('# pt bin edges: %s\n' % np.array_str(self.ptbins, max_line_width = 1000000))
             f.write('# pt[GeV] bin center, number of pdg in bin (pdglist)\n')
-            for bin_number in xrange(ptbin_centers.size):
+            for bin_number in range(ptbin_centers.size):
                 f.write(' %6.3f' % ptbin_centers[bin_number])
-                for i in xrange(self.npdg):
+                for i in range(self.npdg):
                     f.write(' %8i' % self.pthist_midrapidity[i, bin_number])
                 f.write('\n')
         with open(v2_file, 'w') as f:
              self.write_header(f)
              f.write('# pt bin edges: %s\n' % np.array_str(self.ptbins, max_line_width = 1000000))
              f.write('# pt[GeV] bin center, v2 of pdg in bin (pdglist)\n')
-             for bin_number in xrange(ptbin_centers.size):
+             for bin_number in range(ptbin_centers.size):
                  f.write(' %6.3f' % ptbin_centers[bin_number])
-                 for i in xrange(self.npdg):
+                 for i in range(self.npdg):
                      # For each pT, sum of cos2phi over particles has to be divided by number of particles at this pT
                      v2 = np.where(self.pthist_midrapidity[i, bin_number] > 0,
                                    self.v2[i, bin_number] / self.pthist_midrapidity[i, bin_number], 0.0)
@@ -263,17 +263,17 @@ class BulkObservables:
             spectra.ybins = np.array([float(x) for x in ybinning])
             spectra.yhist = np.loadtxt(yspectra_file)[:,1:].T
         with open(mtspectra_file, 'r') as f:
-            for _ in xrange(3): f.readline()
+            for _ in range(3): f.readline()
             mtbinning = f.readline().split('[')[1].split(']')[0].split()
             spectra.mtbins = np.array([float(x) for x in mtbinning])
             spectra.mthist = np.loadtxt(mtspectra_file)[:,1:].T
         with open(ptspectra_file, 'r') as f:
-            for _ in xrange(3): f.readline()
+            for _ in range(3): f.readline()
             ptbinning = f.readline().split('[')[1].split(']')[0].split()
             spectra.ptbins = np.array([float(x) for x in ptbinning])
             spectra.pthist_midrapidity = np.loadtxt(ptspectra_file)[:,1:].T
         with open(v2_file, 'r') as f:
-            for _ in xrange(3): f.readline()
+            for _ in range(3): f.readline()
             f.readline()  # pt-binning is already known from pt-spectra file
             # Multiply back by number of particles at given pT from all events
             spectra.v2 = np.loadtxt(v2_file)[:,1:].T * spectra.pthist_midrapidity
@@ -324,7 +324,7 @@ if __name__ == '__main__':
 
     if (args.merge):
         assert(len(args.input_files) % 8 == 0)
-        files_to_read_list = zip(*(iter(args.input_files),) * 8)
+        files_to_read_list = list(zip(*(iter(args.input_files),) * 8))
         BulkObservables.merge_basic_spectra(files_to_read_list, args.output_files)
     else:
         pdg_list = [211,-211,111,321,-321,2212,-2212,3122,-3122,1000010020,-1000010020,3312,-3312,3334,-3334,3212,-3212]
