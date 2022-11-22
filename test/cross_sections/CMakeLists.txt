@@ -419,14 +419,14 @@ partial_cross_section("proton_proton" "sigmazero_X" "Σ⁰+X" "no")
 partial_cross_section("proton_proton" "sigmaplus_neutron_kplus" "Σ⁺+n+K⁺" "no")
 partial_cross_section("proton_proton" "sigmaplus_proton_kzero" "Σ⁺+p+K⁰" "no")
 #partial_cross_section("proton_proton" "phi_X" "φ+X" "yes")  # extremely small cross section
-partial_cross_section("proton_proton" "proton_proton_eta" "p+p+η" "yes")
+partial_cross_section("proton_proton" "proton_proton_eta" "p+p+η" "no")
 #partial_cross_section("proton_proton" "proton_proton_etaprime" "p+p+η'" "yes")  # not seen in SMASH
 partial_cross_section("proton_proton" "proton_proton_omegaMeson" "p+p+ω" "yes")
 #partial_cross_section("proton_proton" "proton_proton_kplus_kminus" "p+p+K⁺+K̅⁻" "no")  # extremely small cross section
 #partial_cross_section("proton_proton" "proton_proton_kplus_kminus_via_phi" "p+p+φ" "yes")  # extremely small cross section
 cross_section_test("proton_proton" "2212" "2212" "1.96" "8.96" "140" "yes")
 
-partial_cross_section("neutron_proton" "neutron_proton_eta" "n+p+η" "yes")
+partial_cross_section("neutron_proton" "neutron_proton_eta" "n+p+η" "no")
 partial_cross_section("neutron_proton" "neutron_proton_pizero" "n+p+π⁰" "no")
 partial_cross_section("neutron_proton" "proton_proton_piminus" "p+p+π⁻" "no")
 partial_cross_section("neutron_proton" "neutron_proton_piplus_piminus" "n+p+π⁺+π⁻" "no")
