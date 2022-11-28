@@ -670,8 +670,8 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                 filename_afterburner = quantity + '_' + 'afterburner' + str(pdg) + '.txt'
                 store_results(output_folder + '/' + filename_afterburner, collected_results_afterburner, smash_code_version, quantity)
             else:
-                filename_AuAuPbPb = quantity + '_' + 'AuAuPbPb'  + str(pdg)+ '.txt'
-                filename_pp = quantity + '_' + 'pp' + str(pdg) + '.txt'
+                filename_AuAuPbPb = quantity + '_' + 'AuAuPbPb_'  + str(pdg)+ '.txt'
+                filename_pp = quantity + '_' + 'pp_' + str(pdg) + '.txt'
                 store_results(output_folder + '/' + filename_AuAuPbPb, collected_results_AuAuPbPb, smash_code_version, quantity)
                 store_results(output_folder + '/' + filename_pp, collected_results_pp, smash_code_version, quantity)
 
