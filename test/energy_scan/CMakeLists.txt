@@ -117,6 +117,7 @@ run_one_energy("62.4;AuAu")
 run_one_energy("130;AuAu")
 run_one_energy("200;AuAu")
 run_one_energy("2760;PbPb")
+run_one_energy("5020;PbPb")
 
 
 
