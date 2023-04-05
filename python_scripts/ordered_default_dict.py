@@ -1,4 +1,4 @@
-from collections import MutableSet
+from collections.abc import MutableSet
 
 class OrderedSet(MutableSet):
     def __init__(self, iterable=None):
