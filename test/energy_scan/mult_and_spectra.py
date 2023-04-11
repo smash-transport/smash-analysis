@@ -18,7 +18,7 @@ class BulkObservables:
 
     def __init__(self, pdg_list = [211,-211, 111],
                        mtbins = np.array([0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.4, 2.8, 3.2]),
-                       ybins = np.linspace(-5.0, 5.0, 51),
+                       ybins = np.linspace(-4.0, 4.0, 41),
                        ptbins = np.array([0.0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.4, 2.8, 3.2, 3.6, 4.0, 4.4, 4.8]),
                        midrapidity_cut = 0.5):
         self.pdglist = pdg_list
@@ -74,7 +74,7 @@ class BulkObservables:
         py = block['part']['p'][:,2]
         pz = block['part']['p'][:,3]
         m0 = block['part']['mass']
-        y = 0.5*np.log((np.sqrt(px**2+py**2+pz**2)+pz)/(np.sqrt(px**2+py**2+pz**2)-pz))
+        y = 0.5*np.log((E+pz)/(E-pz))
         pdg = block['part']['pdgid']
 
         pT2 = px*px + py*py

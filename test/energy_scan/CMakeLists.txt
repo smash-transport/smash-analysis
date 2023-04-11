@@ -68,11 +68,11 @@ function(run_one_energy
   )
 
   # sims target for each energy
-  set(target energy_scan_sims_${energy}_${system})
+  set(target energy_scan_${energy}_${system}_sims)
   add_custom_target(${target} ALL DEPENDS ${data_files})
 
   # analysis target for each energy
-  set(target energy_scan_analysis_${energy}_${system})
+  set(target energy_scan_${energy}_${system}_analysis)
   add_custom_target(${target} ALL DEPENDS ${analysis_merged_outputs})
 
   set(all_data_files ${all_data_files};${data_files} PARENT_SCOPE)

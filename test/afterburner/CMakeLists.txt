@@ -94,11 +94,11 @@ function(afterburner_test
     set(target afterburner_${test_name})
     add_custom_target(${target} ALL DEPENDS ${final_particle_lists} ${analysis_merged_outputs} ${plot})
     #sim target for both processes
-    set(target afterburner_sims_${test_name})
+    set(target afterburner_${test_name}_sims)
     add_custom_target(${target} ALL DEPENDS ${final_particle_lists})
 
     # analysis target for both processes
-    set(target afterburner_analysis_${test_name})
+    set(target afterburner_${test_name}_analysis)
     add_custom_target(${target} ALL DEPENDS ${analysis_merged_outputs})
 
     set(all_data_files ${all_data_files};${final_particle_lists} PARENT_SCOPE)
