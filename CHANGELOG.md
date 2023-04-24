@@ -6,11 +6,12 @@ This changelog is in place since version SMASH-analysis-3.0.
 
 The major categories to group changes in this log are:
 
-* `Input / Output` for all, in particular breaking, changes, fixes and additions to the in- and output files.
-* `Added` for new features.
-* `Changed` for changes in existing functionality.
-* `Fixed` for any bug fixes.
-* `Removed` for now removed features.
+* :left_right_arrow: for all, in particular breaking, changes, fixes and additions to the in- and output files.
+* :heavy_plus_sign: for new features.
+* :recycle: for changes in existing functionality.
+* :sos: for any bug fixes.
+* :heavy_minus_sign: for now removed features.
+
 
 Also possible, but for this project less relevant, is `Deprecated` for soon-to-be removed features.
 
@@ -20,15 +21,15 @@ Also possible, but for this project less relevant, is `Deprecated` for soon-to-b
 ## SMASH-analysis-3.0
 Date:
 
-### Added
-* Energy scan target for 5.02 TeV
-* New binary reader version due to added baryon number output
-* NNbar-to-5 pions target in the detailed balance analysis
+* :heavy_plus_sign: Energy scan target for 5.02 TeV
+* :heavy_plus_sign: New binary reader version due to added baryon number output
+* :heavy_plus_sign: NNbar-to-5 pions target in the detailed balance analysis
+* :sos: Correct unstable flag in the cross sections target for NN->NNeta
+* :sos: Increase equilibration time for detailed balance
+* :recycle: ⚠️ The `master` branch has been renamed to `main`
+* :recycle: Use MutableSet from collections.abs instead of collections
 
-### Fixed
-* Correct unstable flag in the cross sections target for NN->NNeta
-* Increase equilibration time for detailed balance
+[Link to diff from previous version](https://github.com/smash-transport/smash/compare/SMASH-2.2ana...SMASH-analysis-3.0)
 
-### Changed
-* ⚠️ The `master` branch has been renamed to `main`
-* Use MutableSet from collections.abs instead of collections
+## SMASH-2.2ana
+Date: 2022-05-13
