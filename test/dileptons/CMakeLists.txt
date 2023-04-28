@@ -212,7 +212,7 @@ function(dilepton_test
 
 
     if (pp_1.25 OR pp_3.5 OR pNb_3.5 OR CC2.0 OR ArKCl1.76)
-      set(target_ana dileptons_ana_${test_name})
+      set(target_ana dileptons_${test_name}_analysis)
       add_custom_target(${target_ana} ALL
                         DEPENDS "${test_folder}/plot_mass.pdf")
       add_custom_target(dileptons_ana_${system}_${Ekin}

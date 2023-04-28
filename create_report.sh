@@ -11,7 +11,7 @@ fi
 results_dir=$1
 
 # determine SMASH version from (arbitrary chosen) config from angular distributions run
-smash_version=$(head -1 ${results_dir}/angular_distributions/test/angular_distributions/np_1.194/data/1/config.yaml | cut -d" " -f2)
+smash_version=$(python3 ./python_scripts/version.py)
 
 # directory where the report will be generated (html page)
 if [ "$#" -eq 2 ]; then
