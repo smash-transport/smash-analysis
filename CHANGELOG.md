@@ -19,18 +19,18 @@ Also possible, but for this project less relevant, is `Deprecated` for soon-to-b
 ## Unreleased
 
 ## SMASH-analysis-3.0
-Date:
+Date: 2023-04-28
 
 * :heavy_plus_sign: Energy scan target for 5.02 TeV
 * :heavy_plus_sign: New binary reader version due to added baryon number output
-* :heavy_plus_sign: NNbar-to-5 pions target in the detailed balance analysis 
+* :heavy_plus_sign: NNbar-to-5 pions target in the detailed balance analysis
 * :sos: Correct unstable flag in the cross sections target for NN->NNeta
 * :sos: Increase equilibration time for detailed balance of N*(1440)
 * :recycle: ⚠️ The `master` branch has been renamed to `main`
 * :recycle: ⚠️ Development is now performed on the `develop` branch
 * :recycle: Use MutableSet from collections.abc instead of collections
 
-[Link to diff from previous version](https://github.com/smash-transport/smash/compare/SMASH-2.2ana...SMASH-analysis-3.0)
+[Link to diff from previous version](https://github.com/smash-transport/smash-analysis/compare/SMASH-2.2ana...SMASH-analysis-3.0)
 
 ## SMASH-2.2ana
 Date: 2022-05-13
