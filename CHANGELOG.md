@@ -17,6 +17,7 @@ Also possible, but for this project less relevant, is `Deprecated` for soon-to-b
 
 
 ## Unreleased
+* :heavy_plus_sign: New binary reader version due to added strangeness output
 
 ## SMASH-analysis-3.0
 Date: 2023-04-28
