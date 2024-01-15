@@ -31,4 +31,5 @@ def analysis_version_number():
     os.chdir(old_dir)
     return version_string
 
-print(analysis_version_number())
+if __name__ == "__main__": 
+    print(analysis_version_number())
