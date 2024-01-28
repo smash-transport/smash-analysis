@@ -27,6 +27,7 @@ Collision_Term:
     NNbar_Treatment: "two to five"
     Included_2to2: []
     Only_Warn_For_High_Probability: True
+    Total_Cross_Section_Strategy: "BottomUp"
 
 Modi:
     Box:

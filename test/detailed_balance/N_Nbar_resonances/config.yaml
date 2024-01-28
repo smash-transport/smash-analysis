@@ -62,3 +62,4 @@ Collision_Term:
     Strings_with_Probability: False
     Collision_Criterion:       Geometric
     Included_2to2: ["NNbar"]
+    Total_Cross_Section_Strategy: "BottomUp"

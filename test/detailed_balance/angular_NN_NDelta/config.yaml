@@ -34,3 +34,4 @@ Collision_Term:
     Isotropic:            False
     Elastic_Cross_Section:  0.0  # Globally used if non-negative, [mb]
     Strings:              False
+    Total_Cross_Section_Strategy: "BottomUp"
