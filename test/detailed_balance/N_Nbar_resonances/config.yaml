@@ -63,3 +63,4 @@ Collision_Term:
     Collision_Criterion:       Geometric
     Included_2to2: ["NNbar"]
     Total_Cross_Section_Strategy: "BottomUp"
+    Pseudoresonance: None
