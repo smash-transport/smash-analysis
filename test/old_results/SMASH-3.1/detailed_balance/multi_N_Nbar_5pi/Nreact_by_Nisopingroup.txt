@@ -1,0 +1,8 @@
+channel	forward	backward
+π⁰π⁰π⁰π⁰π⁰$\leftrightarrow$n̅n	0.0	0.0
+π⁰π⁰π⁰π⁰π⁰$\leftrightarrow$p̅p	0.0	0.0
+π⁻π⁰π⁰π⁰π⁺$\leftrightarrow$n̅n	0.0	0.0
+π⁻π⁰π⁰π⁰π⁺$\leftrightarrow$p̅p	0.0	0.0
+π⁻π⁻π⁰π⁺π⁺$\leftrightarrow$n̅n	3.032956458984845	3.038729853259562
+π⁻π⁻π⁰π⁺π⁺$\leftrightarrow$p̅p	2.965600192446476	2.962713495309117
+# SMASH-3.1
