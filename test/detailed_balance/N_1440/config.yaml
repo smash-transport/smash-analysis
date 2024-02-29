@@ -32,3 +32,5 @@ Collision_Term:
     Force_Decays_At_End:  False
     Two_to_One:           True
     Strings:              False
+    Total_Cross_Section_Strategy: "BottomUp"
+    Pseudoresonance: None
