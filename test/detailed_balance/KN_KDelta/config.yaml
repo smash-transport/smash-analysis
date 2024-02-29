@@ -22,6 +22,8 @@ Collision_Term:
     Two_to_One:             False
     Strings:                False
     Force_Decays_At_End:    False
+    Total_Cross_Section_Strategy: "BottomUp"
+    Pseudoresonance: None
 
 Modi:
     Box:

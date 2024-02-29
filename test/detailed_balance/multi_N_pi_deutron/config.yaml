@@ -29,6 +29,8 @@ Collision_Term:
     # For testing: All 2-to-2 reactions without d' reactions but including PiDeuteron_to_NN (takes much longer to equlibrate)
     #Included_2to2: ["Elastic","NN_to_NR", "NN_to_DR", "KN_to_KN", "Strangeness_exchange", "NNbar", "PiDeuteron_to_NN"]
     Only_Warn_For_High_Probability: True
+    Total_Cross_Section_Strategy: "BottomUp"
+    Pseudoresonance: None
 
 Modi:
     Box:

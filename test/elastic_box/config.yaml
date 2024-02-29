@@ -35,6 +35,7 @@ Collision_Term:
     Force_Decays_At_End:    False
     Isotropic:              True
     Elastic_Cross_Section:  10.0
+    Total_Cross_Section_Strategy: "BottomUp"
 
 Modi:
     Box:

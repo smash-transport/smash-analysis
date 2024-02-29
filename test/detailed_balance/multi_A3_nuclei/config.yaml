@@ -31,6 +31,8 @@ Collision_Term:
     # For testing: All 2-to-2 reactions without d' reactions but including PiDeuteron_to_NN (takes much longer to equlibrate)
     Only_Warn_For_High_Probability: True
     Fixed_Min_Cell_Length: 1.5
+    Total_Cross_Section_Strategy: "BottomUp"
+    Pseudoresonance: None
 
 Modi:
     Box:
