@@ -17,6 +17,11 @@ Also possible, but for this project less relevant, is `Deprecated` for soon-to-b
 
 
 ## Unreleased
+
+## SMASH-analysis-3.1
+Date: 2024-02-29
+
+* :left_right_arrow: Collision term for boxes uses now bottom up cross sections and pseudoresonances are deactivated
 * :heavy_plus_sign: New binary reader version due to added strangeness output
 
 ## SMASH-analysis-3.0
