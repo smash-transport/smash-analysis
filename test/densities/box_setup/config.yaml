@@ -12,7 +12,7 @@ General:
 Output:
     Output_Interval: 50.0
     Particles:
-        Format:          ["Binary"]
+        Format:          ["Oscar2013_bin"]
         Only_Final: No
 
 

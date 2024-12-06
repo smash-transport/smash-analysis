@@ -27,7 +27,7 @@ Collision_Term:
 Output:
     Output_Interval:  30.0
     Collisions:
-        Format:             ["Binary"]
+        Format:             ["Oscar2013_bin"]
         Print_Start_End:    False
 
 Modi:
