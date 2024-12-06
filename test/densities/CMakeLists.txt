@@ -18,7 +18,7 @@ function(run_box_test
         set(data_density_box "${test_folder}/data/${X}")
 
         # run box
-        set(data_file "${data_density_box}/collisions_binary.bin")
+        set(data_file "${data_density_box}/collisions_oscar2013.bin")
         list(APPEND data_files ${data_file})
         add_custom_command(OUTPUT "${data_file}" "${data_density_box}/config.yaml"
             COMMAND "${CMAKE_BINARY_DIR}/smash"
@@ -110,7 +110,7 @@ function(run_collider_test
     foreach(X RANGE 0 ${NFolder})
         set(data_density_collider "${test_folder}/data/${X}")
 
-        set(data_file "${data_density_collider}/collisions_binary.bin")
+        set(data_file "${data_density_collider}/collisions_oscar2013.bin")
         list(APPEND data_files ${data_file})
         add_custom_command(OUTPUT "${data_file}" "${data_density_collider}/config.yaml"
             COMMAND "${CMAKE_BINARY_DIR}/smash"

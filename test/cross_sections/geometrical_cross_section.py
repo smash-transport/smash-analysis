@@ -26,7 +26,7 @@ to extract the cross section from the output data:
 
 
 Usage: ./geometrical_cross_section.py [options] [pdg code(s)] [output file(s)]
-Example: p+p: ./geometrical_cross_section.py 2212 2212 data/0/collisions_binary.bin
+Example: p+p: ./geometrical_cross_section.py 2212 2212 data/0/collisions_oscar2013.bin
 
 Options:
 --verbose       Print additional information in special situations

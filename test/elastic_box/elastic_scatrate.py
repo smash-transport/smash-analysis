@@ -29,10 +29,10 @@ output_file    = sys.argv[2]
 # To avoid 'warm-up' effects, start counting after some time passes
 t_start = 5.0  # fm/c
 
-# Find all collisions_binary.bin files in the folder
+# Find all collisions_oscar2013.bin files in the folder
 paths_to_analyze = []
 for root, dirnames, filenames in os.walk(data_directory):
-  for filename in fnmatch.filter(filenames, 'collisions_binary.bin'):
+  for filename in fnmatch.filter(filenames, 'collisions_oscar2013.bin'):
       paths_to_analyze.append(root)
 
 outfile = open(output_file,'w')
@@ -54,7 +54,7 @@ for path in paths_to_analyze:
     dt     = float(smash_conf["General"]["Delta_Time"])
     total_time = float(smash_conf["General"]["End_Time"]) - t_start
     # Count elastic collisions
-    coll_file = os.path.join(path,'collisions_binary.bin')
+    coll_file = os.path.join(path,'collisions_oscar2013.bin')
     res = count_elastic_scat(coll_file, t_start)
     N_events = res['ev_num']
     N_coll   = res['elast_coll']

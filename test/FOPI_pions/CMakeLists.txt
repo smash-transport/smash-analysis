@@ -15,7 +15,7 @@ function(run_one_energy
   set(num_runs "10")
   foreach(i RANGE 1 ${num_runs})
       set(data_folder "${test_folder}/data/${i}")
-      set(data_file "${data_folder}/particles_binary.bin")
+      set(data_file "${data_folder}/particles_oscar2013.bin")
       list(APPEND data_files ${data_file})
       # run smash
       add_custom_command(OUTPUT "${data_file}" "${data_folder}/config.yaml"

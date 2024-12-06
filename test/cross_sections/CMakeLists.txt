@@ -32,7 +32,7 @@ function(cross_section_test
     foreach(i RANGE 0 ${num_bins})
         float_math(energy "${sqrts_min} + ${i}*${dsqrts}")
         set(data_folder "${test_folder}/data/${i}")
-        set(data_file "${data_folder}/collisions_binary.bin")
+        set(data_file "${data_folder}/collisions_oscar2013.bin")
         list(APPEND data_files ${data_file})
         set(config_file "${data_folder}/config.yaml")
 

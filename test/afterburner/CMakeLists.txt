@@ -24,7 +24,7 @@ function(afterburner_test
       file(MAKE_DIRECTORY ${test_folder}/${i})
       file(MAKE_DIRECTORY ${test_folder}/${i}/data)
       file(MAKE_DIRECTORY ${test_folder}/${i}/analysis)
-      set(final_particle_list "${test_folder}/${i}/data/particles_binary.bin")
+      set(final_particle_list "${test_folder}/${i}/data/particles_oscar2013.bin")
       list(APPEND final_particle_lists ${final_particle_list})
     # Run afterburner evolution
       add_custom_command(OUTPUT "${final_particle_list}"

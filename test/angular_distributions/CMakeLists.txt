@@ -18,7 +18,7 @@ function(angular_test
     set(data_files "")
     foreach(i RANGE 1 50)
         set(data_folder "${test_folder}/data/${i}")
-        set(data_file "${data_folder}/collisions_binary.bin")
+        set(data_file "${data_folder}/collisions_oscar2013.bin")
         list(APPEND data_files ${data_file})
         set(config_file "${data_folder}/config.yaml")
         add_custom_command(OUTPUT "${data_file}" "${config_file}"

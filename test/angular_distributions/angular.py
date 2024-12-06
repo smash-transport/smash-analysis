@@ -7,7 +7,7 @@
 # which have the given PDG code(s) in initial state.
 #
 # Usage: ./angular.py [pdg code(s)] [output file(s)]
-# Example: p+p: ./angular.py 2212 2212 data/0/collisions_binary.bin
+# Example: p+p: ./angular.py 2212 2212 data/0/collisions_oscar2013.bin
 
 import numpy as np
 import sys       # system-specific functions

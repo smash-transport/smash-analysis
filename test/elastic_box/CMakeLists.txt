@@ -35,7 +35,7 @@ function(run_one_test
                         OUTPUT_STRIP_TRAILING_WHITESPACE)
 
         # run with covariant criterion
-        set(data_file "${data_cov_folder}/collisions_binary.bin")
+        set(data_file "${data_cov_folder}/collisions_oscar2013.bin")
         list(APPEND data_files ${data_file})
         add_custom_command(OUTPUT "${data_file}" "${data_cov_folder}/config.yaml"
             COMMAND "${CMAKE_BINARY_DIR}/smash"
@@ -55,7 +55,7 @@ function(run_one_test
         )
 
         # run with stochastic criterion
-        set(data_file "${data_stoch_folder}/collisions_binary.bin")
+        set(data_file "${data_stoch_folder}/collisions_oscar2013.bin")
         list(APPEND data_files ${data_file})
         add_custom_command(OUTPUT "${data_file}" "${data_stoch_folder}/config.yaml"
             COMMAND "${CMAKE_BINARY_DIR}/smash"
@@ -75,7 +75,7 @@ function(run_one_test
         )
 
         # run with geometric criterion
-        set(data_file "${data_geom_folder}/collisions_binary.bin")
+        set(data_file "${data_geom_folder}/collisions_oscar2013.bin")
         list(APPEND data_files ${data_file})
         add_custom_command(OUTPUT "${data_file}" "${data_geom_folder}/config.yaml"
             COMMAND "${CMAKE_BINARY_DIR}/smash"

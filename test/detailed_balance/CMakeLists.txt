@@ -20,8 +20,8 @@ function(one_balance_test_general
     set(reactions_files "")
     foreach(i RANGE 1 20)
         set(data_folder "${test_folder}/data/${i}")
-        set(collisions_file "${data_folder}/collisions_binary.bin")
-        set(particles_file "${data_folder}/particles_binary.bin")
+        set(collisions_file "${data_folder}/collisions_oscar2013.bin")
+        set(particles_file "${data_folder}/particles_oscar2013.bin")
         list(APPEND particles_files ${particles_file})
         set(config_file "${data_folder}/config.yaml")
         add_custom_command(
@@ -53,11 +53,11 @@ function(one_balance_test_general
         add_custom_command(OUTPUT ${reactions_file}
             COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/${reaction_counting_code}"
                 "${reactions_file}" "\"${reactions_to_analyze}\""
-                "${tstart_reactions_analysis}" "${config_file}" "${data_folder}/collisions_binary.bin"
+                "${tstart_reactions_analysis}" "${config_file}" "${data_folder}/collisions_oscar2013.bin"
             DEPENDS
                 "${CMAKE_CURRENT_SOURCE_DIR}/${reaction_counting_code}"
                 "${CMAKE_SOURCE_DIR}/python_scripts/smash_basic_scripts.py"
-                "${data_folder}/collisions_binary.bin"
+                "${data_folder}/collisions_oscar2013.bin"
             WORKING_DIRECTORY "${test_folder}"
             COMMENT "Analyzing number of reactions for detailed_balance/${test_name} (${i}/20)."
         )
