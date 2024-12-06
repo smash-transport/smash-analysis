@@ -18,6 +18,8 @@ Also possible, but for this project less relevant, is `Deprecated` for soon-to-b
 
 ## Unreleased
 
+* :recycle: Set NNbar-treatment in energy scan to default.
+
 ## SMASH-analysis-3.1
 Date: 2024-02-29
 
