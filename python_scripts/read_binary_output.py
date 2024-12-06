@@ -377,10 +377,12 @@ def _read_binary_block_v10(bfile):
                 return None
     elif (block_type == 'f'):
         n_event = np.fromfile(bfile, dtype='i4', count=1)[0]
+        n_ensemble = np.fromfile(bfile, dtype='i4', count=1)[0]
         impact_parameter = np.fromfile(bfile, dtype='d',  count=1)[0]
         empty_event = ord(bfile.read(1).decode(encoding))
         return {'type': block_type,
                 'nevent': n_event,
+                'nensemble': n_ensemble,
                 'b' : impact_parameter,
                 'empty_event': bool(empty_event)}
         # got file end block
@@ -800,10 +802,12 @@ def _read_binary_block_v10_extended(bfile):
                 return None
     elif (block_type == 'f'):
         n_event = np.fromfile(bfile, dtype='i4', count=1)[0]
+        n_ensemble = np.fromfile(bfile, dtype='i4', count=1)[0]
         impact_parameter = np.fromfile(bfile, dtype='d',  count=1)[0]
         empty_event = np.fromfile(bfile, dtype='B', count=1)[0]
         return {'type': block_type,
                 'nevent': n_event,
+                'nensemble': n_ensemble,
                 'b' : impact_parameter,
                 'empty_event': bool(empty_event)}
     elif (block_type == ''):
