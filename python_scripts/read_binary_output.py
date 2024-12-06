@@ -334,6 +334,8 @@ def _read_binary_block_v10(bfile):
     block_type = bfile.read(1).decode(encoding)
     if (block_type == 'p'):
         # got particles block
+        event_number = np.fromfile(bfile,dtype ='i4', count=1)[0]
+        ensemble_number = np.fromfile(bfile,dtype ='i4', count=1)[0]  
         npart = np.fromfile(bfile, dtype='i4', count=1)[0]
         particles = np.fromfile(bfile, dtype=particle_data_type, count=npart)
         try:
@@ -341,6 +343,8 @@ def _read_binary_block_v10(bfile):
             if ((tmp_type == 'p') or (tmp_type == 'f') or (tmp_type == 'i')):
                 bfile.seek(-1, 1)
                 return {'type': block_type,
+                        'event_number': event_number,
+                        'ensemble_number': ensemble_number,
                         'npart': npart,
                         'part': particles
                        }
@@ -759,6 +763,8 @@ def _read_binary_block_v10_extended(bfile):
     block_type = bfile.read(1).decode(encoding)
     if (block_type == 'p'):
         # got particles block
+        event_number = np.fromfile(bfile,dtype ='i4', count=1)[0]
+        ensemble_number = np.fromfile(bfile,dtype ='i4', count=1)[0]  
         npart = np.fromfile(bfile, dtype='i4', count=1)[0]
         particles = np.fromfile(bfile, dtype=particle_data_type, count=npart)
         try:
@@ -766,6 +772,8 @@ def _read_binary_block_v10_extended(bfile):
             if ((tmp_type == 'p') or (tmp_type == 'f') or (tmp_type == 'i')):
                 bfile.seek(-1, 1)
                 return {'type': block_type,
+                        'nevent': event_number,
+                        'nensemble': ensemble_number,
                         'npart': npart,
                         'part': particles
                        }
