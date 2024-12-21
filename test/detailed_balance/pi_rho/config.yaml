@@ -23,10 +23,10 @@ General:
 Output:
     Output_Interval:        1.0
     Collisions:
-        Format: ["Binary"]
+        Format: ["Oscar2013_bin"]
         Print_Start_End:    False
     Particles:
-        Format: ["Binary"]
+        Format: ["Oscar2013_bin"]
         Only_Final:         No
 
 Modi:

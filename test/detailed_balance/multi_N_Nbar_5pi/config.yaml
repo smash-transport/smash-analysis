@@ -12,11 +12,11 @@ General:
 Output:
     Output_Interval:  1.0
     Collisions:
-        Format: ["Binary", "Oscar2013"]
+        Format: ["Oscar2013_bin", "Oscar2013"]
         Print_Start_End:    False
         Extended: True
     Particles:
-        Format: ["Binary"]
+        Format: ["Oscar2013_bin"]
         Only_Final:         No
 
 Collision_Term:

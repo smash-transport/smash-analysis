@@ -17,14 +17,12 @@ Output:
     Output_Interval:  100.0
     Density_Type:      "none"
     Particles:
-        Format:             ["Binary"]
+        Format:             ["Oscar2013_bin"]
         Extended:           False
 
 Collision_Term:
     Two_to_One:             True
     Strings:                True
-    NNbar_Treatment:        no annihilation #Options are "no annihilation",
-                                            #"resonances", "strings"
     Force_Decays_At_End:    True
     Isotropic:              False
     Elastic_Cross_Section:  -1.0  # Globally used if non-negative, [mb]

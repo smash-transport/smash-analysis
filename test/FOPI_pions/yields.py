@@ -67,7 +67,7 @@ for edir in sorted(os.listdir(".")):    # loop over energies
             rdir = path.join(path.abspath(datadir), rdir)
             if path.isdir(rdir):
                 #print rdir
-                name = path.join(rdir, "particles_binary.bin")
+                name = path.join(rdir, "particles_oscar2013.bin")
                 # if the argument is a file, read the contents
                 if (path.isfile(name)):
                     with smash.BinaryReader(name) as reader:

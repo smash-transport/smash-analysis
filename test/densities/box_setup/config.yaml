@@ -12,7 +12,7 @@ General:
 Output:
     Output_Interval: 50.0
     Particles:
-        Format:          ["Binary"]
+        Format:          ["Oscar2013_bin"]
         Only_Final: No
 
 
@@ -22,6 +22,7 @@ Modi:
         Temperature: 0.16
         Initial_Condition: "thermal momenta"
         Use_Thermal_Multiplicities: True
+        Start_Time:    0.0
 
 
 Collision_Term:

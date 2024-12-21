@@ -24,7 +24,7 @@ Output:
     # how much time before recording measurables
     Output_Interval:  0.1
     Dileptons:
-        Format:  ["Binary"]
+        Format:  ["Oscar2013_bin"]
         Extended:           True
 
 Modi:

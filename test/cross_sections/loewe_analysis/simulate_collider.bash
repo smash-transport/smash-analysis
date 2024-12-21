@@ -94,7 +94,7 @@ do
     if [ "$I" -lt "${nevalues}" ]; then
 	E=${energyvalues[I]}
 	rseed=$I
-	if [ ! -f "./sqrts_${E}/collisions_binary.bin" ] || [ "$overwrite" -ne 0 ]; then
+	if [ ! -f "./sqrts_${E}/collisions_oscar2013.bin" ] || [ "$overwrite" -ne 0 ]; then
 	    time -p ./smash -o "sqrts_${E}" -c "General: {Randomseed: ${rseed}}" -c "Modi: {Nucleus: {Sqrtsnn: ${E}}}" > smash_${E}.out &
 	fi
     fi
@@ -108,7 +108,7 @@ if [ "${nevalues}" -gt 20 ]; then
 	if [ "$I" -lt "${nevalues}" ]; then
 	    E=${energyvalues[I]}
 	    rseed=$I
-	    if [ ! -f "./sqrts_${E}/collisions_binary.bin" ] || [ "$overwrite" -ne 0 ]; then
+	    if [ ! -f "./sqrts_${E}/collisions_oscar2013.bin" ] || [ "$overwrite" -ne 0 ]; then
 		time -p ./smash -o "sqrts_${E}" -c "General: {Randomseed: ${rseed}}" -c "Modi: {Nucleus: {Sqrtsnn: ${E}}}" > smash_${E}.out &
 	    fi
 	fi

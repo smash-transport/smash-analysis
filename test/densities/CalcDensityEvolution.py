@@ -37,7 +37,7 @@ class DensityEvolution:
             density_grid = self.initialize_grid()
             event_counter = 0
             for i in range(self.NFolder + 1):
-                PFile = self.Path + str(i) + '/particles_binary.bin'
+                PFile = self.Path + str(i) + '/particles_oscar2013.bin'
                 with BinaryReader(PFile) as reader:
                     smash_version = reader.smash_version
                     block = reader.read_block()

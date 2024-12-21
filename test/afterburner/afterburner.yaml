@@ -11,7 +11,7 @@ General:
 
 Output:
     Particles:
-        Format:          ["Binary"]
+        Format:          ["Oscar2013_bin"]
 
 Modi:
     List:

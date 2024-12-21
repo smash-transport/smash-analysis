@@ -72,4 +72,4 @@ Output:
 
     # output formats
     Particles:
-        Format:  ["Binary"]
+        Format:  ["Oscar2013_bin"]
