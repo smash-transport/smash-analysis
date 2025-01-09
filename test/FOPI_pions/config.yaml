@@ -53,6 +53,7 @@ Potentials:
         S_Pot: 18.0
 
 Lattice:
+    Automatic: False
     Origin: [-10.0, -10.0, -10.0]    # Coordinates of the left, down, near corner of the lattice
     Sizes: [20.0, 20.0, 20.0]  # Sizes in x, y, z directions in fm
     Cell_Number: [40, 40, 40]   # Number of cells in x, y, z directions

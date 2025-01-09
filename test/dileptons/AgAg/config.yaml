@@ -12,7 +12,7 @@ General:
 Output:
     Output_Interval: 10.0
     Dileptons:
-        Format:             ["Oscar2013_bin"]
+        Format:             ["Binary"]
         Extended:           True
 
 Modi:

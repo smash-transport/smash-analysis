@@ -55,7 +55,7 @@ Output:
         Format:             ["Oscar2013"]
         Extended:           False
     Dileptons:
-        Format:             ["Oscar2013_bin"]
+        Format:             ["Binary"]
         Extended:           True
 
 Collision_Term:

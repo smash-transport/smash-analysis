@@ -25,7 +25,7 @@ Output:
     Output_Interval:  0.1
     # Output formats
     Dileptons:
-        Format:  ["Oscar2013_bin"]
+        Format:  ["Binary"]
         Extended:           True
 
 Modi:

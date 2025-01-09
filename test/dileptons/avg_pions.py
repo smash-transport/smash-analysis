@@ -34,7 +34,7 @@ with open(args.particle_list) as f:
                 n_pim += 1
 
         # end-of-event marker
-        if line[0] == "#" and line[1] == "event" and line[3] == "end":
+        if line[0] == "#" and line[1] == "event" and line[5] == "end":
             n_events = line[2]
 
 # os.remove(args.particle_list)

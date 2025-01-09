@@ -48,7 +48,7 @@ Output:
     Output_Interval:  10.0
     Density_Type:      "none"
     Dileptons:
-        Format:             ["Oscar2013_bin"]
+        Format:             ["Binary"]
         Extended:           True
 
 
