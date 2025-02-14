@@ -251,9 +251,12 @@ plot("y",       rap_bf,  ch_list_main,  style_dict_y)
 # origin plots
 plot("mass_rho",       mass_bf, ch_list_rho,   style_dict_mass_origin)
 plot("mass_omega",     mass_bf, ch_list_omega, style_dict_mass_origin)
+plot("mass_phi",     mass_bf, ch_list_phi, style_dict_mass_origin)
 
 plot("pt_rho",         pt_bf,   ch_list_rho,   style_dict_pt_origin)
 plot("pt_omega",       pt_bf,   ch_list_omega, style_dict_pt_origin)
+plot("pt_phi",       pt_bf,   ch_list_phi, style_dict_pt_origin)
 
 plot("y_rho",   rap_bf,  ch_list_rho,   style_dict_y_origin)
 plot("y_omega", rap_bf,  ch_list_omega, style_dict_y_origin)
+plot("y_phi", rap_bf,  ch_list_phi, style_dict_y_origin)

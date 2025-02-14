@@ -105,6 +105,7 @@ hist_mass_0_800 = np.zeros((nbins_m + 2, n_channels))
 hist_mass_800   = np.zeros((nbins_m + 2, n_channels))
 hist_mass_rho   = np.zeros((nbins_m + 2, max(rho_channels.values()) + 1))
 hist_mass_omega = np.zeros((nbins_m + 2, max(omega_channels.values()) + 1))
+hist_mass_phi   = np.zeros((nbins_m + 2, max(phi_channels.values()) + 1))
 
 hist_pt         = np.zeros((nbins_pt + 2, n_channels))
 hist_pt_0_150   = np.zeros((nbins_pt + 2, n_channels))
@@ -113,6 +114,7 @@ hist_pt_470_700 = np.zeros((nbins_pt + 2, n_channels))
 hist_pt_700     = np.zeros((nbins_pt + 2, n_channels))
 hist_pt_rho     = np.zeros((nbins_pt + 2, max(rho_channels.values()) + 1))
 hist_pt_omega   = np.zeros((nbins_pt + 2, max(omega_channels.values()) + 1))
+hist_pt_phi     = np.zeros((nbins_pt + 2, max(phi_channels.values()) + 1))
 
 hist_y          = np.zeros((nbins_y  + 2, n_channels))
 hist_y_0_150    = np.zeros((nbins_y  + 2, n_channels))
@@ -121,12 +123,14 @@ hist_y_470_700  = np.zeros((nbins_y  + 2, n_channels))
 hist_y_700      = np.zeros((nbins_y  + 2, n_channels))
 hist_y_rho      = np.zeros((nbins_y  + 2, max(rho_channels.values()) + 1))
 hist_y_omega    = np.zeros((nbins_y  + 2, max(omega_channels.values()) + 1))
+hist_y_phi      = np.zeros((nbins_y  + 2, max(phi_channels.values()) + 1))
 
 
 ### ACTUAL ANALYSIS ###
 unknown_ch = []
 unknown_rho_ch = {}
 unknown_omega_ch = {}
+unknown_phi_ch = {}
 
 
 with sbs.BinaryReader(args.data_file) as reader:
@@ -158,8 +162,11 @@ with sbs.BinaryReader(args.data_file) as reader:
             # Currently we use a direct 3-body decay from the omega,
             # but we also have Dalitz like contributions coming from
             # omega decaying into rho pi, where the rho decays than
-            # into dileptons. Those are blocked, for now.
+            # into dileptons. The same is true for the phi.
+            # Those are blocked, for now.
             if decay_channel == 0 and origin_pdg == 223:
+                continue
+            if decay_channel == 0 and origin_pdg == 333:
                 continue
 
             if decay_channel == 10 and block["incoming"]["pdgid"][0] not in unknown_ch:
@@ -230,10 +237,20 @@ with sbs.BinaryReader(args.data_file) as reader:
                     hist_mass_omega [np.digitize([inv_mass], bins_m),  omega_ch] += shining_weight
                     hist_pt_omega   [np.digitize([pt],       bins_pt), omega_ch] += shining_weight
                     hist_y_omega    [np.digitize([y],        bins_y),  omega_ch] += shining_weight
+                elif decay_channel == 2:  # phi
+                    phi_ch = get_channel(phi_channels, origin_pdg)
+                    if phi_ch == phi_channels["other"]:
+                        if origin_pdg not in unknown_phi_ch:
+                            unknown_phi_ch[origin_pdg] = 0
+                        unknown_phi_ch[origin_pdg] += 1
+                    hist_mass_phi [np.digitize([inv_mass], bins_m),  phi_ch] += shining_weight
+                    hist_pt_phi   [np.digitize([pt],       bins_pt), phi_ch] += shining_weight
+                    hist_y_phi    [np.digitize([y],        bins_y),  phi_ch] += shining_weight
 
 if unknown_ch != []:       print("Warning: Unknown dilepton decay(s) found! -->", unknown_ch)
 if unknown_rho_ch != {}:   print("Warning: Unknown dilepton decay origin(s) for rho! -->", sorted(unknown_rho_ch.items(), key=lambda x:x[1], reverse=True))
 if unknown_omega_ch != {}: print("Warning: Unknown dilepton decay origin(s) for omega! -->", sorted(unknown_omega_ch.items(), key=lambda x:x[1], reverse=True))
+if unknown_phi_ch != {}: print("Warning: Unknown dilepton decay origin(s) for phi! -->", sorted(unknown_phi_ch.items(), key=lambda x:x[1], reverse=True))
 
 num_events = int(num_events) + 1  # FIXME: event counting starts at zero in binary output
 
@@ -247,12 +264,14 @@ def output(hist, bins, name):
 output(hist_mass,       bins_m, "mass")
 output(hist_mass_rho,   bins_m, "mass_rho")
 output(hist_mass_omega, bins_m, "mass_omega")
+output(hist_mass_phi,   bins_m, "mass_phi")
 output(hist_mass_0_800, bins_m, "mass_0_800")
 output(hist_mass_800,   bins_m, "mass_800")
 
 output(hist_pt,         bins_pt, "pt")
 output(hist_pt_rho,     bins_pt, "pt_rho")
 output(hist_pt_omega,   bins_pt, "pt_omega")
+output(hist_pt_phi,     bins_pt, "pt_phi")
 output(hist_pt_0_150,   bins_pt, "pt_0_150")
 output(hist_pt_150_470, bins_pt, "pt_150_470")
 output(hist_pt_470_700, bins_pt, "pt_470_700")
@@ -261,6 +280,7 @@ output(hist_pt_700,     bins_pt, "pt_700")
 output(hist_y,         bins_y, "y")
 output(hist_y_rho,     bins_y, "y_rho")
 output(hist_y_omega,   bins_y, "y_omega")
+output(hist_y_phi,     bins_y, "y_phi")
 output(hist_y_0_150,   bins_y, "y_0_150")
 output(hist_y_150_470, bins_y, "y_150_470")
 output(hist_y_470_700, bins_y, "y_470_700")
