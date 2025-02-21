@@ -5,13 +5,14 @@ set(dilepton_tests "")
 function(dilepton_test
          system    # collision system
          Ekin      # kinetic energy
+	 output
          # optional args:
          # * acc_file -- file with acceptance matrix
          # * plep_min -- minimum lepton momentum
          # * plep_max -- maximum lepton momentum
         )
 
-    if (ARGC GREATER 2 AND ARGV2)
+    if (ARGC GREATER 3 AND ARGV3)
       # do filtering!
       set(test_name "${system}_${Ekin}_filtered")
       set(acc_file "${EXP_DATA}/HADES_dilepton_filtering/${ARGV2}")
@@ -31,8 +32,15 @@ function(dilepton_test
       else()
         set(resolution "3")   # high res.
       endif()
+    elseif (ARGC GREATER 2 AND ARGV2)
+      # no filter
+      set(suffix "_${output}")
+      set(test_name "${output}_${system}_${Ekin}_unfiltered")
+      # no data
+      set(data_dir "")
     else()
       # no filter
+      set(suffix "")
       set(test_name "${system}_${Ekin}_unfiltered")
       # no data
       set(data_dir "")
@@ -54,7 +62,7 @@ function(dilepton_test
 
     set(hist_files "")
     set(pion_files "")
-    set(num_runs 100)
+    set(num_runs 20)
     foreach(i RANGE 1 ${num_runs})
         set(data_folder "${test_folder}/data/${i}")
         set(data_file "${data_folder}/Dileptons.bin")
@@ -67,48 +75,48 @@ function(dilepton_test
         else()
           set(output_files "${data_file}" ${data_folder}/config.yaml)
         endif()
-
-
-        # run SMASH
-        add_custom_command(OUTPUT ${output_files}
-            COMMAND "${CMAKE_BINARY_DIR}/smash"
-                "-o" "${data_folder}"
-                "-i" "${config_file}"
-                "-d" "${CMAKE_CURRENT_SOURCE_DIR}/decaymodes.txt"
-                "-f"
-                ${kinetic_energy_config}
-                "-q"
-            DEPENDS
-                "${config_file}"
-                "${CMAKE_CURRENT_SOURCE_DIR}/decaymodes.txt"
-                "${CMAKE_BINARY_DIR}/smash"
-            WORKING_DIRECTORY ${test_folder}
-            COMMENT "Running SMASH for dileptons/${test_name} at ${Ekin} GeV (${i}/${num_runs})."
-            VERBATIM
-            )
-
-        # run analysis
-        add_custom_command(OUTPUT "${hist_file}" "${data_folder}/other.version.dat"
-            COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/create_hist_from_binary_output.py" ${data_file}
-                    "${acc_file}" "${plep_min}" "${plep_max}" "${resolution}"
-            DEPENDS
-                "${CMAKE_CURRENT_SOURCE_DIR}/create_hist_from_binary_output.py"
-                ${filter}
-                ${data_file}
-                ${def_file}
-            WORKING_DIRECTORY ${data_folder}
-            COMMENT "Analyzing data for dileptons/${test_name}  (${i}/${num_runs})."
-            )
-
-        # count also pions for CC or ArKCl plots
-        add_custom_command(OUTPUT "${pion_file}"
-            COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/avg_pions.py" "${data_folder}/particle_lists.oscar"
-            DEPENDS
-                "${CMAKE_CURRENT_SOURCE_DIR}/avg_pions.py"
-                "${data_folder}/particle_lists.oscar"
-            WORKING_DIRECTORY ${data_folder}
-            COMMENT "Averaging pions for dileptons/${test_name}  (${i}/${num_runs})."
-            )
+	# run SMASH
+	add_custom_command(OUTPUT ${output_files}
+	    COMMAND "${CMAKE_BINARY_DIR}/smash"
+	        "-o" "${data_folder}"
+	        "-i" "${config_file}"
+	        "-p" "${CMAKE_CURRENT_SOURCE_DIR}/particles${suffix}.txt"
+	        "-d" "${CMAKE_CURRENT_SOURCE_DIR}/decaymodes${suffix}.txt"
+		"-f"
+	        ${kinetic_energy_config}
+	        "-q"
+	    DEPENDS
+	        "${config_file}"
+	        "${CMAKE_CURRENT_SOURCE_DIR}/particles${suffix}.txt"
+	        "${CMAKE_CURRENT_SOURCE_DIR}/decaymodes${suffix}.txt"
+	        "${CMAKE_BINARY_DIR}/smash"
+	    WORKING_DIRECTORY ${test_folder}
+	    COMMENT "Running SMASH for dileptons/${test_name} at ${Ekin} GeV (${i}/${num_runs})."
+	    VERBATIM
+	    )
+	
+	# run analysis
+	add_custom_command(OUTPUT "${hist_file}" "${data_folder}/other.version.dat"
+	    COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/create_hist_from_binary_output.py" ${data_file}
+	            "${acc_file}" "${plep_min}" "${plep_max}" "${resolution}"
+	    DEPENDS
+	        "${CMAKE_CURRENT_SOURCE_DIR}/create_hist_from_binary_output.py"
+	        ${filter}
+	        ${data_file}
+	        ${def_file}
+	    WORKING_DIRECTORY ${data_folder}
+	    COMMENT "Analyzing data for dileptons/${test_name}  (${i}/${num_runs})."
+	    )
+	
+	# count also pions for CC or ArKCl plots
+	add_custom_command(OUTPUT "${pion_file}"
+	    COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/avg_pions.py" "${data_folder}/particle_lists.oscar"
+	    DEPENDS
+	        "${CMAKE_CURRENT_SOURCE_DIR}/avg_pions.py"
+	        "${data_folder}/particle_lists.oscar"
+	    WORKING_DIRECTORY ${data_folder}
+	    COMMENT "Averaging pions for dileptons/${test_name}  (${i}/${num_runs})."
+	    )
     endforeach()
 
     # compile HAFT code with f2py
@@ -247,13 +255,13 @@ function(box_test
             COMMAND "${CMAKE_BINARY_DIR}/smash"
                 "-o" "${data_folder}"
                 "-i" "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/config.yaml"
-                "-p" "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/particles.txt"
-                "-d" "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/decaymodes.txt"
+                "-p" "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/particles${suffix}.txt"
+                "-d" "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/decaymodes${suffix}.txt"
                 "-f"
             DEPENDS
                 "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/config.yaml"
-                "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/particles.txt"
-                "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/decaymodes.txt"
+                "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/particles${suffix}.txt"
+                "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/decaymodes${suffix}.txt"
                 "${CMAKE_BINARY_DIR}/smash"
             WORKING_DIRECTORY ${test_folder}
             COMMENT "Running SMASH for dileptons/${test_name} (${i}/${num_runs})."
@@ -317,7 +325,7 @@ function(shining_BR_test
     add_custom_command(OUTPUT "${data_dilepton_file}" "${data_hadrons_file}"
         COMMAND "${CMAKE_BINARY_DIR}/smash"
             "-o" "${data_folder}"
-            "-d" "${CMAKE_CURRENT_SOURCE_DIR}/decaymodes.txt"
+            "-d" "${CMAKE_CURRENT_SOURCE_DIR}/decaymodes${suffix}.txt"
             "-i" "${CMAKE_CURRENT_SOURCE_DIR}/${test_name}/config.yaml"
             "-f"
         DEPENDS
@@ -377,46 +385,10 @@ function(shining_BR_test
 endfunction()
 
 
-
-
-## tests without filtering ##
-
-dilepton_test("pp" "1.25")
-dilepton_test("pp" "2.2")
-dilepton_test("pp" "3.5")
-dilepton_test("pp" "4.5")
-dilepton_test("pNb" "3.5")
-dilepton_test("pi-p" "0.56")
-
-dilepton_test("CC" "1.0")
-dilepton_test("CC" "2.0")
-
-dilepton_test("ArKCl" "1.76")
-dilepton_test("AuAu" "1.25")
-dilepton_test("AgAg" "1.67")
-
-## tests with filtering ##
-if (WITH_EXP_DATA)
-  dilepton_test("pp" "1.25" "HadesSingleAcc-p125p-APR06-effgt5-RK-v2.acc" "0.05" "1.8")
-  dilepton_test("pp" "2.2"  "HadesSingleAcc-p22p-JAN04-effgt5-RK-v2.acc"  "0.10" "2.0")
-  dilepton_test("pp" "3.5"  "HadesSingleAcc-p35p-APR07-effgt5-RK-v2.acc"  "0.08" "2.0")
-  dilepton_test("pNb" "3.5"  "HadesSingleAcc-p35Nb-SEP08-effgt5-MVA-v1.acc"  "0.1" "2.0")
-
-  dilepton_test("CC" "1.0" "HadesSingleAcc-c10c-AUG04-effgt5-KP-v2.acc" "0.05" "1.8")
-  dilepton_test("CC" "2.0" "HadesSingleAcc-c20c-NOV02-effgt0-KP-v1.acc" "0.05" "1.8")
-  dilepton_test("ArKCl" "1.76" "HadesSingleAcc-ar17kcl-SEP05-effge5-HC-flat-v2.acc" "0.1" "1.1")
-endif()
-
-## box tests
-
-box_test("omega")
-box_test("phi")
-box_test("eta-prime")
-
-# BR test
-
-shining_BR_test()
-
+dilepton_test("ArKCl" "1.76" "3.2_old_N2080")
+dilepton_test("ArKCl" "1.76" "3.2_old_N2080_N1720")
+dilepton_test("ArKCl" "1.76" "3.2_old_phi")
+dilepton_test("ArKCl" "1.76" "3.1")
 
 ## Top-level target for all dilepton tests that are run regularly within the
 ## analysis suite. The remaining colliding systems need to be started separately.

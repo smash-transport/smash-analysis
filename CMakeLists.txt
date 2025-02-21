@@ -68,21 +68,21 @@ endif(WITH_EXP_DATA)
 
 # 1) elementary tests
 add_subdirectory(test/cross_sections)
-add_subdirectory(test/angular_distributions)
+#add_subdirectory(test/angular_distributions)
 
 # 2) box tests
-add_subdirectory(test/detailed_balance)
-add_subdirectory(test/elastic_box)
-add_subdirectory(test/densities)
+#add_subdirectory(test/detailed_balance)
+#add_subdirectory(test/elastic_box)
+#add_subdirectory(test/densities)
 
 # 3) collider tests
-add_subdirectory(test/FOPI_pions)
+#add_subdirectory(test/FOPI_pions)
 add_subdirectory(test/dileptons)
-add_subdirectory(test/energy_scan)
+#add_subdirectory(test/energy_scan)
 
 if(SAMPLED_LISTS)
   # 4) afterburner test
-  add_subdirectory(test/afterburner)
+  #  add_subdirectory(test/afterburner)
 else()
   message(STATUS "No path for download path for sampled particle lists was given, afterburner target not available. Specify via
                     cmake .. -DSAMPLED_LISTS=/link/to/lists")

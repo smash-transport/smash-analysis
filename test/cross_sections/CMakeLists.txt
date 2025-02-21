@@ -8,14 +8,24 @@ set(all_plots "")
 
 # Create cross section targets.
 function(cross_section_test
-         test_name   # name of folder
+         test_name0   # name of folder
          pdg1        # id of first particle
          pdg2        # id of second particle
          sqrts_min   # minimum energy
          sqrts_max   # maximum energy
          num_bins    # number of energy bins
          has_elastic # has data for the elastic cross section
+	 suffix
     )
+    if(ARGC GREATER 7 AND ARGV7) 
+        set (test_name "${test_name0}_${suffix}")
+        set(particle_file "particles_${suffix}.txt")
+        set(decaymodes_file "decaymodes_${suffix}.txt")
+    else() 
+        set(test_name "${test_name0}")
+        set(particle_file "particles.txt")
+        set(decaymodes_file "decaymodes.txt")
+    endif()
     message(STATUS "Configuring cross_sections/${test_name}.")
     float_math("dsqrts" "(${sqrts_max} - ${sqrts_min}) / ${num_bins}")
     set(test_folder ${CMAKE_CURRENT_BINARY_DIR}/${test_name})
@@ -42,6 +52,8 @@ function(cross_section_test
 	        "-c" "Modi: {Collider: {Sqrtsnn: ${energy}, Projectile: {Particles: {${pdg1}: 1}}, Target: {Particles: {${pdg2}: 1}} } }"
 	        "-o" "${data_folder}"
 	        "-i" "${CMAKE_CURRENT_SOURCE_DIR}/config.yaml"
+		"-p" "${CMAKE_CURRENT_SOURCE_DIR}/${particles_file}"
+		"-d" "${CMAKE_CURRENT_SOURCE_DIR}/${decaymodes_file}"
 	        "-f"
 	        "-q"
 	    DEPENDS
@@ -382,78 +394,79 @@ endfunction()
 # If you add a partial cross section for an unstable particle, make sure to add
 # it to the resonances argument `--resonances` for the analysis! Otherwise the
 # final state resonance will not be reconstructed by the analysis.
-
-cross_section_test("piplus_piminus" "211" "-211" "0.28" "1.58" "65" "yes")
-
-#partial_cross_section("piminus_proton" "lambda_pizero_kzero" "Λ+π⁰+K⁰" "no")  # not seen in SMASH
-#partial_cross_section("piminus_proton" "lambda_piminus_kplus" "Λ+π⁻+K⁺" "no")   # not seen in SMASH
-partial_cross_section("piminus_proton" "lambda_X" "Λ+X" "no")
-#partial_cross_section("piminus_proton" "lambda_pizero_piminus_kplus" "Λ+π⁰+π⁻+K⁺" "no")  # not seen in SMASH
-#partial_cross_section("piminus_proton" "lambda_piplus_piminus_kzero" "Λ+π⁺+π⁻+K⁰" "no")  # not seen in SMASH
-partial_cross_section("piminus_proton" "lambda_kzero" "Λ+K⁰" "no")
-partial_cross_section("piminus_proton" "sigmaminus_kplus" "Σ⁻+K⁺" "no")
-cross_section_test("piminus_proton" "-211" "2212" "1.08" "5.08" "300" "yes")
-
-partial_cross_section("piplus_proton" "sigmaplus_kplus" "Σ⁺+K⁺" "no")
-cross_section_test("piplus_proton"  "211" "2212" "1.08" "5.08" "200" "yes")
-
-cross_section_test("antiproton_proton" "-2212" "2212" "1.96" "6.96" "200" "yes") 
-
-partial_cross_section("proton_proton" "neutron_deltaplusplus" "n+Δ⁺⁺" "yes")
-partial_cross_section("proton_proton" "piplus_X" "π⁺+X" "no")
-partial_cross_section("proton_proton" "proton_proton_pizero" "p+p+π⁰" "no")
-partial_cross_section("proton_proton" "proton_neutron_piplus" "p+n+π⁺" "no")
-partial_cross_section("proton_proton" "proton_proton_pizero_pizero" "p+p+π⁰+π⁰" "no")
-partial_cross_section("proton_proton" "proton_proton_piplus_piminus" "p+p+π⁺+π⁻" "no")
-partial_cross_section("proton_proton" "proton_neutron_piplus_pizero" "p+n+π⁺+π⁰" "no")
-partial_cross_section("proton_proton" "lambda_X" "Λ+X" "no")
-partial_cross_section("proton_proton" "lambda_proton_kplus" "Λ+p+K⁺" "no")
-partial_cross_section("proton_proton" "kplus_X" "K⁺+X" "no")
-partial_cross_section("proton_proton" "kzero_X" "K⁰+X" "no")
-partial_cross_section("proton_proton" "rhozero_X" "ρ⁰+X" "yes")
-partial_cross_section("proton_proton" "proton_proton_rhozero" "p+p+ρ⁰" "yes")
-#partial_cross_section("proton_proton" "lambda_sigmazero" "Λ+Σ⁰" "no")  # charge not conserved in Landolt-Börnstein!
-partial_cross_section("proton_proton" "proton_proton_kzero_kzero" "p+p+K⁰+K̅⁰" "no")  # extremely small cross section
-partial_cross_section("proton_proton" "sigmazero_proton_kplus" "Σ⁰+p+K⁺" "no")
-partial_cross_section("proton_proton" "sigmazero_X" "Σ⁰+X" "no")
-partial_cross_section("proton_proton" "sigmaplus_neutron_kplus" "Σ⁺+n+K⁺" "no")
-partial_cross_section("proton_proton" "sigmaplus_proton_kzero" "Σ⁺+p+K⁰" "no")
-#partial_cross_section("proton_proton" "phi_X" "φ+X" "yes")  # extremely small cross section
-partial_cross_section("proton_proton" "proton_proton_eta" "p+p+η" "no")
-#partial_cross_section("proton_proton" "proton_proton_etaprime" "p+p+η'" "yes")  # not seen in SMASH
-partial_cross_section("proton_proton" "proton_proton_omegaMeson" "p+p+ω" "yes")
-#partial_cross_section("proton_proton" "proton_proton_kplus_kminus" "p+p+K⁺+K̅⁻" "no")  # extremely small cross section
-#partial_cross_section("proton_proton" "proton_proton_kplus_kminus_via_phi" "p+p+φ" "yes")  # extremely small cross section
-cross_section_test("proton_proton" "2212" "2212" "1.96" "8.96" "140" "yes")
-
-partial_cross_section("neutron_proton" "neutron_proton_eta" "n+p+η" "no")
-partial_cross_section("neutron_proton" "neutron_proton_pizero" "n+p+π⁰" "no")
-partial_cross_section("neutron_proton" "proton_proton_piminus" "p+p+π⁻" "no")
-partial_cross_section("neutron_proton" "neutron_proton_piplus_piminus" "n+p+π⁺+π⁻" "no")
-partial_cross_section("neutron_proton" "proton_proton_pizero_piminus" "p+p+π⁰+π⁻" "no")
-cross_section_test("neutron_proton" "2112" "2212" "1.96" "8.96" "140" "yes")
-# cross_section_test("proton_neutron" "2212" "2112" "1.96" "4.96" "60" "yes")
-
-partial_cross_section("kminus_proton" "lambda_pizero" "Λ+π⁰" "no")
-partial_cross_section("kminus_proton" "sigmaminus_piplus" "Σ⁻+π⁺" "no")
-partial_cross_section("kminus_proton" "sigmazero_pizero" "Σ⁰+π⁰" "no")
-partial_cross_section("kminus_proton" "sigmaplus_piminus" "Σ⁺+π⁻" "no")
-cross_section_test("kminus_proton" "-321" "2212" "1.433" "2.532" "55" "yes")
-
-partial_cross_section("kplus_proton" "deltaplusplus_kzero" "Δ⁺⁺+K⁰" "yes")
-partial_cross_section("kplus_proton" "deltaplus_kplus" "Δ⁺+K⁺" "yes")
-cross_section_test("kplus_proton" "321" "2212" "1.433" "2.532" "55" "yes")
-
-partial_cross_section("kminus_neutron" "lambda_piminus" "Λ+π⁻" "no")
-partial_cross_section("kminus_neutron" "sigmazero_piminus" "Σ⁰+π⁻" "no")
-partial_cross_section("kminus_neutron" "sigmaminus_pizero" "Σ⁻+π⁰" "no")
-partial_cross_section("kminus_neutron" "deltaminus_kzero" "Δ⁻+K̅⁰" "yes")
-partial_cross_section("kminus_neutron" "deltazero_kminus" "Δ⁰+K̅⁻" "yes")
-cross_section_test("kminus_neutron" "-321" "2112" "1.433" "2.532" "55" "yes")
-
-partial_cross_section("kplus_neutron" "proton_piminus_kplus" "p+π⁻+K⁺" "no")
-partial_cross_section("kplus_neutron" "proton_kzero" "p+K⁰" "no")
-cross_section_test("kplus_neutron" "321" "2112" "1.433" "2.532" "55" "no")
+foreach(suffix "3.2_old_phi" "3.2_old_N2080" "3.2_old_N2080_N1720")
+    cross_section_test("piplus_piminus" "211" "-211" "0.28" "1.58" "65" "yes" "${suffix}")
+    
+    #partial_cross_section("piminus_proton" "lambda_pizero_kzero" "Λ+π⁰+K⁰" "no")  # not seen in SMASH
+    #partial_cross_section("piminus_proton" "lambda_piminus_kplus" "Λ+π⁻+K⁺" "no")   # not seen in SMASH
+    partial_cross_section("piminus_proton_${suffix}" "lambda_X" "Λ+X" "no")
+    #partial_cross_section("piminus_proton" "lambda_pizero_piminus_kplus" "Λ+π⁰+π⁻+K⁺" "no")  # not seen in SMASH
+    #partial_cross_section("piminus_proton" "lambda_piplus_piminus_kzero" "Λ+π⁺+π⁻+K⁰" "no")  # not seen in SMASH
+    partial_cross_section("piminus_proton_${suffix}" "lambda_kzero" "Λ+K⁰" "no")
+    partial_cross_section("piminus_proton_${suffix}" "sigmaminus_kplus" "Σ⁻+K⁺" "no")
+    cross_section_test("piminus_proton" "-211" "2212" "1.08" "5.08" "300" "yes" "${suffix}")
+    
+    partial_cross_section("piplus_proton_${suffix}" "sigmaplus_kplus" "Σ⁺+K⁺" "no")
+    cross_section_test("piplus_proton"  "211" "2212" "1.08" "5.08" "200" "yes" "${suffix}")
+    
+    cross_section_test("antiproton_proton" "-2212" "2212" "1.96" "6.96" "200" "yes" "${suffix}") 
+    
+    partial_cross_section("proton_proton_${suffix}" "neutron_deltaplusplus" "n+Δ⁺⁺" "yes")
+    partial_cross_section("proton_proton_${suffix}" "piplus_X" "π⁺+X" "no")
+    partial_cross_section("proton_proton_${suffix}" "proton_proton_pizero" "p+p+π⁰" "no")
+    partial_cross_section("proton_proton_${suffix}" "proton_neutron_piplus" "p+n+π⁺" "no")
+    partial_cross_section("proton_proton_${suffix}" "proton_proton_pizero_pizero" "p+p+π⁰+π⁰" "no")
+    partial_cross_section("proton_proton_${suffix}" "proton_proton_piplus_piminus" "p+p+π⁺+π⁻" "no")
+    partial_cross_section("proton_proton_${suffix}" "proton_neutron_piplus_pizero" "p+n+π⁺+π⁰" "no")
+    partial_cross_section("proton_proton_${suffix}" "lambda_X" "Λ+X" "no")
+    partial_cross_section("proton_proton_${suffix}" "lambda_proton_kplus" "Λ+p+K⁺" "no")
+    partial_cross_section("proton_proton_${suffix}" "kplus_X" "K⁺+X" "no")
+    partial_cross_section("proton_proton_${suffix}" "kzero_X" "K⁰+X" "no")
+    partial_cross_section("proton_proton_${suffix}" "rhozero_X" "ρ⁰+X" "yes")
+    partial_cross_section("proton_proton_${suffix}" "proton_proton_rhozero" "p+p+ρ⁰" "yes")
+    #partial_cross_section("proton_proto_${suffix}n" "lambda_sigmazero" "Λ+Σ⁰" "no")  # charge not conserved in Landolt-Börnstein!
+    partial_cross_section("proton_proton_${suffix}" "proton_proton_kzero_kzero" "p+p+K⁰+K̅⁰" "no")  # extremely small cross section
+    partial_cross_section("proton_proton_${suffix}" "sigmazero_proton_kplus" "Σ⁰+p+K⁺" "no")
+    partial_cross_section("proton_proton_${suffix}" "sigmazero_X" "Σ⁰+X" "no")
+    partial_cross_section("proton_proton_${suffix}" "sigmaplus_neutron_kplus" "Σ⁺+n+K⁺" "no")
+    partial_cross_section("proton_proton_${suffix}" "sigmaplus_proton_kzero" "Σ⁺+p+K⁰" "no")
+    #partial_cross_section("proton_proto_${suffix}n" "phi_X" "φ+X" "yes")  # extremely small cross section
+    partial_cross_section("proton_proton_${suffix}" "proton_proton_eta" "p+p+η" "no")
+    #partial_cross_section("proton_proto_${suffix}n" "proton_proton_etaprime" "p+p+η'" "yes")  # not seen in SMASH
+    partial_cross_section("proton_proton_${suffix}" "proton_proton_omegaMeson" "p+p+ω" "yes")
+    #partial_cross_section("proton_proto_${suffix}n" "proton_proton_kplus_kminus" "p+p+K⁺+K̅⁻" "no")  # extremely small cross section
+    #partial_cross_section("proton_proto_${suffix}n" "proton_proton_kplus_kminus_via_phi" "p+p+φ" "yes")  # extremely small cross section
+    cross_section_test("proton_proton" "2212" "2212" "1.96" "8.96" "140" "yes" "${suffix}")
+    
+    partial_cross_section("neutron_proton_${suffix}" "neutron_proton_eta" "n+p+η" "no")
+    partial_cross_section("neutron_proton_${suffix}" "neutron_proton_pizero" "n+p+π⁰" "no")
+    partial_cross_section("neutron_proton_${suffix}" "proton_proton_piminus" "p+p+π⁻" "no")
+    partial_cross_section("neutron_proton_${suffix}" "neutron_proton_piplus_piminus" "n+p+π⁺+π⁻" "no")
+    partial_cross_section("neutron_proton_${suffix}" "proton_proton_pizero_piminus" "p+p+π⁰+π⁻" "no")
+    cross_section_test("neutron_proton" "2112" "2212" "1.96" "8.96" "140" "yes" "${suffix}")
+    # cross_section_test("proton_neutron" "2212" "2112" "1.96" "4.96" "60" "yes")
+    
+    partial_cross_section("kminus_proton_${suffix}" "lambda_pizero" "Λ+π⁰" "no")
+    partial_cross_section("kminus_proton_${suffix}" "sigmaminus_piplus" "Σ⁻+π⁺" "no")
+    partial_cross_section("kminus_proton_${suffix}" "sigmazero_pizero" "Σ⁰+π⁰" "no")
+    partial_cross_section("kminus_proton_${suffix}" "sigmaplus_piminus" "Σ⁺+π⁻" "no")
+    cross_section_test("kminus_proton" "-321" "2212" "1.433" "2.532" "55" "yes" "${suffix}")
+    
+    partial_cross_section("kplus_proton_${suffix}" "deltaplusplus_kzero" "Δ⁺⁺+K⁰" "yes")
+    partial_cross_section("kplus_proton_${suffix}" "deltaplus_kplus" "Δ⁺+K⁺" "yes")
+    cross_section_test("kplus_proton" "321" "2212" "1.433" "2.532" "55" "yes" "${suffix}")
+    
+    partial_cross_section("kminus_neutron_${suffix}" "lambda_piminus" "Λ+π⁻" "no")
+    partial_cross_section("kminus_neutron_${suffix}" "sigmazero_piminus" "Σ⁰+π⁻" "no")
+    partial_cross_section("kminus_neutron_${suffix}" "sigmaminus_pizero" "Σ⁻+π⁰" "no")
+    partial_cross_section("kminus_neutron_${suffix}" "deltaminus_kzero" "Δ⁻+K̅⁰" "yes")
+    partial_cross_section("kminus_neutron_${suffix}" "deltazero_kminus" "Δ⁰+K̅⁻" "yes")
+    cross_section_test("kminus_neutron" "-321" "2112" "1.433" "2.532" "55" "yes" "${suffix}")
+    
+    partial_cross_section("kplus_neutron_${suffix}" "proton_piminus_kplus" "p+π⁻+K⁺" "no")
+    partial_cross_section("kplus_neutron_${suffix}" "proton_kzero" "p+K⁰" "no")
+    cross_section_test("kplus_neutron" "321" "2112" "1.433" "2.532" "55" "no" "${suffix}")
+endforeach()
 
 # Target for all simulations
 add_custom_target(cross_sections_sims
