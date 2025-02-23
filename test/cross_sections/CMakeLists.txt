@@ -19,11 +19,11 @@ function(cross_section_test
     )
     if(ARGC GREATER 7 AND ARGV7) 
         set (test_name "${test_name0}_${suffix}")
-        set(particle_file "particles_${suffix}.txt")
+        set(particles_file "particles_${suffix}.txt")
         set(decaymodes_file "decaymodes_${suffix}.txt")
     else() 
         set(test_name "${test_name0}")
-        set(particle_file "particles.txt")
+        set(particles_file "particles.txt")
         set(decaymodes_file "decaymodes.txt")
     endif()
     message(STATUS "Configuring cross_sections/${test_name}.")
@@ -47,22 +47,22 @@ function(cross_section_test
         set(config_file "${data_folder}/config.yaml")
 
         # run SMASH
-	add_custom_command(OUTPUT "${data_file}" "${config_file}"
-	    COMMAND "${CMAKE_BINARY_DIR}/smash"
-	        "-c" "Modi: {Collider: {Sqrtsnn: ${energy}, Projectile: {Particles: {${pdg1}: 1}}, Target: {Particles: {${pdg2}: 1}} } }"
-	        "-o" "${data_folder}"
-	        "-i" "${CMAKE_CURRENT_SOURCE_DIR}/config.yaml"
-		"-p" "${CMAKE_CURRENT_SOURCE_DIR}/${particles_file}"
-		"-d" "${CMAKE_CURRENT_SOURCE_DIR}/${decaymodes_file}"
-	        "-f"
-	        "-q"
-	    DEPENDS
-	        "${CMAKE_CURRENT_SOURCE_DIR}/config.yaml"
-	        "${CMAKE_BINARY_DIR}/smash"
-	    WORKING_DIRECTORY ${test_folder}
-	    COMMENT "Running SMASH for cross_sections/${test_name} at ${energy} GeV (${i}/${num_bins})."
-	    VERBATIM
-	)
+	#	add_custom_command(OUTPUT "${data_file}" "${config_file}"
+	#	    COMMAND "${CMAKE_BINARY_DIR}/smash"
+	#	        "-c" "Modi: {Collider: {Sqrtsnn: ${energy}, Projectile: {Particles: {${pdg1}: 1}}, Target: {Particles: {${pdg2}: 1}} } }"
+	#	        "-o" "${data_folder}"
+	#	        "-i" "${CMAKE_CURRENT_SOURCE_DIR}/config.yaml"
+	#		"-p" "${CMAKE_CURRENT_SOURCE_DIR}/${particles_file}"
+	#		"-d" "${CMAKE_CURRENT_SOURCE_DIR}/${decaymodes_file}"
+	#	        "-f"
+	#	        "-q"
+	#	    DEPENDS
+	#	        "${CMAKE_CURRENT_SOURCE_DIR}/config.yaml"
+	#	        "${CMAKE_BINARY_DIR}/smash"
+	#	    WORKING_DIRECTORY ${test_folder}
+	#	    COMMENT "Running SMASH for cross_sections/${test_name} at ${energy} GeV (${i}/${num_bins})."
+	#	    VERBATIM
+	#	)
 
         set(all_data_files ${all_data_files};${data_files} PARENT_SCOPE)
 
