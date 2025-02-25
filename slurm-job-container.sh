@@ -4,7 +4,7 @@
 #SBATCH --cpus-per-task=30
 #SBATCH --partition=long
 #SBATCH --time=7-00:00:00
-#SBATCH --mail-user=<goetz@itp.uni-frankfurt.de>
+#SBATCH --mail-user=<...>
 #SBATCH --mail-type=ALL
 
 
@@ -38,9 +38,9 @@ echo "Build directory: ${build_dir}"
 date
 
 singularity exec $container bash -c "mkdir -p $output_dir \
-&& export PYTHONPATH=\"/lustre/hyihp/ngoetz/smash-analysis-extras/python_scripts/\"\
+&& export PYTHONPATH=\".../smash-analysis-extras/python_scripts/\"\
 && cd $output_dir \
-&& cmake -DSMASH_PATH=\"/SMASH/smash_bin\" -B$output_dir -H$analysis_dir -DSAMPLED_LISTS=$sampled_lists -DEXP_DATA=\"/lustre/hyihp/ngoetz/smash-analysis-extras/experimental_data/\"\
+&& cmake -DSMASH_PATH=\"/SMASH/smash_bin\" -B$output_dir -H$analysis_dir -DSAMPLED_LISTS=$sampled_lists -DEXP_DATA=\".../smash-analysis-extras/experimental_data/\"\
 && \
 if [ \"${target}\" = \"spectra\" ] || [ \"${target}\" = \"pp_collisions\" ] || [ \"${target}\" = \"FOPI_pions\" ]; then
   make ${target}_sims -j$SLURM_CPUS_ON_NODE \
