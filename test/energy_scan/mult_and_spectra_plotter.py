@@ -604,6 +604,10 @@ def plotting(data1, data2, config_file, smash_code_version, output_folder):
                         else:
                             x, y, y_err = data2.the_dict[quantity]['AuAu/PbPb'][pdg][energy]
                             scaling_counter=0
+
+                        # Ensure negative errors are not used (these would crash the script)
+                        # TODO: Identify which data row produces negative errors
+                        y_err[y_err < 0] = 0
                         if (quantity == 'mtspectra'):
                             plt.errorbar(x, y * 10**scaling_counter, yerr = y_err, fmt = 'o', color = plot_color)
                         elif (quantity == 'ptspectra'):
