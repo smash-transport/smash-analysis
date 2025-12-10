@@ -25,7 +25,7 @@ Output:
     Output_Interval:  0.1
     # Output formats
     Dileptons:
-        Format:  ["Binary"]
+        Format:  ["Oscar2013_bin"]
         Extended:           True
 
 Modi:
@@ -48,5 +48,6 @@ Modi:
 Collision_Term:
     Force_Decays_At_End:  True
     Strings:              False
+    Maximum_Cross_Section: 750
     Dileptons:
         Decays: True

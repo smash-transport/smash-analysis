@@ -57,7 +57,7 @@ function(dilepton_test
     set(num_runs 100)
     foreach(i RANGE 1 ${num_runs})
         set(data_folder "${test_folder}/data/${i}")
-        set(data_file "${data_folder}/Dileptons.bin")
+        set(data_file "${data_folder}/Dileptons_oscar2013_extended.bin")
         set(hist_file "${data_folder}/hist_mass.txt")
         set(pion_file "${data_folder}/other.avg_pion.dat")
         list(APPEND hist_files ${hist_file})
@@ -239,7 +239,7 @@ function(box_test
     set(num_runs 100)
     foreach(i RANGE 1 ${num_runs})
         set(data_folder "${test_folder}/data/${i}")
-        set(data_file "${data_folder}/Dileptons.bin")
+        set(data_file "${data_folder}/Dileptons_oscar2013_extended.bin")
         set(hist_file "${data_folder}/hist_mass.txt")
         list(APPEND hist_files ${hist_file})
         # run SMASH
@@ -308,7 +308,7 @@ function(shining_BR_test
     file(MAKE_DIRECTORY ${test_folder})
 
     set(data_folder "${test_folder}/data")
-    set(data_dilepton_file "${data_folder}/Dileptons.oscar")
+    set(data_dilepton_file "${data_folder}/Dileptons_oscar2013_extended.bin")
     set(data_hadrons_file "${data_folder}/full_event_history.oscar")
     set(hist_dilepton_file "${data_folder}/hist_mass.txt")
     set(hist_pion_file "${data_folder}/hist_mass_pi.txt")
