@@ -18,7 +18,13 @@ Also possible, but for this project less relevant, is `Deprecated` for soon-to-b
 
 ## Unreleased
 
-* :recycle: Set NNbar-treatment in energy scan to default.
+## SMASH-analysis-3.2
+Date: 2025-12-10
+
+* :recycle: Changed N-Nbar treatment in energy scan to default configuration (affects anti-baryon yields)
+* :sos: multi_N_Nbar_5pi: Remove unused 'Extended' field from config to prevent read crash
+* :sos: mult_and_spectra_plotter: Set negative errors to zero to prevent matplotlib crash
+
 
 ## SMASH-analysis-3.1
 Date: 2024-02-29
