@@ -1,0 +1,22 @@
+channel	forward	backward
+π⁻d$\leftrightarrow$nn	0.0	0.0
+π⁰d$\leftrightarrow$np	0.0	0.0
+π⁺d$\leftrightarrow$pp	0.0	0.0
+d̅π⁰$\leftrightarrow$p̅n̅	0.0	0.0
+d̅π⁺$\leftrightarrow$n̅n̅	0.0	0.0
+d̅π⁻$\leftrightarrow$p̅p̅	0.0	0.0
+nd$\leftrightarrow$nnp	0.9950687917177496	0.997248331290015
+pd$\leftrightarrow$npp	0.9970303773327884	1.0106524996594468
+n̅d$\leftrightarrow$n̅np	0.9962420717917325	1.0109337006240542
+p̅d$\leftrightarrow$p̅np	0.992025030182455	1.0007991974017583
+π⁰d$\leftrightarrow$π⁰np	1.005451853991407	0.9939704661154638
+π⁻d$\leftrightarrow$π⁻np	1.0060295338845362	1.001119254792938
+π⁺d$\leftrightarrow$π⁺np	1.0029967144456078	0.9904321767700474
+d̅n$\leftrightarrow$p̅n̅n	1.0047253594289354	1.0009718824357385
+d̅p$\leftrightarrow$p̅n̅p	0.9890411877073628	1.0052615704279635
+d̅n̅$\leftrightarrow$p̅n̅n̅	1.01324539114451	1.014434773206466
+d̅p̅$\leftrightarrow$p̅p̅n̅	0.9839433421635941	0.9883764934854301
+d̅π⁰$\leftrightarrow$p̅n̅π⁰	0.9959569541588186	0.9919259054863053
+d̅π⁻$\leftrightarrow$p̅n̅π⁻	1.0040190515038452	0.9961009201828369
+d̅π⁺$\leftrightarrow$p̅n̅π⁺	1.0067544059601934	1.005242762708001
+# SMASH-3.3

@@ -1,0 +1,4 @@
+channel	forward	backward
+π⁰π⁰η$\leftrightarrow$η'	0.6424657534246575	0.7479452054794521
+π⁻π⁺η$\leftrightarrow$η'	1.1849315068493151	1.4246575342465753
+# SMASH-3.3
