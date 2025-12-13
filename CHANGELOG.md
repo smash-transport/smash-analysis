@@ -18,6 +18,13 @@ Also possible, but for this project less relevant, is `Deprecated` for soon-to-b
 
 ## Unreleased
 
+
+## SMASH-analysis-3.3
+Date: 2025-12-13
+
+:recycle: `Maximum_Cross_section` changed to 750 for detailed balance, and the box length was adjusted accordingly  
+:recycle: Updated dipepton decay modes and particle files that these analysis targets use, based on the latest SMASH-3.3 files
+
 ## SMASH-analysis-3.2
 Date: 2025-12-10
 
