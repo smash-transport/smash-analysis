@@ -24,10 +24,10 @@ Collision_Term:
     Force_Decays_At_End:    False
     Total_Cross_Section_Strategy: "BottomUp"
     Pseudoresonance: None
-
+    Maximum_Cross_Section: 750
 Modi:
     Box:
-        Length: 6.0
+        Length: 10.0
         Temperature: 0.175
         Initial_Condition: "thermal momenta"
         Start_Time:    0.0

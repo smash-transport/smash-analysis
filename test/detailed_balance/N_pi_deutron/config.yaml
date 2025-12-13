@@ -24,7 +24,7 @@ Collision_Term:
     Elastic_NN_Cutoff_Sqrts: 1.8
     Total_Cross_Section_Strategy: "BottomUp"
     Pseudoresonance: None
-
+    Maximum_Cross_Section: 750
 Modi:
     Box:
         Length: 16.0

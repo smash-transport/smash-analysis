@@ -28,7 +28,6 @@ Collision_Term:
     Total_Cross_Section_Strategy: "BottomUp"
     Pseudoresonance: None
 
-
 Modi:
     Box:
         Length: 10.0
