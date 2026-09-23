@@ -22,8 +22,10 @@ Also possible, but for this project less relevant, is `Deprecated` for soon-to-b
 ## SMASH-analysis-3.3
 Date: 2025-12-13
 
-:recycle: `Maximum_Cross_section` changed to 750 for detailed balance, and the box length was adjusted accordingly  
+:recycle: `Maximum_Cross_section` changed to 750 for detailed balance, and the box length was adjusted accordingly
 :recycle: Updated dipepton decay modes and particle files that these analysis targets use, based on the latest SMASH-3.3 files
+
+[Link to diff from previous version](https://github.com/smash-transport/smash-analysis/compare/SMASH-analysis-3.2...SMASH-analysis-3.3)
 
 ## SMASH-analysis-3.2
 Date: 2025-12-10
@@ -32,12 +34,15 @@ Date: 2025-12-10
 * :sos: multi_N_Nbar_5pi: Remove unused 'Extended' field from config to prevent read crash
 * :sos: mult_and_spectra_plotter: Set negative errors to zero to prevent matplotlib crash
 
+[Link to diff from previous version](https://github.com/smash-transport/smash-analysis/compare/SMASH-analysis-3.1...SMASH-analysis-3.2)
 
 ## SMASH-analysis-3.1
 Date: 2024-02-29
 
 * :left_right_arrow: Collision term for boxes uses now bottom up cross sections and pseudoresonances are deactivated
 * :heavy_plus_sign: New binary reader version due to added strangeness output
+
+[Link to diff from previous version](https://github.com/smash-transport/smash-analysis/compare/SMASH-analysis-3.0...SMASH-analysis-3.1)
 
 ## SMASH-analysis-3.0
 Date: 2023-04-28
